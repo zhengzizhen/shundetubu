@@ -1,0 +1,54 @@
+/* 公共样式 */
+.bor_r {
+	border-radius: 20rpx;
+}
+
+.dis_f {
+	display: flex;
+}
+
+.rltw {
+	position: relative;
+}
+
+.abslt {
+	position: absolute;
+}
+
+.pd30 {
+	padding: 0 30rpx;
+}
+
+.jscb {
+	justify-content: space-between;
+}
+
+.flex_c {
+	flex-direction: column;
+}
+
+.leftimg {
+	width: 40rpx;
+	height: 40rpx;
+}
+
+.rightimg {
+	width: 30rpx;
+	height: 30rpx;
+	margin-right: 10rpx;
+}
+
+.go_img {
+	margin-left: 20rpx;
+	width: 10rpx;
+	height: 17rpx;
+}
+.alitmc{
+	align-items: center;
+}
+.jscc{
+	justify-content: center;
+}
+.bor_y{
+		border-radius: 50rpx;
+}

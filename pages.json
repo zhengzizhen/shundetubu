@@ -1,0 +1,368 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+
+
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "首页"
+				// "navigationBarBackgroundColor": "transparent"
+				// "app-plus":{
+				// 	"titleNView":{
+				// 		"type": "float",
+				// 		"titleText": "徒步圈&两只脚户外旅行",
+				// 		"titleColor": "white"
+				// 	}
+				// }
+			}
+		}, {
+			"path": "pages/dest/dest",
+			"style": {
+				"navigationBarTitleText": "目的地",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	    ,{
+            "path" : "pages/trends/trends",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "圈子",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/retail/retail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动分销",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/mine",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/domestic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "国内精选",
+                "enablePullDownRefresh": false
+            }
+            
+        },{
+            "path" : "pages/index/ambitus",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "周边路线",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登录",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        },
+		{
+		    "path" : "pages/login/myLogin",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "本机一键登录",
+		        "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+		    }
+		    
+		},
+		{
+		    "path" : "pages/login/otherLogin",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "登录其它账号",
+		        "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/index/dateHot",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动日历",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/team",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "团队定制",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/mustPlay",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "必玩榜单",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/footmark",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "足迹",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/album",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "相册",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/dest/Destination",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "二级页面",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/retail/retailorder",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分销订单",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/retail/income",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分销收入",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/retail/Cashout/Cashout",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "提现",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/mine/Setting/Setting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设置",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/Rename",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "编辑名字",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/SettingSex",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "编辑性别",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/userID",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "实名认证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/playRMB",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "提现账户",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/bindZFB",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定支付宝账户",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/bindBank",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定银行卡",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/trends/Space",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人主页",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/trends/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/message/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/message/hot",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "每周热门",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/mine/message/recommend",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "精选推荐",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/mine/message/ordermsg",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单消息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/signin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "签到",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "float",
+						"titleText": "签到",
+						"titleColor": "white"
+					}
+				}
+				
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "顺德徒步",
+		"navigationBarBackgroundColor": "white",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/tabbar/home.jpg",
+			"selectedIconPath": "static/tabbar/home1.jpg",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/dest/dest",
+			"iconPath": "static/tabbar/dest.jpg",
+			"selectedIconPath": "static/tabbar/dest1.jpg",
+			"text": "目的地"
+		}, {
+			"pagePath": "pages/trends/trends",
+			"iconPath": "static/tabbar/trends.jpg",
+			"selectedIconPath": "static/tabbar/trends1.jpg",
+			"text": "圈子"
+		},{
+			"pagePath": "pages/retail/retail",
+			"iconPath": "static/tabbar/retail.jpg",
+			"selectedIconPath": "static/tabbar/retail1.jpg",
+			"text": "分销"
+		},{
+			"pagePath": "pages/mine/mine",
+			"iconPath": "static/tabbar/mine.jpg",
+			"selectedIconPath": "static/tabbar/mine1.jpg",
+			"text": "我的"
+		}]
+	},
+	"uniIdRouter": {}
+
+}
