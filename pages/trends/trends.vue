@@ -59,11 +59,11 @@
 						</view>
 					</view>
 					<!-- 已有得评论 -->
-					<view class="dis_f ts_plq">
+					<view class="dis_f ts_plq"  @click='isShow = true'>
 						<view class="dis_f">
 							<p>卢本伟 :</p><label>牛逼!</label>
 						</view>
-						<u-icon name="arrow-right" size='14' @click='isShow = true'></u-icon>
+						<u-icon name="arrow-right" size='14'></u-icon>
 					</view>
 					<view class="dis_xhx">
 						<u-line color='#E6E6E6'></u-line>
@@ -71,7 +71,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="ts_flex">
+		<view class="ts_flex" @click="toNews()">
 			<image src="../../static/trends/tels.png" mode=""></image>
 		</view>
 
@@ -195,6 +195,9 @@
 			},
 			gomsg(){
 				this.$jump('./message')
+			},
+			toNews(){
+				this.$jump('./News/News')
 			}
 
 		}

@@ -114,7 +114,7 @@
             
         }
         ,{
-            "path" : "pages/index/team",
+            "path" : "pages/index/team/team",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "团队定制",
@@ -126,9 +126,16 @@
             "path" : "pages/index/mustPlay",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "必玩榜单",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
+				"navigationBarBackgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "float",
+						"titleText": "",
+						"titleColor": "white"
+					}
+				}
             }
             
         }
@@ -321,6 +328,65 @@
 					}
 				}
 				
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/team/Wonderful",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "transparent"
+				
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/team/oneday",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "一日团建",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/trends/News/News",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发布",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/trends/News/relevance",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "关联记录",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/trends/News/addLabel",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加标签",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/Seach/Seach",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
             }
             
         }

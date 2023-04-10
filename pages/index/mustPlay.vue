@@ -96,10 +96,10 @@
 		},
 		methods: {
 			click(item) {
-				console.log('item', item);
+				// console.log('item', item);
 			},
 			checkout(e) {
-				console.log(e) //切换
+				// console.log(e) //切换
 				this.checklist.forEach(function(item, index) {
 					item.state = false
 				})

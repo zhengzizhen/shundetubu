@@ -3,11 +3,11 @@
 			<view class="bor_r">
 				<view class="st_top dis_f jscb pd30 " @click="man()">
 					<p>男</p>
-					<image v-show="isShow" src="../../../static/image/mine/success.jpg" mode=""></image>
+					<image v-show="isShow" src="@/static/image/mine/success.jpg" mode=""></image>
 				</view>
 				<view class="st_top dis_f jscb pd30" @click="woman()">
 					<p>女</p>
-					<image v-show="!isShow" src="../../../static/image/mine/success.jpg" mode=""></image>
+					<image v-show="!isShow" src="@/static/image/mine/success.jpg" mode=""></image>
 				</view>
 			</view>
 		</view>

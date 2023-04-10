@@ -23,12 +23,43 @@
 					<p>{{item.name}}</p>
 					<image src="@/static/image/mine/money.jpg" mode=""></image>
 					<p class="ns">10圈币</p>
+					
 				</view>
+				
 			</view>
 		</view>
 		
-		<view class="views pd30 mat">
+		
+		
+		<view class="views sn_hig pd30 mat">
 			<p class="tit">做任务赚金币</p>
+			<view class="dis_f sn_image alitmc">
+				<image src="../../static/image/mine/3day.jpg" mode=""></image>
+				<view class="sn_mar20">
+					<p>累计签到3天</p>
+					<text>连续签到3天额外获得20圈币</text>
+				</view>
+				
+				<view class="sn_logo dis_f">
+					<image src="@/static/image/mine/money2.png" mode=""></image>
+					<label>+21</label>
+				</view>
+			</view>
+			
+			
+			
+			<view class="dis_f sn_image alitmc">
+				<image src="../../static/image/mine/7day.jpg" mode=""></image>
+				<view class="sn_mar20">
+					<p>累计签到7天</p>
+					<text>连续签到7天额外获得50圈币</text>
+				</view>
+				<view class="sn_logo dis_f">
+					<image src="@/static/image/mine/money2.png" mode=""></image>
+					<label>+21</label>
+				</view>
+				
+			</view>
 		</view>
 	</view>
 </template>
@@ -177,5 +208,44 @@
 	}
 	.mat{
 		margin-top: 50rpx !important;
+	}
+	.sn_image{
+		margin-bottom: 50rpx;
+		image{
+			width: 56rpx;
+			height: 56rpx;
+		}
+		p{
+			font-size: 30rpx;
+			font-weight: 500;
+			color: #000000;
+		}
+		text{
+			font-size: 22rpx;
+			font-weight: 500;
+			color: #999999;
+		}
+	}
+	.sn_mar20{
+		margin-left: 20rpx;
+	}
+	.sn_hig{
+		padding-bottom: 10rpx;
+		height: auto;
+	}
+	.sn_logo{
+		align-items: center;
+		margin-left: 100rpx;
+		background-color: #49CAA4;
+		padding: 15rpx 20rpx;
+		border-radius: 50rpx;
+		image{
+			width: 40rpx;
+			height: 40rpx;
+		}
+		label{
+			color: white;
+			margin-left: 10rpx;
+		}
 	}
 </style>

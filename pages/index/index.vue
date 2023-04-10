@@ -11,7 +11,7 @@
 						<span >曼谷</span>
 						<u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon>
 					</view>
-					<u-search class="input" placeholder="日照香炉生紫烟" v-model="seachValue" :showAction='false' :height='28'>
+					<u-search @focus = 'toSeach()' class="input" placeholder="日照香炉生紫烟" v-model="seachValue" :showAction='false' :height='28'>
 					</u-search>
 				</view>
 				<!-- 轮播图 -->
@@ -436,12 +436,15 @@
 						this.$jump('./dateHot');
 						break;
 					case '团队定制':
-						this.$jump('./team');
+						this.$jump('./team/team');
 						break;
 					case '必玩榜单':
 						this.$jump('./mustPlay');
 						break;
 				}
+			},
+			toSeach(){
+				this.$jump('./Seach/Seach');
 			}
 		}
 	}

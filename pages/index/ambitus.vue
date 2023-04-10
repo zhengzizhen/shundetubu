@@ -281,7 +281,7 @@
 	}
 
 	.dc_span {
-		margin-top: 100rpx;
+		margin-top: 55rpx;
 		justify-content: space-between;
 		align-items: center;
 

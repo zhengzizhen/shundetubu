@@ -8,6 +8,8 @@ import uView from 'uview-ui'
 Vue.use(uView)
 import {jump} from '@/tools/navgo.js' 
 Vue.prototype.$jump = jump
+import {Resize} from '@/tools/ReSize.js' 
+Vue.prototype.$Resize = Resize
 
 
 

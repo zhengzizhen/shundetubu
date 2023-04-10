@@ -3,11 +3,11 @@
 	<view class="dc_bg">
 		<view class="dc_header pd30">
 			<!-- label标签 -->
-			<view class="dc_label dis_f">
+			<view class="dc_label dis_f"  @click="isShow = true">
 				<view class="dc_spans" v-for="(item,index) in laberlist" :key="index">
 					<text>{{item}}</text>
 				</view>
-				<view class="sx" @click="isShow = true">
+				<view class="sx">
 					<u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon>
 				</view>
 			</view>
@@ -68,7 +68,7 @@
 			<!-- //小图 -->
 			<view class="dc_mod dis_f">
 				<text class="posw">3天</text>
-				<image src="../../static/index/组 12@2x(1).jpg" mode=""></image>
+				<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
 				<view class="dc_god">
 					<p>【亭可马里季】斯里兰卡纯玩 9天</p>
 					<view class="dc_latt dis_f">
@@ -93,32 +93,40 @@
 				<view class="ix_pop pd30">
 					<p>天数</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp">
-							<text>2~3天</text>
-						</view>
-						<view class="dis_f prp">
-							<text>3~10天</text>
+						<view class="dis_f prp" v-for="(item,index) in days" :key="index" @click="todays(item,days)">
+							<text  :class="item.state?'select':''" >{{item.day}}</text>
 						</view>
 					</view>
-					
-					<p>天数</p>
+					<p>难度</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(v,index) in addresslist" :key="index">
-							<text>{{v.address}}</text>
+						<view class="dis_f prp" v-for="(item,index) in lvlist" :key="index" @click="todays(item,lvlist)">
+							<text  :class="item.state?'select':''" >{{item.lv}}</text>
 						</view>
 					</view>
-					
 					<p>价格</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp">
-							<text>上海</text>
-						</view>
-						<view class="dis_f prp">
-							<text>杭州</text>
+						<view class="dis_f prp" v-for="(item,index) in moenylist" :key="index" @click="todays(item,moenylist)">
+							<text  :class="item.state?'select':''" >{{item.money}}</text>
 						</view>
 					</view>
+					<p>状态</p>
+					<view class="dis_f ps">
+						<view class="dis_f prp" v-for="(item,index) in staticlist" :key="index" @click="todays(item,staticlist)">
+							<text  :class="item.state?'select':''" >{{item.static}}</text>
+						</view>
+					</view>
+					<p>地区选择</p>
+					<view class="dis_f ps">
+						<view  class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="todays(v,addresslist)">
+							<text :class="v.state?'select':''">{{v.address}}</text>
+						</view>
+					</view>
+					
+					<view class="btn dis_f alitmc">
+						<p>重置</p>
+						<button>筛选</button>
+					</view>
 				</view>
-				
 			</u-popup>
 		</u-popup>
 	</view>
@@ -130,15 +138,56 @@
 			return {
 				laberlist: ['亲子路线', '高铁出行', '轻奢活动', '轻奢活动'],
 				isShow: false,
+				lvlist:[
+					{lv:'休闲',state:false},
+					{lv:'轻松徒步',state:false},
+					{lv:'稍有难度',state:false},
+					{lv:'中等难度',state:false},
+					{lv:'难度较大',state:false},
+					{lv:'高难度',state:false},
+				],
+				moenylist:[
+					{money:'1000以内',state:false},
+					{money:'1K-2K',state:false},
+					{money:'2K-3K',state:false},
+					{money:'3K-5K',state:false},
+					{money:'5000+',state:false},
+				],
+				staticlist:[
+					{static:'报名中',state:false},
+					{static:'即将成行',state:false},
+					{static:'已成行',state:false},
+				],
+				
 				addresslist:[
-					{address:'休闲'},
-					{address:'轻松徒步'},
-					{address:'稍有难度'},
-					{address:'中等难度'},
-					{address:'难度较大'},
-					{address:'高难度'},
+					{address:'广东',state:false},
+					{address:'云南',state:false},
+					{address:'福建',state:false},
+					{address:'新疆',state:false},
+					{address:'四川',state:false},
+					{address:'西藏',state:false},
+					{address:'广西',state:false},
+					{address:'青岛',state:false},
+					{address:'海南',state:false},
+				],
+				days:[
+					{
+						day:'2~3天',
+						state:false
+					},
+					{
+						day:'4~5天',
+						state:false
+					},
+					{
+						day:'6天+',
+						state:false
+					}
 				]
 			};
+		},
+		created() {
+			
 		},
 		methods:{
 			open() {
@@ -147,6 +196,12 @@
 			close() {
 				this.isShow = !this.isShow
 			},
+			todays(v,that){
+				that.forEach(function(item,index){
+					item.state = false
+				})
+				v.state = true
+			}
 		}
 	}
 </script>
@@ -359,9 +414,9 @@
 		}
 	}
 	.ix_pop{
-		height: 1000rpx;
+		height: auto;
 		p{
-			margin: 40rpx auto 20rpx;
+			margin: 20rpx auto 20rpx;
 			font-size: 32rpx;
 			font-weight: bold;
 		}
@@ -376,15 +431,39 @@
 			}
 		}
 		.dis_f{
+			.select{
+				background-color: #49CAA4;
+				color: white;
+				border: none;
+				border: 2rpx solid #49CAA4;
+			}
 			text{
 				background: #FFFFFF;
 				color: #999999;
-				border: 2px solid #999999;
+				border: 2rpx solid #999999;
 				border-radius: 50rpx;
-				width: 162rpx;
+				width: 142rpx;
+				padding: 5rpx 30rpx;
 				height: 64rpx;
 				line-height: 64rpx;
 				text-align: center;
+			}
+		}
+		.btn{
+			margin: 80rpx 0 50rpx;
+			p{
+				font-size: 30rpx;
+				font-weight: 500;
+				color: #666666;
+			}
+			button{
+				width: 451rpx;
+				height: 88rpx;
+				line-height: 88rpx;
+				text-align: center;
+				background: #49CAA4;
+				border-radius: 44rpx;
+				color: white;
 			}
 		}
 	}
