@@ -105,9 +105,13 @@
 	.ms_user{
 		padding: 10rpx 20rpx;
 		margin-top: 20rpx;
+		text-align: center;
 		image{
 			width: 70rpx;
 			height: 70rpx;
+		}
+		p{
+			font-size: 26rpx;
 		}
 		.io{
 			text-align: left;

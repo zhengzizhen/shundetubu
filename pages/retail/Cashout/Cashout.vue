@@ -37,6 +37,23 @@
 				<text>提现成功！</text>
 			</view>
 		</u-popup>
+		
+		
+		<u-popup :round="10" :show="isShow1" mode="bottom" @close="close1" @open="open1">
+			<view class="bank pd30">
+				<p class="banktit">选择到账银行卡</p>
+				
+				<p class="bankcontent dis_f alitmc">
+					<image src="@/static/trends/user.png" mode=""></image>
+					<text @click="tobindUser">工商银行  储蓄卡  （2342）</text>
+				</p>
+				
+				<p class="bankcontent dis_f alitmc" >
+					<image  mode=""></image>
+					<text @click='toBank'>使用新卡提现</text>
+				</p>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -47,6 +64,7 @@
 				money: 299.99,
 				tmoney: null,
 				isShow:false,
+				isShow1:false,
 				items: [{
 						value: 'ZFB',
 						name: '提现到支付宝',
@@ -59,7 +77,7 @@
 						image: '../../../static/image/retail/wx.jpg'
 					},
 					{
-						value: 'YKK',
+						value: 'Bank',
 						name: '选择银行卡',
 						image: '../../../static/image/retail/yhk.jpg'
 					},
@@ -78,6 +96,10 @@
 						break;
 					}
 				}
+				if(evt.detail.value == 'Bank'){
+					this.isShow1 = true
+				}
+				
 			},
 			cashout() {
 				this.isShow = !this.isShow
@@ -87,6 +109,23 @@
 			},
 			close() {
 				this.isShow = !this.isShow
+			},
+			open1(){
+				
+			},
+			close1() {
+				this.isShow1 = !this.isShow1
+			},
+			toBank(){
+				this.isShow1 = !this.isShow1
+				uni.navigateTo({
+					url:'/pages/mine/Setting/addBank'
+				})
+			},
+			tobindUser(){
+				uni.navigateTo({
+					url:'/pages/mine/Setting/bindUser'
+				})
 			}
 		}
 	}
@@ -202,6 +241,28 @@
 			top: -30rpx;
 			width: 20rpx;
 			height: 20rpx;
+		}
+	}
+	.bank{
+		height: 360rpx;
+		.banktit{
+			margin: 40rpx auto;
+			text-align: center;
+			font-size: 34rpx;
+			font-weight: 500;
+			color: #222222;
+		}
+		image{
+			width: 44rpx;
+			height: 44rpx;
+		}
+		.bankcontent{
+			margin-top: 20rpx;
+			padding-top: 20rpx;
+			border-top: 1px solid #e6e6e6;
+			text{
+				margin-left: 20rpx;
+			}
 		}
 	}
 </style>

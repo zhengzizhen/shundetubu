@@ -1,31 +1,34 @@
 <template>
 	<view>
 		<!-- 头部 -->
-		<view class="my_header pd30">
+		<view class="my_header">
+			<image class="banners" src="@/static/image/mine/banner.jpg" mode=""></image>
 			<!-- 顶部按钮 -->
-			<view class="my_seting dis_f">
-				<image @click="toSignin()" src="../../static/mine/date.png" mode=""></image>
-				<view class="dis_f my_set">
-					<image src="@/static/mine/msg.png" @click="toMessage()" mode=""></image>
-					<image src="@/static/mine/seting.png"  @click="toSetting()" mode=""></image>
+			<view class="position pd30">
+				<view class="my_seting dis_f">
+					<image @click="toSignin()" src="../../static/mine/date.png" mode=""></image>
+					<view class="dis_f my_set">
+						<image src="@/static/mine/msg.png" @click="toMessage()" mode=""></image>
+						<image src="@/static/mine/seting.png" @click="toSetting()" mode=""></image>
+					</view>
 				</view>
-			</view>
-			
-			<!-- 头像信息 -->
-			<view class="my_user dis_f">
-				<image class="img" src="@/static/mine/组 37.png" mode=""></image>
-				<view class="my_username dis_f">
-					<p>一个阳光明媚的人</p>
-					<view class="dis_f my_rywj">
-						<image src="@/static/mine/wanjia.png" mode=""></image>
-						<view class="my_jin">
-							<p>进入领队板块</p>
+
+				<!-- 头像信息 -->
+				<view class="my_user dis_f">
+					<image class="img" src="@/static/mine/组 37.png" mode=""></image>
+					<view class="my_username dis_f">
+						<p>一个阳光明媚的人</p>
+						<view class="dis_f my_rywj">
+							<image src="@/static/mine/wanjia.png" mode=""></image>
+							<view class="my_jin" @click="toguide()">
+								<p>进入领队板块</p>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="my_center">
 			<view class="dis_f my_jd">
 				<p>190</p>
@@ -38,7 +41,7 @@
 				</view>
 			</view>
 			<u-line color="#E6E6E6" margin='40rpx 0'></u-line>
-			
+
 			<!-- 菜单 -->
 			<view class="my_menu dis_f">
 				<view class="my_phone dis_f" v-for="(item,index) in menulist" :key="index" @click="gotmenu(index)">
@@ -67,12 +70,12 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 邀请 -->
 			<view class="my_green dis_f">
 				<p>立即邀请</p>
 			</view>
-			
+
 			<!-- 活动订单 -->
 			<view class="my_hot dis_f">
 				<view class="hot">
@@ -85,7 +88,7 @@
 					</span>
 				</view>
 			</view>
-			
+
 			<!-- 更多服务 -->
 			<p class="litt">更多订单</p>
 			<view class="ix_shop index_pad dis_f">
@@ -94,12 +97,12 @@
 					<text>{{item.name}}</text>
 				</view>
 			</view>
-			
+
 			<!-- 热门推荐 -->
 			<view class="ix_block index_pad">
 				<label>热门推荐</label>
-				<view class="ix_img dis_f" >
-					<view class="ix_flexs"  v-for="(item,index) in imglist" :key="index">
+				<view class="ix_img dis_f">
+					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index">
 						<image :src="item.image"></image>
 						<p class="ix_posi">{{item.title}}</p>
 						<p class="ix_title">{{item.text}}</p>
@@ -107,7 +110,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 		</view>
 	</view>
 </template>
@@ -116,200 +119,299 @@
 	export default {
 		data() {
 			return {
-				menulist:[
-					{name:'相册',image:'../../static/mine/xc.png'},
-					{name:'等级',image:'../../static/mine/dj.png'},
-					{name:'徽章',image:'../../static/mine/hz.png'},
-					{name:'足迹',image:'../../static/mine/zj.png'}
+				menulist: [{
+						name: '相册',
+						image: '../../static/mine/xc.png'
+					},
+					{
+						name: '等级',
+						image: '../../static/mine/dj.png'
+					},
+					{
+						name: '徽章',
+						image: '../../static/mine/hz.png'
+					},
+					{
+						name: '足迹',
+						image: '../../static/mine/zj.png'
+					}
 				],
-				arrlist:[
-					{name:'浏览记录',image:'../../static/mine/lljl.png'},
-					{name:'好物商城',image:'../../static/mine/hwsc.png'},
-					{name:'补款订单',image:'../../static/mine/bkdd.png'},
-					{name:'团队定制',image:'../../static/mine/tddz.png'},
-					{name:'想去哪里',image:'../../static/mine/xqnl.png'},
-					{name:'我要反馈',image:'../../static/mine/wyfk.png'},
-					{name:'收货地址',image:'../../static/mine/shdz.png'},
-					{name:'关于我们',image:'../../static/mine/gywm.png'},
+				arrlist: [{
+						name: '浏览记录',
+						image: '../../static/mine/lljl.png'
+					},
+					{
+						name: '好物商城',
+						image: '../../static/mine/hwsc.png'
+					},
+					{
+						name: '补款订单',
+						image: '../../static/mine/bkdd.png'
+					},
+					{
+						name: '团队定制',
+						image: '../../static/mine/tddz.png'
+					},
+					{
+						name: '想去哪里',
+						image: '../../static/mine/xqnl.png'
+					},
+					{
+						name: '我要反馈',
+						image: '../../static/mine/wyfk.png'
+					},
+					{
+						name: '收货地址',
+						image: '../../static/mine/shdz.png'
+					},
+					{
+						name: '关于我们',
+						image: '../../static/mine/gywm.png'
+					},
 				],
-				imglist:[
-					{title:'跟团-8天',image:'../../static/index/chang.jpg',text:'【花漫天山】新疆伊犁 杏花大环线8日'},
-					{title:'跟团-8天',image:'../../static/index/zheng.jpg',text:'【花漫天山】新疆伊犁 杏花大环线8日'},
-					{title:'跟团-8天',image:'../../static/index/zheng.jpg',text:'【花漫天山】新疆伊犁 杏花大环线8日'},
-					{title:'跟团-8天',image:'../../static/index/chang.jpg',text:'【花漫天山】新疆伊犁 杏花大环线8日'}
+				imglist: [{
+						title: '跟团-8天',
+						image: '../../static/index/chang.jpg',
+						text: '【花漫天山】新疆伊犁 杏花大环线8日'
+					},
+					{
+						title: '跟团-8天',
+						image: '../../static/index/zheng.jpg',
+						text: '【花漫天山】新疆伊犁 杏花大环线8日'
+					},
+					{
+						title: '跟团-8天',
+						image: '../../static/index/zheng.jpg',
+						text: '【花漫天山】新疆伊犁 杏花大环线8日'
+					},
+					{
+						title: '跟团-8天',
+						image: '../../static/index/chang.jpg',
+						text: '【花漫天山】新疆伊犁 杏花大环线8日'
+					}
 				],
 			};
 		},
-		methods:{
-			gotmenu(index){
-				switch(index){
-					case 0 :
+		methods: {
+			gotmenu(index) {
+				switch (index) {
+					case 0:
 						this.$jump('./album')
 						break;
-					case 3 :
+					case 1:
+						this.$jump('./Grade')
+						break;
+					case 2:
+						this.$jump('./badge')
+						break;
+					case 3:
 						this.$jump('./footmark')
 						break;
 				}
 			},
-			toSetting(){
+			toSetting() {
 				this.$jump('./Setting/Setting')
 			},
-			toMessage(){
+			toMessage() {
 				this.$jump('./message/message')
 			},
-			toSignin(){
+			toSignin() {
 				this.$jump('./signin')
+			},
+			toguide() {
+				this.$jump('./guide/guide')
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-.my_header{
-	box-sizing: border-box;
-	width: 100%;
-	height: 442rpx;
-	background: linear-gradient(32deg, #49CAA4 50%, #49CA7A 100%);
-	.my_seting{
-		padding-top: 60rpx;
-		justify-content: space-between;
-		image{
-			width: 44rpx;
-			height: 44rpx;
+	.my_header {
+		box-sizing: border-box;
+		height: 442rpx;
+		width: 100%;
+
+		// background: linear-gradient(32deg, #49CAA4 50%, #49CA7A 100%);
+		.banners {
+			width: 100%;
+			height: 442rpx;
 		}
-		.my_set{
-			image{
-				margin-left: 20rpx;
-			}
+
+		.position {
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
-	}
-	.my_user{
-		margin-top: 170rpx;
-		.img{
-			width: 132rpx;
-			height: 132rpx;
-		}
-		.my_username{
-			margin-left: 20rpx;
-			color: white;
-			font-weight: bold;
-			flex-direction: column;
-			justify-content: space-around;
-			align-items: flex-start;
-			image{
-				width: 153rpx;
-				height: 48rpx;
-			}
-			.my_rywj{
-				justify-content: space-between;
-				.my_jin{
-					margin-left: 220rpx;
-					width: 166rpx;
-					height: 46rpx;
-					line-height: 46rpx;
-					background-color: rgba(0,0,0,0.5);
-					border-radius: 23rpx;
-					text-align: center;
-					font-weight: normal;
-				}
-				p{
-					font-size: 24rpx;
-					font-weight: 500;
-				}
-			}
-		}
-	}
-}
-.my_center{
-	padding: 30rpx;
-	.my_jd{
-		justify-content: space-around;
-		align-items: center;
-		p{
-			flex: 1.5;
-			text-align: center;
-			color: #49CAA4;
-			font-size: 38rpx;
-			
-		}
-		.my_txt{
+
+		.my_seting {
+			padding-top: 60rpx;
 			justify-content: space-between;
-			p{
-				font-size: 20rpx;
-				font-weight: 500;
-				color: #999999;
-				margin-bottom: 10rpx;
+
+			image {
+				width: 44rpx;
+				height: 44rpx;
 			}
-			.left{
-				text-align: left;
+
+			.my_set {
+				image {
+					margin-left: 20rpx;
+				}
 			}
-			.right{
-				text-align: right;
+		}
+
+		.my_user {
+			margin-top: 170rpx;
+
+			.img {
+				width: 132rpx;
+				height: 132rpx;
+			}
+
+			.my_username {
+				margin-left: 20rpx;
+				color: white;
+				font-weight: bold;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: flex-start;
+
+				image {
+					width: 153rpx;
+					height: 48rpx;
+				}
+
+				.my_rywj {
+					justify-content: space-between;
+
+					.my_jin {
+						margin-left: 220rpx;
+						width: 166rpx;
+						height: 46rpx;
+						line-height: 46rpx;
+						background-color: rgba(0, 0, 0, 0.5);
+						border-radius: 23rpx;
+						text-align: center;
+						font-weight: normal;
+					}
+
+					p {
+						font-size: 24rpx;
+						font-weight: 500;
+					}
+				}
 			}
 		}
-		.my_line{
-			flex: 4;
-			align-items: inherit;
-		}
-	}
-}
-.my_menu{
-	justify-content: space-around;
-	.my_phone{
-		width: 100rpx;
-		align-items: center;
-		flex-direction: column;
-		p{
-			margin-top: 10rpx;
-			color: #666666;
-			font-size: 24rpx;
-		}
-	}
-	image{
-		width: 68rpx;
-		height: 68rpx;
-	}
-}
-.my_frist{
-	margin-top: 40rpx;
-	justify-content: space-between;
-	.ptext{
-		padding: 40rpx 20rpx;
-		span{
-			display: flex;
-			margin-top: 10rpx;
-			font-size: 24rpx;
-			color: #666666;
-		}
-	}
-	.fone{
-		width: 214rpx;
-		height: 160rpx;
-		background: url(@/static/mine/one.png) no-repeat;
-		background-size: 100%;
-	}
-	.ftwo{
-		width: 214rpx;
-		height: 160rpx;
-		background: url(@/static/mine/two.png) no-repeat;
-		background-size: 100%;
-	}
-	.fthree{
-		width: 214rpx;
-		height: 160rpx;
-		background: url(@/static/mine/three.png) no-repeat;
-		background-size: 100%;
 	}
 
-}
-	.my_green{
+	.my_center {
+		padding: 30rpx;
+
+		.my_jd {
+			justify-content: space-around;
+			align-items: center;
+
+			p {
+				flex: 1.5;
+				text-align: center;
+				color: #49CAA4;
+				font-size: 38rpx;
+
+			}
+
+			.my_txt {
+				justify-content: space-between;
+
+				p {
+					font-size: 20rpx;
+					font-weight: 500;
+					color: #999999;
+					margin-bottom: 10rpx;
+				}
+
+				.left {
+					text-align: left;
+				}
+
+				.right {
+					text-align: right;
+				}
+			}
+
+			.my_line {
+				flex: 4;
+				align-items: inherit;
+			}
+		}
+	}
+
+	.my_menu {
+		justify-content: space-around;
+
+		.my_phone {
+			width: 100rpx;
+			align-items: center;
+			flex-direction: column;
+
+			p {
+				margin-top: 10rpx;
+				color: #666666;
+				font-size: 24rpx;
+			}
+		}
+
+		image {
+			width: 68rpx;
+			height: 68rpx;
+		}
+	}
+
+	.my_frist {
+		margin-top: 40rpx;
+		justify-content: space-between;
+
+		.ptext {
+			padding: 40rpx 20rpx;
+
+			span {
+				display: flex;
+				margin-top: 10rpx;
+				font-size: 24rpx;
+				color: #666666;
+			}
+		}
+
+		.fone {
+			width: 214rpx;
+			height: 160rpx;
+			background: url(@/static/mine/one.png) no-repeat;
+			background-size: 100%;
+		}
+
+		.ftwo {
+			width: 214rpx;
+			height: 160rpx;
+			background: url(@/static/mine/two.png) no-repeat;
+			background-size: 100%;
+		}
+
+		.fthree {
+			width: 214rpx;
+			height: 160rpx;
+			background: url(@/static/mine/three.png) no-repeat;
+			background-size: 100%;
+		}
+
+	}
+
+	.my_green {
 		width: 100%;
 		height: 120rpx;
 		margin-top: 30rpx;
 		background-color: #49CAA4;
 		align-items: center;
 		justify-content: right;
-		p{
+
+		p {
 			width: 120rpx;
 			height: 20rpx;
 			line-height: 20rpx;
@@ -320,76 +422,91 @@
 			font-size: 28rpx;
 		}
 	}
-	.my_hot{
+
+	.my_hot {
 		margin-top: 30rpx;
 		justify-content: space-between;
-		.hot{
+
+		.hot {
 			width: 335rpx;
 			height: 160rpx;
 			background: #FFFFFF;
-			box-shadow: 0rpx 1rpx 6rpx 0rpx rgba(0,0,0,0.07);
+			box-shadow: 0rpx 1rpx 6rpx 0rpx rgba(0, 0, 0, 0.07);
 			border-radius: 20rpx;
-			p{
+
+			p {
 				font-size: 30rpx;
 				padding: 32rpx;
 				color: #222;
 			}
-			span{
+
+			span {
 				display: flex;
 				font-size: 24rpx;
-				color:#999;
+				color: #999;
 				margin-left: 150rpx;
 			}
 		}
 	}
-	.ix_shop{
+
+	.ix_shop {
 		flex-wrap: wrap;
 		justify-content: space-between;
-		.ix_list{
+
+		.ix_list {
 			margin-top: 30rpx;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			width: 24%;
-			image{
+
+			image {
 				width: 62rpx;
 				height: 62rpx;
 			}
-			text{
+
+			text {
 				color: #666666;
 				font-size: 24rpx;
 			}
 		}
 	}
-	.litt{
+
+	.litt {
 		margin: 50rpx auto 30rpx;
 		font-size: 32rpx;
 		font-weight: bold;
 	}
-	.ix_block{
+
+	.ix_block {
 		position: relative;
 		margin-top: 60rpx;
-		label{
+
+		label {
 			display: flex;
 			font-weight: bold;
 			font-size: 32rpx;
 			margin-bottom: 30rpx;
 		}
-		.ix_img{
+
+		.ix_img {
 			justify-content: space-between;
 			flex-wrap: wrap;
-			image{
+
+			image {
 				margin: 20rpx auto 10rpx;
 				width: 335rpx;
 				height: 335rpx;
 				border-radius: 20rpx 20rpx 0rpx 0rpx;
 			}
-			.ix_flexs{
+
+			.ix_flexs {
 				position: relative;
 				width: 335rpx;
 				height: auto;
 			}
-			.ix_posi{
+
+			.ix_posi {
 				position: absolute;
 				top: 20rpx;
 				left: 0;
@@ -397,18 +514,20 @@
 				height: 42rpx;
 				background: #000000;
 				border-radius: 20rpx 0rpx 20rpx 0rpx;
-				padding:5rpx 20rpx;
+				padding: 5rpx 20rpx;
 				color: white;
 				text-align: center;
 				opacity: 0.5;
 				font-size: 28rpx;
 			}
-			.ix_title{
+
+			.ix_title {
 				margin: 0 auto 20rpx;
 				word-wrap: normal;
 				font-size: 28rpx;
 			}
-			.ix_txtgreen{
+
+			.ix_txtgreen {
 				width: 106rpx;
 				height: 36rpx;
 				color: #49CAA4;
@@ -417,38 +536,45 @@
 				background: #EBFFF9;
 				border-radius: 6rpx;
 			}
-			.ix_yellow{
+
+			.ix_yellow {
 				font-size: 30rpx;
 				font-weight: 500;
 				color: #FF4040;
 			}
 		}
-		.ix_block_header{
+
+		.ix_block_header {
 			justify-content: space-between;
-			.ix_icon{
+
+			.ix_icon {
 				display: flex;
 				align-items: center;
 				color: #999999;
 				font-size: 26rpx;
 			}
 		}
-		.ix_imgplus{
+
+		.ix_imgplus {
 			flex-direction: column;
 			position: relative;
-			.ix_pos_t{
+
+			.ix_pos_t {
 				position: absolute;
 				top: 40rpx;
 				left: 20rpx;
 				background: linear-gradient(70deg, #F7B36B 0%, #FF8F68 100%);
 				border-radius: 6rpx;
-				p{
+
+				p {
 					font-size: 24rpx;
 					font-weight: bold;
 					color: #FFFFFF;
 					padding: 5rpx;
 				}
 			}
-			.ix_posimg{
+
+			.ix_posimg {
 				position: absolute;
 				bottom: 0;
 				right: 0;
@@ -456,9 +582,10 @@
 				height: 80rpx;
 				background: #000000;
 				opacity: 0.5;
-				border-radius: 0rpx 0rpx 20rpx 20rpx;	
+				border-radius: 0rpx 0rpx 20rpx 20rpx;
 				display: flex;
-				.ix_pos_p{
+
+				.ix_pos_p {
 					width: 150rpx;
 					height: auto;
 					font-size: 24rpx;
@@ -468,94 +595,113 @@
 					text-align: center;
 					flex-direction: column;
 					justify-content: space-around;
-					.ags{
+
+					.ags {
 						display: flex;
 						justify-content: center;
 					}
 				}
 			}
-			.imgplus{
+
+			.imgplus {
 				width: 100%;
 				height: 300rpx;
 				margin-top: 20rpx;
 			}
-			.ix_bot{
+
+			.ix_bot {
 				margin-top: 20rpx;
 				display: flex;
 				justify-content: space-between;
-				.ix_imgbot{
+
+				.ix_imgbot {
 					width: 335rpx;
 					height: 300rpx;
 				}
-				.ix_botsub{
+
+				.ix_botsub {
 					display: flex;
 					flex-direction: column;
 					justify-content: space-between;
-					.ix_pos_c{
+
+					.ix_pos_c {
 						position: absolute;
 						bottom: 20rpx;
 						left: 20rpx;
 					}
-					.ix_posi_r{
+
+					.ix_posi_r {
 						position: relative;
 					}
-					image{
+
+					image {
 						width: 335rpx;
 						height: 140rpx;
 					}
-					p{
+
+					p {
 						font-size: 26rpx;
-						
+
 					}
 				}
-				.ix_imgbotbg{
+
+				.ix_imgbotbg {
 					background: url(@/static/index/zheng.jpg);
 					width: 335rpx;
 					height: 300rpx;
 					padding: 20rpx;
 					box-sizing: border-box;
-					.ix_bgfz{
+
+					.ix_bgfz {
 						display: flex;
 						align-items: center;
 						margin-bottom: 40rpx;
 					}
-					p{
+
+					p {
 						color: white;
 						font-weight: bold;
 						padding: 0rpx 10rpx;
 					}
-					span{
+
+					span {
 						background: #FFFFFF;
-						padding:  5rpx;
+						padding: 5rpx;
 						border-radius: 50%;
 					}
-					image{
+
+					image {
 						width: 202rpx;
 						height: 202rpx;
 						border-radius: 20rpx;
 					}
 				}
 			}
-			.ix_background{
+
+			.ix_background {
 				margin-top: 20rpx;
 				height: 300rpx;
 				background: url(@/static/index/chang.jpg);
 				padding: 20rpx;
-				.ix_bgfz{
+
+				.ix_bgfz {
 					display: flex;
 					align-items: center;
 					margin-bottom: 40rpx;
 				}
-				.ix_bg_img{
+
+				.ix_bg_img {
 					display: flex;
 					justify-content: space-between;
 				}
-				p{
+
+				p {
 					color: white;
 					font-weight: bold;
 					padding: 0rpx 10rpx;
 				}
-				span{
+
+				span {
 					display: flex;
 					justify-content: center;
 					width: 96rpx;
@@ -565,7 +711,8 @@
 					padding: 0rpx 10rpx;
 					color: #EAC326;
 				}
-				image{
+
+				image {
 					width: 202rpx;
 					height: 202rpx;
 					border-radius: 20rpx;

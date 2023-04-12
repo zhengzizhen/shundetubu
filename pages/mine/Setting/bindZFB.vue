@@ -109,6 +109,6 @@
 		border-radius: 44rpx;
 		color:white;
 		font-size: 32rpx;
-		margin-top: 900rpx;
+		margin-top: 1100rpx;
 	}
 </style>

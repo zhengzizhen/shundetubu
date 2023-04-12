@@ -43,11 +43,11 @@
 <style lang="scss" scoped>
 .rl_banner{
 	width: 100%;
-	height: 400rpx;
+	height: 320rpx;
 	background-color: #999;
 	image{
 		width: 100%;
-		height: 400rpx;
+		height: 320rpx;
 	}
 }
 .rl_menu{
@@ -60,6 +60,7 @@
 		height: 100rpx;
 		p{
 			margin-left: 20rpx;
+			font-size: 30rpx;
 		}
 	}
 	image{

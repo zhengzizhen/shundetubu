@@ -250,21 +250,19 @@
             
         }
         ,{
-            "path" : "pages/mine/Setting/bindBank",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "绑定银行卡",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/trends/Space",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "个人主页",
                 "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
+				"navigationBarBackgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "float",
+						"titleText": "",
+						"titleColor": "white"
+					}
+				}
             }
             
         }
@@ -387,6 +385,137 @@
                 "navigationBarTitleText": "搜索",
                 "enablePullDownRefresh": false,
 				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/Details/Details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "float",
+						"titleText": "",
+						"titleColor": "white"
+					}
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/Details/Cratic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "已参加的人",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/Details/Apply",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动报名",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/Details/Adduser",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加报名人",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/guide/guide",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "领队",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "float",
+						"titleText": "",
+						"titleColor": "white"
+					}
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/guide/wallet",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "钱包",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "float",
+						"titleText": "钱包",
+						"titleColor": "black"
+					}
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/addBank",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加银行卡",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "float",
+						"titleText": "",
+						"titleColor": "black"
+					}
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Setting/bindUser",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "账户绑定",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/guide/Wipeout",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发起报销",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Grade",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "等级",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/badge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "徽章",
+                "enablePullDownRefresh": false
             }
             
         }

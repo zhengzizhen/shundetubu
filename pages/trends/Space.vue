@@ -15,7 +15,7 @@
 			</view>
 		</view>
 
-		<view class="dis_f pd30 dos">
+		<view class="dis_f dos">
 			<view class="hot">
 				<p>3</p>
 				<text>活动</text>

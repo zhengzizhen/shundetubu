@@ -1,7 +1,7 @@
 <template>
 	<view class="ln_body">
 		<view class="ln_header dis_f">
-			<image src="../../static/mine/组 37.png" mode=""></image>
+			<image src="@/static/mine/组 37.png" mode=""></image>
 			<view class="ln_title dis_f">
 				<p>徒步圈&两只脚户外旅行</p>
 				<label for="">继续对世界好奇</label>
@@ -14,8 +14,8 @@
 		</view>
 		
 		<view class="ln_txt dis_f">
-			<image v-show="isShow" src="../../static/login/xz.png" mode="" @click="isShow = !isShow"></image>
-			<image v-show="!isShow" src="../../static/login/wxz.png" mode="" @click="isShow = !isShow"></image>
+			<image v-show="isShow" src="@/static/login/xz.png" mode="" @click="isShow = !isShow"></image>
+			<image v-show="!isShow" src="@/static/login/wxz.png" mode="" @click="isShow = !isShow"></image>
 			<p>我已阅读并同意<label>《顺德徒步圈服务协议》</label> 和<label>《隐私协议》</label></p>
 		</view>
 	</view>

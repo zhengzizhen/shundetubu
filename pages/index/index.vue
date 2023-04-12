@@ -26,7 +26,7 @@
 				</view>
 			</view>
 
-			<!-- 列表渲染 -->
+			<!-- 菜单 -->
 			<view class="ix_shop index_pads dis_f">
 				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='clinto(item.name)'>
 					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
@@ -34,9 +34,9 @@
 				</view>
 			</view>
 
-			<!-- 黑块 -->
+			<!-- 下周活动 -->
 			<view class="ix_shop index_pad dis_f">
-				<view class="ix_model bor_r" v-for="(v,index) in modelList" :key="index">
+				<view class="ix_model bor_r" v-for="(v,index) in modelList" :key="index" @click="toDetails(index)">
 					<image class="bor_r" :src="v.image" mode=""></image>
 					<view class="ix_float">
 						<text>{{v.title}}</text>
@@ -53,7 +53,7 @@
 						@click="checkout(item)">{{item.name}}</span>
 				</view>
 				<view class="ix_img dis_f">
-					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index">
+					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails(index)">
 						<image :src="item.image"></image>
 						<p class="ix_posi">{{item.title}}</p>
 						<p class="ix_title">{{item.text}}</p>
@@ -445,6 +445,9 @@
 			},
 			toSeach(){
 				this.$jump('./Seach/Seach');
+			},
+			toDetails(index){
+				this.$jump('./Details/Details?url=','params',index);
 			}
 		}
 	}
