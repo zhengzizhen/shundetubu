@@ -51,19 +51,19 @@
 			</view>
 			<!-- 卡券 -->
 			<view class="my_frist dis_f">
-				<view class="fone">
+				<view class="fone" @click="toCard()">
 					<view class="ptext">
 						<p>卡券</p>
 						<span>0张可用</span>
 					</view>
 				</view>
-				<view class="ftwo">
+				<view class="ftwo" @click="toCircle()">
 					<view class="ptext">
 						<p>圈币</p>
 						<span>2000</span>
 					</view>
 				</view>
-				<view class="fthree">
+				<view class="fthree" @click="toRecommend()">
 					<view class="ptext">
 						<p>种草</p>
 						<span>2条记录</span>
@@ -78,11 +78,11 @@
 
 			<!-- 活动订单 -->
 			<view class="my_hot dis_f">
-				<view class="hot">
+				<view class="hot" @click="toHotorder()">
 					<p>活动订单</p>
 					<span>查看全部订单<u-icon name="arrow-right" color='#ccc' size='12'></u-icon></span>
 				</view>
-				<view class="hot">
+				<view class="hot" @click='toShoporder()'>
 					<p>商品订单</p>
 					<span>查看全部订单<u-icon name="arrow-right" color='#ccc' size='12'></u-icon>
 					</span>
@@ -90,10 +90,10 @@
 			</view>
 
 			<!-- 更多服务 -->
-			<p class="litt">更多订单</p>
+			<p class="litt">更多服务</p>
 			<view class="ix_shop index_pad dis_f">
-				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index">
-					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
+				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click="toindex(item)">
+					<image :src="item.image" mode=""></image>
 					<text>{{item.name}}</text>
 				</view>
 			</view>
@@ -102,7 +102,7 @@
 			<view class="ix_block index_pad">
 				<label>热门推荐</label>
 				<view class="ix_img dis_f">
-					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index">
+					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails()">
 						<image :src="item.image"></image>
 						<p class="ix_posi">{{item.title}}</p>
 						<p class="ix_title">{{item.text}}</p>
@@ -220,6 +220,49 @@
 			},
 			toguide() {
 				this.$jump('./guide/guide')
+			},
+			toDetails() {
+				this.$jump('/pages/index/Details/Details')
+			},
+			toCircle() {
+				this.$jump('./Circle')
+			},
+			toCard() {
+				this.$jump('./Card')
+			},
+			toRecommend() {
+				this.$jump('./recommend')
+			},
+			toHotorder() {
+				this.$jump('./Hotorder')
+			},
+			toShoporder() {
+				this.$jump('./Shoporder')
+			},
+			toindex(e) {
+				switch (e.name) {
+					case '浏览记录':
+						this.$jump('./menu/Browser')
+						break;
+					case '好物商城':
+						this.$jump('./menu/HaowuMall')
+						break;
+					case '补款订单':
+						this.$jump('./menu/Supplementary')
+						break;
+					case '团队定制':
+						this.$jump('/pages/index/team/team')
+						break;
+					case '想去哪里':
+						this.$jump('./menu/toWhere')
+						break;
+					case '我要反馈':
+						this.$jump('./menu/help')
+						break;
+					case '收货地址':
+						this.$jump('./menu/address')
+						break;
+				}
 			}
 		}
 	}
@@ -462,6 +505,7 @@
 
 			image {
 				width: 62rpx;
+				border-radius: 50%;
 				height: 62rpx;
 			}
 

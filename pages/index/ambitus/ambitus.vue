@@ -3,7 +3,7 @@
 		<!-- 列表渲染 -->
 		<view class="pd30">
 			<view class="ix_shop index_pads dis_f">
-				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='clinto(item.name)'>
+				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='toChild(item.name)'>
 					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
 					<text>{{item.name}}</text>
 				</view>
@@ -20,7 +20,7 @@
 			<!-- //小图 -->
 			<view class="">
 				<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
-					<image src="../../static/index/组 12@2x(1).jpg" mode=""></image>
+					<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
 					<view class="dc_god">
 						<p>【亭可马里季】斯里兰卡纯玩9天</p>
 						<view class="dc_latt dis_f">
@@ -39,7 +39,7 @@
 			<p class="as_tit">高铁出行</p>
 			<view class="dis_f">
 				<view class="as_zh dis_f" v-for="(item,index) in list" :key='index'>
-					<image src="../../static/index/zheng.jpg" mode=""></image>
+					<image src="@/static/index/zheng.jpg" mode=""></image>
 					<label>3天</label>
 					<text>云端轻奢武功山</text>
 					<p>￥88</p>
@@ -49,7 +49,7 @@
 			<p class="as_tit">亲子活动</p>
 			<view class="">
 				<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
-					<image src="../../static/index/zheng.jpg" mode=""></image>
+					<image src="@/static/index/zheng.jpg" mode=""></image>
 					<view class="dc_god">
 						<p>【亭可马里季】斯里兰卡纯玩9天</p>
 						<text class="posw">3天</text>
@@ -76,10 +76,9 @@
 
 			<!-- 热门推荐 -->
 			<view class="ix_block index_pad">
-				<label>热门推荐</label>
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in list" :key="index">
-						<image src="../../static/index/zheng.jpg"></image>
+						<image src="@/static/index/zheng.jpg"></image>
 						<text class="posw">3天</text>
 						<p class="ix_title">【花漫天山】新疆伊犁 杏花大环线8日</p>
 						<view class="ds_bt dis_f">
@@ -103,43 +102,43 @@
 		data() {
 			return {
 				arrlist: [{
-						name: '周边路线',
-						image: '../../static/index/zblx.jpg'
+						name: '省内1天',
+						image: '../../../static/index/zblx.jpg'
 					},
 					{
-						name: '国内精选',
-						image: '../../static/index/gnjx.jpg'
+						name: '省内2天',
+						image: '../../../static/index/gnjx.jpg'
 					},
 					{
-						name: '国外精选',
-						image: '../../static/index/gwjx.jpg'
+						name: '省内亲子',
+						image: '../../../static/index/gwjx.jpg'
 					},
 					{
-						name: '活动日历',
-						image: '../../static/index/hdrl.jpg'
+						name: '美食路线',
+						image: '../../../static/index/hdrl.jpg'
 					},
 					{
-						name: '好物商城',
-						image: '../../static/index/hwsc.jpg'
+						name: '登山路线',
+						image: '../../../static/index/hwsc.jpg'
 					},
 					{
-						name: '必玩榜单',
-						image: '../../static/index/bwbd.jpg'
+						name: '非周末',
+						image: '../../../static/index/bwbd.jpg'
 					},
 					{
-						name: '团队定制',
-						image: '../../static/index/tddz.jpg'
+						name: '高铁出行',
+						image: '../../../static/index/tddz.jpg'
 					},
 					{
-						name: '亲子路线',
-						image: '../../static/index/qzlx.jpg'
+						name: '香港专区',
+						image: '../../../static/index/qzlx.jpg'
 					}
 				],
 				swiperlist: [
-					'../../static/as/changs.jpg',
-					'../../static/as/changs.jpg',
-					'../../static/as/changs.jpg',
-					'../../static/as/changs.jpg',
+					'../../../static/as/changs.jpg',
+					'../../../static/as/changs.jpg',
+					'../../../static/as/changs.jpg',
+					'../../../static/as/changs.jpg',
 				],
 				sublist: ['当季推荐', '口碑路线'],
 
@@ -166,6 +165,34 @@
 					item.checked = index === name ? true : false
 				})
 			},
+			toChild(name) {
+				switch (name) {
+					case '省内1天':
+						this.$jump('./oneday')
+						break;
+					case '省内2天':
+						this.$jump('./twoday')
+						break;
+					case '省内亲子':
+						this.$jump('./Parenting')
+						break;
+					case '高铁出行':
+						this.$jump('./speed?title=','params','高铁出行')
+						break;
+					case '非周末':
+						this.$jump('./speed?title=','params','非周末')
+						break;
+					case '美食路线':
+						this.$jump('./speed?title=','params','高铁出行')
+						break;
+					case '登山路线':
+						this.$jump('./speed?title=','params','非周末')
+						break;
+					case '香港专区':
+						this.$jump('./HongKong')
+						break;
+				}
+			}
 		}
 	}
 </script>
@@ -188,20 +215,21 @@
 			width: 24%;
 
 			image {
-				width: 62rpx;
-				height: 62rpx;
+				width: 100rpx;
+				height: 100rpx;
 			}
 
 			text {
 				margin-top: 10rpx;
-				color: #666666;
-				font-size: 24rpx;
+				font-size: 26rpx;
+				font-weight: 500;
+				color: #000000;
 			}
 		}
 	}
 
 	.as_fid {
-		margin: 30rpx auto;
+		margin: 60rpx auto;
 		height: 120rpx;
 		line-height: 120rpx;
 		padding-left: 40rpx;
@@ -443,17 +471,20 @@
 			font-size: 24rpx;
 			color: #999999;
 		}
-		
+
 	}
-	.sp{
+
+	.sp {
 		margin-top: 20rpx;
 		justify-content: space-between;
-		p{
-			color: red !important; 
+
+		p {
+			color: red !important;
 			font-size: 24rpx;
 			font-weight: bold;
 		}
-		label{
+
+		label {
 			color: #999999;
 			font-size: 24rpx;
 		}

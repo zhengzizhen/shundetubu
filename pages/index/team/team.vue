@@ -99,7 +99,7 @@
 						label:'团队放松小假日'
 					},
 					{
-						name: '4月以上',
+						name: '4日以上',
 						image: '../../../static/index/gwjx.jpg',
 						label:'向远方同行出发'
 					},

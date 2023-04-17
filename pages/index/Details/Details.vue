@@ -269,7 +269,7 @@
 				}],
 				CheckTablist: [{
 						name: '活动详情',
-						state: false
+						state: true
 					},
 					{
 						name: '行程与准备',
@@ -281,7 +281,7 @@
 					},
 					{
 						name: '评价',
-						state: true
+						state: false
 					}
 				],
 				datelist: [{

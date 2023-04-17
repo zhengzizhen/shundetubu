@@ -72,7 +72,7 @@
 			</view>
 		</view>
 		<view class="ts_flex" @click="toNews()">
-			<image src="../../static/trends/tels.png" mode=""></image>
+			<image src="@/static/trends/tels.png" mode=""></image>
 		</view>
 
 		<!-- 弹出层 -->
@@ -343,7 +343,7 @@
 		position: fixed;
 		bottom: 140rpx;
 		right: 50rpx;
-
+		z-index: 99;
 		image {
 			width: 114rpx;
 			height: 114rpx;

@@ -266,9 +266,9 @@
 			return {
 				seachValue: '',
 				list1: [ //轮播图
-					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					'https://cdn.uviewui.com/uview/swiper/swiper2.png',
-					'https://cdn.uviewui.com/uview/swiper/swiper3.png',
+					'../../static/index/chang.jpg',
+					'../../static/index/zheng.jpg',
+					'../../static/index/chang.jpg',
 				],
 				checklist: [{
 						name: '当季热门',
@@ -427,9 +427,12 @@
 			clinto(v){
 				switch(v){
 					case '周边路线':
-						this.$jump('./ambitus');
+						this.$jump('./ambitus/ambitus');
 						break;
 					case '国内精选':
+						this.$jump('./domestic');
+						break;
+					case '国外精选':
 						this.$jump('./domestic');
 						break;
 					case '活动日历':
@@ -438,8 +441,14 @@
 					case '团队定制':
 						this.$jump('./team/team');
 						break;
+					case '亲子路线':
+						this.$jump('./Province');
+						break;
 					case '必玩榜单':
 						this.$jump('./mustPlay');
+						break;
+					case '好物商城':
+						this.$jump('/pages/mine/menu/HaowuMall');
 						break;
 				}
 			},
