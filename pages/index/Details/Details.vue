@@ -1,7 +1,16 @@
 <template>
 	<view class="ds_body">
-		<view class="ds_banner">
-			<image src="@/static/index/chang.jpg" mode=""></image>
+		<view class="ds_banner posir">
+			<swiper class="swiper"  circular :indicator-dots="true" :autoplay="false"
+				:duration="500">
+				<swiper-item v-for="(item,index) in swiperlist" :key="index">
+					<image :src="item" mode=""></image>
+				</swiper-item>
+				
+			</swiper>
+			<p class="swiperposi posia">
+				{{this.swiperlist.length}}张照片
+			</p>
 		</view>
 		<view class="pd30">
 			<p class="header_title">
@@ -15,7 +24,9 @@
 					<text>评分：4.9（1000人点评）</text>
 				</p>
 				<view class="ds_love dis_f flex_c alitmc">
-					<image src="@/static/image/Details/love.png" mode=""></image>
+					<image v-show="toshow" @click="toshow = !toshow" src="@/static/trends/ax.png" mode=""></image>
+					<image v-show="!toshow" @click="toshow = !toshow" src="@/static/image/trends/zan.png" mode="">
+					</image>
 					<label>种草</label>
 				</view>
 			</view>
@@ -26,7 +37,7 @@
 				<text>当地集合</text>
 				<u-icon name="arrow-right" color='#acacac' size='16'></u-icon>
 			</p>
-			<!-- tabs -->
+			<!-- 选择框 -->
 			<view class="ts_tbs dis_f">
 				<p :class="v.state?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v,index)">
 					{{v.name}}
@@ -214,8 +225,9 @@
 				<p>出发城市选择</p>
 				<view class="dis_f ps">
 					<view class="dis_f prp" v-for="(item,index) in addList" :key="index" @click="ckaddress(item)">
-						<image  src="@/static/trends/user.png" mode=""></image>
-						<image v-show="item.state" class="position" src="@/static/image/Details/success.png" mode=""></image>
+						<image src="@/static/trends/user.png" mode=""></image>
+						<image v-show="item.state" class="position" src="@/static/image/Details/success.png" mode="">
+						</image>
 						<text>{{item.name}}</text>
 					</view>
 				</view>
@@ -243,6 +255,8 @@
 	export default {
 		data() {
 			return {
+				swiperlist:['../../../static/index/zheng.jpg','../../../static/index/chang.jpg'],
+				toshow: false,
 				list: [1, 2, 3, 4, 5],
 				count: 5, //评分
 				value: 4, //评分
@@ -256,17 +270,18 @@
 						name: '4月',
 					}
 				],
-				addList:[{
-					name:'北京'
-				},{
-					name:'上海'
-				},
-				{
-					name:'广州'
-				},
-				{
-					name:'曹县'
-				}],
+				addList: [{
+						name: '北京'
+					}, {
+						name: '上海'
+					},
+					{
+						name: '广州'
+					},
+					{
+						name: '曹县'
+					}
+				],
 				CheckTablist: [{
 						name: '活动详情',
 						state: true
@@ -309,7 +324,7 @@
 				item.state = false
 			})
 			this.datelist[0].state = true
-			
+
 			this.addList.forEach(function(item, index) {
 				item.state = false
 			})
@@ -368,7 +383,7 @@
 					icon: 'none'
 				});
 			},
-			ckaddress(e){
+			ckaddress(e) {
 				this.addList.forEach(function(item, index) {
 					item.state = false
 				})
@@ -381,9 +396,26 @@
 
 <style lang="scss" scoped>
 	.ds_banner {
+		width: 100%;
+		height: 494rpx;
 		image {
 			width: 100%;
 			height: 494rpx;
+		}
+		.swiper{
+			width: 100%;
+			height: 494rpx;
+		}
+		.swiperposi{
+			top: 60rpx;
+			right: 30rpx;
+			z-index: 99;
+			color: red;
+			background-color: rgba(32, 32, 32, .5);
+			padding:8rpx 20rpx;
+			border-radius: 32rpx;
+			font-size: 26rpx;
+			color: #FFFFFF;
 		}
 	}
 
@@ -430,7 +462,7 @@
 
 			image {
 				width: 40rpx;
-				height: 36rpx;
+				height: 40rpx;
 			}
 
 			label {
@@ -871,11 +903,13 @@
 			font-weight: 500;
 			color: #999999;
 		}
-		.bom{
+
+		.bom {
 			padding-top: 20rpx;
 			border-top: 1px solid #E6E6E6;
 		}
-		text{
+
+		text {
 			text-align: left;
 			display: block;
 			font-size: 24rpx;

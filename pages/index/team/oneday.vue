@@ -129,4 +129,7 @@
 			color: #FFFFFF;
 		}
 	}
+	button{
+		font-family: 'PF';
+	}
 </style>

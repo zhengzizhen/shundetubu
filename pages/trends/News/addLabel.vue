@@ -8,7 +8,7 @@
 			<p class="title">不添加标签</p>
 		</view>
 		<view class="al_content pd30">
-			<p :class="(item.state?'success':'')" v-for="(item,index) in labellist" :key="index"
+			<p :class="(item.state?'success':'')" v-for="(item,index) in list1" :key="index"
 				@click='clk(item,index)'>{{item.name}}</p>
 		</view>
 	</view>
@@ -20,18 +20,19 @@
 			return {
 				searchvalue: '',
 				list: [1, 2, 3],
-				labellist: [{
-					name: '#青蓝行动',
-					state:false
-				}, {
-					name: '#收到春天了#',
-					state:false
-				}, {
-					name: '#到海边吹吹风#',
-					state:false
-				}],
+				labellist: ['#青蓝行动','#收到春天了#','#到海边吹吹风#'],
 				list1: []
 			}
+		},
+		onLoad() {
+			this.labellist.forEach((item,index)=>{
+				let tab = {}
+				tab.name = item
+				this.list1.push(tab)
+			})
+			this.list1.forEach((item,index)=>{
+				item.state = false
+			})
 		},
 		methods: {
 			back() {
@@ -39,6 +40,8 @@
 			},
 			clk(item, index) {
 				item.state = !item.state
+				console.log(item);
+				this.$forceUpdate()
 			}
 		}
 	}

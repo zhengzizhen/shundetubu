@@ -132,29 +132,24 @@
 <style lang="scss" scoped>
 	.ts_tbs {
 		text-align: center;
-
 		p {
 			width: 24%;
 			padding: 20rpx;
 		}
-
 		.green {
 			color: #49CAA4;
 		}
 	}
 
-
 	.dc_mod {
 		position: relative;
 		background-color: white;
 		padding: 20rpx 20rpx;
-
 		image {
 			width: 240rpx;
 			height: 240rpx;
 			border-radius: 20rpx;
 		}
-
 		.dc_god {
 			margin-left: 20rpx;
 			p{
@@ -163,7 +158,6 @@
 				color: #222222;
 			}
 		}
-
 		.posw {
 			position: absolute;
 			top: 20rpx;
@@ -177,9 +171,7 @@
 			text-align: center;
 			color: white;
 			font-size: 22rpx;
-
 		}
-
 		.dc_latt {
 			margin-top: 10rpx;
 
@@ -206,14 +198,13 @@
 		}
 
 		.title {
-			margin: 10rpx 0 20rpx;
-			font-size: 24rpx;
-			font-weight: 500;
-			color: #999999;
+			margin: 10rpx 0 30rpx;
 			align-items: center;
-
 			label {
 				display: block;
+				font-size: 24rpx;
+				font-weight: 500;
+				color: #999999;
 				margin-right: 10rpx;
 			}
 		}

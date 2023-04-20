@@ -11,7 +11,7 @@
 			<p>{{item.title}}</p>
 			<view class="right dis_f">
 				<p v-if="!item.image">{{item.text}}</p>
-				<image class="image" v-else src="../../../static/mine/组 37.png" mode=""></image>
+				<image class="image" v-else  src="@/static/trends/user.png" mode=""></image>
 				<image class="go_img" src="../../../static/image/mine/right.jpg" mode=""></image>
 			</view>
 		</view>
@@ -93,7 +93,7 @@
 					},
 					{
 						title: '头像',
-						image: '../../../static/mine/组 37.png'
+						image: '../../../static/image/index/user.png'
 					},
 					{
 						title: '性别',

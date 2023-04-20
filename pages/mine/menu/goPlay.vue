@@ -1,6 +1,6 @@
 <template>
 	<view class="body pd30">
-		<view class="header bor_r dis_f jscb pd30">
+		<view class="header bor_r dis_f jscb pd30" @click="toAddress">
 			<p>请设置收货地址</p>
 			<u-icon color='#666666' name="arrow-right"></u-icon>
 		</view>
@@ -64,7 +64,9 @@
 			}
 		},
 		methods: {
-			
+			toAddress(){
+				this.$jump('./address')
+			}
 		}
 	}
 </script>

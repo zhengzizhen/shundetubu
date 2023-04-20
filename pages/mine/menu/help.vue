@@ -12,6 +12,8 @@
 			<label>联系电话</label>
 			<input type="number" maxlength="11" placeholder="请输入联系方式,更好的解决问题">
 		</view>
+		
+		<p class="btn">提交反馈</p>
 	</view>
 </template>
 
@@ -97,5 +99,17 @@
 				font-size: 30rpx;
 			}
 		}
+	}
+	.btn{
+		margin: 600rpx auto 0;
+		width: 690rpx;
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+		background: #49CAA4;
+		border-radius: 40rpx;
+		font-size: 30rpx;
+		font-weight: 500;
+		color: #FFFFFF;
 	}
 </style>

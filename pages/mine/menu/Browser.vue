@@ -1,15 +1,16 @@
 <template>
 	<view class="br_conent pd30">
-		<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
-			<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+		<view class="dc_mod dis_f" @click="toDetail()" v-for=" (item,index) in list" :key="index">
+			<image src="@/static/image/index/banners.jpg" mode=""></image>
 			<view class="dc_god">
-				<p>【亭可马里季】斯里兰卡纯玩9天</p>
+				<p>{{item.title}}</p>
 				<view class="dc_latt dis_f">
 					<label>04.02剩3名额</label>
 				</view>
 				<view class="dc_span dis_f alitmc jscb">
 					<text>2天前浏览</text>
-					<label>报名中</label>
+					<label class="green" v-if="item.state == 1">报名中</label>
+					<label v-if="item.state == 0">已成行</label>
 				</view>
 			</view>
 		</view>
@@ -20,11 +21,17 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3]
+				list:[
+					{title:'【亭可马里季】斯里兰卡纯玩9天',state:0},
+					{title:'献出心脏吧！！！',state:1},
+					{title:'芜湖大司马',state:1},
+				]
 			}
 		},
 		methods: {
-
+			toDetail(){
+				this.$jump('/pages/index/Details/Details')
+			}
 		}
 	}
 </script>
@@ -79,6 +86,7 @@
 	
 		}
 		.dc_span{
+			width: 450rpx;
 			margin-top: 50rpx;
 			text{
 				font-size: 24rpx;
@@ -96,5 +104,8 @@
 			}
 		}
 	
+	}
+	.green{
+		background: #49CAA4 !important;
 	}
 </style>

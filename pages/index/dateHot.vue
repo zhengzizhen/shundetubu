@@ -6,18 +6,15 @@
 		</view>
 		<view class="dt_text">
 			<view class="dt_bor">
-				<p>1天</p>
-				<p>2~3天</p>
-				<p>3~4天</p>
-				<p>5天+</p>
+				<p @click='checktabs(index)' :class="item.state?'green':''" v-for="(item,index) in labellist" :key="index">{{item.label}}</p>
 			</view>
 			<view class="dis_f dt_col">
 				<view class="dt_im dis_f" v-for="(item,index) in list" :key="index">
-					<image src="../../static/index/组 12@2x(1).jpg" mode=""></image>
+					<image src="@/static/image/index/banners.jpg" mode=""></image>
 					<view class="dis_f dt_kk">
 						<text class="one">亭可马里季-斯里兰卡纯玩9天</text>
 						<text class="two">领队：卢本伟</text>
-						<text class="three"><label class="ls">周六丨报名中</label>
+						<text class="three"><text class="ls">周六丨报名中</text>
 						<text>03月28日丨8天</text>
 						</text>
 					</view>
@@ -41,8 +38,22 @@
 					selected: []
 				},
 				show: true,
-				list:[1,2,3]
+				list:[1,2,3],
+				lists:['1天','2~3天','3~4天','5天+'],
+				labellist:[]
 			}
+		},
+		onLoad() {
+			this.lists.forEach((item,index)=>{
+				let tabs = {}
+				tabs.label = item
+				this.labellist.push(tabs)
+			})
+			
+			this.labellist.forEach((item,index)=>{
+				item.state = false
+			})
+			this.labellist[0].state = true
 		},
 		onReady() {
 			this.$nextTick(() => {
@@ -62,6 +73,13 @@
 			},
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
+			},
+			checktabs(index){
+				this.labellist.forEach((item,index)=>{
+					item.state = false
+				})
+				this.labellist[index].state = true
+				this.$forceUpdate()
 			}
 		}
 	}
@@ -88,10 +106,15 @@
 		color: #666666;
 		font-size: 24rpx;
 	}
+	.green{
+		color: white;
+		background-color: #49CAA4;
+		border: 1px solid #49CAA4;
+	}
 }
 .dt_im{
 	margin-top: 50rpx;
-	background: url('../../static/index/bgxlx.png') no-repeat 580rpx 40rpx;
+	background: url('../../static/index/bgxlx.png') no-repeat 600rpx 40rpx;
 	background-size: 12%;
 	image{
 		width: 180rpx;
@@ -116,6 +139,7 @@
 			margin-top: 30rpx;
 			.ls{
 				color: white;
+				margin-left: 0 !important;
 				width: 180rpx;
 				height: 36rpx;
 				background: #F2AD5A;

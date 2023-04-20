@@ -61,7 +61,7 @@
             "path" : "pages/index/domestic",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "国内精选",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
@@ -714,6 +714,123 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "购买商品",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/menu/comments",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发表评论",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/menu/activity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动评价",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/inchecken",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "签到",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/rebook",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "改签/退款",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Hotorder/Hotorder",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动订单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Hotorder/Hotknow",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动须知",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Hotorder/Hotout",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "退出活动",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Hotorder/Hotreplace",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动替员操作",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Hotorder/Hotreissue",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "改签",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Hotorder/contact",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "紧急联系人",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Hotorder/Hottowhere",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动须知",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/guide/userguide",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "领队人信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/retail/restore",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分销说明",
                 "enablePullDownRefresh": false
             }
             

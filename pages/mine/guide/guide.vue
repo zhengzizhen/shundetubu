@@ -2,7 +2,7 @@
 	<view class="se_body">
 		<view class="minebanner pd30">
 			<view class="dis_f mine">
-				<image src="@/static/trends/user.png" mode=""></image>
+				<image @click="toUser" src="@/static/trends/user.png" mode=""></image>
 				<view class="sp dis_f">
 					<view>
 						<p>一个阳光明媚的人</p>
@@ -26,9 +26,15 @@
 					<image src="@/static/image/mine/qb.jpg" mode=""></image>
 					<text>我的钱包</text>
 				</view>
+				
 				<view class="menu dis_f flex_c alitmc" @click="toWipeout()">
 					<image src="@/static/image/mine/mn.jpg" mode=""></image>
 					<text>报销管理</text>
+				</view>
+				
+				<view class="menu dis_f flex_c alitmc" @click="toconcat()">
+					<image src="@/static/image/mine/qiandao.png" mode=""></image>
+					<text>签到管理</text>
 				</view>
 			</view>
 		</view>
@@ -111,8 +117,8 @@
 
 			<!-- 带队相册 -->
 			<view class="pd30 album dis_f" v-show="list[2].state">
-				<view class="pddb" v-for="(v,index) in lists" :key="index">
-					<image :class="'c'+((index%16)+1)" :src="v" mode="" @click="$Resize(v)">
+				<view :class="'c'+((index%16)+1)" class="pddb" v-for="(v,index) in lists" :key="index">
+					<image  :src="v" mode="" @click="$Resize(v)">
 					</image>
 				</view>
 			</view>
@@ -230,6 +236,12 @@
 			},
 			toWipeout(){
 				this.$jump('./Wipeout')
+			},
+			toconcat(){
+				this.$jump('../inchecken')
+			},
+			toUser(){
+				this.$jump('./userguide')
 			}
 		}
 	}
@@ -506,16 +518,28 @@
 
 	.c1 {
 		margin: 10rpx 0;
-		width: 420rpx;
-		height: 420rpx;
+		width: 450rpx;
+		height: 450rpx;
+		image{
+			width: 450rpx;
+			height: 450rpx;
+		}
 	}
-
 	.c2 {
 		margin: 10rpx 0;
 		width: 210rpx;
-		height: 420rpx;
+		height: 450rpx;
+		overflow: hidden;
+		position: relative;
+		overflow: hidden;
+		border-radius: 20rpx;
+		image{
+			 position: absolute;
+			 top: 50%;
+			 left: 50%;
+			 transform: translate(-50%, -50%);
+		}
 	}
-
 	.c3,
 	.c4,
 	.c5,
@@ -525,20 +549,37 @@
 		margin: 10rpx 0;
 		width: 210rpx;
 		height: 210rpx;
+		image{
+			width: 210rpx;
+			height: 210rpx;
+		}
 	}
-
 	.c9 {
 		margin: 10rpx 0;
 		width: 210rpx;
-		height: 420rpx;
+		height: 450rpx;
+		overflow: hidden;
+		position: relative;
+		overflow: hidden;
+		border-radius: 20rpx;
+		image{
+			 position: absolute;
+			 top: 50%;
+			 left: 50%;
+			 transform: translate(-50%, -50%);
+		}
 	}
-
+	
 	.c10 {
 		margin: 10rpx 0;
-		width: 420rpx;
-		height: 420rpx;
+		width: 450rpx;
+		height: 450rpx;
+		image{
+			width: 450rpx;
+			height: 450rpx;
+		}
 	}
-
+	
 	.c11,
 	.c12,
 	.c13,
@@ -548,6 +589,10 @@
 		margin: 10rpx 0;
 		width: 210rpx;
 		height: 210rpx;
+		image{
+			width: 210rpx;
+			height: 210rpx;
+		}
 	}
 	
 	.cont {

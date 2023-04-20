@@ -51,7 +51,7 @@
 					</view>
 					<view class="ms_user dis_f">
 						<view>
-							<image src="../../static/mine/组 37.png" mode=""></image>
+							<image src="@/static/trends/user.png" mode=""></image>
 							<p>李菲</p>
 						</view>
 						<view class="io">

@@ -17,7 +17,11 @@
             "delay" : 0
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "Camera" : {},
+            "Payment" : {},
+            "VideoPlayer" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -41,7 +45,9 @@
                 ]
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* SDK配置 */
             "sdkConfigs" : {
                 "maps" : {
@@ -49,7 +55,9 @@
                         "APIKey_ios" : "",
                         "APIKey_android" : ""
                     }
-                }
+                },
+                "ad" : {},
+                "payment" : {}
             }
         }
     },

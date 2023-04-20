@@ -21,7 +21,7 @@
 				</view>
 			</view>
 			<view class="bottom dis_f">
-				<p v-show="!Sub">改签</p>
+				<p v-show="!Sub" @click='toHotreissue'>改签</p>
 				<p v-show="Sub">支付</p>
 			</view>
 		</view>
@@ -56,6 +56,9 @@
 					this.list = this.listpls
 					this.Sub  = false
 				}
+			},
+			toHotreissue(){
+				this.$jump('/pages/mine/Hotorder/Hotreissue')
 			}
 		}
 	}

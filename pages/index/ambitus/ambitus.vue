@@ -20,7 +20,7 @@
 			<!-- //小图 -->
 			<view class="">
 				<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
-					<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+					<image src="@/static/index/zheng.jpg" mode=""></image>
 					<view class="dc_god">
 						<p>【亭可马里季】斯里兰卡纯玩9天</p>
 						<view class="dc_latt dis_f">
@@ -183,10 +183,10 @@
 						this.$jump('./speed?title=','params','非周末')
 						break;
 					case '美食路线':
-						this.$jump('./speed?title=','params','高铁出行')
+						this.$jump('./speed?title=','params','美食路线')
 						break;
 					case '登山路线':
-						this.$jump('./speed?title=','params','非周末')
+						this.$jump('./speed?title=','params','登山路线')
 						break;
 					case '香港专区':
 						this.$jump('./HongKong')

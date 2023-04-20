@@ -1,20 +1,46 @@
 <template>
 	<view class="body">
-		<view class="grade posir">
+		<!-- 等级2 -->
+		<view class="grade posir" v-if="lv == 1">
 			<image class="banner" src="@/static/image/mine/lv1.jpg" mode=""></image>
+			<view class="position posia dis_f bor2">
+				<view class="left">
+					<image src="@/static/image/trends/qq.jpg" mode=""></image>
+					<p style="color: #13903C;">850</p>
+				</view>
+				<view class="right">
+					<p style="color: #13903C;">好奇宝宝</p>
+					<view class="">
+						<view class="dis_f my_jd">
+							<view class="my_line">
+								<view class="dis_f my_txt">
+									<p class="lefts" style="color: #13903C;">下一等级 : 初出毛驴</p>
+									<p class="rights" style="color: #13903C;">1000</p>
+								</view>
+								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#C4FFDB' inactiveColor = '#139F37'></u-line-progress>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<p class="posiss" style="color: #13903C;">2018年6月加入</p>
+		</view>
+		
+		<!-- 等级1 -->
+		<view class="grade posir" v-if="lv == 2">
+			<image class="banner" src="@/static/image/mine/lv2.jpg" mode=""></image>
 			<view class="position posia dis_f">
 				<view class="left">
 					<image src="@/static/image/trends/qq.jpg" mode=""></image>
 					<p>850</p>
 				</view>
-
 				<view class="right">
 					<p>初出茅驴</p>
 					<view class="">
 						<view class="dis_f my_jd">
 							<view class="my_line">
 								<view class="dis_f my_txt">
-									<p class="lefts">当前等级 : 好宝宝</p>
+									<p class="lefts">下一等级 : 探路先锋</p>
 									<p class="rights">1000</p>
 								</view>
 								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#D8F6FF' inactiveColor = '#397F95'></u-line-progress>
@@ -24,6 +50,85 @@
 				</view>
 			</view>
 			<p class="posiss">2018年6月加入</p>
+		</view>
+		
+		
+		<!-- 等级3 -->
+		<view class="grade posir" v-if="lv == 3">
+			<image class="banner" src="@/static/image/mine/lv3.jpg" mode=""></image>
+			<view class="position posia dis_f bor3">
+				<view class="left">
+					<image src="@/static/image/trends/qq.jpg" mode=""></image>
+					<p style="color: #AF7A19;">850</p>
+				</view>
+				<view class="right">
+					<p style="color: #AF7A19;">探路先锋</p>
+					<view class="">
+						<view class="dis_f my_jd">
+							<view class="my_line">
+								<view class="dis_f my_txt">
+									<p class="lefts" style="color: #AF7A19;">下一等级 : 冒险达人</p>
+									<p class="rights" style="color: #AF7A19;">1000</p>
+								</view>
+								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#FEF0B7' inactiveColor = '#AF7A19'></u-line-progress>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<p class="posiss" style="color: #AF7A19;">2018年6月加入</p>
+		</view>
+		
+		<!-- 等级4 -->
+		<view class="grade posir" v-if="lv == 4">
+			<image class="banner" src="@/static/image/mine/lv4.jpg" mode=""></image>
+			<view class="position posia dis_f bor4">
+				<view class="left">
+					<image src="@/static/image/trends/qq.jpg" mode=""></image>
+					<p style="color: #C7337D;">850</p>
+				</view>
+				<view class="right">
+					<p style="color: #C7337D;">冒险达人</p>
+					<view class="">
+						<view class="dis_f my_jd">
+							<view class="my_line">
+								<view class="dis_f my_txt">
+									<p class="lefts" style="color: #C7337D;">下一等级 : 环旅玩家</p>
+									<p class="rights" style="color: #C7337D;">1000</p>
+								</view>
+								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#FFD0EC' inactiveColor = '#C7337D'></u-line-progress>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<p class="posiss" style="color: #C7337D;">2018年6月加入</p>
+		</view>
+		
+		<!-- 等级4 -->
+		<view class="grade posir" v-if="lv == 5">
+			<image class="banner" src="@/static/image/mine/lv5.jpg" mode=""></image>
+			<view class="position posia dis_f bor5">
+				<view class="left">
+					<image src="@/static/image/trends/qq.jpg" mode=""></image>
+					<p style="color: #4D3ED2;">850</p>
+				</view>
+				<view class="right">
+					<p style="color: #4D3ED2;">环旅玩家</p>
+					<view class="">
+						<view class="dis_f my_jd">
+							<view class="my_line">
+								<view class="dis_f my_txt">
+									<p class="lefts" style="color: #4D3ED2;">下一等级 : 环旅玩家</p>
+									<p class="rights" style="color: #4D3ED2;">1000</p>
+								</view>
+								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#D2C2FF' inactiveColor = '#4D3ED2'></u-line-progress>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<p class="posiss" style="color: #4D3ED2;">2018年6月加入</p>
 		</view>
 		
 		<p class="ge_tit pd30">等级权益</p>
@@ -42,8 +147,12 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3,4,5,6]
+				list:[1,2,3,4,5,6],
+				lv:1,
 			}
+		},
+		onLoad(option) {
+			this.lv = option.lv
 		},
 		methods: {
 
@@ -94,6 +203,7 @@
 	}
 	.right{
 		margin-left: 40rpx;
+		color: #3A8096;
 	}
 	.posiss{
 		position: absolute;
@@ -127,10 +237,12 @@
 
 			.lefts {
 				text-align: left;
+				color: #3A8096;
 			}
 
 			.rights {
 				text-align: right;
+				color: #3A8096;
 			}
 		}
 
@@ -164,5 +276,17 @@
 			font-weight: 500;
 			color: #FFFFFF;
 		}
+	}
+	.bor2{
+		border-bottom: 1px solid #49DB77 !important;
+	}
+	.bor3{
+		border-bottom: 1px solid #DAA443 !important;
+	}
+	.bor4{
+		border-bottom: 1px solid #FC7FBF !important;
+	}
+	.bor5{
+		border-bottom: 1px solid #8173FF !important;
 	}
 </style>

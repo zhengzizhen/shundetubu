@@ -7,7 +7,9 @@
 			<p class="head">原创设计野餐垫</p>
 			<label>斯里兰卡原装进口，世界上最干净的茶op等级锡兰红茶，唐红透 亮...</label>
 			<p class="bottom dis_f jscb alitmc">
-				<text class="red dis_f"><label>￥</label>88</text>
+				<view class="ius">
+					<p class="red"><text>￥</text>88</p>
+				</view>
 				<text class="num">已售： 92</text>
 			</p>
 		</view>
@@ -51,7 +53,7 @@
 				</view>
 			</view>
 			
-			<view class="ix_block index_pad pd30" v-show="this.CheckTablist[2].state">
+			<view @click="toshop" class="ix_block index_pad pd30" v-show="this.CheckTablist[2].state">
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
 						<image :src="item.image"></image>
@@ -143,6 +145,9 @@
 			},
 			toCar(){
 				this.$jump('./MyCart')
+			},
+			toshop(){
+				this.$jump('./shopDetail')
 			}
 		}
 	}
@@ -182,15 +187,18 @@
 		}
 
 		.bottom {
-			.red {
-				color: #FF4040;
-				font-size: 40rpx;
-
-				label {
+			.ius{
+				display: flex;
+				width: 200rpx;
+				text{
 					color: #FF4040;
 					display: inline-block;
 					font-size: 26rpx;
 				}
+			}
+			.red {
+				color: #FF4040;
+				font-size: 40rpx;
 			}
 
 			.num {

@@ -19,7 +19,7 @@
 	
 	@font-face {
 		font-family: "PF";
-		src: url(./static/css/PingFangMedium.ttf);
+		src: url(@/static/css/PingFangMedium.ttf);
 	}
 	
 	p,text,label,input{

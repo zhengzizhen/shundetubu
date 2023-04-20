@@ -23,7 +23,7 @@
 			</view>
 			<view class="dis_f jscb noborder">
 				<p class="cblist">代金券</p>
-				<p class="red dis_f">
+				<p class="red dis_f" @click= 'toCard'>
 					<text>你有0张可用</text>
 					<u-icon name="arrow-right" color='#FF4040' size='10'></u-icon>
 				</p>
@@ -90,6 +90,9 @@
 			},
 			toAdduser() {
 				this.$jump('./Adduser')
+			},
+			toCard(){
+				this.$jump('/pages/mine/Card')
 			}
 		}
 	}

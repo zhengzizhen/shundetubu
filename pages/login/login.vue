@@ -1,7 +1,7 @@
 <template>
 	<view class="ln_body">
 		<view class="ln_header dis_f">
-			<image src="@/static/mine/组 37.png" mode=""></image>
+			<image src="@/static/trends/user.png" mode=""></image>
 			<view class="ln_title dis_f">
 				<p>徒步圈&两只脚户外旅行</p>
 				<label for="">继续对世界好奇</label>

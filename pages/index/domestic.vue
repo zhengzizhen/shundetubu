@@ -14,7 +14,7 @@
 			<!-- 大图 -->
 			<view class="dc_banner">
 				<p class="dc_posi">3天</p>
-				<image src="../../static/image/retail/banner.jpg" mode=""></image>
+				<image class="bor_r" src="@/static/image/retail/banner.jpg" mode=""></image>
 				<view class="dc_text dis_f">
 					<p>亭可马里季斯里兰卡纯玩9天</p>
 					<view class="dc_span dis_f">
@@ -46,7 +46,7 @@
 			<!-- //小图 -->
 			<view class="dc_mod dis_f">
 				<text class="posw">3天</text>
-				<image src="../../static/index/组 12@2x(1).jpg" mode=""></image>
+				<image src="@/static/image/index/banners.jpg" mode=""></image>
 				<view class="dc_god">
 					<p>【亭可马里季】斯里兰卡纯玩 9天</p>
 					<view class="dc_latt dis_f">
@@ -68,7 +68,7 @@
 			<!-- //小图 -->
 			<view class="dc_mod dis_f">
 				<text class="posw">3天</text>
-				<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+				<image src="@/static/image/index/banners.jpg" mode=""></image>
 				<view class="dc_god">
 					<p>【亭可马里季】斯里兰卡纯玩 9天</p>
 					<view class="dc_latt dis_f">
@@ -189,6 +189,11 @@
 		created() {
 			
 		},
+		onLoad(option) {
+			uni.setNavigationBarTitle({
+				title: option.tit
+			});
+		},
 		methods:{
 			open() {
 				
@@ -294,7 +299,7 @@
 				}
 
 				.dc_ms {
-					// margin-top: 20rpx;
+					margin-top: 20rpx;
 					position: relative;
 
 					p {
@@ -313,7 +318,7 @@
 					}
 
 					.dc_go {
-						padding: 20rpx;
+						padding: 10rpx 20rpx;
 						flex-direction: column;
 						text-align: center;
 						border-right: 1px solid #ccc;
@@ -324,10 +329,11 @@
 
 						.pink {
 							margin-top: 20rpx;
-							padding: 0rpx 5rpx;
+							padding: 5rpx 5rpx;
 							background-color: #FFA1AD;
 							border-radius: 50rpx;
 							color: white;
+							font-size: 24rpx;
 						}
 					}
 				}

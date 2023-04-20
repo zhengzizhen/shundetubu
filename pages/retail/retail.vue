@@ -4,7 +4,7 @@
 			<image src="../../static/image/retail/banner.jpg" mode=""></image>
 		</view>
 		
-		<view class="rl_menu  dis_f" v-for="(item,index) in menulist" :key="index" @click="jump(item.name)">
+		<view class="rl_menu  dis_f" v-for="(item,index) in menulist" :key="index" @click="jump(index)">
 			<view class="rl_p dis_f" >
 				<image :src="item.img" mode=""></image>
 				<p>{{item.name}}</p>
@@ -28,10 +28,13 @@
 		methods: {
 			jump(v){
 				switch(v){
-					case '分销订单':
+					case 0:
+						this.$jump('./restore')
+						break
+					case 1:
 						this.$jump('./retailorder')
 						break
-					case '分销收入':
+					case 2:
 						this.$jump('./income')
 						break
 				}

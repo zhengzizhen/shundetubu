@@ -226,14 +226,14 @@
 		}
 
 		.title {
-			margin: 10rpx 0 20rpx;
-			font-size: 24rpx;
-			font-weight: 500;
-			color: #999999;
+			margin: 10rpx 0 30rpx;
+			
 			align-items: center;
-
 			label {
 				display: block;
+				font-size: 24rpx;
+				font-weight: 500;
+				color: #999999;
 				margin-right: 10rpx;
 			}
 		}
@@ -242,7 +242,6 @@
 	.dc_span {
 		justify-content: space-between;
 		align-items: center;
-
 		label {
 			color: #999999;
 			font-size: 24rpx;

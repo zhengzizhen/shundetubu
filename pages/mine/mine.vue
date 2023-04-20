@@ -6,7 +6,7 @@
 			<!-- 顶部按钮 -->
 			<view class="position pd30">
 				<view class="my_seting dis_f">
-					<image @click="toSignin()" src="../../static/mine/date.png" mode=""></image>
+					<image @click="toSignin()" src="@/static/mine/date.png" mode=""></image>
 					<view class="dis_f my_set">
 						<image src="@/static/mine/msg.png" @click="toMessage()" mode=""></image>
 						<image src="@/static/mine/seting.png" @click="toSetting()" mode=""></image>
@@ -15,11 +15,15 @@
 
 				<!-- 头像信息 -->
 				<view class="my_user dis_f">
-					<image class="img" src="@/static/mine/组 37.png" mode=""></image>
+					<image class="img" src="@/static/trends/user.png" mode=""></image>
 					<view class="my_username dis_f">
-						<p>一个阳光明媚的人</p>
+						<p>{{name}}</p>
 						<view class="dis_f my_rywj">
-							<image src="@/static/mine/wanjia.png" mode=""></image>
+							<image v-if="lv==1" src="@/static/image/mine/l1.png" mode=""></image>
+							<image v-if="lv==2" src="@/static/image/mine/l2.png" mode=""></image>
+							<image v-if="lv==3" src="@/static/image/mine/l3.png" mode=""></image>
+							<image v-if="lv==4" src="@/static/image/mine/l4.png" mode=""></image>
+							<image v-if="lv==5" src="@/static/image/mine/l5.png" mode=""></image>
 							<view class="my_jin" @click="toguide()">
 								<p>进入领队板块</p>
 							</view>
@@ -116,9 +120,17 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex';
+	import store from '@/store/index.js';
 	export default {
+		computed: {
+			...mapState(['name']),
+		},
 		data() {
 			return {
+				lv: 3,
 				menulist: [{
 						name: '相册',
 						image: '../../static/mine/xc.png'
@@ -192,6 +204,9 @@
 				],
 			};
 		},
+		onLoad() {
+
+		},
 		methods: {
 			gotmenu(index) {
 				switch (index) {
@@ -199,7 +214,7 @@
 						this.$jump('./album')
 						break;
 					case 1:
-						this.$jump('./Grade')
+						this.$jump('./Grade?lv=', 'params', 3)
 						break;
 					case 2:
 						this.$jump('./badge')
@@ -273,8 +288,6 @@
 		box-sizing: border-box;
 		height: 442rpx;
 		width: 100%;
-
-		// background: linear-gradient(32deg, #49CAA4 50%, #49CA7A 100%);
 		.banners {
 			width: 100%;
 			height: 442rpx;
@@ -556,13 +569,14 @@
 				left: 0;
 				width: 125rpx;
 				height: 42rpx;
+				line-height: 42rpx;
 				background: #000000;
 				border-radius: 20rpx 0rpx 20rpx 0rpx;
 				padding: 5rpx 20rpx;
 				color: white;
 				text-align: center;
 				opacity: 0.5;
-				font-size: 28rpx;
+				font-size: 22rpx;
 			}
 
 			.ix_title {

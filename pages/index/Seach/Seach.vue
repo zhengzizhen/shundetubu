@@ -33,7 +33,7 @@
 								<label>1366</label>
 							</view>
 						</view>
-						<text class="red"><label>￥</label>40</text>
+						<label class="reds">￥</label><text class="red">40</text>
 						<view>
 						</view>
 					</view>
@@ -60,7 +60,7 @@
 				</view>
 				<view class="ms_user dis_f">
 					<view style="text-align: center;">
-						<image src="@/static/mine/组 37.png" mode=""></image>
+						<image src="@/static/trends/user.png" mode=""></image>
 						<p style="font-size: 24rpx;">李菲</p>
 					</view>
 					<view class="io">
@@ -186,12 +186,14 @@
 	}
 	.red{
 		color:#FF4040 ;
-		margin-left: 20rpx;
 		font-size: 36rpx;
 		font-weight: bold;
-		label{
+	}
+	.reds{
+			margin-left: 20rpx;
 			font-size: 28rpx;
-		}
+			color:#FF4040 ;
+			font-weight: bold;
 	}
 	.hots{
 		margin-left: 160rpx;

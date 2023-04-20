@@ -2,7 +2,7 @@
 	<view class="pd30">
 		<u-subsection @change="sectionChange" :list="list" :current="current" activeColor='#49CAA4'></u-subsection>
 		<view class="dc_mod dis_f" v-for=" (item,index) in list1" :key="index">
-			<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+			<image src="@/static/image/index/banners.jpg" mode=""></image>
 			<view class="dc_god">
 				<p>【亭可马里季】斯里兰卡纯玩9天</p>
 				<view class="dc_latt dis_f">
@@ -32,7 +32,7 @@
 		
 		<view class="">
 			<view class="dc_mod dis_f" v-for=" (item,index) in list1" :key="index">
-				<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+				<image src="@/static/image/index/banners.jpg" mode=""></image>
 				<view class="dc_god">
 					<p>【亭可马里季】斯里兰卡纯玩9天</p>
 					<view class="dc_latt dis_f">

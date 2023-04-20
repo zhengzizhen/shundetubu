@@ -2,9 +2,9 @@
 	<view>
 		<view class="pd30">
 			<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
-				<image src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+				<image src="@/static/image/index/banners.jpg" mode=""></image>
 				<view class="dc_god">
-					<p>【亭可马里季】斯里兰卡纯玩9天</p>
+					<p>{{item.title}}</p>
 					<view class="dc_latt dis_f">
 						<label>04.02丨剩3名额</label>
 						<text>03.18丨已满员</text>
@@ -17,7 +17,10 @@
 					<view class="rd_content dis_f jscb alitmc">
 						<text>6小时前种草</text>
 						<p class="dis_f alitmc">
-							<image src="@/static/image/mine/active.jpg" mode=""></image>
+							<image v-show="!item.state" @click="item.state= !item.state"
+								src="@/static/trends/ax.png" mode=""></image>
+							<image v-show="item.state" @click="item.state = !item.state"
+								src="@/static/image/trends/zan.png" mode=""></image>
 							<text>1212</text>
 						</p>
 					</view>
@@ -33,7 +36,20 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3]
+				list:[
+					{title:'亭可马里季 四立卡春晚九天',state:false},
+					{title:'亭可马里季 四立卡春晚1天',state:false},
+					{title:'亭可马里季 四立卡春晚2天',state:false},
+					{title:'亭可马里季 四立卡春晚九天',state:false},
+					{title:'亭可马里季 四立卡春晚1天',state:false},
+					{title:'亭可马里季 四立卡春晚2天',state:false},
+					{title:'亭可马里季 四立卡春晚九天',state:false},
+					{title:'亭可马里季 四立卡春晚1天',state:false},
+					{title:'亭可马里季 四立卡春晚2天',state:false},
+					{title:'亭可马里季 四立卡春晚九天',state:false},
+					{title:'亭可马里季 四立卡春晚1天',state:false},
+					{title:'亭可马里季 四立卡春晚2天',state:false},
+				],
 			}
 		},
 		methods: {
@@ -133,7 +149,7 @@
 			image{
 				margin-right: 10rpx;
 				width: 34rpx;
-				height: 28rpx;
+				height: 34rpx;
 			}
 		}
 	}

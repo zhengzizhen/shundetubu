@@ -2,7 +2,7 @@
 	<view>
 		<view class="minebanner pd30">
 			<view class="dis_f mine">
-				<image src="../../static/mine/组 37.png" mode=""></image>
+				<image src="@/static/trends/user.png" mode=""></image>
 				<view class="sp dis_f">
 					<view>
 						<p>一个阳光明媚的人</p>
@@ -46,10 +46,11 @@
 					<p>{{item.cont}}</p>
 				</view>
 				<view class="dis_f plq">
-					<image class="sn" src="@/static/trends/pl.png" mode=""></image>
+					<image class="sn" src="@/static/trends/pl.png"></image>
 					<view class="dis_f ssss">
-						<image src="@/static/trends/ax.png" mode=""></image>
-						<span style="margin-left: 10rpx;color:#666">99</span>
+						<image v-show="!item.show" @click="love(item)" src="@/static/trends/ax.png"></image>
+						<image v-show="item.show" @click="love(item)" src="@/static/image/trends/zan.png" mode=""></image>
+						<span style="margin-left: 10rpx;color:#666">{{item.lovenum}}</span>
 					</view>
 				</view>
 			</view>
@@ -69,7 +70,9 @@
 							'../../static/index/zheng.jpg',
 							'../../static/index/zheng.jpg',
 						],
-						cont: "分币不掏就是转，主打的就是一个陪伴。"
+						cont: "分币不掏就是转，主打的就是一个陪伴。",
+						show:false,
+						lovenum:56
 					},
 					{
 						mone: '9',
@@ -80,7 +83,9 @@
 							'../../static/index/zheng.jpg',
 							'../../static/index/zheng.jpg',
 						],
-						cont: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
+						cont: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈",
+						show:false,
+						lovenum:99
 					},
 				]
 			}
@@ -95,6 +100,15 @@
 					complete: function(res) {},
 				})
 			},
+			love(item){
+				item.show = !item.show
+				if(item.show == false){
+					item.lovenum--
+				}else{
+					item.lovenum++
+				}
+				
+			}
 		}
 	}
 </script>

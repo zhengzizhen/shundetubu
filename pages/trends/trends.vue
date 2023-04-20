@@ -3,10 +3,10 @@
 		<view class="ts_header dis_f">
 			<u-search class="input" placeholder="请搜索目的地" v-model="seachValue" clearable :showAction='false'
 				:height='28'></u-search>
-				<view class="headerimg">
-					<image @click="gomsg()" src="@/static/image/trends/msg.jpg" mode=""></image>
-					<image class="bor_y" @click="goSpace()" src="@/static/image/trends/wxx.jpg" mode=""></image>
-				</view>
+			<view class="headerimg">
+				<image @click="gomsg()" src="@/static/image/trends/msg.jpg" mode=""></image>
+				<image class="bor_y" @click="goSpace()" src="@/static/image/trends/wxx.jpg" mode=""></image>
+			</view>
 		</view>
 		<view class="pd30">
 			<view class="ts_tbs dis_f">
@@ -51,20 +51,24 @@
 						<u--input placeholder="喜欢就评论吧" border="surround" fontSize='12' :customStyle='obj' shape='circle'
 							v-model="plvalue" @change="e=>change(e)"></u--input>
 						<view class="dis_f">
-							<image src="../../static/trends/pl.png" mode=""></image>
-							<view class="dis_f ix_span">
-								<image src="../../static/trends/ax.png" mode=""></image>
-								<span>99+</span>
+							<image src="@/static/trends/pl.png" mode=""></image>
+							<view class="dis_f ix_span alitmc">
+								<image v-show="item.isimage" @click="addlove(item.isimage,index)"
+									src="@/static/trends/ax.png" mode=""></image>
+								<image v-show="!item.isimage" @click="relove(item.isimage,index)"
+									src="@/static/image/trends/zan.png" mode=""></image>
+								<p>{{item.num}}</p>
 							</view>
 						</view>
 					</view>
 					<!-- 已有得评论 -->
-					<view class="dis_f ts_plq"  @click='isShow = true'>
+					<view class="dis_f ts_plq" @click='isShow = true'>
 						<view class="dis_f">
 							<p>卢本伟 :</p><label>牛逼!</label>
 						</view>
 						<u-icon name="arrow-right" size='14'></u-icon>
 					</view>
+
 					<view class="dis_xhx">
 						<u-line color='#E6E6E6'></u-line>
 					</view>
@@ -79,10 +83,10 @@
 		<u-popup :show="isShow" @close="close" @open="open">
 			<view class="pop">
 				<label>评论</label>
-				<view class="ts_text dis_f">
+				<view class="ts_text dis_f" v-for="(v,index) in tablist" :key="index">
 					<view class="ts_user dis_f">
 						<view class="ts_img dis_f">
-							<image src="../../static/trends/user.png" mode=""></image>
+							<image src="@/static/trends/user.png" mode=""></image>
 							<view class="ts_tes dis_f">
 								<p>李菲</p>
 								<span>2023-02-12</span>
@@ -112,7 +116,7 @@
 						state: false
 					}
 				],
-				userlist:[],
+				userlist: [],
 				userlist1: [{
 					name: '一个阳光明媚的人',
 					huodong: '5篇活动动态',
@@ -121,14 +125,16 @@
 					img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg",
 						"../../static/index/zheng.jpg"
 					],
-
+					isimage: false,
+					num: 66
 				}, {
 					name: '卢本伟',
 					huodong: '5篇活动动态',
 					text: '下山的路太吵了，跟上山时一样。',
 					isshow: true,
 					img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg"],
-
+					isimage: true,
+					num: 66
 				}],
 				userlist2: [{
 					name: '世界上最爱我的人',
@@ -138,14 +144,16 @@
 					img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg",
 						"../../static/index/zheng.jpg"
 					],
-				
+					isimage: true,
+					num: 66
 				}, {
 					name: '小李白',
 					huodong: '5篇活动动态',
 					text: '谁有不平事!',
 					isshow: true,
 					img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg"],
-				
+					isimage: true,
+					num: 68
 				}],
 				obj: {
 					height: '28rpx',
@@ -155,7 +163,7 @@
 			}
 		},
 		onLoad() {
-			this.userlist =this.userlist1
+			this.userlist = this.userlist1
 		},
 		methods: {
 			open() {
@@ -169,9 +177,9 @@
 					item.state = false
 				})
 				e.state = true
-				if(e.name == '推荐'){
+				if (e.name == '推荐') {
 					this.userlist = this.userlist2
-				}else if(e.name == '关注'){
+				} else if (e.name == '关注') {
 					this.userlist = this.userlist1
 				}
 			},
@@ -190,16 +198,23 @@
 					complete: function(res) {},
 				})
 			},
-			goSpace(){
+			goSpace() {
 				this.$jump('./Space')
 			},
-			gomsg(){
+			gomsg() {
 				this.$jump('./message')
 			},
-			toNews(){
+			toNews() {
 				this.$jump('./News/News')
+			},
+			addlove(e, index) {
+				this.userlist[index].isimage = false
+				this.userlist[index].num++
+			},
+			relove(e, index) {
+				this.userlist[index].isimage = true
+				this.userlist[index].num--
 			}
-
 		}
 	}
 </script>
@@ -208,14 +223,17 @@
 	.trends {
 		width: 100%;
 	}
-.headerimg{
-	margin-left: 40rpx;
-	image{
-		width: 63rpx;
-		height: 63rpx;
-		margin-right: 10rpx;
+
+	.headerimg {
+		margin-left: 40rpx;
+
+		image {
+			width: 63rpx;
+			height: 63rpx;
+			margin-right: 10rpx;
+		}
 	}
-}
+
 	.ts_header {
 		margin-top: 100rpx;
 		padding: 0rpx 30rpx;
@@ -344,6 +362,7 @@
 		bottom: 140rpx;
 		right: 50rpx;
 		z-index: 99;
+
 		image {
 			width: 114rpx;
 			height: 114rpx;
@@ -353,15 +372,24 @@
 	.pop {
 		height: 910rpx;
 		padding: 30rpx 20rpx;
-		label{
+
+		label {
 			text-align: center;
 			display: block;
 			margin-bottom: 20rpx;
 		}
-		.zlsplq{
+
+		.zlsplq {
 			margin: 20rpx 0;
 			width: 590rpx;
 		}
 	}
-	
+
+	.ix_span {
+		p {
+			display: inline-block;
+			margin-left: 10rpx;
+			font-size: 28rpx;
+		}
+	}
 </style>

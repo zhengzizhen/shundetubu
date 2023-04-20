@@ -95,7 +95,7 @@
 		background: #49CAA4;
 		color: white;
 		text-align: center;
-		margin-top: 756rpx;
+		margin-top: 746rpx;
 		border-radius: 44rpx;
 	}
 </style>

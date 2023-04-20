@@ -19,9 +19,8 @@
 				</view>
 			</view>
 			<view class="bottom dis_f">
-				<p>活动签到</p>
-				<p>改签订单</p>
-				<p>取消报名</p>
+				<p>删除订单</p>
+				<p  @click = 'toComments()'>去评价</p>
 			</view>
 		</view>
 		
@@ -60,6 +59,10 @@
 					this.isShow1 = false
 					this.isShow2 = true
 				}
+			},
+			toComments(){
+				this.$jump('./menu/comments')
+				return false
 			}
 		}
 	}

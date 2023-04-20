@@ -29,7 +29,7 @@
 
 		<view class="ix_block index_pad">
 			<view class="ix_img dis_f">
-				<view class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
+				<view @click="toDetail()" class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
 					<image :src="item.image"></image>
 					<p class="ix_title">{{item.text}}</p>
 					<p class="ix_yellow">￥{{item.money}}.00</p>
@@ -46,7 +46,7 @@
 				<p class="tit">全选</p>
 				<label>含运费</label>
 				<p class="tit">合计</p>
-				<text>￥0</text>
+				<text class="mondy">￥{{sum}}</text>
 				<p class="btn">结算</p>
 			</view>
 		</view>
@@ -62,14 +62,14 @@
 				list: [{
 						tit: '铝合金外锁登山杖，不走寻常路',
 						label: '绿色',
-						money: '88',
+						money: 88,
 						radio: false,
 						value: 0,
 					},
 					{
 						tit: '山外青山楼外楼，不走寻常路',
 						label: '绿色',
-						money: '100',
+						money: 100,
 						radio: false,
 						value: 0
 					},
@@ -97,6 +97,15 @@
 				],
 			}
 		},
+		computed:{
+			sum(){
+				let a = 0
+				this.list.forEach((item,index)=>{
+					a = a + item.money
+				})
+				return a
+			}
+		},
 		methods: {
 			valChange(e) {
 				console.log('当前值为: ' + e.value)
@@ -116,6 +125,9 @@
 						item.radio = false
 					})
 				}
+			},
+			toDetail(){
+				this.$jump('./shopDetail')
 			}
 		}
 	}
@@ -262,20 +274,22 @@
 			width: 40rpx;
 			height: 40rpx;
 		}
-
 		label {
 			display: block;
-			margin-left: 120rpx;
+			margin-left: 80rpx;
 			font-size: 22rpx;
+			width: 70rpx;
 			color: #999999;
 		}
 		.tit{
-			margin-left: 20rpx;
+			width: 80rpx;
+			margin-left: 10rpx;
 			font-size: 28rpx;
 		}
 		text{
 			font-size: 28rpx;
 			color: #FF4040;
+			width: 80rpx;
 		}
 		.btn{
 			margin-left: 20rpx;

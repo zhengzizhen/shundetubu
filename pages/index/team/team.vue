@@ -40,7 +40,7 @@
 				<view class="as_kb dis_f" v-for="(item,index) in list" :key="index">
 					<view class="as_posi">
 						<p>【樱花物语】听见心动的声音</p>
-						<image src="../../../static/index/组 12@2x.jpg" mode=""></image>
+						<image src="@/static/index/luowu.jpg" mode=""></image>
 					</view>
 					<view class="as_text dis_f">
 						<view class="dis_f jus">
@@ -72,11 +72,11 @@
 			
 			<p class="as_tit">口碑之选</p>
 			<view class="dis_f tm_img">
-				<image class="c" src="@/static/index/组 12@2x.jpg" mode=""></image>
-				<image class="z" src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+				<image class="c" src="@/static/index/luowu.jpg" mode=""></image>
+				<image class="z" src="@/static/image/index/banners.jpg" mode=""></image>
 			</view>
 			<view class="dis_f jscb ima" >
-				<image class="ima" v-for="(item,index) in list" :key="index" src="@/static/index/组 12@2x(1).jpg" mode=""></image>
+				<image class="ima" v-for="(item,index) in list" :key="index" src="@/static/image/index/banners.jpg" mode=""></image>
 			</view>
 		</view>
 		
@@ -226,10 +226,11 @@
 				this.$jump('./Wonderful')
 			},
 			clinto(index){
-				switch (index){
-					case 0:
-						this.$jump('./oneday')
-				}
+				this.$jump('./oneday')
+				// switch (index){
+				// 	case 0:
+				// 		this.$jump('./oneday')
+				// }
 			}
 		}
 	}
@@ -395,6 +396,7 @@
 			padding: 10rpx 30rpx;
 			color: white;
 			border-radius: 50rpx;
+			font-family: 'PF';
 		}
 	
 		.checks {
@@ -404,6 +406,7 @@
 			display: block;
 			padding: 10rpx 30rpx;
 			border-radius: 50rpx;
+			font-family: 'PF';
 		}
 	}
 	.as_kb{
@@ -532,4 +535,5 @@
 		background: #49CAA4;
 		border-radius: 39rpx 40rpx 40rpx 39rpx;
 	}
+	
 </style>

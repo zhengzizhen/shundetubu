@@ -5,18 +5,18 @@
 			<span>收货地址</span>
 		</view>
 
-		<view class="card dis_f flex_c pd30">
+		<view class="card dis_f flex_c pd30" v-for="(v,index) in list" :key="index">
 			<p class="header">
 				<label>默认</label>
-				<text>云溪</text>
-				<text>17633612154</text>
+				<text>{{v.name}}</text>
+				<text>{{v.phone}}</text>
 			</p>
-			<p class="center">河南省新乡市红旗区和平大道212号</p>
+			<p class="center">{{v.address}}</p>
 			<view class="bottom dis_f alitmc">
 				<p class="dis_f alitmc">
-					<image v-show="!isShow" @click="check" class="ius" src="@/static/image/mine/radio.png" mode="">
+					<image v-show="!v.state" @click="check(v.state,index)" class="ius" src="@/static/image/mine/radio.png" mode="">
 					</image>
-					<image v-show="isShow" @click="check" class="ius" src="@/static/image/mine/radio1.png" mode="">
+					<image v-show="v.state" @click="check(v.state,index)" class="ius" src="@/static/image/mine/radio1.png" mode="">
 					</image>
 					<label>设为默认</label>
 				</p>
@@ -42,15 +42,23 @@
 	export default {
 		data() {
 			return {
-				isShow: false
+				isShow: false,
+				list:[
+					{name:'神秘狗',phone:'17633612613',address:'河南省南阳市社旗县S333',state:0},
+					{name:'钱多多',phone:'17698859631',address:'广州省花都区花都广场50号',state:0},
+					{name:'郭晋安',phone:'15474474888',address:'上海市静安区静安寺5454',state:0},
+				]
 			}
 		},
 		methods: {
 			back() {
 				uni.navigateBack()
 			},
-			check() {
-				this.isShow = !this.isShow
+			check(v,index) {
+				this.list.forEach((item,index)=>[
+					item.state = false
+				])
+				this.list[index].state = !this.list[index].state 
 			},
 			toAdd() {
 				this.$jump('./addAddress')
@@ -62,13 +70,15 @@
 <style lang="scss" scoped>
 	.body {
 		background-color: #FAFAFA;
+		min-height: 750px;
+		height: auto;
 		padding-bottom: 150rpx;
 
 		.nav {
 			width: 100%;
 			height: 88rpx;
 			background-color: white;
-
+			margin-top: 88rpx;
 			span {
 				font-size: 32rpx;
 				font-weight: bold;
@@ -133,7 +143,7 @@
 		}
 
 		.btn {
-			margin: 1100rpx auto 0;
+			margin: 900rpx auto 0;
 			width: 690rpx;
 			height: 84rpx;
 			background: #49CAA4;

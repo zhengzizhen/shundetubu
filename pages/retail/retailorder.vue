@@ -2,21 +2,23 @@
 	<view class="">
 		<Nav title="分销订单">
 			<template slot="left">
-				<image @click="back()" class="leftimg" src="../../static/image/retail/back.png" mode=""></image>
+				<image @click="back()" class="leftimg" src="@/static/image/retail/back.png" mode=""></image>
 			</template>
 			<template slot="right">
-				<image class="rightimg" src="../../static/image/retail/import.jpg" mode=""></image>
-				<text>分销说明</text>
+				<image class="rightimg" src="@/static/image/retail/import.jpg" mode=""></image>
+				<text @click="torestore">分销说明</text>
 			</template>
 		</Nav>
 		<view class="rr_body">
 			<view class="rr_order bor_r" v-for="(v,i) in list" :key='i'>
 				<view class="rr_header dis_f">
 					<p>订单编号：6454484986484</p>
-					<text>已结束</text>
+					<text v-if="v.state == 1">已结束</text>
+					<text v-if="v.state == 2">已退出</text>
+					<text v-if="v.state == 3">已报名</text>
 				</view>
 				<view class="rr_cont dis_f">
-					<image src="../../static/index/zheng.jpg" mode=""></image>
+					<image src="@/static/index/zheng.jpg" mode=""></image>
 					<view class="cont_txt dis_f flex_c">
 						<p>【亭可马里季】斯里兰卡纯玩9天</p>
 						<text class="txt">下单时间：2023-02-20 18:19</text>
@@ -40,12 +42,26 @@
 		},
 		data() {
 			return {
-				list: [1, 2, 3]
+				list: [{
+					order:'88282292299',
+					state:1,
+				},
+				{
+					order:'88282292299',
+					state:2,
+				},
+				{
+					order:'88282292299',
+					state:3,
+				}]
 			}
 		},
 		methods: {
 			back(){
 				uni.navigateBack()
+			},
+			torestore(){
+				this.$jump('./restore')
 			}
 		}
 	}
