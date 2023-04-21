@@ -8,10 +8,11 @@
 				<!-- 头部搜索框 -->
 				<view class="index_seach dis_f">
 					<view class="address" @click="isShow = true">
-						<span >曼谷</span>
+						<span>曼谷</span>
 						<u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon>
 					</view>
-					<u-search @focus = 'toSeach()' class="input" placeholder="日照香炉生紫烟" v-model="seachValue" :showAction='false' :height='28'>
+					<u-search @focus='toSeach()' class="input" placeholder="日照香炉生紫烟" v-model="seachValue"
+						:showAction='false' :height='28'>
 					</u-search>
 				</view>
 				<!-- 轮播图 -->
@@ -61,7 +62,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 全国精选路线 -->
 			<view class="ix_block index_pad">
 				<view class="ix_block_header dis_f">
@@ -85,15 +86,15 @@
 							<p style="color: white;">斯里兰卡</p>
 							<p style="color: white;">[夏日清爽]中部深度游</p>
 						</view>
-						<view class="ix_botsub bor_r" >
+						<view class="ix_botsub bor_r">
 							<view class="ix_posi_r">
-								<image class="bor_r"  @click="toDetails()" src="@/static/index/chang.jpg"></image>
+								<image class="bor_r" @click="toDetails()" src="@/static/index/chang.jpg"></image>
 								<view class="ix_pos_c">
 									<p style="color: white;">斯里兰卡</p>
 									<p style="color: white;">[夏日清爽]中部深度游</p>
 								</view>
 							</view>
-							<view class="ix_posi_r" >
+							<view class="ix_posi_r">
 								<image class="bor_r" @click="toDetails(4)" src="@/static/index/chang.jpg"></image>
 								<view class="ix_pos_c">
 									<p style="color: white;">斯里兰卡</p>
@@ -104,27 +105,27 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 本周活动 -->
 			<view class="ix_block index_pad">
 				<label>本周活动</label>
 				<view class="dis_f cont jscb m20">
 					<view class="posir" @click="toDetails">
-						<image  class="lef bor_r" src="@/static/index/chang.jpg" mode=""></image>
+						<image class="lef bor_r" src="@/static/index/chang.jpg" mode=""></image>
 						<p class="posia txt dis_f flex_c">
 							<text>五一中长线</text>
 							<text>品质旅游</text>
 						</p>
 					</view>
 					<view class="posir" @click="toDetails">
-						<image  class="ris bor_r" src="@/static/index/chang.jpg" mode=""></image>
+						<image class="ris bor_r" src="@/static/index/chang.jpg" mode=""></image>
 						<p class="posia txts dis_f flex_c">
 							<text>五一中长线</text>
 							<text>品质旅游</text>
 						</p>
 					</view>
 				</view>
-				
+
 				<view class="cont dis_f jscb m20">
 					<view @click="toDetails" class="posir" v-for="(item,index) in checklist" :key="index">
 						<image class="ris bor_r" src="@/static/index/chang.jpg" mode=""></image>
@@ -135,7 +136,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 活动日历 -->
 			<view class="ix_block index_pad">
 				<label>活动日历</label>
@@ -181,20 +182,20 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 品牌IP活动 -->
 			<view class="ix_block index_pad">
 				<label>品牌IP活动</label>
 				<view class="dis_f god jscb m20">
-					<image class="les bor_r" src="@/static/as/changs.jpg" mode=""></image>
+					<image @click="tomemberday" class="les bor_r" src="@/static/as/changs.jpg" mode=""></image>
 					<view class="dis_f flex_c jscb">
-						<image class="ri bor_r" src="@/static/index/zheng.jpg" mode=""></image>
-						<image class="ri bor_r" src="@/static/index/zheng.jpg" mode=""></image>
+						<image @click="tomemberday" class="ri bor_r" src="@/static/index/zheng.jpg" mode=""></image>
+						<image @click="tomemberday" class="ri bor_r" src="@/static/index/zheng.jpg" mode=""></image>
 					</view>
 				</view>
-				
+
 			</view>
-			
+
 			<!-- 童步营 -->
 			<view class="ix_block index_pad">
 				<label>童步营</label>
@@ -207,7 +208,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 火爆路线 -->
 			<view class="ix_block index_pad">
 				<label>火爆路线</label>
@@ -271,8 +272,8 @@
 					</view>
 				</view>
 			</view>
-			
-			<u-popup :round="10" :show="isShow" :closeable = 'true' @close="close" @open="open">
+
+			<u-popup :round="10" :show="isShow" :closeable='true' @close="close" @open="open">
 				<view class="ix_pop pd30">
 					<p>请选择你所在的城市</p>
 					<view class="dis_f ps">
@@ -285,16 +286,16 @@
 							<text>郑州</text>
 						</view>
 					</view>
-					
+
 					<p>华南地区</p>
 					<view class="dis_f ps">
 						<view class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="ckaddress(v)">
 							<image src="@/static/trends/user.png" mode=""></image>
 							<image v-show="v.state" class="position" src="@/static/image/Details/success.png" mode="">
-							<text>{{v.address}}</text>
+								<text>{{v.address}}</text>
 						</view>
 					</view>
-					
+
 					<p>华东地区</p>
 					<view class="dis_f ps">
 						<view class="dis_f prp">
@@ -308,11 +309,15 @@
 					</view>
 				</view>
 			</u-popup>
-			<view style="height: 100rpx;">
-				
-			</view>
+			
+			<u-popup closeable mode="center" :round="10" :show="isShow1" @close="close1" @open="open1">
+				<view class="ke">
+					<image  src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800" mode=""></image>
+					<p>扫码联系客服</p>
+				</view>
+			</u-popup>
+			<view style="height: 100rpx;"></view>
 		</view>
-
 	</view>
 </template>
 
@@ -489,24 +494,49 @@
 					},
 				],
 				isShow: false,
-				addresslist:[
-					{address:'广州'},
-					{address:'深圳'},
-					{address:'佛山'},
-					{address:'东莞'},
-					{address:'中山'},
-					{address:'江门'},
+				isShow1:false,
+				addresslist: [{
+						address: '广州'
+					},
+					{
+						address: '深圳'
+					},
+					{
+						address: '佛山'
+					},
+					{
+						address: '东莞'
+					},
+					{
+						address: '中山'
+					},
+					{
+						address: '江门'
+					},
 				],
 			}
 		},
 		onLoad() {
-			this.addresslist.forEach((item,index)=>{
+			this.addresslist.forEach((item, index) => {
 				item.state = false
 			})
 			this.addresslist[0].state = true
 			this.imglist = this.imglist1
+			// this.getUser()
 		},
 		methods: {
+			async getUser() {
+				try {
+					const res = await this.$request('/user/order/list', {
+						type: '打车',
+						page: 1,
+						limit: 10
+					})
+					console.log(res)
+				} catch (error) {
+					console.log(error)
+				}
+			},
 			//轮播图修改
 			changeSwiper(e) {
 
@@ -514,45 +544,51 @@
 			click() {
 				// 轮播图点击
 			},
-			todateHot(){
+			todateHot() {
 				this.$jump('./dateHot')
 			},
-			checkout(e,index) {
-				console.log(e,index) //切换
+			checkout(e, index) {
+				console.log(e, index) //切换
 				this.checklist.forEach(function(item) {
 					item.state = false
 				})
 				e.state = true
-				if(index == 0 ){
+				if (index == 0) {
 					this.imglist = this.imglist1
-				}else if(index == 1){
+				} else if (index == 1) {
 					this.imglist = this.imglist2
-				}else if(index == 2){
+				} else if (index == 2) {
 					this.imglist = this.imglist3
 				}
 			},
 			open() {
 
 			},
-			toambitus(){
+			toambitus() {
 				this.$jump('./ambitus/ambitus')
 			},
 			close() {
 				this.isShow = false
 			},
-			toshop(){
+			open1(){
+				
+			},
+			close1() {
+				this.isShow1 = false
+			},
+			toshop() {
 				this.$jump('/pages/mine/menu/shopDetail')
 			},
-			clinto(v){
-				switch(v){
+			clinto(v) {
+				switch (v) {
 					case '周边路线':
 						this.$jump('./ambitus/ambitus');
 						break;
 					case '国内精选':
-						this.$jump('./domestic?tit=','params','国内精选');
+						this.$jump('./domestic?tit=', 'params', '国内精选');
 						break;
 					case '国外精选':
-						this.$jump('./domestic?tit=','params','国外精选');
+						this.$jump('./domestic?tit=', 'params', '国外精选');
 						break;
 					case '活动日历':
 						this.$jump('./dateHot');
@@ -561,7 +597,10 @@
 						this.$jump('./team/team');
 						break;
 					case '亲子路线':
-						this.$jump('./Province');
+						this.$jump('./Province?name=', 'params', '亲子路线');
+						break;
+					case '城市玩家':
+						this.$jump('./Province?name=', 'params', '城市玩家');
 						break;
 					case '必玩榜单':
 						this.$jump('./mustPlay');
@@ -569,12 +608,15 @@
 					case '好物商城':
 						this.$jump('/pages/mine/menu/HaowuMall');
 						break;
+					case '联系客服':
+						this.isShow1 = true
+						break;
 				}
 			},
-			toSeach(){
+			toSeach() {
 				this.$jump('./Seach/Seach');
 			},
-			toDetails(){
+			toDetails() {
 				this.$jump('./Details/Details');
 			},
 			ckaddress(e) {
@@ -583,6 +625,9 @@
 				})
 				e.state = true
 				this.$forceUpdate()
+			},
+			tomemberday() {
+				this.$jump('./memberday')
 			}
 		}
 	}
@@ -715,7 +760,7 @@
 			position: absolute;
 			top: 20rpx;
 			left: 20rpx;
-			
+
 			text {
 				font-size: 32rpx;
 			}
@@ -771,7 +816,8 @@
 				position: relative;
 				width: 335rpx;
 				height: auto;
-				.content{
+
+				.content {
 					margin-top: -50rpx;
 					position: relative;
 					width: 222rpx;
@@ -785,14 +831,17 @@
 					color: #FFFFFF;
 					text-align: center;
 				}
-				.content1{
-					background:#BCAD95 !important;
+
+				.content1 {
+					background: #BCAD95 !important;
 				}
-				.content2{
-					background:#B19D90 !important;
+
+				.content2 {
+					background: #B19D90 !important;
 				}
-				.content3{
-					background:#A28085 !important;
+
+				.content3 {
+					background: #A28085 !important;
 				}
 			}
 
@@ -1045,26 +1094,32 @@
 		bottom: 20rpx;
 		font-size: 26rpx;
 	}
-	.ix_pop{
+
+	.ix_pop {
 		height: 1000rpx;
-		p{
+
+		p {
 			margin: 40rpx auto 20rpx;
 			font-size: 32rpx;
 			font-weight: bold;
 		}
-		image{
+
+		image {
 			width: 100rpx;
 			height: 100rpx;
 		}
-		.ps{
+
+		.ps {
 			flex-wrap: wrap;
-			.prp{
+
+			.prp {
 				margin: 10rpx 0;
 				width: 20%;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 				position: relative;
+
 				.position {
 					position: absolute;
 					right: 10rpx;
@@ -1073,27 +1128,32 @@
 					height: 32rpx;
 				}
 			}
-			
+
 		}
 	}
-	.cont{
+
+	.cont {
 		width: 100%;
-		.lef{
+
+		.lef {
 			width: 454rpx;
 			height: 300rpx;
 		}
-		.ris{
+
+		.ris {
 			width: 217rpx;
 			height: 300rpx;
 		}
-		.txt{
+
+		.txt {
 			bottom: 30rpx;
 			right: 160rpx;
 			color: white;
 			font-size: 28rpx;
 			text-align: center;
 		}
-		.txts{
+
+		.txts {
 			text-align: center;
 			bottom: 30rpx;
 			right: 40rpx;
@@ -1101,14 +1161,28 @@
 			font-size: 28rpx;
 		}
 	}
-	.god{
-		.les{
+
+	.god {
+		.les {
 			width: 335rpx;
 			height: 480rpx;
 		}
-		.ri{
+
+		.ri {
 			width: 310rpx;
 			height: 230rpx;
+		}
+	}
+	.ke{
+		width: 506rpx;
+		height: 447rpx;
+		background: #FFFFFF;
+		border-radius: 20rpx;
+		text-align: center;
+		image{
+			margin: 50rpx 0 20rpx;
+			width: 311rpx;
+			height: 311rpx;
 		}
 	}
 </style>

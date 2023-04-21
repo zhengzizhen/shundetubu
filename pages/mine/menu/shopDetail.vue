@@ -1,7 +1,17 @@
 <template>
 	<view class="body">
-		<view class="banner">
-			<image src="@/static/index/chang.jpg" mode=""></image>
+		
+		<view class="ds_banner posir">
+			<swiper class="swiper"  circular :indicator-dots="true" :autoplay="false"
+				:duration="500">
+				<swiper-item v-for="(item,index) in swiperlist" :key="index">
+					<image :src="item" mode=""></image>
+				</swiper-item>
+				
+			</swiper>
+			<p class="swiperposi posia">
+				{{this.swiperlist.length}}张照片
+			</p>
 		</view>
 		<view class="title pd30">
 			<p class="head">原创设计野餐垫</p>
@@ -69,7 +79,7 @@
 			<view class="dis_f alitmc jscb">
 				<view class="dis_f flex_c alitmc con">
 					<image src="@/static/image/mine/message.png" mode=""></image>
-					<text>更多好物</text>
+					<text @click="tofirst">更多好物</text>
 				</view>
 				<view class="dis_f flex_c alitmc con">
 					<image src="@/static/image/mine/msg.png" mode=""></image>
@@ -85,6 +95,10 @@
 				</view>
 			</view>
 		</view>
+		<view class="fixed">
+			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
+		</view>
+		
 	</view>
 </template>
 
@@ -92,6 +106,7 @@
 	export default {
 		data() {
 			return {
+				swiperlist:['../../../static/index/chang.jpg','../../../static/index/chang.jpg'],
 				list:[1,2,3],
 				count:5,
 				value:4,
@@ -148,12 +163,42 @@
 			},
 			toshop(){
 				this.$jump('./shopDetail')
+			},
+			toback(){
+				uni.navigateBack()
+			},
+			tofirst(){
+				this.$jump('./HaowuMall')
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	
+	.ds_banner {
+		width: 100%;
+		height: 494rpx;
+		image {
+			width: 100%;
+			height: 494rpx;
+		}
+		.swiper{
+			width: 100%;
+			height: 494rpx;
+		}
+		.swiperposi{
+			top: 60rpx;
+			right: 30rpx;
+			z-index: 99;
+			color: red;
+			background-color: rgba(32, 32, 32, .5);
+			padding:8rpx 20rpx;
+			border-radius: 32rpx;
+			font-size: 26rpx;
+			color: #FFFFFF;
+		}
+	}
 	.body {
 		height: auto;
 		background-color: #FAFAFA;
@@ -374,5 +419,10 @@
 				color: #FF4040;
 			}
 		}
+	}
+	.fixed{
+		position: fixed;
+		top: 80rpx;
+		left: 20rpx;
 	}
 </style>

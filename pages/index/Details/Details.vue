@@ -24,8 +24,8 @@
 					<text>评分：4.9（1000人点评）</text>
 				</p>
 				<view class="ds_love dis_f flex_c alitmc">
-					<image v-show="toshow" @click="toshow = !toshow" src="@/static/trends/ax.png" mode=""></image>
-					<image v-show="!toshow" @click="toshow = !toshow" src="@/static/image/trends/zan.png" mode="">
+					<image v-show="!toshow" @click="toshow = !toshow" src="@/static/trends/ax.png" mode=""></image>
+					<image v-show="toshow" @click="toshow = !toshow" src="@/static/image/trends/zan.png" mode="">
 					</image>
 					<label>种草</label>
 				</view>
@@ -62,7 +62,7 @@
 				<view>
 					<text>活动分销</text><label>分销成功提成3%</label>
 				</view>
-				<view class="dis_f image alitmc">
+				<view @click="toRestore" class="dis_f image alitmc">
 					<image src="@/static/image/Details/wen.jpg" mode=""></image>
 					<text>分销说明</text>
 				</view>
@@ -213,7 +213,7 @@
 
 				<input type="text" class="wx" placeholder="联系电话/微信号">
 				<view class="dis_f twoipt jscb">
-					<input class="names" type="text" placeholder="如何称呼您">
+					<input class="names" type="text" placeholder="如何称呼您？">
 					<input class="names" type="number" placeholder="出行人数是">
 				</view>
 				<p class="popbtn" @click='Popbtn()'>提交</p>
@@ -248,6 +248,10 @@
 				</view>
 			</view>
 		</u-popup>
+		
+		<view class="fixed">
+			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
+		</view>
 	</view>
 </template>
 
@@ -389,6 +393,12 @@
 				})
 				e.state = true
 				this.$forceUpdate()
+			},
+			toback(){
+				uni.navigateBack()
+			},
+			toRestore(){
+				this.$jump('/pages/retail/restore')
 			}
 		}
 	}
@@ -916,5 +926,10 @@
 			font-weight: 500;
 			color: #49CAA4;
 		}
+	}
+	.fixed{
+		position: fixed;
+		top: 80rpx;
+		left: 20rpx;
 	}
 </style>

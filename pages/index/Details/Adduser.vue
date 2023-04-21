@@ -10,11 +10,11 @@
 			</view>
 			<view class="inlink dis_f">
 				<label>身份证</label>
-				<input  maxlength="18" type="text" placeholder="">
+				<input  maxlength="18" type="text" placeholder="请输入您的身份证号">
 			</view>
 			<view class="inlink dis_f">
 				<label>电话号码</label>
-				<input maxlength="11" type="number" placeholder="">
+				<input maxlength="11" type="number" placeholder="请输入您的电话号码">
 			</view>
 			<text>保存联系人</text>
 		</view>

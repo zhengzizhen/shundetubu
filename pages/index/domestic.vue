@@ -8,7 +8,8 @@
 					<text>{{item}}</text>
 				</view>
 				<view class="sx">
-					<u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon>
+					<!-- <u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon> -->
+					<image src="@/static/index/sx.png" mode=""></image>
 				</view>
 			</view>
 			<!-- 大图 -->
@@ -243,7 +244,11 @@
 				align-items: center;
 				background-color: #18ACB6;
 				position: absolute;
-				right: 0;
+				right: 0rpx;
+				image{
+					width:40rpx;
+					height: 40rpx;
+				}
 			}
 		}
 
@@ -422,18 +427,20 @@
 	.ix_pop{
 		height: auto;
 		p{
-			margin: 20rpx auto 20rpx;
+			margin: 10rpx auto 20rpx;
 			font-size: 32rpx;
 			font-weight: bold;
 		}
 		.ps{
 			flex-wrap: wrap;
 			.prp{
-				margin: 10rpx 0;
-				width: 33%;
+				margin: 5rpx 10rpx;
+				width: 30%;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
+				margin-right: 10rpx;
+				margin-bottom: 10rpx;
 			}
 		}
 		.dis_f{
@@ -448,11 +455,12 @@
 				color: #999999;
 				border: 2rpx solid #999999;
 				border-radius: 50rpx;
-				width: 142rpx;
+				width: 132rpx;
 				padding: 5rpx 30rpx;
-				height: 64rpx;
-				line-height: 64rpx;
+				height: 54rpx;
+				line-height: 54rpx;
 				text-align: center;
+				font-size: 26rpx;
 			}
 		}
 		.btn{

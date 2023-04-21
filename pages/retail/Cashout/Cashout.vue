@@ -12,7 +12,7 @@
 			<label>￥</label><input type="number" maxlength="8" placeholder="请输入提现金额" v-model="tmoney">
 		</view>
 		<p class="rsed">提示：分销满100元可提现</p>
-		<p class="rsed">选择提现方式</p>
+		<p class="grsed">选择提现方式</p>
 
 		<view class="uni-list">
 			<radio-group @change="radioChange">
@@ -187,6 +187,11 @@
 		font-size: 22rpx;
 		font-weight: 500;
 		color: #FF4040;
+	}
+	.grsed{
+		margin: 10rpx 0 30rpx;
+		font-size: 28rpx;
+		font-weight: 500;
 	}
 
 	.ct_radio {

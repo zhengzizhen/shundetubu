@@ -109,12 +109,12 @@
 						label:'自由式休闲度假'
 					},
 					{
-						name: '小众课程',
+						name: '小众深度',
 						image: '../../../static/index/hwsc.jpg',
 						label:'人气宝藏旅行地'
 					},
 					{
-						name: '户外陪玩',
+						name: '户外酷玩',
 						image: '../../../static/index/bwbd.jpg',
 						label:'玩些与众不同的'
 					},

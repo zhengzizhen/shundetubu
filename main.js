@@ -18,9 +18,9 @@ Vue.prototype.$Resize = Resize
 import store from './store'
 
 
-import http from '@/tools/request.js'
+import request from '@/tools/request.js'
 
-Vue.prototype.$http = http
+Vue.prototype.$request = request
 
 
 

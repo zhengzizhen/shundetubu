@@ -11,8 +11,8 @@
 				<p>【亭可马里季】斯里兰卡纯玩9天</p>
 				<text class="posw">3天</text>
 				<view class="dc_latt dis_f">
-					<label>04.02剩3名额</label>
 					<text>03.18已满员</text>
+					<label>04.02剩3名额</label>
 					<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 				</view>
 				<p class="title dis_f">
@@ -34,6 +34,11 @@
 			return {
 				list:[1,2,3,4]
 			}
+		},
+		onLoad(option) {
+			uni.setNavigationBarTitle({
+				title:option.name
+			})
 		},
 		methods: {
 			
@@ -116,10 +121,10 @@
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #FFA1AD;
-				margin-left: 10rpx;
 			}
 
 			label {
+				margin-left: 10rpx;
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
 				font-size: 22rpx;

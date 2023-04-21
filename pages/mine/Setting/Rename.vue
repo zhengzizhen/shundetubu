@@ -1,5 +1,5 @@
 <template>
-	<view class="">
+	<view class="pos">
 		<Nav title='编辑名字'>
 			<template slot="left">
 				<image @click="back()" class="leftimg" src="../../../static/image/retail/back.png" mode=""></image>
@@ -54,6 +54,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.pos{
+		padding-top: 80rpx;
+	}
 	.st_body {
 		background: #FAFAFA;
 		padding-top: 30rpx;

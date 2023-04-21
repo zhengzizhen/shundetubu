@@ -5,7 +5,7 @@
 			<view class="dc_god">
 				<p>{{item.title}}</p>
 				<view class="dc_latt dis_f">
-					<label>04.02剩3名额</label>
+					<label>03.16 | 全国出发</label>
 				</view>
 				<view class="dc_span dis_f alitmc jscb">
 					<text>2天前浏览</text>

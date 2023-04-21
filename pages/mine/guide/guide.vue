@@ -70,7 +70,7 @@
 			<view class="pb20" v-show="list[0].state">
 				<view class="shaky pd30" v-for="(v,i) in list" :key="i">
 					<view class="shaky_banner">
-						<p class="shaky_position">主题</p>
+						<p class="shaky_position">主领</p>
 						<image src="@/static/index/chang.jpg" mode=""></image>
 					</view>
 					<view class="shaky_content">
@@ -86,7 +86,7 @@
 					<view class="shaky_bot dis_f posir" v-for="(v,index) in list" :key="index">
 						<image class="bor_r" src="@/static/index/zheng.jpg" mode=""></image>
 						<view class="dis_f flex_c ml20">
-							<p class="shaky_position">主题</p>
+							<p class="shaky_position">主领</p>
 							<p>亭可马里季斯里兰卡纯玩9天</p>
 							<text>07月21日（周五）出发8天</text>
 						</view>
@@ -109,7 +109,7 @@
 					</view>
 					<view class="rate">
 						<u-rate readonly :count="count" v-model="value"></u-rate>
-						<text class="nstit">03-10出发 领队：李欣</text>
+						<text class="nstit">03-10出发 春日婺源，徽派田园</text>
 					</view>
 				</view>
 			</view>
@@ -294,7 +294,7 @@
 	.dos_he {
 		width: 100%;
 		background-color: #fff;
-		padding-top: 40rpx;
+		padding-top: 10rpx;
 	}
 
 	.dos {
@@ -306,7 +306,7 @@
 			width: 25%;
 			text-align: center;
 			p {
-				font-size: 40rpx;
+				font-size: 38rpx;
 				font-weight: bold;
 				color: #000000;
 			}

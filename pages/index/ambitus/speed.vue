@@ -13,8 +13,8 @@
 					<p>【亭可马里季】斯里兰卡纯玩9天</p>
 					<text class="posw">3天</text>
 					<view class="dc_latt dis_f">
-						<label>04.02剩3名额</label>
 						<text>03.18已满员</text>
+						<label>04.02剩3名额</label>
 						<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 					</view>
 					<p class="title dis_f"><label>难度： 休闲</label><u-icon name="star" size='14'></u-icon></p>
@@ -37,24 +37,24 @@
 					</p>
 				</view>
 				
-				<p class="tit">路线类型</p>
+				<p class="tit">难度</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist1" :key="index" @click="chetbs1(v)">
+					<p :class="v.state?'green':''" v-for="(v,index) in tablist2" :key="index" @click="chetbs2(v)">
 						{{v.name}}
 					</p>
 				</view>
 				
-				<p class="tit">路线类型</p>
+				<p class="tit">出行时间</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist1" :key="index" @click="chetbs1(v)">
+					<p :class="v.state?'green':''" v-for="(v,index) in tablist3" :key="index" @click="chetbs3(v)">
 						{{v.name}}
 					</p>
 				</view>
 				
 				<view class="dis_f btn">
-					<p class="ps">重置</p>
+					<p class="ps" @click='resage'>重置</p>
 					<p class="gs">确定（20个活动）</p>
 				</view>
 			</view>
@@ -97,6 +97,39 @@
 						state: false
 					},
 				],
+				tablist2: [{
+						name: '休闲难度',
+						state: false
+					},
+					{
+						name: '轻松徒步',
+						state: false
+					},
+					{
+						name: '稍有难度',
+						state: false
+					},{
+						name: '中等难度',
+						state: false
+					},
+					{
+						name: '较高难度',
+						state: false
+					}
+				],
+				tablist3: [{
+						name: '周六',
+						state: false
+					},
+					{
+						name: '周日',
+						state: false
+					},
+					{
+						name: '工作日',
+						state: false
+					},
+				],
 				list: [1, 2, 3, 4, 5]
 			}
 		},
@@ -116,7 +149,21 @@
 				}
 			},
 			chetbs1(e) {
-
+				this.tablist1.forEach((item,index)=>{
+					item.state = false
+				})
+				e.state = !e.state
+			},
+			chetbs2(e) {
+				this.tablist2.forEach((item,index)=>{
+					item.state = false
+				})
+				e.state = !e.state
+			},
+			chetbs3(e) {
+				this.tablist3.forEach((item,index)=>{
+					item.state = false
+				})
 				e.state = !e.state
 			},
 			close(){
@@ -124,6 +171,17 @@
 			},
 			open(){
 				
+			},
+			resage(){
+				this.tablist1.forEach((item,index)=>{
+					item.state = false
+				})
+				this.tablist2.forEach((item,index)=>{
+					item.state = false
+				})
+				this.tablist3.forEach((item,index)=>{
+					item.state = false
+				})
 			}
 		}
 	}
@@ -180,7 +238,6 @@
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #FFA1AD;
-				margin-left: 10rpx;
 			}
 
 			label {
@@ -188,6 +245,7 @@
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #F2AD5A;
+				margin-left: 10rpx;
 			}
 
 			p {

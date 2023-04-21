@@ -161,7 +161,7 @@
             "path" : "pages/dest/Destination",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "二级页面",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
@@ -255,14 +255,7 @@
             {
                 "navigationBarTitleText": "个人主页",
                 "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "transparent",
-				"app-plus": {
-					"titleNView": {
-						"type": "float",
-						"titleText": "",
-						"titleColor": "white"
-					}
-				}
+				"navigationStyle": "custom"
             }
             
         }
@@ -317,14 +310,15 @@
             {
                 "navigationBarTitleText": "签到",
                 "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "transparent",
-				"app-plus": {
-					"titleNView": {
-						"type": "float",
-						"titleText": "签到",
-						"titleColor": "white"
-					}
-				}
+				"navigationStyle": "custom"
+				// "navigationBarBackgroundColor": "transparent",
+				// "app-plus": {
+				// 	"titleNView": {
+				// 		"type": "float",
+				// 		"titleText": "签到",
+				// 		"titleColor": "white"
+				// 	}
+				// }
 				
             }
             
@@ -344,7 +338,7 @@
             "path" : "pages/index/team/oneday",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "一日团建",
+                "navigationBarTitleText": "1日团建",
                 "enablePullDownRefresh": false
             }
             
@@ -394,14 +388,15 @@
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "transparent",
-				"app-plus": {
-					"titleNView": {
-						"type": "float",
-						"titleText": "",
-						"titleColor": "white"
-					}
-				}
+				"navigationStyle": "custom"
+				// "navigationBarBackgroundColor": "transparent",
+				// "app-plus": {
+				// 	"titleNView": {
+				// 		"type": "float",
+				// 		"titleText": "",
+				// 		"titleColor": "white"
+				// 	}
+				// }
             }
             
         }
@@ -430,7 +425,6 @@
                 "navigationBarTitleText": "添加报名人",
                 "enablePullDownRefresh": false
             }
-            
         }
         ,{
             "path" : "pages/mine/guide/guide",
@@ -705,7 +699,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "商品详情页",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
             }
             
         }
@@ -835,12 +830,42 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/Details/Applicant",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "报名人列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/Aboutus",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "关于我们",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/memberday",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "会员日",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "顺德徒步",
 		"navigationBarBackgroundColor": "white",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#ffffff",
+		"app-plus": {
+			"bounce": "none"
+		}
 	},
 	"tabBar": {
 		"color": "#7A7E83",

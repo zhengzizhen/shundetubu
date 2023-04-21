@@ -5,7 +5,7 @@
 				lineColor='#49CAA4' :list="list1" @change="(item)=>change(item)"
 				:activeStyle="{ color: '#49CAA4' }"></u-tabs>
 		</view>
-		<view class="content" v-for="(item,index) in list" :key="index">
+		<view class="content" v-for="(item,index) in list" :key="index" @click="toDeail">
 			<view class="cont_header dis_f jscb alitmc">
 				<p>订单编号：8269686684414</p>
 				<text>已报名</text>
@@ -19,8 +19,8 @@
 				</view>
 			</view>
 			<view class="bottom dis_f">
-				<p>删除订单</p>
-				<p  @click = 'toComments()'>去评价</p>
+				<p @click.self = 'Deleteshop()'>删除订单</p>
+				<p  @click.self = 'toComments()'>去评价</p>
 			</view>
 		</view>
 		
@@ -63,6 +63,12 @@
 			toComments(){
 				this.$jump('./menu/comments')
 				return false
+			},
+			toDeail(){
+				this.$jump('./menu/shopDetail')
+			},
+			Deleteshop(){
+				
 			}
 		}
 	}

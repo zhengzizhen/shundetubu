@@ -37,7 +37,7 @@
 		
 		
 		<view class="btn dis_f alitmc jscc">
-			<p>添加地址</p>
+			<p @click='toadd'>添加地址</p>
 		</view>
 	</view>
 </template>
@@ -65,6 +65,9 @@
 						console.log('经度：' + res.longitude);
 					}
 				});
+			},
+			toadd(){
+				this.$jump('./address')
 			}
 		}
 	}
@@ -74,6 +77,7 @@
 	.nav {
 		width: 100%;
 		height: 88rpx;
+		margin-top: 88rpx;
 		background-color: white;
 		box-sizing: border-box;
 		span {
@@ -122,7 +126,7 @@
 		}
 	}
 	.btn {
-		margin: 700rpx auto 0;
+		margin: 600rpx auto 0;
 		width: 690rpx;
 		height: 84rpx;
 		background: #49CAA4;

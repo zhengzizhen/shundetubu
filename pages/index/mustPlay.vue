@@ -201,6 +201,7 @@
 				border-radius: 15rpx 15rpx 15rpx 2rpx;
 				font-size: 20rpx;
 				font-weight: normal;
+				color: white;
 			}
 
 			image {

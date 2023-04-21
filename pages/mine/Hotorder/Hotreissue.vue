@@ -1,12 +1,12 @@
 <template>
-	<view class="body pd30">
-		<view class="header">
-			<p class="title">本活动存在其他期次，可以选择改签</p>
+	<view class="body ">
+		<view class="header pd30" >
+			<p class="title">本活动存在其他期次，可以选择改签:</p>
 			<p class="title">请注意其他期次得集合点</p>
 		</view>
 
 		<view class="content bor_r">
-			<view class="dis_f jscb alitmc just" v-for="(item,index) in list" :key="index" @click="check(item)">
+			<view class="dis_f jscb alitmc just pd30" v-for="(item,index) in list" :key="index" @click="check(item)">
 				<view class="dis_f flex_c">
 					<p>{{item.date}}</p>
 					<text>{{item.address}}</text>
@@ -15,17 +15,17 @@
 			</view>
 		</view>
 
-		<p class="sios">选择改签人员</p>
+		<p class="sios pd30">选择改签人员</p>
 		<view class="dis_f jscb user alitmc">
 			<p>乐乐</p>
 			<image @click="isShow = !isShow" v-show="isShow" src="@/static/image/mine/check1.png" mode=""></image>
 			<image @click="isShow = !isShow" v-show="!isShow" src="@/static/image/mine/check.png" mode=""></image>
 		</view>
 
-		<p class="sios">改签说明</p>
+		<p class="sios pd30">改签说明</p>
 
-		<text class="kitro">1.活动改签无需支付任何费用，仅可改签一次;</text>
-		<text class="kitro">2.根据服务约定，因为当前退款无需扣费，所以改签后再申请退出的，按改签后的活动退款规则处理</text>
+		<text class="kitro pd30">1.活动改签无需支付任何费用，仅可改签一次;</text>
+		<text class="kitro pd30">2.根据服务约定，因为当前退款无需扣费，所以改签后再申请退出的，按改签后的活动退款规则处理</text>
 		<view class="fixed">
 			<p class="btn">确定改签</p>
 		</view>
@@ -97,6 +97,7 @@
 		}
 
 		.content {
+			margin: 0 30rpx;
 			background-color: white;
 			min-height: 300rpx;
 			height: auto;
@@ -139,6 +140,7 @@
 	}
 
 	.user {
+		margin: 0 30rpx;
 		height: 86rpx;
 		line-height: 86rpx;
 		padding: 0 20rpx;
@@ -159,14 +161,12 @@
 	}
 
 	.fixed {
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		width: 750rpx;
+		margin-top: 50rpx;
+		width: 100%;
 		height: 166rpx;
 		background: #FFFFFF;
 		box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(4, 0, 0, 0.16);
-
+		padding-top: 20rpx;
 		.btn {
 			margin: 40rpx auto;
 			width: 690rpx;

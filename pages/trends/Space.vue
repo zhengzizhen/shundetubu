@@ -55,6 +55,10 @@
 				</view>
 			</view>
 		</view>
+		
+		<view class="fixed">
+			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
+		</view>
 	</view>
 </template>
 
@@ -108,6 +112,9 @@
 					item.lovenum++
 				}
 				
+			},
+			toback(){
+				uni.navigateBack()
 			}
 		}
 	}
@@ -225,5 +232,10 @@
 	}
 	.is{
 		// margin-left: 20rpx;
+	}
+	.fixed{
+		position: fixed;
+		top: 80rpx;
+		left: 20rpx;
 	}
 </style>

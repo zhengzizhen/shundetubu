@@ -199,6 +199,7 @@
 				background-color: white;
 				top: 70rpx;
 				left: 130rpx;
+				text-align: left;
 
 				p {
 					width: 305rpx;

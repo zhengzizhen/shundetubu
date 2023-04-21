@@ -93,6 +93,14 @@
 				height: 89rpx;
 				color: #000;
 				font-size: 30rpx;
+				label{
+					display: block;
+					width: 160rpx;
+					font-size: 28rpx;
+				}
+				input{
+					font-size: 28rpx;
+				}
 			}
 		}
 	}

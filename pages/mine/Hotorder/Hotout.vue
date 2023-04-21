@@ -24,11 +24,6 @@
 				<p>0元</p>
 			</view>
 			
-			<view class="dis_f alitmc jscb cus">
-				<text>商品退款</text>
-				<p>0元</p>
-			</view>
-			
 			<view class="dis_f alitmc jscb cus noborder">
 				<text>合计退款金额</text>
 				<p>0元</p>
@@ -76,7 +71,7 @@
 	min-height:750px;
 	padding-top: 10rpx;
 	height: auto;
-	padding-bottom: 100rpx;
+	padding-bottom: 150rpx;
 }
 .title{
 	margin: 20rpx 0;

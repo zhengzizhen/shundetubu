@@ -30,7 +30,9 @@
 		},
 		methods: {
 			gtIndex(){
+				uni.setStorageSync('token','8802e3467daf0c0bec22b81c1f65495c')
 				this.$jump('../index/index','reLaunch')
+				console.log(1);
 			},
 			myPhone(){
 				this.$jump('./myLogin')

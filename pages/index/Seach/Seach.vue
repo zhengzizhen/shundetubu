@@ -6,7 +6,7 @@
 		</view>
 		<view v-show="isShow">
 			<view class="pd30">
-				<p class="title">不添加标签</p>
+				<p class="title">本周热榜HOT</p>
 			</view>
 		
 			<view class="pd30 sh_label dis_f ">
@@ -117,9 +117,11 @@
 <style lang="scss" scoped>
 	.body{
 		background-color: #FAFAFA;
+		padding-top: 88rpx;
 	}
 	.bodys{
 		background-color: white;
+		padding-top: 88rpx;
 	}
 	.sh_seach {
 		margin: 40rpx 0rpx 20rpx;

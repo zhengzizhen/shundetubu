@@ -7,8 +7,8 @@
 				<p>【亭可马里季】斯里兰卡纯玩9天</p>
 				<text class="posw">3天</text>
 				<view class="dc_latt dis_f">
-					<label>04.02剩3名额</label>
 					<text>03.18已满员</text>
+					<label>04.02剩3名额</label>
 					<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 				</view>
 				<p class="title dis_f"><label>难度： 休闲</label><u-icon name="star" size='14'></u-icon></p>
@@ -97,13 +97,13 @@
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #FFA1AD;
-				margin-left: 10rpx;
 			}
 
 			label {
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
 				font-size: 22rpx;
+				margin-left: 10rpx;
 				background-color: #F2AD5A;
 			}
 
@@ -115,7 +115,7 @@
 		}
 
 		.title {
-			margin: 10rpx 0 20rpx;
+			margin: 10rpx 0 30rpx;
 			font-size: 24rpx;
 			font-weight: 500;
 			color: #999999;
@@ -124,6 +124,8 @@
 			label {
 				display: block;
 				margin-right: 10rpx;
+				font-size: 24rpx;
+				color: #999;
 			}
 		}
 	}
@@ -131,7 +133,6 @@
 	.dc_span {
 		justify-content: space-between;
 		align-items: center;
-
 		label {
 			color: #999999;
 			font-size: 24rpx;

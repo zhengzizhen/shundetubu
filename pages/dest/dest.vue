@@ -6,18 +6,21 @@
 					:height='28'></u-search>
 				<label>国内热门</label>
 				<view class="dt_dis_bool dis_f">
-					<view class="dt_cimg">
+					<view class="dt_cimg posir" @click="Chankimg('大美新疆')">
 						<image class="bor_r" src="../../static/index/ban.jpg" mode=""></image>
+						<text class="positions posia">TOP1</text>
 						<p>大美新疆</p>
 					</view>
-					<view class="dt_zimg ">
+					<view class="dt_zimg posir" @click="Chankimg('丽江')">
 						<image class="bor_r" src="../../static/index/zheng.jpg" mode=""></image>
+						<text class="positions posia">TOP2</text>
 						<p>丽江</p>
 					</view>
 				</view>
 				<view class="dt_forimg dis_f">
-					<view v-for="(item,index) in imglist" :key="index" class="dt_gd" @click="Chankimg()">
+					<view v-for="(item,index) in imglist" :key="index" class="dt_gd" @click="Chankimg('大理')">
 						<image class="bor_r"  :src="item" mode=""></image>
+						<text class="positions posia" v-if="index<=2">TOP{{index+3}}</text>
 						<p>大理</p>
 					</view>
 				</view>
@@ -27,19 +30,22 @@
 		<view>
 			<view class="dt_pbl dt_impr">
 				<p>国外热门</p>
-				<view class="dt_dis_bool dis_f">
-					<view class="dt_cimg">
+				<view class="dt_dis_bool dis_f" >
+					<view class="dt_cimg posir" @click="Chankimg('耶路撒冷')">
 						<image class="bor_r" src="../../static/index/ban.jpg" mode=""></image>
+						<text class="positions posia">TOP1</text>
 						<p>耶路撒冷</p>
 					</view>
-					<view class="dt_zimg ">
+					<view class="dt_zimg posir" @click="Chankimg('奥利给')">
 						<image class="bor_r" src="../../static/index/zheng.jpg" mode=""></image>
+						<text class="positions posia">TOP2</text>
 						<p>奥利给</p>
 					</view>
 				</view>
 				<view class="dt_forimg dis_f">
-					<view v-for="(item,index) in imglist" :key="index" class="dt_gd">
+					<view v-for="(item,index) in imglist" :key="index" class="dt_gd posir" @click="Chankimg('泰国')">
 						<image class="bor_r"  :src="item" mode=""></image>
+						<text class="positions posia" v-if="index<=2">TOP{{index+3}}</text>
 						<p>泰国</p>
 					</view>
 					
@@ -67,8 +73,8 @@
 			}
 		},
 		methods: {
-			Chankimg(){
-				this.$jump('./Destination')
+			Chankimg(e){
+				this.$jump('./Destination?name=','params',e)
 			}
 		}
 	}
@@ -80,7 +86,19 @@
 		height: auto;
 		background: linear-gradient(0deg, #FFFFFF 0%, #49CAA4 100%);
 	}
-
+	.positions{
+		display: block;
+		width: 80rpx;
+		text-align: center;
+		height: 32rpx;
+		line-height: 32rpx;
+		background: linear-gradient(70deg, #F7B36B 0%, #FF8F68 100%);
+		border-radius: 6rpx;
+		top: 20rpx;
+		left: 20rpx;
+		font-size: 24rpx;
+		color: #FFFFFF;
+	}
 	.dt_pbl {
 		padding: 100rpx 30rpx 0;
 

@@ -27,14 +27,6 @@
 			<u-icon name="arrow-right" size='12'></u-icon>
 		</view>
 
-		<view class="dis_f rk_content jscb  alitmc" @click="toMenu(3)">
-			<image src="@/static/image/mine/g4.jpg" mode=""></image>
-			<view class="center">
-				<p>商品退款</p>
-				<text>仅限活动报名购买的商品</text>
-			</view>
-			<u-icon name="arrow-right" size='12'></u-icon>
-		</view>
 
 
 		<view class="tit pd30">
@@ -66,8 +58,6 @@
 						break;
 					case 2:
 						this.$jump('./Hotorder/Hotout')
-						break;
-					case 3:
 						break;
 				}
 			}

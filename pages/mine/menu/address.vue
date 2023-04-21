@@ -22,7 +22,7 @@
 				</p>
 				<p class="dis_f alitmc left">
 					<image src="@/static/image/mine/bianji.png" mode=""></image>
-					<label>编辑</label>
+					<label @click="toaddress">编辑</label>
 				</p>
 				<p class="dis_f alitmc ml20">
 					<image src="@/static/image/mine/delete.png" mode=""></image>
@@ -42,7 +42,7 @@
 	export default {
 		data() {
 			return {
-				isShow: false,
+				isShow: true,
 				list:[
 					{name:'神秘狗',phone:'17633612613',address:'河南省南阳市社旗县S333',state:0},
 					{name:'钱多多',phone:'17698859631',address:'广州省花都区花都广场50号',state:0},
@@ -61,6 +61,9 @@
 				this.list[index].state = !this.list[index].state 
 			},
 			toAdd() {
+				this.$jump('./addAddress')
+			},
+			toaddress(){
 				this.$jump('./addAddress')
 			}
 		}

@@ -1,12 +1,13 @@
 <template>
-	<view class="">
+	<view class="body">
+		<view class="bos"></view>
 		<Nav title="分销订单">
 			<template slot="left">
 				<image @click="back()" class="leftimg" src="@/static/image/retail/back.png" mode=""></image>
 			</template>
-			<template slot="right">
-				<image class="rightimg" src="@/static/image/retail/import.jpg" mode=""></image>
-				<text @click="torestore">分销说明</text>
+			<template slot="right" >
+					<image  @click="torestore" class="rightimg" src="@/static/image/retail/import.jpg" mode=""></image>
+					<text  @click="torestore" class="fenx" >分销说明</text>
 			</template>
 		</Nav>
 		<view class="rr_body">
@@ -68,6 +69,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.bos{
+		height: 88rpx;
+	}
 	.rr_body {
 		background-color: #FAFAFA;
 		height: 1500rpx;
@@ -131,6 +135,12 @@
 			}
 		}
 	}
-
+	.fenx{
+		font-size: 24rpx;
+	}
+	.rightimg{
+		width: 30rpx;
+		height: 30rpx;
+	}
 	
 </style>

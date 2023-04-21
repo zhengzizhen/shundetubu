@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="pd30">
-			<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
+			<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index" @click.stop="toDeatil">
 				<image src="@/static/image/index/banners.jpg" mode=""></image>
 				<view class="dc_god">
 					<p>{{item.title}}</p>
@@ -16,12 +16,12 @@
 					</view>
 					<view class="rd_content dis_f jscb alitmc">
 						<text>6小时前种草</text>
-						<p class="dis_f alitmc">
-							<image v-show="!item.state" @click="item.state= !item.state"
+						<p class="dis_f alitmc" @click.stop="loveto(item)">
+							<image v-show="!item.state" 
 								src="@/static/trends/ax.png" mode=""></image>
-							<image v-show="item.state" @click="item.state = !item.state"
+							<image v-show="item.state"
 								src="@/static/image/trends/zan.png" mode=""></image>
-							<text>1212</text>
+							<text>{{item.num}}</text>
 						</p>
 					</view>
 				</view>
@@ -37,23 +37,23 @@
 		data() {
 			return {
 				list:[
-					{title:'亭可马里季 四立卡春晚九天',state:false},
-					{title:'亭可马里季 四立卡春晚1天',state:false},
-					{title:'亭可马里季 四立卡春晚2天',state:false},
-					{title:'亭可马里季 四立卡春晚九天',state:false},
-					{title:'亭可马里季 四立卡春晚1天',state:false},
-					{title:'亭可马里季 四立卡春晚2天',state:false},
-					{title:'亭可马里季 四立卡春晚九天',state:false},
-					{title:'亭可马里季 四立卡春晚1天',state:false},
-					{title:'亭可马里季 四立卡春晚2天',state:false},
-					{title:'亭可马里季 四立卡春晚九天',state:false},
-					{title:'亭可马里季 四立卡春晚1天',state:false},
-					{title:'亭可马里季 四立卡春晚2天',state:false},
+					{title:'亭可马里季 四立卡春晚九天',state:false,num:1212},
+					{title:'亭可马里季 四立卡春晚1天',state:false,num:1212},
 				],
 			}
 		},
 		methods: {
-			
+			toDeatil(){
+				this.$jump('/pages/index/Details/Details')
+			},
+			loveto(item){
+				item.state = !item.state
+				if(item.state == true){
+					item.num++
+				}else{
+					item.num--
+				}
+			}
 		}
 	}
 </script>

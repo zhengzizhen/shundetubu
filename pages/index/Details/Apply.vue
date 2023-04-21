@@ -89,7 +89,7 @@
 
 			},
 			toAdduser() {
-				this.$jump('./Adduser')
+				this.$jump('./Applicant')
 			},
 			toCard(){
 				this.$jump('/pages/mine/Card')

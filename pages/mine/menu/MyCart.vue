@@ -101,7 +101,9 @@
 			sum(){
 				let a = 0
 				this.list.forEach((item,index)=>{
-					a = a + item.money
+					if(item.radio == true){
+						a = a + item.money
+					}
 				})
 				return a
 			}

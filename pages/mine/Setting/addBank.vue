@@ -55,7 +55,7 @@
 <style lang="scss" scoped>
 	.ak_body {
 		padding-top: 100rpx;
-
+		margin-top: 100rpx;
 		.title {
 			font-size: 48rpx;
 			font-weight: bold;
@@ -100,6 +100,6 @@
 		border-radius: 44rpx;
 		color: white;
 		text-align: center;
-		margin-top: 530rpx;
+		margin-top: 350rpx;
 	}
 </style>

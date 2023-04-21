@@ -45,7 +45,21 @@
 				value: ''
 			}
 		},
+		onLoad() {
+			this.getUser()
+			console.log();
+		},
 		methods: {
+			async  getUser() {
+			  try {
+			    const data = await this.$request({
+			      url: '/user/over/order'
+			    })
+			    console.log(data)
+			  } catch (error) {
+			    console.log(error)
+			  }
+			},
 			change(e) {
 				console.log('change', e);
 			},
@@ -69,8 +83,8 @@
 			codeChange(text) {
 				this.tips = text;
 			},
-			myLogin(){
-				this.$jump('./myLogin','redirect')
+			myLogin() {
+				this.$jump('./myLogin', 'redirect')
 			}
 		}
 	}

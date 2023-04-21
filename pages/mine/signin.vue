@@ -1,5 +1,13 @@
 <template>
 	<view class="body">
+		
+		
+		<view class="fixed">
+			<view class="dis_f jscb ops">
+				<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
+				<text>签到</text>
+			</view>
+		</view>
 		<view class="header">
 			<view class="top pd30 dis_f">
 				<view class="dis_f alitmc">
@@ -81,10 +89,13 @@
 		},
 		methods: {
 			cheout(v){
-				this.list.forEach((item,index)=>{
-					item.state = false
-				})
-				v.state = true
+				// this.list.forEach((item,index)=>{
+				// 	item.state = false
+				// })
+				// v.state = true
+			},
+			toback(){
+				uni.navigateBack()
 			}
 		}
 	}
@@ -246,6 +257,18 @@
 		label{
 			color: white;
 			margin-left: 10rpx;
+		}
+	}
+	.fixed{
+		position: fixed;
+		top: 80rpx;
+		left: 20rpx;
+		.ops{
+			width: 100%;
+			color: white;
+			text{
+				margin-left: 290rpx;
+			}
 		}
 	}
 </style>

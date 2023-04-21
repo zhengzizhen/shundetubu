@@ -89,7 +89,7 @@
 						this.$jump('./Hotknow')
 						break;
 					case 4:
-						this.$jump('/pages/mine/rebook')
+						this.$jump('/pages/index/Details/Applicant')
 						break;
 					case 5:
 						this.$jump('/pages/mine/rebook')

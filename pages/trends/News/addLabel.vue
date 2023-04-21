@@ -49,7 +49,7 @@
 
 <style lang="scss" scoped>
 	.re_seach {
-		margin: 20rpx 20rpx;
+		margin: 100rpx 20rpx 20rpx;
 
 		input {
 			margin-left: 10rpx;

@@ -2,14 +2,14 @@
 	<view>
 		<!-- 头部 -->
 		<view class="my_header">
-			<image class="banners" src="@/static/image/mine/banner.jpg" mode=""></image>
+			<image  class="banners" src="@/static/image/mine/banner.jpg" mode=""></image>
 			<!-- 顶部按钮 -->
-			<view class="position pd30">
+			<view class="position pd30" @click='upimage'>
 				<view class="my_seting dis_f">
-					<image @click="toSignin()" src="@/static/mine/date.png" mode=""></image>
+					<image @click.stop="toSignin()" src="@/static/mine/date.png" mode=""></image>
 					<view class="dis_f my_set">
-						<image src="@/static/mine/msg.png" @click="toMessage()" mode=""></image>
-						<image src="@/static/mine/seting.png" @click="toSetting()" mode=""></image>
+						<image src="@/static/mine/msg.png" @click.stop="toMessage()" mode=""></image>
+						<image src="@/static/mine/seting.png" @click.stop="toSetting()" mode=""></image>
 					</view>
 				</view>
 
@@ -38,8 +38,8 @@
 				<p>190</p>
 				<view class="my_line">
 					<view class="dis_f my_txt">
-						<p class="left">当前等级 : 好宝宝</p>
-						<p class="right">下一等级 : 初出茅庐</p>
+						<p class="left">当前等级 : 探路先锋</p>
+						<p class="right">下一等级 : 冒险达人</p>
 					</view>
 					<u-line-progress :percentage="30" :showText="false" height="8"></u-line-progress>
 				</view>
@@ -277,7 +277,16 @@
 					case '收货地址':
 						this.$jump('./menu/address')
 						break;
+					case '关于我们':
+						this.$jump('./Aboutus')
+						break;
 				}
+			},
+			upimage(){
+				// console.log(1);
+				uni.chooseImage({
+					
+				})
 			}
 		}
 	}

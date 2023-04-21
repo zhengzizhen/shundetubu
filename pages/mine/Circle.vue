@@ -1,11 +1,11 @@
 <template>
 	<view class="ce_body pd30 pb20">
 		<view class="ce_banner">
-			<text>币圈</text>
+			<text>圈币</text>
 			<p>2000</p>
 		</view>
 		
-		<p class="title">币圈明细</p>
+		<p class="title">圈币明细</p>
 		
 		<view class="content dis_f alitmc jscb" v-for="(item,index) in list" :key="index">
 			<view class="left">

@@ -15,10 +15,10 @@
 			
 			<view class="oy_tos dis_f alitmc jscb">
 				<view class="tosimg">
-					<image src="../../../static/image/trends/qq.jpg" mode=""></image>
-					<image src="../../../static/image/trends/wxx.jpg" mode=""></image>
-					<image src="../../../static/image/trends/qq.jpg" mode=""></image>
-					<image src="../../../static/image/trends/wxx.jpg" mode=""></image>
+					<image src="@/static/image/trends/qq.jpg" mode=""></image>
+					<image src="@/static/image/trends/wxx.jpg" mode=""></image>
+					<image src="@/static/image/trends/qq.jpg" mode=""></image>
+					<image src="@/static/image/trends/wxx.jpg" mode=""></image>
 				</view>
 				<p>18919人去过</p>
 				<button>查看详情</button>
@@ -105,7 +105,7 @@
 		.tosimg{
 			width: 200rpx;
 			image{
-				margin-left: -20rpx;
+				margin-left: -25rpx;
 			}
 			image:first-child{
 				margin-left: 0 !important;
