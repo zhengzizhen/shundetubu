@@ -118,7 +118,7 @@
 			<!-- 带队相册 -->
 			<view class="pd30 album dis_f" v-show="list[2].state">
 				<view :class="'c'+((index%16)+1)" class="pddb" v-for="(v,index) in lists" :key="index">
-					<image  :src="v" mode="" @click="$Resize(v)">
+					<image  :src="v" mode="" @click="$Resize(lists,index)">
 					</image>
 				</view>
 			</view>

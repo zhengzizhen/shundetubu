@@ -1,8 +1,8 @@
 <template>
 	<view class="pd30">
 		<view class="ts_tbs dis_f">
-			<p :class="v.state?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v)">
-				{{v.name}}
+			<p :class="curry == index ?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v,index)">
+				{{v}}
 			</p>
 		</view>
 
@@ -35,33 +35,33 @@
 
 		<u-popup :show="isShow"  mode="top" @close="close" @open="open">
 			<view class="popViews pd30">
-				<p class="tit">路线类型</p>
+				<p class="tit">天数</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist1" :key="index" @click="chetbs1(v)">
-						{{v.name}}
+					<p :class="daycurry == index ?'green':''" v-for="(v,index) in day" :key="index" @click="checkday(v,index)">
+						{{v}}
 					</p>
 				</view>
 				
-				<p class="tit">路线类型</p>
+				<p class="tit">价格</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist1" :key="index" @click="chetbs1(v)">
-						{{v.name}}
+					<p :class="moneycurry == index?'green':''" v-for="(v,index) in money" :key="index" @click="checkmoney(v,index)">
+						{{v}}
 					</p>
 				</view>
 				
-				<p class="tit">路线类型</p>
+				<p class="tit">活动状态</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist1" :key="index" @click="chetbs1(v)">
-						{{v.name}}
+					<p :class="statecurry == index?'green':''" v-for="(v,index) in state" :key="index" @click="checkstate(v,index)">
+						{{v}}
 					</p>
 				</view>
 				
 				
 				<view class="dis_f btn">
-					<p class="ps">重置</p>
+					<p class="ps" @click='resetting'>重置</p>
 					<p class="gs">确定（20个活动）</p>
 				</view>
 			</view>
@@ -74,22 +74,8 @@
 		data() {
 			return {
 				isShow:false,
-				tablist: [{
-						name: '综合',
-						state: true
-					},
-					{
-						name: '口碑',
-						state: false
-					},
-					{
-						name: '热度',
-						state: false
-					},
-					{
-						name: '筛选',
-						state: false
-					}
+				curry:0,//综合选择
+				tablist: ['综合','口碑','热度','筛选',
 				],
 				tablist1: [{
 						name: '登山徒步',
@@ -104,27 +90,45 @@
 						state: false
 					},
 				],
-				list: [1, 2, 3, 4, 5]
+				list: [1, 2, 3, 4, 5],
+				daycurry:null,
+				day:['1天','2~3天','4天及以上'],
+				moneycurry:null,
+				money:['0-100','100-200','200-500','500-1000','1000以上'],
+				statecurry:null,
+				state:['报告中','即将成行','已成行'],
 			}
 		},
 		methods: {
-			chetbs(e) {
-				this.tablist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
-				if(e.name == '筛选'){
+			chetbs(e,index) {
+				this.curry = index
+				if(index == 3){
 					this.isShow = true
 				}
 			},
 			chetbs1(e) {
 				e.state = !e.state
+				
+			},
+			checkday(e,index){ //筛选日期
+				this.daycurry = index
+			},
+			checkmoney(e,index){ //筛选价格
+				this.moneycurry = index
+			},
+			checkstate(e,index){ //筛选状态
+				this.statecurry = index
 			},
 			close(){
 				this.isShow= false
 			},
 			open(){
 				
+			},
+			resetting(){
+				this.daycurry = null
+				this.moneycurry = null
+				this.statecurry = null
 			}
 		}
 	}
@@ -254,7 +258,6 @@
 	}
 	.popViews{
 		height: auto;
-		padding-bottom: 20rpx;
 		.tit{
 			padding: 30rpx 0;
 			font-size: 32rpx;
@@ -263,7 +266,6 @@
 		}
 	}
 	.oy_tabs {
-		margin: 0rpx 0;
 		text-align: center;
 		p {
 			width: 158rpx;
@@ -272,10 +274,9 @@
 			text-align: center;
 			background: #F4F4F4;
 			border-radius: 8rpx;
-			margin-right: 20rpx;
 			font-size: 28rpx;
 			border: 1px solid #F4F4F4;
-			margin: 10rpx 10rpx 20rpx 0rpx;
+			margin: 10rpx 40rpx 20rpx 0rpx;
 		}
 	
 		.green {

@@ -103,6 +103,7 @@
 		height: 32rpx;
 	}
 	p{
+		margin-left: 10rpx;
 		width: 440rpx;
 		color: white;
 		font-size: 24rpx;

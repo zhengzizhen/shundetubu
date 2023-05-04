@@ -68,10 +68,8 @@
 
 			<p class="as_tit">全部周边活动</p>
 			<!-- 单选 -->
-			<view class="u-page__tag-item dis_f" v-for="(item, index) in radios" :key="index">
-				<u-tag shape="circle" size="large" plain color='#49CAA4' borderColor='#CCCCCC' :text="`选项${index + 1}`"
-					:plain="!item.checked" :name="index" @click="radioClick">
-				</u-tag>
+			<view class="cheborder">
+				<p :class="curry == index?'colors':''" @click='chekelist(item,index)' v-for="(item,index) in hotlist" :key="index">{{item}}</p>
 			</view>
 
 			<!-- 热门推荐 -->
@@ -144,26 +142,16 @@
 
 				current: 0,
 				list: ['1', '2', '3'],
-				radios: [{
-						checked: false
-					},
-					{
-						checked: false
-					},
-					{
-						checked: false
-					}
-				],
+				curry:0,
+				hotlist:['本周','已成行','1天','2天']
 			};
 		},
 		methods: {
 			sectionChange(index) {
 				this.current = index;
 			},
-			radioClick(name) {
-				this.radios.map((item, index) => {
-					item.checked = index === name ? true : false
-				})
+			chekelist(e,index){
+				this.curry = index
 			},
 			toChild(name) {
 				switch (name) {
@@ -475,18 +463,37 @@
 	}
 
 	.sp {
-		margin-top: 20rpx;
+		margin-top: 10rpx;
 		justify-content: space-between;
-
+		height: 64rpx;
+		line-height: 64rpx;
 		p {
 			color: red !important;
-			font-size: 24rpx;
+			font-size: 28rpx;
 			font-weight: bold;
 		}
 
 		label {
 			color: #999999;
 			font-size: 24rpx;
+			display: inline-block;
+		}
+	}
+	.cheborder{
+		width: 100%;
+		p{
+			margin-right: 20rpx;
+			margin-top: 10rpx;
+			border-radius: 50rpx;
+			border: 1px solid #ccc;
+			display: inline-block;
+			padding: 10rpx 30rpx;
+			color: #49CAA4;
+		}
+		.colors{
+			color: white;
+			background-color: #49CAA4;
+			border: 1px solid #49CAA4;
 		}
 	}
 </style>

@@ -50,7 +50,7 @@
 			<view class="ix_block index_pad">
 				<label>省内一天路线</label>
 				<view class="ix_subsection dis_f">
-					<p :class="item.state?'check':'checks'" v-for="(item,index) in checklist" :key="index"
+					<p :class="curry == index ?'check':'checks'" v-for="(item,index) in checklist" :key="index"
 						@click="checkout(item,index)">{{item.name}}</p>
 				</view>
 				<view class="ix_img dis_f">
@@ -289,9 +289,9 @@
 
 					<p>华南地区</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="ckaddress(v)">
+						<view class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="ckaddress(v,index)">
 							<image src="@/static/trends/user.png" mode=""></image>
-							<image v-show="v.state" class="position" src="@/static/image/Details/success.png" mode="">
+							<image v-show="addcurry == index" class="position" src="@/static/image/Details/success.png" mode="">
 								<text>{{v.address}}</text>
 						</view>
 					</view>
@@ -331,6 +331,7 @@
 					'../../static/index/zheng.jpg',
 					'../../static/index/chang.jpg',
 				],
+				curry:0,//省内一天路线切换
 				checklist: [{
 						name: '当季热门',
 						state: true
@@ -495,6 +496,7 @@
 				],
 				isShow: false,
 				isShow1:false,
+				addcurry:0,
 				addresslist: [{
 						address: '广州'
 					},
@@ -517,10 +519,6 @@
 			}
 		},
 		onLoad() {
-			this.addresslist.forEach((item, index) => {
-				item.state = false
-			})
-			this.addresslist[0].state = true
 			this.imglist = this.imglist1
 			// this.getUser()
 		},
@@ -548,17 +546,17 @@
 				this.$jump('./dateHot')
 			},
 			checkout(e, index) {
-				console.log(e, index) //切换
-				this.checklist.forEach(function(item) {
-					item.state = false
-				})
-				e.state = true
-				if (index == 0) {
-					this.imglist = this.imglist1
-				} else if (index == 1) {
-					this.imglist = this.imglist2
-				} else if (index == 2) {
-					this.imglist = this.imglist3
+				this.curry = index 
+				switch (index){
+					case 0:
+						this.imglist = this.imglist1
+						break;
+					case 1:
+						this.imglist = this.imglist2
+						break;
+					case 2:
+						this.imglist = this.imglist3
+						break;
 				}
 			},
 			open() {
@@ -619,12 +617,8 @@
 			toDetails() {
 				this.$jump('./Details/Details');
 			},
-			ckaddress(e) {
-				this.addresslist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
-				this.$forceUpdate()
+			ckaddress(e,index) {
+				this.addcurry = index
 			},
 			tomemberday() {
 				this.$jump('./memberday')
@@ -641,7 +635,6 @@
 		background: url(@/static/index/banner.jpg) no-repeat;
 		background-size: 100% 740rpx;
 	}
-
 	.ix_headr_text {
 		margin-bottom: 20rpx;
 		height: 60rpx;

@@ -41,7 +41,7 @@
 				<!-- 图片 -->
 				<view class="ts_imglist dis_f">
 					<view class="ts_js dis_f" v-for="(v,index) in item.img" :key="index">
-						<image class="bor_r" :src="v" mode="" @click='clickImg(v)'></image>
+						<image class="bor_r" :src="v" mode="" @click='clickImg(item,index)'></image>
 					</view>
 				</view>
 				<!-- 评论区 -->
@@ -189,13 +189,10 @@
 			change(e) {
 				console.log(e)
 			},
-			clickImg(v) {
-				wx.previewImage({
-					urls: [v], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
-					current: '', // 当前显示图片的http链接，默认是第一个
-					success: function(res) {},
-					fail: function(res) {},
-					complete: function(res) {},
+			clickImg(item, index) {
+				uni.previewImage({
+					urls: item.img,
+					current: index
 				})
 			},
 			goSpace() {

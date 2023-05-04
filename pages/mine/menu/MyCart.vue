@@ -15,7 +15,11 @@
 					<label>{{item.label}}</label>
 					<p class="dis_f alitmc jscb">
 						<text class="nix">￥{{item.money}}</text>
-						<u-number-box button-size="28" v-model="item.value" @change="valChange"></u-number-box>
+						<view class="number dis_f">
+							<p class="reduce" @click='reduce(item)'>-</p>
+							<text>{{item.number}}</text>
+							<p class="add" @click='add(item)'>+</p>
+						</view>
 					</p>
 				</view>
 			</view>
@@ -41,12 +45,12 @@
 			<view class="pd30 dis_f alitmc">
 				<image v-show="!allRadio" @click="allRadios()" class="radio" src="@/static/image/mine/radio.png"
 					mode=""></image>
-				<image v-show="allRadio" @click="allRadios()" class="radio"
-					src="@/static/image/mine/radio1.png" mode=""></image>
+				<image v-show="allRadio" @click="allRadios()" class="radio" src="@/static/image/mine/radio1.png"
+					mode=""></image>
 				<p class="tit">全选</p>
 				<label>含运费</label>
 				<p class="tit">合计</p>
-				<text class="mondy">￥{{sum}}</text>
+				<text class="mondy">￥{{count}}</text>
 				<p class="btn">结算</p>
 			</view>
 		</view>
@@ -57,21 +61,21 @@
 	export default {
 		data() {
 			return {
-				isRadio: true,
+				isRadio: false,
 				allRadio: false, //全选
 				list: [{
 						tit: '铝合金外锁登山杖，不走寻常路',
 						label: '绿色',
 						money: 88,
+						number: 1,
 						radio: false,
-						value: 0,
 					},
 					{
 						tit: '山外青山楼外楼，不走寻常路',
 						label: '绿色',
 						money: 100,
+						number: 1,
 						radio: false,
-						value: 0
 					},
 				],
 				moenylist: [{
@@ -89,24 +93,26 @@
 						text: '【花漫天山】新疆伊犁 杏花大环线8日',
 						money: '75'
 					},
-					{
-						image: '../../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日',
-						money: '75'
-					},
 				],
 			}
 		},
-		computed:{
-			sum(){
-				let a = 0
-				this.list.forEach((item,index)=>{
-					if(item.radio == true){
-						a = a + item.money
-					}
-				})
-				return a
-			}
+		computed: {
+			//总价格
+			count() {
+				let totalPrice = 0
+				for (let i = 0; i < this.list.length; i++) {
+					totalPrice += this.list[i].number * parseFloat(this.list[i].money);
+				}
+				return totalPrice;
+			},
+			//总数量
+			total: function() {
+				let totalCount = 0;
+				for (let i = 0; i < this.list.length; i++) {
+					totalCount += this.list[i].number;
+				}
+				return totalCount;
+			},
 		},
 		methods: {
 			valChange(e) {
@@ -115,23 +121,32 @@
 			displayRadio() {
 				this.isRadio = !this.isRadio
 			},
-			allRadios(){
+			allRadios() {
 				this.allRadio = !this.allRadio
-				if(this.allRadio === true){
-					this.list.forEach((item,index)=>{
+				if (this.allRadio === true) {
+					this.list.forEach((item, index) => {
 						item.radio = true
 					})
 				}
-				if(this.allRadio === false){
-					this.list.forEach((item,index)=>{
+				if (this.allRadio === false) {
+					this.list.forEach((item, index) => {
 						item.radio = false
 					})
 				}
 			},
-			toDetail(){
+			toDetail() {
 				this.$jump('./shopDetail')
+			},
+			reduce(v){
+				if(v.number == 1){
+					return false
+				}
+				v.number--
+			},
+			add(v){
+				v.number++
 			}
-		}
+		},
 	}
 </script>
 
@@ -154,6 +169,7 @@
 		padding: 20rpx;
 		background-color: white;
 		box-sizing: border-box;
+
 		.israido {
 			margin-bottom: 40rpx;
 			box-sizing: border-box;
@@ -172,6 +188,7 @@
 
 		.text {
 			margin-left: 30rpx;
+			width: 400rpx;
 
 			.txt {
 				font-size: 30rpx;
@@ -272,10 +289,12 @@
 		background-color: white;
 		box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(4, 0, 0, 0.16);
 		box-sizing: border-box;
+
 		image {
 			width: 40rpx;
 			height: 40rpx;
 		}
+
 		label {
 			display: block;
 			margin-left: 80rpx;
@@ -283,17 +302,20 @@
 			width: 70rpx;
 			color: #999999;
 		}
-		.tit{
+
+		.tit {
 			width: 80rpx;
 			margin-left: 10rpx;
 			font-size: 28rpx;
 		}
-		text{
+
+		text {
 			font-size: 28rpx;
 			color: #FF4040;
 			width: 80rpx;
 		}
-		.btn{
+
+		.btn {
 			margin-left: 20rpx;
 			width: 242rpx;
 			height: 80rpx;
@@ -303,6 +325,33 @@
 			line-height: 80rpx;
 			font-size: 30rpx;
 			text-align: center;
+		}
+	}
+	.number{
+		background: #fafafa;
+		height: 45rpx;
+		line-height: 45rpx;
+		text{
+			margin: 0 6rpx;
+			font-size: 30rpx;
+			font-weight: 500;
+			color: #000000;
+			width: 50rpx;
+			text-align: center;
+			background-color: #fafafa;
+		}
+		p{
+			width: 45rpx;
+			height: 45rpx;
+			line-height: 42rpx;
+			border-radius: 10rpx;
+			text-align: center;
+		}
+		.reduce{
+			color: #999;
+		}
+		.add{
+			color: #222;
 		}
 	}
 </style>

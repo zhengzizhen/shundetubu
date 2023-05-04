@@ -33,8 +33,8 @@
 
 			<p class="as_tit">口碑之选</p>
 			<view class="ix_subsection dis_f">
-				<span :class="item.state?'check':'checks'" v-for="(item,index) in checklist" :key="index"
-					@click="checkout(item)">{{item.name}}</span>
+				<span :class="curry == index ?'check':'checks'" v-for="(item,index) in checklist" :key="index"
+					@click="checkout(item,index)">{{item}}</span>
 			</view>
 			<view class="">
 				<view class="as_kb dis_f" v-for="(item,index) in list" :key="index">
@@ -58,8 +58,8 @@
 			<p class="as_tit">个性定制</p>
 			
 			<view class="ix_subsection dis_f">
-				<span :class="item.state?'check':'checks'" v-for="(item,index) in checklist1" :key="index"
-					@click="checkout1(item)">{{item.name}}</span>
+				<span :class="curry1 == index?'check':'checks'" v-for="(item,index) in checklist1" :key="index"
+					@click="checkout1(item,index)">{{item.name}}</span>
 			</view>
 			<view class="ix_img dis_f">
 				<view class="ix_flexs" v-for="(item,index) in imglist" :key="index">
@@ -149,20 +149,9 @@
 						checked: false
 					}
 				],
-				checklist: [{
-						name: '2~3天',
-						state: true
-					},
-					{
-						name: '4天以上',
-						state: false
-					},
-					{
-						name: '1天定制',
-						state: false
-					},
-				],
-				
+				curry:null,
+				checklist: ['2~3天','4天以上','1天定制'],
+				curry1:null,
 				checklist1: [{
 						name: '企业定制',
 						state: true
@@ -208,19 +197,11 @@
 					item.checked = index === name ? true : false
 				})
 			},
-			checkout(e) {
-				console.log(e) //切换
-				this.checklist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
+			checkout(e,index) {
+				this.curry = index
 			},
-			checkout1(e) {
-				console.log(e) //切换
-				this.checklist1.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
+			checkout1(e,index) {
+				this.curry1 = index
 			},
 			goWonderful(){
 				this.$jump('./Wonderful')
@@ -386,6 +367,7 @@
 	
 		span {
 			display: block;
+			font-size: 30rpx;
 			margin-right: 30rpx;
 		}
 	
@@ -393,6 +375,7 @@
 			box-sizing: border-box;
 			display: block;
 			background-color: #49CAA4;
+			border: 1px solid #49CAA4;
 			padding: 10rpx 30rpx;
 			color: white;
 			border-radius: 50rpx;
@@ -414,10 +397,14 @@
 		margin-bottom: 30rpx;
 		.as_posi{
 			position: relative;
+			p{
+				font-size: 28rpx;
+			}
 		}
 		.as_text{
 			justify-content: space-between;
 			align-items: center;
+			font-size: 30rpx;
 			.xq{
 				width: 182rpx;
 				height: 64rpx;
@@ -426,6 +413,7 @@
 				background: #49CAA4;
 				border-radius: 32rpx;
 				color: white;
+				font-size: 30rpx;
 			}
 			.jus{
 				flex-direction: column;

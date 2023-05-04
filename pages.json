@@ -857,6 +857,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/menu/Status",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

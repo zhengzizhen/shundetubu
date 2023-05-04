@@ -1,11 +1,11 @@
 <template>
 	<view class="pd30">
 		<view class="ts_tbs dis_f">
-			<p :class="v.state?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v)">
-				{{v.name}}
+			<p :class="curry == index ?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v,index)">
+				{{v}}
 			</p>
 		</view>
-		<view v-show="isShow" class="msgcont dis_f " v-for="(item,index) in pllist" :key="index">
+		<view v-show="curry == 0" class="msgcont dis_f " v-for="(item,index) in pllist" :key="index">
 			<image src="@/static/image/trends/wxx.jpg" mode=""></image>
 			<view class="dis_f txt">
 				<p>{{item.name}}</p>
@@ -15,7 +15,7 @@
 		</view>
 		
 		<view>
-			<view v-show="isShow1" class="msgcont dis_f " v-for="(item,index) in godlist" :key="index">
+			<view v-show="curry == 1" class="msgcont dis_f " v-for="(item,index) in godlist" :key="index">
 				<image src="@/static/image/trends/qq.jpg" mode=""></image>
 				<view class="dis_f txt jscc">
 					<p>{{item.name}}赞了你</p>
@@ -25,7 +25,7 @@
 		</view>
 		
 		<view>
-			<view v-show="isShow2" class="msgcont dis_f " v-for="(item,index) in godlist" :key="index">
+			<view v-show="curry == 2" class="msgcont dis_f " v-for="(item,index) in godlist" :key="index">
 				<image src="@/static/image/trends/qq.jpg" mode=""></image>
 				<view class="dis_f txt jscc frist">
 					<p>{{item.name}}</p>
@@ -40,19 +40,7 @@
 	export default {
 		data() {
 			return {
-				tablist: [{
-						name: '评论/回复',
-						state: true
-					},
-					{
-						name: '赞',
-						state: false
-					},
-					{
-						name: '关注',
-						state: false
-					}
-				],
+				tablist: ['评论/回复','赞','关注'],
 				pllist:[
 					{name:'玉米粥',date:'11-12',cont:'不错不错'},
 					{name:'玉米粥',date:'11-11',cont:'整的不赖'},
@@ -61,33 +49,12 @@
 					{name:'世界的尽头',date:'11-12'},
 					{name:'世界的尽头',date:'11-10'},
 				],
-				isShow:true,
-				isShow1:false,
-				isShow2:false,
+				curry:0,
 			}
 		},
 		methods: {
-			chetbs(e) {
-				this.tablist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
-				if (e.name == '评论/回复') {
-					this.isShow = true
-					this.isShow1 = false
-					this.isShow2 = false
-					return false
-				} else if (e.name == '赞') {
-					this.isShow = false
-					this.isShow1 = true
-					this.isShow2 = false
-					return false
-				}else if (e.name == '关注') {
-					this.isShow = false
-					this.isShow1 = false
-					this.isShow2 = true
-					return false
-				}
+			chetbs(e,index) {
+				this.curry = index
 			},
 		}
 	}

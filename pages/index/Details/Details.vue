@@ -3,7 +3,7 @@
 		<view class="ds_banner posir">
 			<swiper class="swiper"  circular :indicator-dots="true" :autoplay="false"
 				:duration="500">
-				<swiper-item v-for="(item,index) in swiperlist" :key="index">
+				<swiper-item @click="$Resize(swiperlist,index)" v-for="(item,index) in swiperlist" :key="index">
 					<image :src="item" mode=""></image>
 				</swiper-item>
 				
@@ -23,9 +23,9 @@
 					<text>领队人</text>
 					<text>评分：4.9（1000人点评）</text>
 				</p>
-				<view class="ds_love dis_f flex_c alitmc">
-					<image v-show="!toshow" @click="toshow = !toshow" src="@/static/trends/ax.png" mode=""></image>
-					<image v-show="toshow" @click="toshow = !toshow" src="@/static/image/trends/zan.png" mode="">
+				<view class="ds_love dis_f flex_c alitmc"  @click="toshow = !toshow">
+					<image v-show="!toshow" src="@/static/trends/ax.png" mode=""></image>
+					<image v-show="toshow" src="@/static/image/trends/zan.png" mode="">
 					</image>
 					<label>种草</label>
 				</view>
@@ -39,7 +39,7 @@
 			</p>
 			<!-- 选择框 -->
 			<view class="ts_tbs dis_f">
-				<p :class="v.state?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v,index)">
+				<p :class="curry == index ?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v,index)">
 					{{v.name}}
 				</p>
 			</view>
@@ -89,17 +89,17 @@
 		<view class="content">
 			<!-- tabs -->
 			<view class="ts_tbs dis_f jscb">
-				<p :class="v.state?'green':''" v-for="(v,index) in CheckTablist" :key="index"
+				<p :class="tabcurry == index?'green':''" v-for="(v,index) in CheckTablist" :key="index"
 					@click="CheckTab(v,index)">
-					{{v.name}}
+					{{v}}
 				</p>
 			</view>
 			<!-- 活动详情 -->
-			<view v-show="CheckTablist[0].state" class="hotDetiails pd30">
+			<view v-show="tabcurry == 0" class="hotDetiails pd30">
 				<image src="/static/index/chang.jpg" mode=""></image>
 			</view>
 			<!-- 行程与准备 -->
-			<view v-show="CheckTablist[1].state" class="reday pd30">
+			<view v-show="tabcurry == 1" class="reday pd30">
 				<p class="tit">详细行程 (共四天)</p>
 				<p class="ftit">
 					<label>(3月16日)</label>
@@ -158,7 +158,7 @@
 			</view>
 
 			<!-- 费用须知 -->
-			<view class="notice pd30" v-show="CheckTablist[2].state">
+			<view class="notice pd30" v-show="tabcurry == 2">
 				<text class="tit">费用须知</text>
 				<p>本活动谢绝孕妇参加;</p>
 				<p>本活动谢绝携带未报名的婴幼儿参加:</p>
@@ -168,7 +168,7 @@
 			</view>
 
 			<!-- 最新评价 -->
-			<view class="notice pd30" v-show="CheckTablist[3].state">
+			<view class="notice pd30" v-show="tabcurry == 3">
 				<text class="tit">最新评价</text>
 				<view class="new" v-for="(v,index) in list" :key="index">
 					<view class="dis_f">
@@ -224,9 +224,9 @@
 			<view class="ix_pop pd30">
 				<p>出发城市选择</p>
 				<view class="dis_f ps">
-					<view class="dis_f prp" v-for="(item,index) in addList" :key="index" @click="ckaddress(item)">
+					<view class="dis_f prp" v-for="(item,index) in addList" :key="index" @click="ckaddress(item,index)">
 						<image src="@/static/trends/user.png" mode=""></image>
-						<image v-show="item.state" class="position" src="@/static/image/Details/success.png" mode="">
+						<image v-show="curryimg == index " class="position" src="@/static/image/Details/success.png" mode="">
 						</image>
 						<text>{{item.name}}</text>
 					</view>
@@ -267,6 +267,7 @@
 				isShow: false,
 				isShow1: false,
 				isShow2: false,
+				curry:0,//月份选择
 				tablist: [{
 						name: '3月',
 					},
@@ -274,6 +275,7 @@
 						name: '4月',
 					}
 				],
+				curryimg:0,//地区选择器
 				addList: [{
 						name: '北京'
 					}, {
@@ -286,23 +288,9 @@
 						name: '曹县'
 					}
 				],
-				CheckTablist: [{
-						name: '活动详情',
-						state: true
-					},
-					{
-						name: '行程与准备',
-						state: false
-					},
-					{
-						name: '费用须知',
-						state: false
-					},
-					{
-						name: '评价',
-						state: false
-					}
-				],
+				tabcurry:0,//底部选择器
+				CheckTablist: ['活动详情','行程与准备','费用须知', '评价'],
+				datecurry:0,//日期选择
 				datelist: [{
 						date: '3/25 周六~04/01',
 						static: '1'
@@ -319,28 +307,14 @@
 		},
 		onLoad(option) {
 			console.log(option);
-			this.tablist.forEach(function(item, index) {
-				item.state = false
-			})
-			this.tablist[0].state = true
-
 			this.datelist.forEach(function(item, index) {
 				item.state = false
 			})
 			this.datelist[0].state = true
-
-			this.addList.forEach(function(item, index) {
-				item.state = false
-			})
-			this.addList[0].state = true
 		},
 		methods: {
 			chetbs(e, index) {
-				this.tablist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
-				this.$forceUpdate()
+				this.curry = index
 			},
 			Datetbs(e) {
 				this.datelist.forEach(function(item, index) {
@@ -350,11 +324,7 @@
 				this.$forceUpdate()
 			},
 			CheckTab(e, index) {
-				this.CheckTablist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
-				this.$forceUpdate()
+				this.tabcurry = index
 			},
 			popClose() {
 				this.isShow = false
@@ -387,12 +357,8 @@
 					icon: 'none'
 				});
 			},
-			ckaddress(e) {
-				this.addList.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
-				this.$forceUpdate()
+			ckaddress(e,index) {
+				this.curryimg = index
 			},
 			toback(){
 				uni.navigateBack()

@@ -1,13 +1,12 @@
 <template>
 	<view class="body">
-		
+
 		<view class="ds_banner posir">
-			<swiper class="swiper"  circular :indicator-dots="true" :autoplay="false"
-				:duration="500">
+			<swiper class="swiper" circular :indicator-dots="true" :autoplay="false" :duration="500">
 				<swiper-item v-for="(item,index) in swiperlist" :key="index">
 					<image :src="item" mode=""></image>
 				</swiper-item>
-				
+
 			</swiper>
 			<p class="swiperposi posia">
 				{{this.swiperlist.length}}张照片
@@ -25,7 +24,7 @@
 		</view>
 
 		<view class="pd30 content">
-			<view class="pos dis_f">
+			<view @click="specifications = true" class="pos dis_f">
 				<label>选择:</label>
 				<text>已选: "绿色"</text>
 			</view>
@@ -40,16 +39,17 @@
 
 		<view class="detach">
 			<view class="ts_tbs dis_f jscb">
-				<p :class="v.state?'green':''" v-for="(v,index) in CheckTablist" :key="index" @click="CheckTab(v,index)">
-					{{v.name}}
+				<p :class="tabcurry == index ?'green':''" v-for="(v,index) in CheckTablist" :key="index"
+					@click="CheckTab(v,index)">
+					{{v}}
 				</p>
 			</view>
 			<!-- 详情 -->
-			<view class="image" v-show="this.CheckTablist[0].state">
+			<view class="image" v-show="tabcurry == 0">
 				<image src="@/static/as/changs.jpg" mode=""></image>
 			</view>
 			<!-- 评价 -->
-			<view class="nocity" v-show="this.CheckTablist[1].state">
+			<view class="nocity" v-show="tabcurry == 1">
 				<view class="content" v-for="(item,index) in list" :key="index">
 					<view class="header dis_f">
 						<image src="@/static/trends/user.png" mode=""></image>
@@ -59,11 +59,11 @@
 						</view>
 					</view>
 					<p class="center">非常Nice</p>
-					<label>2023-03-10  02:00  红色</label>
+					<label>2023-03-10 02:00 红色</label>
 				</view>
 			</view>
-			
-			<view @click="toshop" class="ix_block index_pad pd30" v-show="this.CheckTablist[2].state">
+
+			<view @click="toshop" class="ix_block index_pad pd30" v-show="tabcurry == 2">
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
 						<image :src="item.image"></image>
@@ -72,9 +72,9 @@
 					</view>
 				</view>
 			</view>
-			
+
 		</view>
-		
+
 		<view class="bottoms dis_f ">
 			<view class="dis_f alitmc jscb">
 				<view class="dis_f flex_c alitmc con">
@@ -98,7 +98,50 @@
 		<view class="fixed">
 			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
 		</view>
-		
+
+		<u-popup :show="specifications" mode="bottom" closeable @close="closes" @open="opens">
+			<view class="space pd30">
+				<view class="static dis_f alitmc">
+					<image class="bor_r" src="@/static/index/zheng.jpg" mode=""></image>
+					<view class="popview">
+						<text>￥88</text>
+						<p>已选： “绿色”</p>
+					</view>
+				</view>
+				<p class="poptitle">颜色</p>
+				<view class="chekpop">
+					<p @click='chestatic(item,index)' :class="curry == index ? 'chekpops':''"
+						v-for="(item,index) in check" :key="index">{{item}}</p>
+				</view>
+				<p class="mo poptitle">选择数量</p>
+				<view class="number dis_f">
+					<p @click='reduce'>-</p>
+					<text>{{num}}</text>
+					<p @click='add'>+</p>
+					<label>库存 ： 191</label>
+				</view>
+				<view class="bottoms dis_f nobor">
+					<view class="dis_f alitmc jscb">
+						<view class="dis_f flex_c alitmc con">
+							<image src="@/static/image/mine/message.png" mode=""></image>
+							<text @click="tofirst">更多好物</text>
+						</view>
+						<view class="dis_f flex_c alitmc con">
+							<image src="@/static/image/mine/msg.png" mode=""></image>
+							<text>咨询</text>
+						</view>
+						<view class="dis_f flex_c alitmc con" @click="toCar">
+							<image src="@/static/image/mine/cart.png" mode=""></image>
+							<text>购物车</text>
+						</view>
+						<view class="dis_f">
+							<p class="addcar">加入购物车</p>
+							<p class="goshop" @click='toPlay()'>立即购买</p>
+						</view>
+					</view>
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -106,25 +149,15 @@
 	export default {
 		data() {
 			return {
-				swiperlist:['../../../static/index/chang.jpg','../../../static/index/chang.jpg'],
-				list:[1,2,3],
-				count:5,
-				value:4,
-				CheckTablist: [{
-						name: '详情',
-						state: true
-					},
-					{
-						name: '评价',
-						state: false
-					},
-					{
-						name: '推荐',
-						state: false
-					}
-				],
-				moenylist: [
-					{
+				swiperlist: ['../../../static/index/chang.jpg', '../../../static/index/chang.jpg'],
+				list: [1, 2, 3],
+				count: 5,
+				value: 4,
+				num: 1,
+				specifications: false, //规格选择
+				tabcurry:0,
+				CheckTablist: [ '详情','评价','推荐'],
+				moenylist: [{
 						image: '../../../static/index/chang.jpg',
 						text: '【花漫天山】新疆伊犁 杏花大环线8日',
 						money: '60'
@@ -145,60 +178,82 @@
 						money: '75'
 					},
 				],
+				curry: 0,
+				check: ['绿色', '红色', '彩虹色']
 			}
 		},
 		methods: {
 			CheckTab(e, index) {
-				this.CheckTablist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
-				this.$forceUpdate()
+				this.tabcurry = index
 			},
-			toPlay(){
+			toPlay() {
 				this.$jump('./goPlay')
 			},
-			toCar(){
+			toCar() {
 				this.$jump('./MyCart')
 			},
-			toshop(){
+			toshop() {
 				this.$jump('./shopDetail')
 			},
-			toback(){
+			toback() {
 				uni.navigateBack()
 			},
-			tofirst(){
+			tofirst() {
 				this.$jump('./HaowuMall')
+			},
+			opens() {
+
+			},
+			closes() {
+				this.specifications = false
+			},
+			chestatic(e, index) {
+				this.curry = index
+			},
+			valChange(e) {
+				console.log(e);
+			},
+			reduce(){
+				if(this.num == 1){
+					return false
+				}
+				this.num--
+			},
+			add(){
+				this.num++
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	
 	.ds_banner {
 		width: 100%;
 		height: 494rpx;
+
 		image {
 			width: 100%;
 			height: 494rpx;
 		}
-		.swiper{
+
+		.swiper {
 			width: 100%;
 			height: 494rpx;
 		}
-		.swiperposi{
+
+		.swiperposi {
 			top: 60rpx;
 			right: 30rpx;
 			z-index: 99;
 			color: red;
 			background-color: rgba(32, 32, 32, .5);
-			padding:8rpx 20rpx;
+			padding: 8rpx 20rpx;
 			border-radius: 32rpx;
 			font-size: 26rpx;
 			color: #FFFFFF;
 		}
 	}
+
 	.body {
 		height: auto;
 		background-color: #FAFAFA;
@@ -232,15 +287,17 @@
 		}
 
 		.bottom {
-			.ius{
+			.ius {
 				display: flex;
 				width: 200rpx;
-				text{
+
+				text {
 					color: #FF4040;
 					display: inline-block;
 					font-size: 26rpx;
 				}
 			}
+
 			.red {
 				color: #FF4040;
 				font-size: 40rpx;
@@ -295,41 +352,48 @@
 			color: #49CAA4;
 		}
 	}
-	
-	.detach{
+
+	.detach {
 		margin: 20rpx 0;
 		background-color: white;
 	}
-	.image{
+
+	.image {
 		width: 690rpx;
 		height: 966rpx;
 		margin: 0 auto;
-		image{
+
+		image {
 			width: 690rpx;
 			height: 966rpx;
 		}
 	}
-	.bottoms{
+
+	.bottoms {
 		position: fixed;
 		bottom: 0;
 		right: 0;
 		width: 100%;
 		height: 166rpx;
 		background: #FFFFFF;
-		box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(4,0,0,0.16);
-		image{
+		box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(4, 0, 0, 0.16);
+
+		image {
 			width: 40rpx;
 			height: 40rpx;
 		}
-		.con{
+
+		.con {
 			width: 122rpx;
 		}
-		text{
+
+		text {
 			font-size: 22rpx;
 			font-weight: 500;
 			color: #222222;
 		}
-		.addcar{
+
+		.addcar {
 			width: 181rpx;
 			height: 80rpx;
 			line-height: 80rpx;
@@ -339,7 +403,8 @@
 			font-size: 28rpx;
 			border-radius: 40rpx 0rpx 0rpx 40rpx;
 		}
-		.goshop{
+
+		.goshop {
 			width: 181rpx;
 			height: 80rpx;
 			line-height: 80rpx;
@@ -350,69 +415,74 @@
 			border-radius: 0rpx 40rpx 40rpx 0rpx;
 		}
 	}
-	.nocity{
-		.content{
+
+	.nocity {
+		.content {
 			padding-bottom: 20rpx;
 			margin: 20rpx 0;
 			border-bottom: 1px solid #e6e6e6;
-			.header{
-				image{
+
+			.header {
+				image {
 					width: 80rpx;
 					height: 80rpx;
 				}
 			}
-			.center{
+
+			.center {
 				margin: 30rpx 0;
 				font-size: 24rpx;
 				font-weight: 500;
 				color: #444444;
 			}
-			label{
+
+			label {
 				font-size: 22rpx;
 				font-weight: 500;
 				color: #999999;
 			}
 		}
 	}
+
 	.ix_block {
 		position: relative;
-	
-	
+
+
 		.ix_subsection {
 			margin: 40rpx auto;
 			justify-content: space-around;
 			align-items: center;
-	
+
 			span {
 				display: block;
 			}
-	
+
 		}
-	
+
 		.ix_img {
 			justify-content: space-between;
 			flex-wrap: wrap;
-	
+
 			image {
 				margin: 20rpx auto 10rpx;
 				width: 335rpx;
 				height: 335rpx;
 				border-radius: 20rpx 20rpx 0rpx 0rpx;
 			}
-	
+
 			.ix_flexs {
 				position: relative;
 				width: 335rpx;
 				height: auto;
 			}
-	
-	
+
+
 			.ix_title {
 				margin: 0 auto 20rpx;
 				word-wrap: normal;
 				font-size: 28rpx;
 			}
-	
+
 			.ix_yellow {
 				font-size: 30rpx;
 				font-weight: 500;
@@ -420,9 +490,105 @@
 			}
 		}
 	}
-	.fixed{
+
+	.fixed {
 		position: fixed;
 		top: 80rpx;
 		left: 20rpx;
+	}
+
+	.space {
+		width: 100%;
+		min-height: 760rpx;
+		height: auto;
+		background-color: white;
+		padding: 30rpx;
+		box-sizing: border-box;
+
+		.static {
+			padding-bottom: 20rpx;
+			border-bottom: 1px solid #E6E6E6;
+
+			image {
+				width: 240rpx;
+				height: 240rpx;
+			}
+
+			.popview {
+				margin-left: 20rpx;
+
+				text {
+					font-size: 30rpx;
+					font-weight: 500;
+					color: #FF4040;
+				}
+
+				p {
+					font-size: 26rpx;
+					font-weight: 500;
+					color: #000000;
+				}
+			}
+		}
+
+		.poptitle {
+			margin: 20rpx 0;
+			font-size: 30rpx;
+			font-weight: 500;
+			color: #000000;
+		}
+
+		.chekpop {
+			p {
+				display: inline-block;
+				padding: 10rpx 40rpx;
+				background: #F2F2F2;
+				border-radius: 10rpx;
+				font-size: 28rpx;
+				font-weight: 500;
+				color: #999999;
+				margin-right: 20rpx;
+				margin-bottom: 20rpx;
+				border: 1px solid #F2F2F2;
+			}
+
+			.chekpops {
+				background: #e9fff4;
+				border: 1px solid #35C77C;
+				color: #35C77C;
+			}
+		}
+
+		.mo {
+			margin-top: 0 !important;
+		}
+		.number{
+			text{
+				margin: 0 10rpx;
+				font-size: 30rpx;
+				font-weight: 500;
+				color: #000000;
+				width: 40rpx;
+				text-align: center;
+			}
+			p{
+				width: 42rpx;
+				height: 42rpx;
+				line-height: 42rpx;
+				background: #F2F2F2;
+				border-radius: 10rpx;
+				text-align: center;
+			}
+			label{
+				font-size: 28rpx;
+				font-weight: 500;
+				color: #999999;
+				margin-left: 20rpx;
+			}
+		}
+		.nobor{
+			box-shadow: 0rpx 0rpx 0rpx 0rpx !important;
+			margin-bottom: 40rpx;
+		}
 	}
 </style>

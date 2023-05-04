@@ -11,7 +11,7 @@
 				<label>安徽·黄山 2023-01-12 出发</label>
 			</view>
 			<view class="wl_img dis_f">
-				<view @click="Resize(item)" class="img_c dis_f" v-for="(item,index) in imglist" :key="index">
+				<view @click="$Resize(imglist,index)" class="img_c dis_f" v-for="(item,index) in imglist" :key="index">
 					<image  class="bor_r" :src="item" mode=""></image>
 				</view>
 			</view>
@@ -37,9 +37,6 @@
 			}
 		},
 		methods: {
-			Resize(v){
-				this.$Resize(v)
-			}
 		}
 	}
 </script>

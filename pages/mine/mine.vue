@@ -76,9 +76,9 @@
 			</view>
 
 			<!-- 邀请 -->
-			<view class="my_green dis_f">
+			<!-- <view class="my_green dis_f">
 				<p>立即邀请</p>
-			</view>
+			</view> -->
 
 			<!-- 活动订单 -->
 			<view class="my_hot dis_f">
@@ -433,15 +433,20 @@
 	.my_frist {
 		margin-top: 40rpx;
 		justify-content: space-between;
-
 		.ptext {
 			padding: 40rpx 20rpx;
-
+			p{
+				font-size: 30rpx;
+				font-weight: bold;
+				color: #222222;
+			}
 			span {
+				font-family: 'PF';
 				display: flex;
 				margin-top: 10rpx;
 				font-size: 24rpx;
-				color: #666666;
+				font-weight: 500;
+				color: #222222;
 			}
 		}
 
@@ -475,7 +480,6 @@
 		background-color: #49CAA4;
 		align-items: center;
 		justify-content: right;
-
 		p {
 			width: 120rpx;
 			height: 20rpx;
@@ -485,11 +489,12 @@
 			background-color: white;
 			border-radius: 40rpx;
 			font-size: 28rpx;
+			text-align: center;
 		}
 	}
 
 	.my_hot {
-		margin-top: 30rpx;
+		margin-top: 50rpx;
 		justify-content: space-between;
 
 		.hot {
