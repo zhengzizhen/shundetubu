@@ -26,7 +26,7 @@
 			</view>
 			<view class="bottom dis_f" v-if="item.state == 1">
 				<p @click.stop='Deleteshop()'>删除订单</p>
-				<p>修改地址</p>
+				<p @click.stop = 'toaddress()'>修改地址</p>
 				<p>立即支付</p>
 			</view>
 			<view class="bottom dis_f" v-if="item.state == 2">
@@ -164,6 +164,9 @@
 			Deleteshop() {
 				this.deletepop = true
 			},
+			toaddress(){
+				this.$jump('./menu/address')
+			}
 		}
 	}
 </script>

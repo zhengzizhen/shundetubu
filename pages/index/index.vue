@@ -17,7 +17,7 @@
 				</view>
 				<!-- 轮播图 -->
 				<view class="Swiper">
-					<u-swiper circular :list="list1" @change="e =>changeSwiper(e)" @click="toDetails(index)"></u-swiper>
+					<u-swiper circular :list="list1" @change="e =>changeSwiper(e)" @click="toDetails"></u-swiper>
 				</view>
 				<view class="ix_noti dis_f">
 					<view class="ix_message dis_f">
@@ -88,7 +88,7 @@
 						</view>
 						<view class="ix_botsub bor_r">
 							<view class="ix_posi_r">
-								<image class="bor_r" @click="toDetails()" src="@/static/index/chang.jpg"></image>
+								<image class="bor_r" @click="toDetails(3)" src="@/static/index/chang.jpg"></image>
 								<view class="ix_pos_c">
 									<p style="color: white;">斯里兰卡</p>
 									<p style="color: white;">[夏日清爽]中部深度游</p>
@@ -141,7 +141,7 @@
 			<view class="ix_block index_pad">
 				<label>活动日历</label>
 				<view class="ix_imgplus dis_f">
-					<view class="ix_background bor_r" @click="todateHot">
+					<view class="ix_background bor_r" @click="todateHot(4)">
 						<view class="ix_bgfz">
 							<p>四月 春和日丽</p>
 							<span>更多<u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -153,7 +153,7 @@
 						</view>
 					</view>
 					<view class="ix_bot">
-						<view class="ix_imgbotbg bor_r" @click="todateHot">
+						<view class="ix_imgbotbg bor_r" @click="todateHot(5)">
 							<view class="ix_bgfz">
 								<p>五月 春和日丽</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -166,7 +166,7 @@
 								</view>
 							</view>
 						</view>
-						<view class="ix_imgbotbg bor_r" @click="todateHot">
+						<view class="ix_imgbotbg bor_r" @click="todateHot(6)">
 							<view class="ix_bgfz">
 								<p>六月 春和日丽</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -272,7 +272,7 @@
 					</view>
 				</view>
 			</view>
-
+			<!-- 地区选择器 -->
 			<u-popup :round="10" :show="isShow" :closeable='true' @close="close" @open="open">
 				<view class="ix_pop pd30">
 					<p>请选择你所在的城市</p>
@@ -309,7 +309,7 @@
 					</view>
 				</view>
 			</u-popup>
-			
+			<!-- 联系客服 -->
 			<u-popup closeable mode="center" :round="10" :show="isShow1" @close="close1" @open="open1">
 				<view class="ke">
 					<image  src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800" mode=""></image>
@@ -542,8 +542,8 @@
 			click() {
 				// 轮播图点击
 			},
-			todateHot() {
-				this.$jump('./dateHot')
+			todateHot(v) {
+				this.$jump('./dateHot?date=','params',v)
 			},
 			checkout(e, index) {
 				this.curry = index 

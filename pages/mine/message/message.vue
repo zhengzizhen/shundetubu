@@ -104,7 +104,7 @@
 			font-weight: 500;
 			color: white;
 			background-color: red;
-			padding:5rpx;
+			padding:5rpx 10rpx;
 			border-radius: 50rpx;
 		}
 	}

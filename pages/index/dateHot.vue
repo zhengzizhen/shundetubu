@@ -1,13 +1,13 @@
 <template>
 	<view class="dt_body">
 		<view>
-			<uni-calendar :insert="true" :lunar="true" :disable-before="true" :start-date="'2023-4-28'"
-				:end-date="'2023-8-21'" @change="change" />
+			<uni-calendar :date = 'dater' :insert="true" :lunar="false" :disable-before="true"
+				:start-date="start" :end-date="end" @change="change" />
 		</view>
 		<view class="dt_text">
 			<view class="dt_bor">
-				<p @click='checktabs(index)' :class="item.state?'green':''" v-for="(item,index) in labellist"
-					:key="index">{{item.label}}</p>
+				<p @click='checktabs(item,index)' :class="curry == index ?'green':''" v-for="(item,index) in lists"
+					:key="index">{{item}}</p>
 			</view>
 			<view class="dis_f dt_col">
 				<view class="dt_im dis_f" v-for="(item,index) in list" :key="index">
@@ -22,8 +22,6 @@
 				</view>
 			</view>
 		</view>
-
-
 	</view>
 </template>
 
@@ -31,30 +29,27 @@
 	export default {
 		data() {
 			return {
-				info: {
-					date: '',
-					lunar: true,
-					range: true,
-					insert: false,
-					selected: []
-				},
+				dater:'',//默认日期,
+				start:'',
+				end:'',
 				show: true,
 				list: [1, 2, 3],
+				curry: null,
 				lists: ['1天', '2~3天', '3~4天', '5天+'],
-				labellist: []
 			}
 		},
-		onLoad() {
-			this.lists.forEach((item, index) => {
-				let tabs = {}
-				tabs.label = item
-				this.labellist.push(tabs)
-			})
-
-			this.labellist.forEach((item, index) => {
-				item.state = false
-			})
-			this.labellist[0].state = true
+		onLoad(option) {
+			if(option.date>=10){
+				this.dater = '2023-'+option.date + '-01'
+				this.start = '2023-'+option.date + '-01'
+				this.end = '2023-'+option.date + '-31'
+				return false
+			}else if(option.date<10){
+				this.dater = '2023-0'+option.date + '-01'
+				this.start = '2023-0'+option.date + '-01'
+				this.end = '2023-'+option.date + '-31'
+				return false
+			}
 		},
 		onReady() {
 			this.$nextTick(() => {
@@ -75,12 +70,8 @@
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
 			},
-			checktabs(index) {
-				this.labellist.forEach((item, index) => {
-					item.state = false
-				})
-				this.labellist[index].state = true
-				this.$forceUpdate()
+			checktabs(item,index) {
+				this.curry = index
 			}
 		}
 	}

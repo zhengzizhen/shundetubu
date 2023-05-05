@@ -6,6 +6,8 @@
 		</view>
 
 		<view class="card dis_f flex_c pd30" v-for="(v,index) in list" :key="index">
+			<u-modal :asyncClose="true" :showCancelButton='true' width="400rpx" :show="isShows" content='确定要删除该地址吗'
+				@confirm='confirm(index)' @cancel='cancel'></u-modal>
 			<p class="header">
 				<label>默认</label>
 				<text>{{v.name}}</text>
@@ -14,19 +16,21 @@
 			<p class="center">{{v.address}}</p>
 			<view class="bottom dis_f alitmc">
 				<p class="dis_f alitmc">
-					<image v-show="!v.state" @click="check(v.state,index)" class="ius" src="@/static/image/mine/radio.png" mode="">
+					<image v-show="!v.state" @click="check(v.state,index)" class="ius"
+						src="@/static/image/mine/radio.png" mode="">
 					</image>
-					<image v-show="v.state" @click="check(v.state,index)" class="ius" src="@/static/image/mine/radio1.png" mode="">
+					<image v-show="v.state" @click="check(v.state,index)" class="ius"
+						src="@/static/image/mine/radio1.png" mode="">
 					</image>
 					<label>设为默认</label>
 				</p>
 				<p class="dis_f alitmc left">
 					<image src="@/static/image/mine/bianji.png" mode=""></image>
-					<label @click="toaddress">编辑</label>
+					<label @click="toaddress(v)">编辑</label>
 				</p>
 				<p class="dis_f alitmc ml20">
 					<image src="@/static/image/mine/delete.png" mode=""></image>
-					<label>删除</label>
+					<label @click="isShows = true">删除</label>
 				</p>
 			</view>
 		</view>
@@ -43,28 +47,57 @@
 		data() {
 			return {
 				isShow: true,
-				list:[
-					{name:'神秘狗',phone:'17633612613',address:'河南省南阳市社旗县S333',state:0},
-					{name:'钱多多',phone:'17698859631',address:'广州省花都区花都广场50号',state:0},
-					{name:'郭晋安',phone:'15474474888',address:'上海市静安区静安寺5454',state:0},
-				]
+				isShows: false, //模态框
+				list: [{
+						name: '神秘狗',
+						phone: '17633612613',
+						address: '河南省南阳市社旗县S333',
+						state: 0
+					},
+					{
+						name: '钱多多',
+						phone: '17698859631',
+						address: '广州省花都区花都广场50号',
+						state: 1
+					},
+					{
+						name: '郭晋安',
+						phone: '15474474888',
+						address: '上海市静安区静安寺5454',
+						state: 1
+					},
+				],
+				curry: 0
 			}
 		},
 		methods: {
 			back() {
 				uni.navigateBack()
 			},
-			check(v,index) {
-				this.list.forEach((item,index)=>[
+			check(v, index) {
+				this.list.forEach((item, index) => [
 					item.state = false
 				])
-				this.list[index].state = !this.list[index].state 
+				this.list[index].state = !this.list[index].state
 			},
 			toAdd() {
 				this.$jump('./addAddress')
 			},
-			toaddress(){
-				this.$jump('./addAddress')
+			toaddress(v) {
+				uni.navigateTo({
+					url: './addAddress?v=' + JSON.stringify(v)
+				})
+			},
+			cancel() {
+				this.isShows = false
+			},
+			confirm(index) {
+				setTimeout(() => {
+					console.log(index);
+					uni.$u.toast('删除成功！')
+					this.isShows = false
+				}, 1000)
+
 			}
 		}
 	}
@@ -82,6 +115,7 @@
 			height: 88rpx;
 			background-color: white;
 			margin-top: 88rpx;
+
 			span {
 				font-size: 32rpx;
 				font-weight: bold;

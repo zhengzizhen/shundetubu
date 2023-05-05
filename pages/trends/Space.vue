@@ -8,8 +8,11 @@
 						<p>一个阳光明媚的人</p>
 						<text>级别：好奇宝宝</text>
 					</view>
-					<text class="attention">
+					<text class="attention" v-show="isShow" @click="isShow = !isShow">
 						+关注
+					</text>
+					<text class="attention" v-show="!isShow" @click="isShow = !isShow">
+						已关注
 					</text>
 				</view>
 			</view>
@@ -39,7 +42,7 @@
 			<p><label>{{item.day}}</label>/{{item.mone}}月</p>
 			<view class="is">
 				<view class="right" >
-					<image  @click='clickImg(v)' v-for="(v,i) in item.img" :key="i" :src="v" mode=""></image>
+					<image  @click='$Resize(item.img,i)' v-for="(v,i) in item.img" :key="i" :src="v" mode=""></image>
 					
 				</view>
 				<view class="io">
@@ -66,6 +69,7 @@
 	export default {
 		data() {
 			return {
+				isShow:false,
 				list: [
 					{
 						mone: '9',
@@ -95,15 +99,6 @@
 			}
 		},
 		methods: {
-			clickImg(v) {
-				wx.previewImage({
-					urls: [v], //需要预览的图片http链接列表，多张的时候，url直接写在后面就行了
-					current: '', // 当前显示图片的http链接，默认是第一个
-					success: function(res) {},
-					fail: function(res) {},
-					complete: function(res) {},
-				})
-			},
 			love(item){
 				item.show = !item.show
 				if(item.show == false){

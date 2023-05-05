@@ -306,7 +306,6 @@
 			}
 		},
 		onLoad(option) {
-			console.log(option);
 			this.datelist.forEach(function(item, index) {
 				item.state = false
 			})

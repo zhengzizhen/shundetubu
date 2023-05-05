@@ -36,7 +36,7 @@
 	.title {
 		padding: 5rpx;
 		width: 104rpx;
-		height: 24rpx;
+		height: 34rpx;
 		text-align: center;
 		font-size: 26rpx;
 		font-family: PingFang SC;
@@ -44,7 +44,7 @@
 		color: #FFFFFF;
 		margin: 0 auto;
 		background: #DEDFE1;
-		line-height: 30rpx;
+		line-height: 34rpx;
 	}
 	.cont{
 		border-radius: 20rpx;

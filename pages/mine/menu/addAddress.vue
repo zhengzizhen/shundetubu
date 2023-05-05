@@ -10,17 +10,17 @@
 		
 		<view class="dis_f content pd30 alitmc">
 			<label>收货人</label>
-			<input type="text">
+			<input type="text" v-model="address.name">
 		</view>
 		
 		<view class="dis_f content pd30 alitmc">
 			<label>手机号码</label>
-			<input maxlength="11" type="number">
+			<input maxlength="11" type="number" v-model="address.phone">
 		</view>
 		
 		<view class="dis_f content pd30 alitmc">
 			<label>所在地区</label>
-			<input type="text">
+			<input type="text" v-model = "address.address">
 			<image @click="getLocaltion" src="@/static/image/mine/address.png" mode=""></image>
 		</view>
 		
@@ -31,10 +31,8 @@
 		
 		<view class="pd30 dis_f alitmc jscb">
 			<p>设为默认收货地址</p>
-			<u-switch v-model="isTrue" @change="change"></u-switch>
+			<u-switch activeColor="#49CAA4" v-model="isTrue" @change="change"></u-switch>
 		</view>
-		
-		
 		
 		<view class="btn dis_f alitmc jscc">
 			<p @click='toadd'>添加地址</p>
@@ -46,7 +44,21 @@
 	export default {
 		data() {
 			return {
-				isTrue:false
+				isTrue:null,
+				address:{
+					
+				}
+			}
+		},
+		onLoad(option) {
+			this.address = JSON.parse(option.v)
+			console.log(this.address);
+			if(this.address.state == 0){
+				this.isTrue = true
+				return false
+			}else{
+				this.isTrue = false
+				return false
 			}
 		},
 		methods: {
@@ -97,7 +109,7 @@
 		font-size: 30rpx;
 		label{
 			width: 140rpx;
-			font-size: 30rpx;
+			font-size: 28rpx;
 			font-weight: 500;
 			color: #222222;
 		}
@@ -105,10 +117,12 @@
 			margin-left: 30rpx;
 			box-sizing: border-box;
 			padding-left: 30rpx;
+			font-size: 28rpx;
 			width: 500rpx;
 			height: 99rpx;
 			background: #F6F6F6;
 			border-radius: 20rpx;
+			color: #222;
 		}
 		image{
 			width: 27rpx;
@@ -118,11 +132,13 @@
 		.textarea{
 			margin-left: 30rpx;
 			box-sizing: border-box;
-			padding-left: 30rpx;
+			padding: 20rpx;
 			width: 500rpx;
 			height: 150rpx;
 			background: #F6F6F6;
 			border-radius: 20rpx;
+			font-size: 28rpx;
+			color: #222;
 		}
 	}
 	.btn {

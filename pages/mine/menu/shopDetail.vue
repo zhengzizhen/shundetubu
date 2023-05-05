@@ -4,12 +4,12 @@
 		<view class="ds_banner posir">
 			<swiper class="swiper" circular :indicator-dots="true" :autoplay="false" :duration="500">
 				<swiper-item v-for="(item,index) in swiperlist" :key="index">
-					<image :src="item" mode=""></image>
+					<image @click="$Resize(swiperlist,index)" :src="item" mode=""></image>
 				</swiper-item>
 
 			</swiper>
 			<p class="swiperposi posia">
-				{{this.swiperlist.length}}张照片
+				{{swiperlist.length}}张照片
 			</p>
 		</view>
 		<view class="title pd30">
@@ -74,7 +74,7 @@
 			</view>
 
 		</view>
-
+		<!-- 更多好物 -->
 		<view class="bottoms dis_f ">
 			<view class="dis_f alitmc jscb">
 				<view class="dis_f flex_c alitmc con">
@@ -95,10 +95,11 @@
 				</view>
 			</view>
 		</view>
+		<!-- 返回 -->
 		<view class="fixed">
 			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
 		</view>
-
+		<!-- 选择规格 -->
 		<u-popup :show="specifications" mode="bottom" closeable @close="closes" @open="opens">
 			<view class="space pd30">
 				<view class="static dis_f alitmc">

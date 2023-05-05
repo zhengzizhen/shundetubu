@@ -94,37 +94,37 @@
 				<view class="ix_pop pd30">
 					<p>天数</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(item,index) in days" :key="index" @click="todays(item,days)">
-							<text  :class="item.state?'select':''" >{{item.day}}</text>
+						<view class="dis_f prp" v-for="(item,index) in days" :key="index" @click="todays(item,index)">
+							<text  :class="daycurry == index ?'select':''" >{{item}}</text>
 						</view>
 					</view>
 					<p>难度</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(item,index) in lvlist" :key="index" @click="todays(item,lvlist)">
-							<text  :class="item.state?'select':''" >{{item.lv}}</text>
+						<view class="dis_f prp" v-for="(item,index) in lvlist" :key="index" @click="tolv(item,index)">
+							<text  :class="lvcurry == index ?'select':''" >{{item}}</text>
 						</view>
 					</view>
 					<p>价格</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(item,index) in moenylist" :key="index" @click="todays(item,moenylist)">
-							<text  :class="item.state?'select':''" >{{item.money}}</text>
+						<view class="dis_f prp" v-for="(item,index) in moenylist" :key="index" @click="tomoney(item,index)">
+							<text  :class="moneycurry == index ?'select':''" >{{item}}</text>
 						</view>
 					</view>
 					<p>状态</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(item,index) in staticlist" :key="index" @click="todays(item,staticlist)">
-							<text  :class="item.state?'select':''" >{{item.static}}</text>
+						<view class="dis_f prp" v-for="(item,index) in staticlist" :key="index" @click="tostate(item,index)">
+							<text  :class="statecurry == index ?'select':''" >{{item}}</text>
 						</view>
 					</view>
 					<p>地区选择</p>
 					<view class="dis_f ps">
-						<view  class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="todays(v,addresslist)">
-							<text :class="v.state?'select':''">{{v.address}}</text>
+						<view  class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="toaddress(v,index)">
+							<text :class="addcurry == index ?'select':''">{{v}}</text>
 						</view>
 					</view>
 					
 					<view class="btn dis_f alitmc">
-						<p>重置</p>
+						<p @click='reset'>重置</p>
 						<button>筛选</button>
 					</view>
 				</view>
@@ -139,52 +139,16 @@
 			return {
 				laberlist: ['亲子路线', '高铁出行', '轻奢活动', '轻奢活动'],
 				isShow: false,
-				lvlist:[
-					{lv:'休闲',state:false},
-					{lv:'轻松徒步',state:false},
-					{lv:'稍有难度',state:false},
-					{lv:'中等难度',state:false},
-					{lv:'难度较大',state:false},
-					{lv:'高难度',state:false},
-				],
-				moenylist:[
-					{money:'1000以内',state:false},
-					{money:'1K-2K',state:false},
-					{money:'2K-3K',state:false},
-					{money:'3K-5K',state:false},
-					{money:'5000+',state:false},
-				],
-				staticlist:[
-					{static:'报名中',state:false},
-					{static:'即将成行',state:false},
-					{static:'已成行',state:false},
-				],
-				
-				addresslist:[
-					{address:'广东',state:false},
-					{address:'云南',state:false},
-					{address:'福建',state:false},
-					{address:'新疆',state:false},
-					{address:'四川',state:false},
-					{address:'西藏',state:false},
-					{address:'广西',state:false},
-					{address:'青岛',state:false},
-					{address:'海南',state:false},
-				],
-				days:[
-					{
-						day:'2~3天',
-						state:false
-					},
-					{
-						day:'4~5天',
-						state:false
-					},
-					{
-						day:'6天+',
-						state:false
-					}
-				]
+				lvcurry:null,
+				lvlist:['休闲','轻松徒步','稍有难度','中等难度','难度较大','高难度'],
+				moneycurry:null,
+				moenylist:['1000以内','1K-2K','2K-3K','3K-5K','5000+'],
+				statecurry:null,
+				staticlist:['报名中','即将成行','已成行'],
+				addcurry:null,
+				addresslist:['广东','云南','福建','新疆','四川','西藏','广西','青岛','海南'],
+				daycurry:null,
+				days:['2~3天','4~5天','6天+']
 			};
 		},
 		created() {
@@ -196,17 +160,29 @@
 			});
 		},
 		methods:{
+			reset(){
+				
+			},
 			open() {
 				
 			},
 			close() {
 				this.isShow = !this.isShow
 			},
-			todays(v,that){
-				that.forEach(function(item,index){
-					item.state = false
-				})
-				v.state = true
+			todays(v,index){
+				this.daycurry = index
+			},
+			tolv(v,index){
+				this.lvcurry = index
+			},
+			tomoney(v,index){
+				this.moneycurry = index
+			},
+			tostate(v,index){
+				this.statecurry = index
+			},
+			toaddress(v,index){
+				this.addcurry = index
 			}
 		}
 	}

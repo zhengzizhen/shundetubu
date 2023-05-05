@@ -74,7 +74,6 @@
 		},
 		methods: {
 			toChild(e) {
-				console.log(e.name)
 				this.$jump('./Limited')
 			},
 			toShop() {
