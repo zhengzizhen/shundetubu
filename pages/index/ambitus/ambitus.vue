@@ -1,24 +1,44 @@
 <template>
 	<view class="as_body">
 		<!-- 列表渲染 -->
-		<view class="pd30">
-			<view class="ix_shop index_pads dis_f">
+		<view>
+			<view class="ix_shop index_pads dis_f pd30">
 				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='toChild(item.name)'>
 					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
 					<text>{{item.name}}</text>
 				</view>
 			</view>
-			<p class="as_fid">邀请好友</p>
+			<!-- <p class="as_fid">邀请好友</p> -->
 
-			<p class="as_tit">本周最热</p>
-			<u-swiper :list="swiperlist" previousMargin="30" height='400' :radius='10' indicator indicatorMode="line"
-				nextMargin="30" circular :autoplay="false" radius="5" bgColor="#ffffff"></u-swiper>
-			<view class="as_fdq">
-				<u-subsection :list="sublist" :current="current" @change="sectionChange"
+			<p class="as_tit pd30">本周最热</p>
+			<view class="uni-margin-wrap">
+				<swiper class="swiper" @change='change' circular :autoplay="false" next-margin='160rpx'
+					previous-margin='180rpx' :interval="2000" :duration="500">
+					<swiper-item v-for="(item,index) in swiperlist" :key="index">
+						<view class="posir">
+							<image :src="item" mode=""></image>
+							<view v-show="swipercurrent == index" class="posiswiper dis_f flex_c">
+								<p>春行婺源秘境</p>
+								<view class="ios">
+									<text>高铁往返</text>
+									<text class="m10">闲适2日</text>
+								</view>
+								<label>4.91分丨291人去过</label>
+							</view>
+						</view>
+					</swiper-item>
+				</swiper>
+				<view class="info dis_f">
+					<p :class="swipercurrent==index?'active':''" v-for="(v,index) in swiperlist.length"></p>
+				</view>
+			</view>
+
+			<view class="as_fdq pd30">
+				<u-subsection :customStyle='obj' :list="sublist" :current="current" @change="sectionChange"
 					activeColor='#49CAA4'></u-subsection>
 			</view>
 			<!-- //小图 -->
-			<view class="">
+			<view class="pd30">
 				<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
 					<image src="@/static/index/zheng.jpg" mode=""></image>
 					<view class="dc_god">
@@ -36,8 +56,8 @@
 				</view>
 			</view>
 
-			<p class="as_tit">高铁出行</p>
-			<view class="dis_f">
+			<p class="as_tit pd30">高铁出行</p>
+			<view class="dis_f pd30">
 				<view class="as_zh dis_f" v-for="(item,index) in list" :key='index'>
 					<image src="@/static/index/zheng.jpg" mode=""></image>
 					<label>3天</label>
@@ -46,8 +66,8 @@
 				</view>
 			</view>
 
-			<p class="as_tit">亲子活动</p>
-			<view class="">
+			<p class="as_tit pd30">亲子活动</p>
+			<view class="pd30">
 				<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
 					<image src="@/static/index/zheng.jpg" mode=""></image>
 					<view class="dc_god">
@@ -66,14 +86,15 @@
 				</view>
 			</view>
 
-			<p class="as_tit">全部周边活动</p>
+			<p class="as_tit pd30">全部周边活动</p>
 			<!-- 单选 -->
-			<view class="cheborder">
-				<p :class="curry == index?'colors':''" @click='chekelist(item,index)' v-for="(item,index) in hotlist" :key="index">{{item}}</p>
+			<view class="cheborder pd30">
+				<p :class="curry == index?'colors':''" @click='chekelist(item,index)' v-for="(item,index) in hotlist"
+					:key="index">{{item}}</p>
 			</view>
 
 			<!-- 热门推荐 -->
-			<view class="ix_block index_pad">
+			<view class="ix_block index_pad pd30">
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in list" :key="index">
 						<image src="@/static/index/zheng.jpg"></image>
@@ -139,19 +160,26 @@
 					'../../../static/as/changs.jpg',
 				],
 				sublist: ['当季推荐', '口碑路线'],
-
+				swipercurrent: 0,
 				current: 0,
 				list: ['1', '2', '3'],
-				curry:0,
-				hotlist:['本周','已成行','1天','2天']
+				curry: 0,
+				hotlist: ['本周', '已成行', '1天', '2天'],
+				obj: {
+					height: '80rpx'
+				}
 			};
 		},
 		methods: {
 			sectionChange(index) {
 				this.current = index;
 			},
-			chekelist(e,index){
+			chekelist(e, index) {
 				this.curry = index
+			},
+			change(e) {
+				console.log(e.detail.current);
+				this.swipercurrent = e.detail.current
 			},
 			toChild(name) {
 				switch (name) {
@@ -165,16 +193,16 @@
 						this.$jump('./Parenting')
 						break;
 					case '高铁出行':
-						this.$jump('./speed?title=','params','高铁出行')
+						this.$jump('./speed?title=', 'params', '高铁出行')
 						break;
 					case '非周末':
-						this.$jump('./speed?title=','params','非周末')
+						this.$jump('./speed?title=', 'params', '非周末')
 						break;
 					case '美食路线':
-						this.$jump('./speed?title=','params','美食路线')
+						this.$jump('./speed?title=', 'params', '美食路线')
 						break;
 					case '登山路线':
-						this.$jump('./speed?title=','params','登山路线')
+						this.$jump('./speed?title=', 'params', '登山路线')
 						break;
 					case '香港专区':
 						this.$jump('./HongKong')
@@ -467,6 +495,7 @@
 		justify-content: space-between;
 		height: 64rpx;
 		line-height: 64rpx;
+
 		p {
 			color: red !important;
 			font-size: 28rpx;
@@ -479,9 +508,12 @@
 			display: inline-block;
 		}
 	}
-	.cheborder{
+
+	.cheborder {
 		width: 100%;
-		p{
+		font-size: 30rpx;
+
+		p {
 			margin-right: 20rpx;
 			margin-top: 10rpx;
 			border-radius: 50rpx;
@@ -490,10 +522,91 @@
 			padding: 10rpx 30rpx;
 			color: #49CAA4;
 		}
-		.colors{
+
+		.colors {
 			color: white;
 			background-color: #49CAA4;
 			border: 1px solid #49CAA4;
+		}
+	}
+
+	.swiper {
+		width: 100%;
+		height: 500rpx;
+		text-align: center;
+
+		.posir {
+			width: 380rpx;
+			height: 500rpx;
+		}
+
+		image {
+			margin: 0 auto;
+			width: 380rpx;
+			height: 500rpx;
+			border-radius: 20rpx;
+		}
+
+		.posiswiper {
+			position: absolute;
+			bottom: 20rpx;
+			left: 0;
+			padding: 10rpx 20rpx;
+			text-align: left;
+			animation: scaleout .5s ease-in-out;
+			p {
+				font-size: 30rpx;
+				font-weight: bold;
+				color: #FFFFFF;
+			}
+			text {
+				font-size: 24rpx;
+				font-weight: 500;
+				color: #FFFFFF;
+				background: rgba(255, 255, 255, .5);
+				padding: 5rpx 10rpx;
+			}
+			.ios {
+				margin: 10rpx 0 20rpx;
+			}
+			.m10 {
+				margin-left: 10rpx;
+			}
+			label {
+				font-size: 24rpx;
+				font-weight: 500;
+				color: #FFFFFF;
+			}
+		}
+	}
+	.info{
+		width: 100%;
+		text-align: center;
+		margin: 20rpx auto;
+		justify-content: center;
+		p{
+			margin: 0 8rpx;
+			width: 22rpx;
+			height: 22rpx;
+			background: #F0F0F0;
+			border-radius: 50%;
+		}
+		.active{
+			background: #49CAA4 !important;
+		}
+	}
+	
+	@keyframes scaleout {
+		0% {
+			opacity: 0;
+		}
+
+		50% {
+			opacity: .5;
+		}
+
+		100% {
+			opacity: 1;
 		}
 	}
 </style>

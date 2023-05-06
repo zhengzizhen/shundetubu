@@ -2,7 +2,7 @@
 	<view :class="isShow?'bodys':'body'">
 		<view class="sh_seach dis_f">
 			<u-icon @click='back()' name="arrow-left" color='#222222' size='20'></u-icon>
-			<u-search :showAction="true" actionText="搜索" :animation="true" @search='search()' @custom = 'search()'></u-search>
+			<u-search :showAction="true" :actionStyle ='tis' actionText="搜索" :animation="false" @search='search()' @custom = 'search()'></u-search>
 		</view>
 		<view v-show="isShow">
 			<view class="pd30">
@@ -100,7 +100,13 @@
 			return {
 				isShow:true,
 				list:[1,2,3,4,5],
-				list1:[1,2,3]
+				list1:[1,2,3],
+				tis:{
+					color:'white',
+					padding:'10rpx',
+					background:'#49CAA4',
+					borderRadius:'50rpx'
+				}
 			}
 		},
 		methods: {

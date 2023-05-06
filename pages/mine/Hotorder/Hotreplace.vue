@@ -105,7 +105,7 @@
 		}
 	}
 	.btn{
-		margin: 700rpx auto 0;
+		margin: 660rpx auto 0;
 		width: 690rpx;
 		height: 78rpx;
 		line-height: 78rpx;

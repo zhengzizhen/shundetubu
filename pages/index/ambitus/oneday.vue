@@ -19,8 +19,8 @@
 					<p>【亭可马里季】斯里兰卡纯玩9天</p>
 					<text class="posw">3天</text>
 					<view class="dc_latt dis_f">
-						<label>04.02剩3名额</label>
 						<text>03.18已满员</text>
+						<label>04.02剩3名额</label>
 						<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 					</view>
 					<p class="title dis_f"><label>难度： 休闲</label><u-icon name="star" size='14'></u-icon></p>
@@ -35,7 +35,7 @@
 
 		<u-popup :show="isShow"  mode="top" @close="close" @open="open">
 			<view class="popViews pd30">
-				<p class="tit">天数</p>
+				<p class="tit">路线类型</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
 					<p :class="daycurry == index ?'green':''" v-for="(v,index) in day" :key="index" @click="checkday(v,index)">
@@ -43,7 +43,7 @@
 					</p>
 				</view>
 				
-				<p class="tit">价格</p>
+				<p class="tit">难度</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
 					<p :class="moneycurry == index?'green':''" v-for="(v,index) in money" :key="index" @click="checkmoney(v,index)">
@@ -51,7 +51,7 @@
 					</p>
 				</view>
 				
-				<p class="tit">活动状态</p>
+				<p class="tit">出行时间</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
 					<p :class="statecurry == index?'green':''" v-for="(v,index) in state" :key="index" @click="checkstate(v,index)">
@@ -92,11 +92,11 @@
 				],
 				list: [1, 2, 3, 4, 5],
 				daycurry:null,
-				day:['1天','2~3天','4天及以上'],
+				day:['美食','休闲','徒步'],
 				moneycurry:null,
-				money:['0-100','100-200','200-500','500-1000','1000以上'],
+				money:['休闲深度','轻松徒步','稀有难度','中等难度','较高难度'],
 				statecurry:null,
-				state:['报告中','即将成行','已成行'],
+				state:['周六','周日','工作日'],
 			}
 		},
 		methods: {
@@ -212,10 +212,10 @@
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #FFA1AD;
-				margin-left: 10rpx;
 			}
 
 			label {
+				margin-left: 10rpx;
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
 				font-size: 22rpx;

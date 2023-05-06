@@ -5,7 +5,7 @@
 		</view>
 		
 		<view class="banner" v-for="(v,i) in list" :key='i'>
-			<!-- <p class="iun">HOT{{i+1}}</p> -->
+			<p class="iun">HOT{{i+1}}</p>
 			<view class="myVideos">
 				<video class="myVideo"
 					src="https://webstatic.mihoyo.com/upload/static-resource/2022/01/04/72f41ca0acf28922ee3cc2278d920a5f_7569813998111725618.mp4"></video>

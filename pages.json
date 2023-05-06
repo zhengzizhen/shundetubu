@@ -866,6 +866,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/message/deil",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "每周热门",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

@@ -20,7 +20,7 @@
 				<view class="t_to dis_f">
 					<view class="bk" v-for="(v,i) in list" :key="i">
 						<image src="../../static/index/zheng.jpg" mode=""></image>
-						<p>每月一次</p>
+						<p>每月1次</p>
 						<view class="gd dis_f">
 							<label class="tit">青蓝行动</label>
 							<label class="nm">一年一度大型公益活动</label>
@@ -32,13 +32,15 @@
 						:list="list1" @click="click"></u-tabs>
 				</view>
 				<view class="ix_subsection dis_f">
-					<span :class="item.state?'check':'checks'" v-for="(item,index) in checklist" :key="index"
-						@click="checkout(item)">{{item.name}}</span>
+					<span :class="curry == index ?'check':'checks'" v-for="(item,index) in checklist" :key="index"
+						@click="checkout(item,index)">{{item}}</span>
 				</view>
 				<view class="banner" v-for="(v,i) in list" :key='i'>
 					<p class="iun">HOT{{i+1}}</p>
-					<video class="myVideo"
-						src="https://webstatic.mihoyo.com/upload/static-resource/2022/01/04/72f41ca0acf28922ee3cc2278d920a5f_7569813998111725618.mp4"></video>
+					<view class="videos">
+						<video class="myVideo"
+							src="https://webstatic.mihoyo.com/upload/static-resource/2022/01/04/72f41ca0acf28922ee3cc2278d920a5f_7569813998111725618.mp4"></video>
+					</view>
 					<view class="dis_f txt">
 						<p>【亭可马里季】斯里兰卡纯玩9天</p>
 						<view class="dis_f jscb sil">
@@ -79,31 +81,17 @@
 				}, {
 					name: '评分榜'
 				}],
-				checklist: [{
-						name: '当季热门',
-						state: true
-					},
-					{
-						name: '好评榜单',
-						state: false
-					},
-					{
-						name: '最新上架',
-						state: false
-					},
-				],
+				curry:null,
+				checklist: ['1天活动', '2~3天', '4天+'],
 			}
 		},
 		methods: {
 			click(item) {
 				// console.log('item', item);
 			},
-			checkout(e) {
+			checkout(e,index) {
 				// console.log(e) //切换
-				this.checklist.forEach(function(item, index) {
-					item.state = false
-				})
-				e.state = true
+				this.curry = index
 			}
 		}
 	}
@@ -265,6 +253,11 @@
 			text-align: center;
 			font-size: 26rpx;
 		}
+		.videos{
+			padding: 10rpx;
+			background-color: black;
+			border-radius: 20rpx 20rpx 0 0;
+		}
 		.myVideo {
 			width: 100%;
 			height: 340rpx;
@@ -311,7 +304,8 @@
 		}
 	}
 	.ix_subsection {
-		margin: 40rpx auto;
+		width: 80%;
+		margin: 40rpx 0;
 		justify-content: space-around;
 		align-items: center;
 	

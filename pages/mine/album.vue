@@ -95,12 +95,12 @@
 	.c1 {
 		margin: 10rpx 0;
 		width: 66%;
-		height: 300rpx;
+		height: 450rpx;
 		text-align: center;
 
 		image {
 			width: 450rpx;
-			height: 300rpx;
+			height: 450rpx;
 		}
 	}
 
@@ -108,7 +108,7 @@
 		margin: 10rpx 0;
 		margin-left: 10rpx;
 		width: 210rpx;
-		height: 300rpx;
+		height: 450rpx;
 		overflow: hidden;
 		position: relative;
 		overflow: hidden;
@@ -116,7 +116,7 @@
 		text-align: center;
 
 		image {
-			height: 300rpx;
+			height: 450rpx;
 			position: absolute;
 			top: 50%;
 			left: 50%;

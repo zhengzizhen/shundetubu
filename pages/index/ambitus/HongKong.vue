@@ -1,18 +1,20 @@
 <template>
 	<view class="pd30">
-		<u-subsection @change="sectionChange" :list="list" :current="current" activeColor='#49CAA4'></u-subsection>
-		<view class="dc_mod dis_f" v-for=" (item,index) in list1" :key="index">
-			<image src="@/static/image/index/banners.jpg" mode=""></image>
-			<view class="dc_god">
-				<p>【亭可马里季】斯里兰卡纯玩9天</p>
-				<view class="dc_latt dis_f">
-					<label>04.02丨剩3名额</label>
-					<text>04.02丨报名中</text>
-					<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
-				</view>
-				<view class="dc_span dis_f">
-					<text>￥88</text>
-					<label>4.91分丨291人去过</label>
+		<u-subsection :customStyle='obj' @change="sectionChange" :list="list" :current="current" activeColor='#49CAA4'></u-subsection>
+		<view class="min">
+			<view class="dc_mod dis_f" v-for=" (item,index) in 5" :key="index">
+				<image src="@/static/image/index/banners.jpg" mode=""></image>
+				<view class="dc_god">
+					<p>【亭可马里季】斯里兰卡纯玩9天</p>
+					<view class="dc_latt dis_f">
+						<label>04.02丨剩3名额</label>
+						<text>04.02丨报名中</text>
+						<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
+					</view>
+					<view class="dc_span dis_f">
+						<text>￥88</text>
+						<label>4.91分丨291人去过</label>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -47,7 +49,11 @@
 				</view>
 			</view>
 		</view>
-		
+		<p class="HKtitle">全部周边活动</p>
+		<!-- 单选 -->
+		<view class="cheborder">
+			<p :class="curry == index?'colors':''" @click='chekelist(item,index)' v-for="(item,index) in hotlist" :key="index">{{item}}</p>
+		</view>
 		<!-- 热门推荐 -->
 		<view class="ix_block index_pad">
 			<view class="ix_img dis_f">
@@ -76,18 +82,50 @@
 				list: ['当季推荐', '口碑路线'],
 				current: 0,
 				list1: [1, 2, 3],
-				list2: [1, 2, 3,4]
+				list2: [1, 2, 3,4],
+				obj:{
+					height:'80rpx'
+				},
+				curry:null,
+				hotlist:['本周','已成行','1天','2天'],
 			}
 		},
 		methods: {
 			sectionChange(e){
 				this.current = e
-			}
+			},
+			chekelist(e,index){
+				this.curry = index
+			},
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.cheborder{
+		width: 100%;
+		font-size: 30rpx;
+		p{
+			margin-right: 20rpx;
+			margin-top: 10rpx;
+			border-radius: 50rpx;
+			border: 1px solid #ccc;
+			display: inline-block;
+			padding: 10rpx 30rpx;
+			color: #49CAA4;
+		}
+		.colors{
+			color: white;
+			background-color: #49CAA4;
+			border: 1px solid #49CAA4;
+		}
+	}
+	.min{
+		max-height: 740rpx;
+		overflow: auto;
+		overflow-x: hidden; //隐藏x轴滚动条
+		padding-bottom: 20rpx;
+	}
 	.dc_mod {
 		position: relative;
 		background-color: white;
@@ -103,6 +141,7 @@
 
 		.dc_god {
 			margin-left: 20rpx;
+			font-size: 30rpx;
 		}
 
 		.posw {
@@ -164,7 +203,7 @@
 		}
 	}
 	.HKtitle{
-		font-size: 34rpx;
+		font-size: 32rpx;
 		font-weight: bold;
 		margin: 20rpx 0;
 		color: #000000;

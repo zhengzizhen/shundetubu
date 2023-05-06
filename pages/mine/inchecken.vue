@@ -202,6 +202,8 @@
 				text-align: left;
 
 				p {
+					font-size: 28rpx;
+					color: #222222;
 					width: 305rpx;
 					padding: 10rpx;
 				}

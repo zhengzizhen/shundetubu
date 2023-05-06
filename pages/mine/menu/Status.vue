@@ -15,7 +15,7 @@
 		<!-- 已取消 -->
 		<p class="title" v-show="isShow">已取消</p>
 		<label class="state" v-show="isShow">重新购买</label>
-		
+
 		<view class="content dis_f alitmc mt20">
 			<image class="bor_r" src="@/static/index/zheng.jpg" mode=""></image>
 			<view class="textcont dis_f flex_c">
@@ -27,7 +27,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="information bor_r mt20">
 			<view class="bor dis_f jscb">
 				<p>下单时间</p>
@@ -35,7 +35,10 @@
 			</view>
 			<view class="bor dis_f jscb">
 				<p>订单号</p>
-				<text>2727727722</text>
+				<view class="img dis_f alitmc">
+					<text>2727727722</text>
+					<image @click="copy" src="@/static/image/mine/copy.png" mode=""></image>
+				</view>
 			</view>
 			<view class="bor dis_f jscb">
 				<p>支付方式</p>
@@ -46,8 +49,8 @@
 				<text class="red">￥78.00</text>
 			</view>
 		</view>
-		
-		
+
+
 		<!-- 待支付 -->
 		<view class="fixed dis_f" v-show="isShow1">
 			<p>取消订单</p>
@@ -78,33 +81,61 @@
 	export default {
 		data() {
 			return {
-				isShow:false,
-				isShow1:false,
-				isShow2:false,
-				isShow3:false,
-				isShow4:false,
+				isShow: false,
+				isShow1: false,
+				isShow2: false,
+				isShow3: false,
+				isShow4: false,
 			}
 		},
 		onLoad(option) {
-			if(option.id == 0){
+			if (option.id == 0) {
 				this.isShow = true
 				return false
-			}else if(option.id == 1){
+			} else if (option.id == 1) {
 				this.isShow1 = true
 				return false
-			}else if(option.id == 2){
+			} else if (option.id == 2) {
 				this.isShow2 = true
 				return false
-			}else if(option.id == 3){
+			} else if (option.id == 3) {
 				this.isShow3 = true
 				return false
-			}else if(option.id == 4){
+			} else if (option.id == 4) {
 				this.isShow4 = true
 				return false
 			}
 		},
 		methods: {
+			copy() {
+				let result
+				// #ifndef H5
+				//uni.setClipboardData方法就是讲内容复制到粘贴板
+				uni.setClipboardData({
+					data: 2727727722, //要被复制的内容
+					success: () => { //复制成功的回调函数
+						uni.showToast({ //提示
+							title: '复制成功'
+						})
+					}
+				});
+				// #endif
 
+				// #ifdef H5 
+				let textarea = document.createElement("textarea")
+				textarea.value = 2727727722
+				textarea.readOnly = "readOnly"
+				document.body.appendChild(textarea)
+				textarea.select() // 选中文本内容
+				textarea.setSelectionRange(0, 10)
+				uni.showToast({ //提示
+					title: '复制成功',
+					icon:'none'
+				})
+				result = document.execCommand("copy")
+				textarea.remove()
+				// #endif
+			}
 		}
 	}
 </script>
@@ -128,27 +159,32 @@
 			font-weight: 500;
 			color: #666666;
 		}
-		.content{
+
+		.content {
 			padding: 0 20rpx;
 			box-sizing: border-box;
 			width: 690rpx;
 			height: 246rpx;
 			background: #FFFFFF;
 			border-radius: 20rpx;
-			image{
+
+			image {
 				width: 180rpx;
 				height: 180rpx;
 			}
 		}
-		.textcont{
+
+		.textcont {
 			width: 440rpx;
 			margin-left: 20rpx;
-			p{
+
+			p {
 				font-size: 30rpx;
 				font-weight: 500;
 				color: #222222;
 			}
-			.label{
+
+			.label {
 				margin-top: 8rpx;
 				width: 62rpx;
 				height: 32rpx;
@@ -159,51 +195,60 @@
 				color: #999999;
 				text-align: center;
 			}
-			.bottext{
+
+			.bottext {
 				font-size: 30rpx;
 				font-weight: 500;
 				color: #222222;
 				margin-top: 58rpx;
-				text:first-child{
+
+				text:first-child {
 					color: red;
 				}
 			}
 		}
-		.information{
+
+		.information {
 			width: 690rpx;
 			min-height: 349rpx;
 			height: auto;
 			background: #FFFFFF;
 			box-sizing: border-box;
 			padding: 20rpx;
-			.bor{
+
+			.bor {
 				border-bottom: 1px solid #E6E6E6;
 				padding: 20rpx 0;
-				p{
+
+				p {
 					font-size: 30rpx;
 					font-weight: 500;
 					color: #000000;
 				}
-				text{
+
+				text {
 					font-size: 30rpx;
 					font-weight: 500;
 					color: #666666;
 				}
-				.red{
+
+				.red {
 					color: #FF4040;
 				}
 			}
 		}
-		.fixed{
+
+		.fixed {
 			position: fixed;
 			bottom: 0;
 			right: 0;
 			width: 750rpx;
 			height: 166rpx;
 			background: #FFFFFF;
-			box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(4,0,0,0.16);
+			box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(4, 0, 0, 0.16);
 			justify-content: flex-end;
-			p{
+
+			p {
 				width: 148rpx;
 				height: 54rpx;
 				line-height: 54rpx;
@@ -216,6 +261,14 @@
 				color: #999999;
 				margin: 20rpx 20rpx 20rpx 10rpx;
 			}
+		}
+	}
+
+	.img {
+		image {
+			margin-left: 10rpx;
+			width: 27rpx;
+			height: 27rpx;
 		}
 	}
 </style>

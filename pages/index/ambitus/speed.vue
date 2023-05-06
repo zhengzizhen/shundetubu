@@ -29,27 +29,27 @@
 
 		<u-popup :show="isShow"  mode="top" @close="close" @open="open">
 			<view class="popViews pd30">
-				<p class="tit">路线类型</p>
+				<p class="tit">天数</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist1" :key="index" @click="chetbs1(v)">
-						{{v.name}}
+					<p :class="curry == index ?'green':''" v-for="(v,index) in tablist1" :key="index" @click="chetbs1(v,index)">
+						{{v}}
 					</p>
 				</view>
 				
-				<p class="tit">难度</p>
+				<p class="tit">价格</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist2" :key="index" @click="chetbs2(v)">
-						{{v.name}}
+					<p :class="curry1 == index?'green':''" v-for="(v,index) in tablist2" :key="index" @click="chetbs2(v,index)">
+						{{v}}
 					</p>
 				</view>
 				
-				<p class="tit">出行时间</p>
+				<p class="tit">活动状态</p>
 				<p class="forList"></p>
 				<view class="oy_tabs dis_f flexw">
-					<p :class="v.state?'green':''" v-for="(v,index) in tablist3" :key="index" @click="chetbs3(v)">
-						{{v.name}}
+					<p :class="curry2 == index?'green':''" v-for="(v,index) in tablist3" :key="index" @click="chetbs3(v,index)">
+						{{v}}
 					</p>
 				</view>
 				
@@ -84,52 +84,12 @@
 						state: false
 					}
 				],
-				tablist1: [{
-						name: '登山徒步',
-						state: false
-					},
-					{
-						name: '美食休闲',
-						state: false
-					},
-					{
-						name: '亲子活动',
-						state: false
-					},
-				],
-				tablist2: [{
-						name: '休闲难度',
-						state: false
-					},
-					{
-						name: '轻松徒步',
-						state: false
-					},
-					{
-						name: '稍有难度',
-						state: false
-					},{
-						name: '中等难度',
-						state: false
-					},
-					{
-						name: '较高难度',
-						state: false
-					}
-				],
-				tablist3: [{
-						name: '周六',
-						state: false
-					},
-					{
-						name: '周日',
-						state: false
-					},
-					{
-						name: '工作日',
-						state: false
-					},
-				],
+				curry:null,
+				tablist1: ['1天','2~3天','4天及以上'],
+				curry1:null,
+				tablist2: ['0-100','100-200','200-500','500-1000','1000以上'],
+				curry2:null,
+				tablist3: ['报告中', '即将成行','已成行'],
 				list: [1, 2, 3, 4, 5]
 			}
 		},
@@ -148,23 +108,14 @@
 					this.isShow = true
 				}
 			},
-			chetbs1(e) {
-				this.tablist1.forEach((item,index)=>{
-					item.state = false
-				})
-				e.state = !e.state
+			chetbs1(e,index) {
+				this.curry = index
 			},
-			chetbs2(e) {
-				this.tablist2.forEach((item,index)=>{
-					item.state = false
-				})
-				e.state = !e.state
+			chetbs2(e,index) {
+				this.curry1 = index
 			},
-			chetbs3(e) {
-				this.tablist3.forEach((item,index)=>{
-					item.state = false
-				})
-				e.state = !e.state
+			chetbs3(e,index) {
+				this.curry2 = index
 			},
 			close(){
 				this.isShow= false
@@ -284,7 +235,6 @@
 	}
 	.popViews{
 		height: auto;
-		padding-bottom: 20rpx;
 		.tit{
 			padding: 30rpx 0;
 			font-size: 32rpx;
@@ -323,7 +273,7 @@
 			background: #FFFFFF;
 			text-align: center;
 			box-sizing: border-box;
-			margin-top: 140rpx;
+			margin-top: 80rpx;
 		}
 		.ps{
 			border: 1px solid #999999;

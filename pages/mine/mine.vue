@@ -24,7 +24,7 @@
 							<image v-if="lv==3" src="@/static/image/mine/l3.png" mode=""></image>
 							<image v-if="lv==4" src="@/static/image/mine/l4.png" mode=""></image>
 							<image v-if="lv==5" src="@/static/image/mine/l5.png" mode=""></image>
-							<view class="my_jin" @click="toguide()">
+							<view class="my_jin" @click.stop="toguide()">
 								<p>进入领队板块</p>
 							</view>
 						</view>

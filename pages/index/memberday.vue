@@ -12,17 +12,18 @@
 				<p>【亭可马里季】斯里兰卡纯玩9天</p>
 				<text class="posw">3天</text>
 				<view class="dc_latt dis_f">
-					<label>04.02剩3名额</label>
 					<text>03.18已满员</text>
+					<label>04.02剩3名额</label>
 					<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 				</view>
-				<p class="title dis_f">
+				<p class="title dis_f"><label>难度： 休闲</label><u-icon name="star" size='14'></u-icon></p>
+				<!-- <p class="title dis_f">
 					<label>出入西藏首选</label>
 					<label>限时40天</label>
-				</p>
+				</p> -->
 				<view class="dc_span dis_f">
 					<text>￥888</text>
-					<label>4.91分丨291人去过</label>
+					<!-- <label>4.91分丨291人去过</label> -->
 				</view>
 			</view>
 		</view>
@@ -134,10 +135,10 @@
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #FFA1AD;
-				margin-left: 10rpx;
 			}
 
 			label {
+				margin-left: 10rpx;
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
 				font-size: 22rpx;
@@ -162,12 +163,11 @@
 				display: block;
 				margin-right: 10rpx;
 				font-size: 24rpx;
-				font-family: PingFang SC;
 				font-weight: 500;
-				color: #E49332;
-				background: #FFECD6;
-				line-height: 36rpx;
-				padding: 2rpx 15rpx;
+				// color: #E49332;
+				// background: #FFECD6;
+				// line-height: 36rpx;
+				// padding: 2rpx 15rpx;
 			}
 		}
 	}

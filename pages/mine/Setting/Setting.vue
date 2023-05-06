@@ -41,7 +41,7 @@
 		<button class="btns" :class="'btn'+sum" @click="goLogin()">退出登录</button>
 
 		<view>
-			<u-datetime-picker :show="isShow" v-model="dates" mode="date" :minDate="1456979510" :maxDate="1786778555000"
+			<u-datetime-picker confirmColor='#999' :show="isShow" v-model="dates" mode="date" :minDate="1456979510" :maxDate="1786778555000"
 				@confirm="confirm" @cancel="cancel"></u-datetime-picker>
 		</view>
 

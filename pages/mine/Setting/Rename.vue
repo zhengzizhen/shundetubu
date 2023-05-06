@@ -30,7 +30,6 @@
 			};
 		},
 		onLoad(option) {
-			console.log(option);
 			this.name = option.name
 		},
 		created() {

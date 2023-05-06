@@ -62,6 +62,10 @@
 		<view class="fixed">
 			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
 		</view>
+		
+		<view class="ts_flex" @click="toNews()">
+			<image src="@/static/trends/tels.png" mode=""></image>
+		</view>
 	</view>
 </template>
 
@@ -110,7 +114,10 @@
 			},
 			toback(){
 				uni.navigateBack()
-			}
+			},
+			toNews() {
+				this.$jump('./News/News')
+			},
 		}
 	}
 </script>
@@ -232,5 +239,16 @@
 		position: fixed;
 		top: 80rpx;
 		left: 20rpx;
+	}
+	.ts_flex {
+		position: fixed;
+		bottom: 200rpx;
+		right: 50rpx;
+		z-index: 99;
+	
+		image {
+			width: 114rpx;
+			height: 114rpx;
+		}
 	}
 </style>

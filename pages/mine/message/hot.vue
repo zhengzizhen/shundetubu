@@ -3,8 +3,8 @@
 		<p class="title">3月29日</p>
 		
 		<view class="cont">
-			<image class="banner" src="@/static/as/changs.jpg" mode=""></image>
-			<view class="txt dis_f" v-for="(item,index) in list">
+			<image @click="todeil" class="banner" src="@/static/as/changs.jpg" mode=""></image>
+			<view class="txt dis_f" v-for="(item,index) in list" @click="todeil">
 				<p>房车纵横计划·南疆，驰骋帕米尔 之春!我愿称之为“马尔地阿福”</p>
 				<image src="@/static/index/zheng.jpg" mode=""></image>
 			</view>
@@ -20,7 +20,9 @@
 			}
 		},
 		methods: {
-
+			todeil(){
+				this.$jump('./deil')
+			}
 		}
 	}
 </script>
@@ -35,7 +37,7 @@
 	.title {
 		padding: 5rpx;
 		width: 104rpx;
-		height: 24rpx;
+		height: 34rpx;
 		text-align: center;
 		font-size: 26rpx;
 		font-family: PingFang SC;
@@ -43,7 +45,7 @@
 		color: #FFFFFF;
 		margin: 0 auto;
 		background: #DEDFE1;
-		line-height: 30rpx;
+		line-height: 34rpx;
 	}
 	.cont{
 		border-radius: 20rpx;
@@ -61,6 +63,7 @@
 			padding-bottom: 20rpx;
 			border-bottom: 1px solid #e6e6e6;
 			justify-content: space-between;
+			font-size: 30rpx;
 			p{
 				width:432rpx;
 			}

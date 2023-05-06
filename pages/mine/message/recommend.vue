@@ -1,6 +1,6 @@
 <template>
 	<view class="body pd30">
-		<view class="m30" v-for="(v,i) in list" :key="i">
+		<view class="m30" v-for="(v,i) in list" :key="i" @click="todeil">
 			<p class="title">3月29日</p>
 			<view class="cont">
 				<image class="banner" src="@/static/as/changs.jpg" mode=""></image>
@@ -21,7 +21,9 @@
 			}
 		},
 		methods: {
-
+				todeil(){
+					this.$jump('./deil')
+				}
 		}
 	}
 </script>

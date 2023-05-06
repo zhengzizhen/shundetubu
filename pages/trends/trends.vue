@@ -187,7 +187,7 @@
 				this.userlist[index].isshow = !this.userlist[index].isshow
 			},
 			change(e) {
-				console.log(e)
+				// console.log(e)
 			},
 			clickImg(item, index) {
 				uni.previewImage({

@@ -11,7 +11,11 @@
 					<label>04.02剩3名额</label>
 					<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 				</view>
-				<p class="title dis_f"><label>难度： 休闲</label><u-icon name="star" size='14'></u-icon></p>
+				<!-- <p class="title dis_f"><label>难度： 休闲</label><u-icon name="star" size='14'></u-icon></p> -->
+				<p class="title dis_f">
+					<label>出入西藏首选</label>
+					<label>限时40天</label>
+				</p>
 				<view class="dc_span dis_f">
 					<text>￥888</text>
 					<label>4.91分丨291人去过</label>
@@ -86,7 +90,6 @@
 			text-align: center;
 			color: white;
 			font-size: 22rpx;
-
 		}
 
 		.dc_latt {
@@ -125,7 +128,12 @@
 				display: block;
 				margin-right: 10rpx;
 				font-size: 24rpx;
-				color: #999;
+				font-family: PingFang SC;
+				font-weight: 500;
+				color: #E49332;
+				background: #FFECD6;
+				line-height: 36rpx;
+				padding: 2rpx 15rpx;
 			}
 		}
 	}
