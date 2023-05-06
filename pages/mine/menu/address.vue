@@ -114,8 +114,6 @@
 			width: 100%;
 			height: 88rpx;
 			background-color: white;
-			margin-top: 88rpx;
-
 			span {
 				font-size: 32rpx;
 				font-weight: bold;

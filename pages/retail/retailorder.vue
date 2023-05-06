@@ -1,6 +1,5 @@
 <template>
 	<view class="body">
-		<view class="bos"></view>
 		<Nav title="分销订单">
 			<template slot="left">
 				<image @click="back()" class="leftimg" src="@/static/image/retail/back.png" mode=""></image>
@@ -30,7 +29,6 @@
 					</view>
 				</view>
 			</view>
-
 		</view>
 	</view>
 </template>
@@ -69,9 +67,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.bos{
-		height: 88rpx;
-	}
 	.rr_body {
 		background-color: #FAFAFA;
 		height: 1500rpx;

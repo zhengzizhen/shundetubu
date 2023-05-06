@@ -1,8 +1,8 @@
 <template>
 	<view class="as_body">
 		<!-- 列表渲染 -->
-		<view class="pd30">
-			<view class="ix_shop index_pads dis_f">
+		<view>
+			<view class="ix_shop index_pads dis_f pd30">
 				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='clinto(index)'>
 					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
 					<text>{{item.name}}</text>
@@ -10,7 +10,7 @@
 				</view>
 			</view>
 
-			<view class="as_mon">
+			<view class="as_mon pd30">
 				<view class="tit dis_f">
 					<p>本月精彩团建转播</p>
 					<view class="dis_f"  @click='goWonderful()'>
@@ -19,7 +19,7 @@
 					</view>
 				</view>
 
-				<view class="img dis_f">
+				<view class="img dis_f pd30">
 					<view class="" v-for="(v,i) in list" :key="i">
 						<image src="@/static/index/two.jpg" mode=""></image>
 						<p>乔达·意式山城...</p>
@@ -27,16 +27,36 @@
 				</view>
 			</view>
 
-			<p class="as_tit">当季热门</p>
-			<u-swiper :list="swiperlist" previousMargin="30" height='400' :radius='10' indicator indicatorMode="line"
-				nextMargin="30" circular :autoplay="false" radius="5" bgColor="#ffffff"></u-swiper>
-
-			<p class="as_tit">口碑之选</p>
-			<view class="ix_subsection dis_f">
+			<p class="as_tit pd30">当季热门</p>
+			<!-- <u-swiper :list="swiperlist" previousMargin="30" height='400' :radius='10' indicator indicatorMode="line"
+				nextMargin="30" circular :autoplay="false" radius="5" bgColor="#ffffff"></u-swiper> -->
+			<view class="uni-margin-wrap">
+				<swiper class="swiper" @change='change' circular :autoplay="false" next-margin='160rpx'
+					previous-margin='180rpx' :interval="2000" :duration="500">
+					<swiper-item v-for="(item,index) in swiperlist" :key="index">
+						<view class="posir">
+							<image :src="item" mode=""></image>
+							<view v-show="swipercurrent == index" class="posiswiper dis_f flex_c">
+								<p>春行婺源秘境</p>
+								<view class="ios">
+									<text>高铁往返</text>
+									<text class="m10">闲适2日</text>
+								</view>
+								<label>4.91分丨291人去过</label>
+							</view>
+						</view>
+					</swiper-item>
+				</swiper>
+				<view class="info dis_f">
+					<p :class="swipercurrent==index?'active':''" v-for="(v,index) in swiperlist.length"></p>
+				</view>
+			</view>
+			<p class="as_tit pd30">口碑之选</p>
+			<view class="ix_subsection dis_f pd30">
 				<span :class="curry == index ?'check':'checks'" v-for="(item,index) in checklist" :key="index"
 					@click="checkout(item,index)">{{item}}</span>
 			</view>
-			<view class="">
+			<view class="pd30">
 				<view class="as_kb dis_f" v-for="(item,index) in list" :key="index">
 					<view class="as_posi">
 						<p>【樱花物语】听见心动的声音</p>
@@ -55,13 +75,13 @@
 			</view>
 			
 			<!-- 个性定制 -->
-			<p class="as_tit">个性定制</p>
+			<p class="as_tit pd30">个性定制</p>
 			
-			<view class="ix_subsection dis_f">
+			<view class="ix_subsection dis_f pd30">
 				<span :class="curry1 == index?'check':'checks'" v-for="(item,index) in checklist1" :key="index"
 					@click="checkout1(item,index)">{{item.name}}</span>
 			</view>
-			<view class="ix_img dis_f">
+			<view class="ix_img dis_f pd30">
 				<view class="ix_flexs" v-for="(item,index) in imglist" :key="index">
 					<image :src="item.image"></image>
 					<p class="ix_posi">{{item.title}}</p>
@@ -70,12 +90,12 @@
 				</view>
 			</view>
 			
-			<p class="as_tit">口碑之选</p>
-			<view class="dis_f tm_img">
+			<p class="as_tit pd30">口碑之选</p>
+			<view class="dis_f tm_img pd30">
 				<image class="c" src="@/static/index/luowu.jpg" mode=""></image>
 				<image class="z" src="@/static/image/index/banners.jpg" mode=""></image>
 			</view>
-			<view class="dis_f jscb ima" >
+			<view class="dis_f jscb ima pd30" >
 				<image class="ima" v-for="(item,index) in list" :key="index" src="@/static/image/index/banners.jpg" mode=""></image>
 			</view>
 		</view>
@@ -136,7 +156,13 @@
 					'../../../static/as/changs.jpg',
 				],
 				sublist: ['当季推荐', '口碑路线'],
-
+				swipercurrent:0,
+				swiperlist: [
+					'../../../static/as/changs.jpg',
+					'../../../static/as/changs.jpg',
+					'../../../static/as/changs.jpg',
+					'../../../static/as/changs.jpg',
+				],
 				current: 0,
 				list: ['1', '2', '3'],
 				radios: [{
@@ -199,6 +225,10 @@
 			},
 			checkout(e,index) {
 				this.curry = index
+			},
+			change(e) {
+				console.log(e.detail.current);
+				this.swipercurrent = e.detail.current
 			},
 			checkout1(e,index) {
 				this.curry1 = index
@@ -523,5 +553,69 @@
 		background: #49CAA4;
 		border-radius: 39rpx 40rpx 40rpx 39rpx;
 	}
+	.swiper {
+		width: 100%;
+		height: 500rpx;
+		text-align: center;
 	
+		.posir {
+			width: 380rpx;
+			height: 500rpx;
+		}
+	
+		image {
+			margin: 0 auto;
+			width: 380rpx;
+			height: 500rpx;
+			border-radius: 20rpx;
+		}
+	
+		.posiswiper {
+			position: absolute;
+			bottom: 20rpx;
+			left: 0;
+			padding: 10rpx 20rpx;
+			text-align: left;
+			animation: scaleout .5s ease-in-out;
+			p {
+				font-size: 30rpx;
+				font-weight: bold;
+				color: #FFFFFF;
+			}
+			text {
+				font-size: 24rpx;
+				font-weight: 500;
+				color: #FFFFFF;
+				background: rgba(255, 255, 255, .5);
+				padding: 5rpx 10rpx;
+			}
+			.ios {
+				margin: 10rpx 0 20rpx;
+			}
+			.m10 {
+				margin-left: 10rpx;
+			}
+			label {
+				font-size: 24rpx;
+				font-weight: 500;
+				color: #FFFFFF;
+			}
+		}
+	}
+	.info{
+		width: 100%;
+		text-align: center;
+		margin: 20rpx auto;
+		justify-content: center;
+		p{
+			margin: 0 8rpx;
+			width: 22rpx;
+			height: 22rpx;
+			background: #F0F0F0;
+			border-radius: 50%;
+		}
+		.active{
+			background: #49CAA4 !important;
+		}
+	}
 </style>

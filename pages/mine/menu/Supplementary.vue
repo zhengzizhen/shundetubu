@@ -75,7 +75,7 @@
 	}
 	.content{
 		width: 690rpx;
-		height: 408rpx;
+		height: auto;
 		background: #FFFFFF;
 		border-radius: 20rpx;
 		margin: 20rpx 30rpx;

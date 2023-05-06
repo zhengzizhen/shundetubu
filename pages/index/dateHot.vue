@@ -1,8 +1,8 @@
 <template>
 	<view class="dt_body">
 		<view>
-			<uni-calendar :date = 'dater' :insert="true" :lunar="false" :disable-before="true"
-				:start-date="start" :end-date="end" @change="change" />
+			<uni-calendar :date='dater' :insert="true" :lunar="false" :disable-before="true" :start-date="start"
+			 :selected='selected'	:end-date="end" @change="change" />
 		</view>
 		<view class="dt_text">
 			<view class="dt_bor">
@@ -29,25 +29,26 @@
 	export default {
 		data() {
 			return {
-				dater:'',//默认日期,
-				start:'',
-				end:'',
+				dater: '', //默认日期,
+				start: '',
+				end: '',
 				show: true,
 				list: [1, 2, 3],
 				curry: null,
 				lists: ['1天', '2~3天', '3~4天', '5天+'],
+				selected:[{date: '2023-05-01', info: '劳动节'}]
 			}
 		},
 		onLoad(option) {
-			if(option.date>=10){
-				this.dater = '2023-'+option.date + '-01'
-				this.start = '2023-'+option.date + '-01'
-				this.end = '2023-'+option.date + '-31'
+			if (option.date >= 10) {
+				this.dater = '2023-' + option.date + '-01'
+				this.start = '2023-' + option.date + '-01'
+				this.end = '2023-' + option.date + '-31'
 				return false
-			}else if(option.date<10){
-				this.dater = '2023-0'+option.date + '-01'
-				this.start = '2023-0'+option.date + '-01'
-				this.end = '2023-'+option.date + '-31'
+			} else if (option.date < 10) {
+				this.dater = '2023-0' + option.date + '-01'
+				this.start = '2023-0' + option.date + '-01'
+				this.end = '2023-' + option.date + '-31'
 				return false
 			}
 		},
@@ -70,7 +71,7 @@
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
 			},
-			checktabs(item,index) {
+			checktabs(item, index) {
 				this.curry = index
 			}
 		}

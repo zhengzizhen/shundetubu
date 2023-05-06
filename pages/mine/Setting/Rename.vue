@@ -2,7 +2,7 @@
 	<view class="pos">
 		<Nav title='编辑名字'>
 			<template slot="left">
-				<image @click="back()" class="leftimg" src="../../../static/image/retail/back.png" mode=""></image>
+				<image @click="back()" class="leftimg" src="@/static/image/retail/back.png" mode=""></image>
 			</template>
 			<template slot="right">
 				<p class="green" @click='reback()'>保存</p>
@@ -47,7 +47,6 @@
 
 <style lang="scss" scoped>
 	.pos{
-		padding-top: 80rpx;
 	}
 	.st_body {
 		background: #FAFAFA;

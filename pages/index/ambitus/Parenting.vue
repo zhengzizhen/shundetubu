@@ -105,7 +105,7 @@
 		.tosimg{
 			width: 200rpx;
 			image{
-				margin-left: -20rpx;
+				margin-left: -25rpx;
 			}
 			image:first-child{
 				margin-left: 0 !important;
