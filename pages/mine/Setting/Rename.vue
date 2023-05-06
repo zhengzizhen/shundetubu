@@ -33,7 +33,6 @@
 			this.name = option.name
 		},
 		created() {
-			this.changfouce()
 		},
 		methods: {
 			back() {
@@ -41,12 +40,6 @@
 			},
 			reback() {
 				this.$jump('./Setting', 'redirect')
-			},
-			changfouce() {
-				this.$nextTick((x) => { //正确写法
-					this.$refs.inputs.focus = true;
-				})
-
 			},
 		}
 	}

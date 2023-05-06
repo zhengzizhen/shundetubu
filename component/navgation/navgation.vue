@@ -38,17 +38,14 @@
 	box-sizing: border-box;
 }
 .left{
-	flex: 1;
 	text-align: left;
 	display: flex;
 	align-items: center;
 }
 .center{
-	flex: 1;
 	text-align: center;
 }
 .right{
-	flex: 1;
 	display: flex;
 	justify-content: right;
 	align-items: center;

@@ -445,7 +445,6 @@
 		overflow: auto; // 超出这个最大高度的数据，会被隐藏起来，上下滑动
 		overflow-x: hidden; //隐藏x轴滚动条
 		padding-bottom: 100rpx;
-
 		.new {
 			padding: 20rpx 0;
 			border-bottom: 1px solid #E6E6E6;
