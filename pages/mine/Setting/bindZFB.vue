@@ -3,52 +3,56 @@
 		<view class="cont">
 			<view class="input dis_f">
 				<label class="dis_f">姓名</label>
-				<input type="text" maxlength="11" placeholder="请输入姓名" v-model="user.name">
-			</view>
-			<!-- <view class="input dis_f">
-				<label class="dis_f">身份证号</label>
-				<input type="text" maxlength="11" placeholder="请输入身份证号" v-model="user.ID">
-			</view> -->
-			<view class="input dis_f">
-				<label class="dis_f">支付宝账号</label>
-				<input type="number" maxlength="11" placeholder="请输入支付宝账号" v-model="user.phone">
+				<input type="text" maxlength="11" placeholder="请输入姓名" v-model="user.username">
 			</view>
 			
+			<view class="input dis_f">
+				<label class="dis_f">支付宝账号</label>
+				<input type="number" maxlength="11" placeholder="请输入支付宝账号" v-model="user.account">
+			</view>
 		</view>
-		
 		<button class="btn" @click="submit">提交</button>
 	</view>
 </template>
 
 <script>
-	
 	export default {
 		data() {
 			return {
 				user:{
-					name:'',
-					phone:'',
+					username:'',
+					account:'',
 				},
 				isShow:true,
 				times:60,
 				timer:null
 			}
 		},
+		onLoad() {
+			this.user.username = this.$store.state.userinfo.alipay.alipay_username
+			this.user.account = this.$store.state.userinfo.alipay.alipay_account
+			console.log(this.user);
+		},
 		methods: {
-			submit(){
-				// let regName= /^\u4e00-\u9fa5{1,5}$/;
-				// let regPhoen = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
-				// if(!regName.test(this.user.name)){
-				// 	console.log('请输入正确的姓名');
-				// 	return false
-				// }else if(!regPhoen.test(this.user.phone)){
-				// 	console.log('请输入正确的手机号');
-				// 	return false
-				// }else if(this.user.ID.length<18){
-				// 	console.log('请输入正确的身份证号');
-				// 	return false
-				// }
-					console.log('验证通过');
+			async submit(){
+				if(this.user.username == ''){
+					uni.$u.toast('姓名不能为空')
+					return false
+				}else if(this.user.account == ''){
+					uni.$u.toast('收款账号不能为空')
+					return false
+				}
+				uni.showLoading()
+				const res = await this.$http('/user/update/alipay',this.user)
+				uni.hideLoading()
+				var value = {}
+				value.user = this.user
+				value.state = 1
+				this.$store.commit('alipay_status',value)
+				uni.$u.toast('绑定成功')
+				setTimeout(()=>{
+					this.$jump('/pages/mine/Setting/playRMB','redirect')
+				},500)
 			},
 			cleartime(){
 				if(this.times == 0){

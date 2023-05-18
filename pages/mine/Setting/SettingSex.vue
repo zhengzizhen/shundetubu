@@ -18,20 +18,42 @@
 		data() {
 			return {
 				name:'',
-				isShow:true
+				isShow:true,
+				timer:''
 			};
+		},
+		onLoad(option) {
+			if(option.sex == '女'){
+				this.isShow = false
+			}
 		},
 		methods:{
 			man(){
 				if(this.isShow){
 					return false
 				}
+				clearTimeout(this.timer)
+				this.timer = setTimeout(async ()=>{
+					const res = await this.$http('/user/update/data',{
+						sex:'男'
+					})
+				},500)
+				this.$store.commit('resex','男')
+				console.log(this.$store.state.userinfo);
 				this.isShow = true
 			},
 			woman(){
 				if(!this.isShow){
 					return false
 				}
+				clearTimeout(this.timer)
+				this.timer = setTimeout(async ()=>{
+					const res = await this.$http('/user/update/data',{
+						sex:'女'
+					})
+				},500)
+				this.$store.commit('resex','女')
+				console.log(this.$store.state.userinfo);
 				this.isShow = false
 			}
 		}

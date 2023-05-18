@@ -3,16 +3,16 @@
 		<p>活动领队</p>
 		<view class="pd30 dis_f cc_user">
 			<view class="cc_group dis_f flex_c alitmc" v-for="(v,i) in list" :key="i">
-				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
-				<text>肉肉</text>
+				<image :src="v.avatar" mode=""></image>
+				<text>{{v.nickname}}</text>
 			</view>
 		</view>
 		
 		<p>已报名</p>
 		<view class="pd30 dis_f cc_user">
 			<view class="cc_group dis_f flex_c alitmc" v-for="(v,i) in Userlist" :key="i">
-				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
-				<text class="bold">哈哈哈</text>
+				<image :src="v.avatar" mode=""></image>
+				<text class="bold">{{v.nickname}}</text>
 			</view>
 		</view>
 	</view>
@@ -22,9 +22,19 @@
 	export default {
 		data() {
 			return {
-				list: [1],
-				Userlist:[1,2,3,4,5,6,7]
+				list: [],
+				Userlist:[]
 			}
+		},
+		onLoad(option) {
+			const users = JSON.parse(option.user)
+			users.forEach((item,index)=>{
+				if(item.identity=='会员'){
+					this.Userlist.push(item)
+				}else{
+					this.list.push(item)
+				}
+			})
 		},
 		methods: {
 			

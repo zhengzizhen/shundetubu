@@ -41,7 +41,7 @@
 			clk(item, index) {
 				item.state = !item.state
 				console.log(item);
-				this.$forceUpdate()
+				// this.$forceUpdate()
 			}
 		}
 	}

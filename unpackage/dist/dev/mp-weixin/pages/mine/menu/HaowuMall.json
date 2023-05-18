@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "好物商城",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-notice-bar": "/node-modules/uview-ui/components/u-notice-bar/u-notice-bar"
+  }
+}

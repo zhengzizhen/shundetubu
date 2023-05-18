@@ -1,33 +1,37 @@
 <template>
 	<view class="pd30 body">
-		<view class="banners">
-			<image src="../../static/index/changplus.jpg" mode=""></image>
-		</view>
 		
-		<view class="banner" v-for="(v,i) in list" :key='i'>
+		<view class="Swiper">
+			<u-swiper circular :list="swiper" @change="e =>changeSwiper(e)"></u-swiper>
+		</view>
+
+		<view class="banner" v-for="(v,i) in list" :key='i' @click="toDetail(v.id)">
 			<p class="iun">HOT{{i+1}}</p>
-			<view class="myVideos">
+			<view class="myVideos" v-if="v.video!=''">
 				<video class="myVideo"
-					src="https://webstatic.mihoyo.com/upload/static-resource/2022/01/04/72f41ca0acf28922ee3cc2278d920a5f_7569813998111725618.mp4"></video>
+					:src="v.video"></video>
+			</view>
+			<view class="myVideos pdnone">
+				<image :src="v.master_image" mode=""></image>
 			</view>
 			<view class="dis_f txt">
-				<p>【亭可马里季】斯里兰卡纯玩9天</p>
-				<view class="dis_f jscb sil">
-					<label class="green">跟团·3天</label>
-					<label class="red">￥888</label>
+				<p>{{v.title}}</p>
+				<view class="dis_f jscb sil alitmc">
+					<label class="green">跟团·{{v.day}}天</label>
+					<label class="red">￥{{v.price}}</label>
 				</view>
-				<view class="">
-					<label class="red">17181 </label><text>新用户首次活动选择</text>
+				<view v-if='v.fisrt_people_number != 0'>
+					<label class="red">{{v.fisrt_people_number}} </label><text>新用户首次活动选择</text>
 				</view>
 			</view>
-			<view class="ms_user dis_f">
+			<view class="ms_user dis_f" v-if="v.evaluate!=''">
 				<view>
-					<image src="@/static/trends/user.png" mode=""></image>
-					<p>李菲</p>
+					<image :src="v.evaluate.user_avatar" mode=""></image>
+					<p>{{v.evaluate.user_nickname}}</p>
 				</view>
 				<view class="io">
-					<text>02-19</text>
-					<p>〝领队阿三非常有责任心 对旅途中每一个点了如指掌 路线设计劳逸结合 给力〞</p>
+					<text>{{v.evaluate.created_at}}</text>
+					<p>{{v.evaluate.content}}</p>
 				</view>
 			</view>
 		</view>
@@ -38,43 +42,91 @@
 	export default {
 		data() {
 			return {
-				list: [1, 2],
+				list: [],
+				swiper: [],
+				bottom:false,//是否触底
+				page:2,
+				id:''
 			}
 		},
 		onLoad(option) {
+			let title = JSON.parse(option.obj).name
+			this.id = JSON.parse(option.obj).id
 			uni.setNavigationBarTitle({
-				title:option.name
+				title: title
 			})
+			this.getlist(this.id)
+		},
+		onReachBottom() {
+			if(this.bottom == true){
+				return false
+			}
+			this.bournlist()
 		},
 		methods: {
-			
+			async getlist(id) {
+				const res = await this.$http('/trip/bourn/detail', {
+					bourn_id: id
+				})
+				this.swiper = res.data.data.images
+				this.list = res.data.data.trip
+				if(this.list.length<10){
+					this.bottom = true
+				}
+			},
+			async bournlist(){
+				const res = await this.$http('/bourn/trip/list',{
+					bourn_id:this.id,
+					page:this.page,
+					limit:10
+				})
+				if(res.data.data.length<10){
+					this.list = this.list.concat(res.data.data)
+					this.bottom = true
+					return false
+				}
+				this.list = this.list.concat(res.data.data)
+			},
+			changeSwiper(){
+				
+			},
+			toDetail(e){
+				this.$jump('/pages/index/Details/Details?id=','params',e)
+			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-.body{
-	background-color: #FAFAFA;
-}
-video{
-	border-radius: 20rpx;
-}
-.banners{
-	image{
-		margin-top: 40rpx;
-		width: 100%;
-		height: 300rpx;
+	.body {
+		background-color: #FAFAFA;
+		padding-bottom: 100rpx;
+		min-height: 1500rpx;
+		height: auto;
+	}
+
+	video {
 		border-radius: 20rpx;
 	}
-}
 
-.banner {
-		height: 730rpx;
+	.banners {
+		image {
+			margin-top: 40rpx;
+			width: 100%;
+			height: 300rpx;
+			border-radius: 20rpx;
+		}
+	}
+
+	.banner {
+		height: auto;
 		margin-top: 30rpx;
+		padding-bottom: 20rpx;
 		background-color: white;
 		border-radius: 20rpx;
 		position: relative;
-		.iun{
+
+		.iun {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -88,7 +140,8 @@ video{
 			text-align: center;
 			font-size: 26rpx;
 		}
-		.myVideos{
+
+		.myVideos {
 			width: 100%;
 			height: 360rpx;
 			overflow: hidden;
@@ -103,50 +156,91 @@ video{
 				width: 100%;
 				height: 340rpx;
 			}
+			image{
+				width: 100%;
+				height: 360rpx;
+			}
+		}
+		.pdnone{
+			padding: 0;
 		}
 		
-		.txt{
+		
+		
+
+		.txt {
 			flex-direction: column;
 			text-align: left;
 			justify-content: center;
 			padding: 10rpx 20rpx;
-			.sil{
+
+			.sil {
 				margin-top: 10rpx;
 			}
-			.green{
+
+			.green {
 				font-size: 22rpx;
 				color: #49CAA4;
 			}
-			.red{
+
+			.red {
 				color: red;
 				font-size: 32rpx;
 				font-weight: normal;
 			}
 		}
 	}
-	.ms_user{
+
+	.ms_user {
 		padding: 10rpx 20rpx;
 		margin-top: 20rpx;
 		text-align: center;
-		image{
+
+		image {
 			width: 70rpx;
 			height: 70rpx;
 		}
-		p{
+
+		p {
 			font-size: 26rpx;
 		}
-		.io{
+
+		.io {
 			text-align: left;
 			margin-left: 30rpx;
 			background-color: #F6F7F9;
 			padding: 20rpx;
+			width: 600rpx;
 			border-radius: 20rpx;
-			text{
+
+			text {
 				font-size: 24rpx;
 			}
-			p{
+
+			p {
 				font-size: 24rpx;
 			}
 		}
+	}
+
+	.Swiper {
+		padding: 40rpx 0;
+		width: 100%;
+		height: 300rpx;
+		/deep/.u-swiper__wrapper__item__wrapper__image{
+			height: 300rpx !important;
+		}
+		/deep/.uni-image{
+			height: 300rpx !important;
+		}
+		/deep/.u-swiper{
+			width: 100%;
+			height: 300rpx !important;
+			.u-swiper__wrapper{
+				width: 100%;
+				height: 300rpx !important;
+			}
+		}
+		
 	}
 </style>

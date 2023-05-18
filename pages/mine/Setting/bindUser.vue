@@ -1,27 +1,34 @@
 <template>
-	<view>
-		<view class="bank dis_f">
+	<view class="body">
+		<view class="bank dis_f" v-if="this.userinfo.bank_status != 0">
 			<image src="@/static/image/trends/wxx.jpg" mode=""></image>
 			<view class="dis_f flex_c mls">
-				<p>中国银行</p>
+				<p>{{userinfo.bank.bank_name}}</p>
 				<text>储蓄卡</text>
-				<label>**** **** **** 7254</label>
+				<label>**** **** **** {{userinfo.bank.bank_code.substr(-4)}}</label>
 			</view>
 		</view>
 		
 		
-		<view class="addbank">
+		<view class="addbank" v-else>
 			<p @click='toBank()'>+添加银行卡</p>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {mapState} from 'vuex'
+	import store from '@/store/index.js'
 	export default {
+		computed:{
+			...mapState(['userinfo'])
+		},
 		data() {
 			return {
 				
 			}
+		},
+		onLoad() {
 		},
 		methods: {
 			toBank(){
@@ -32,6 +39,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.body{
+		padding-top: 40rpx;
+	}
 .bank{
 	width: 694rpx;
 	height: 238rpx;

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "领队",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs",
+    "u-rate": "/node-modules/uview-ui/components/u-rate/u-rate"
+  }
+}

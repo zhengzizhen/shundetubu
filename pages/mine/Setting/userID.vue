@@ -3,12 +3,12 @@
 		<view class="cont">
 			<view class="input dis_f">
 				<label class="dis_f">姓名</label>
-				<input type="text" placeholder="请输入姓名" v-model="user.name">
+				<input type="text" placeholder="请输入姓名" v-model="user.username">
 			</view>
 			
 			<view class="input dis_f">
 				<label class="dis_f">身份证号</label>
-				<input type="text" maxlength="18" placeholder="请输入身份证号" v-model="user.ID">
+				<input type="text" maxlength="18" placeholder="请输入身份证号" v-model="user.idcard">
 			</view>
 			
 			<view class="input dis_f">
@@ -26,27 +26,34 @@
 		data() {
 			return {
 				user:{
-					name:'',
-					ID:'',
+					username:'',
+					idcard:'',
 					phone:''
 				}
 			}
 		},
+		onLoad() {
+			this.user.phone = this.$store.state.userinfo.real.id_card_phone
+		},
 		methods: {
-			submit(){
+			async submit(){
 				let regName= /^\u4e00-\u9fa5{1,5}$/;
 				let regPhoen = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
-				if(!regName.test(this.user.name)){
-					console.log('请输入正确的姓名');
+				if(this.user.username == ''){
+					uni.$u.toast('请输入姓名')
 					return false
-				}else if(!regPhoen.test(this.user.phone)){
-					console.log('请输入正确的手机号');
-					return false
-				}else if(this.user.ID.length<18){
-					console.log('请输入正确的身份证号');
+				}else 
+				if(!regPhoen.test(this.user.phone)){
+					uni.$u.toast('请输入正确的手机号')
 					return false
 				}
-					console.log('验证通过');
+				uni.showLoading()
+				const res = await this.$http('/user/update/real',this.user)
+				uni.$u.toast(res.data.msg)
+				this.$store.commit('real_status',1)
+				setTimeout(()=>{
+					this.$jump('/pages/mine/Setting/Setting','redirect')
+				},500)
 			}
 		}
 	}

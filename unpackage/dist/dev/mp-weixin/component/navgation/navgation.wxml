@@ -1,0 +1,1 @@
+<view class="nav dis_f data-v-f25a283a"><view class="left data-v-f25a283a"><slot name="left"></slot></view><view class="center data-v-f25a283a"><view class="_p data-v-f25a283a">{{title}}</view></view><view class="right data-v-f25a283a"><slot name="right"></slot></view></view>

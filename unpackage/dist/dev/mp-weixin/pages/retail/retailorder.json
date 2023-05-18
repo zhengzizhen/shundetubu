@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "分销订单",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "nav": "/component/navgation/navgation"
+  }
+}

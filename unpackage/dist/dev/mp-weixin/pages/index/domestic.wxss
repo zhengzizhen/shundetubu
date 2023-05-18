@@ -1,0 +1,261 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.dc_bg.data-v-20e270f4 {
+  width: 100%;
+  height: auto;
+  background-color: #18ACB6;
+  padding-bottom: 50rpx;
+}
+.dc_header.data-v-20e270f4 {
+  padding-top: 457rpx;
+}
+.dc_header .dc_label.data-v-20e270f4 {
+  position: relative;
+}
+.dc_header .dc_label .dc_spans.data-v-20e270f4 {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 32rpx;
+  padding: 10rpx 20rpx;
+  margin: 10rpx 10rpx;
+  color: white;
+  font-size: 28rpx;
+}
+.dc_header .dc_label .sx.data-v-20e270f4 {
+  padding-left: 40rpx;
+  width: 40rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  background-color: #18ACB6;
+  position: absolute;
+  right: 0rpx;
+}
+.dc_header .dc_label .sx image.data-v-20e270f4 {
+  width: 40rpx;
+  height: 40rpx;
+}
+.dc_header .dc_banner.data-v-20e270f4 {
+  position: relative;
+  height: 590rpx;
+  background-color: white;
+  border-radius: 20rpx;
+  margin: 20rpx auto;
+}
+.dc_header .dc_banner image.data-v-20e270f4 {
+  width: 100%;
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  height: 340rpx;
+}
+.dc_header .dc_banner .dc_posi.data-v-20e270f4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 80rpx;
+  height: 42rpx;
+  background: #49CAA4;
+  border-radius: 20rpx 0rpx 20rpx 0rpx;
+  text-align: center;
+  color: white;
+}
+.dc_header .dc_banner .dc_text.data-v-20e270f4 {
+  flex-direction: column;
+  padding: 0 20rpx;
+}
+.dc_header .dc_banner .dc_text ._p.data-v-20e270f4 {
+  color: #222222;
+  font-size: 30rpx;
+}
+.dc_header .dc_banner .dc_text .dc_span.data-v-20e270f4 {
+  margin-top: 10rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+.dc_header .dc_banner .dc_text .dc_span label.data-v-20e270f4 {
+  color: #999999;
+  font-size: 24rpx;
+}
+.dc_header .dc_banner .dc_text .dc_span text.data-v-20e270f4 {
+  color: #FF4040;
+  font-weight: bold;
+}
+.dc_header .dc_banner .dc_text .dc_ms.data-v-20e270f4 {
+  margin-top: 20rpx;
+  position: relative;
+}
+.dc_header .dc_banner .dc_text .dc_ms ._p.data-v-20e270f4 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  width: 60rpx;
+  height: 132rpx;
+  padding: 0 20rpx;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  color: #49CAA4;
+  font-size: 20rpx;
+}
+.dc_header .dc_banner .dc_text .dc_ms .dc_go.data-v-20e270f4 {
+  padding: 10rpx 20rpx;
+  flex-direction: column;
+  text-align: center;
+  border-right: 1px solid #ccc;
+}
+.dc_header .dc_banner .dc_text .dc_ms .dc_go text.data-v-20e270f4 {
+  font-size: 26rpx;
+}
+.dc_header .dc_banner .dc_text .dc_ms .dc_go .pink.data-v-20e270f4 {
+  margin-top: 20rpx;
+  padding: 5rpx 5rpx;
+  background-color: #FFA1AD;
+  border-radius: 50rpx;
+  color: white;
+  font-size: 24rpx;
+}
+.dc_mod.data-v-20e270f4 {
+  position: relative;
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+}
+.dc_mod image.data-v-20e270f4 {
+  width: 240rpx;
+  height: 240rpx;
+  border: 20rpx;
+}
+.dc_mod .dc_god.data-v-20e270f4 {
+  width: 388rpx;
+  margin-left: 20rpx;
+}
+.dc_mod .posw.data-v-20e270f4 {
+  position: absolute;
+  top: 30rpx;
+  left: 20rpx;
+  width: 80rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  background: #49CAA4;
+  z-index: 2;
+  border-radius: 20rpx 0rpx 20rpx 0rpx;
+  text-align: center;
+  color: white;
+  font-size: 22rpx;
+}
+.dc_mod .dc_latt text.data-v-20e270f4 {
+  padding: 5rpx 15rpx;
+  color: #FFFFFF;
+  font-size: 24rpx;
+  background-color: #FFA1AD;
+}
+.dc_mod .dc_latt label.data-v-20e270f4 {
+  margin-left: 10rpx;
+  padding: 5rpx 20rpx;
+  color: #FFFFFF;
+  font-size: 24rpx;
+  background-color: #F2AD5A;
+}
+.dc_mod .dc_out.data-v-20e270f4 {
+  margin-top: 20rpx;
+}
+.dc_mod .dc_out text.data-v-20e270f4 {
+  padding: 5rpx 15rpx;
+  color: #E49332;
+  font-size: 24rpx;
+  background-color: #FFECD6;
+}
+.dc_span.data-v-20e270f4 {
+  margin-top: 20rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+.dc_span label.data-v-20e270f4 {
+  color: #999999;
+  font-size: 24rpx;
+}
+.dc_span text.data-v-20e270f4 {
+  color: #FF4040;
+  font-weight: bold;
+}
+.ix_pop.data-v-20e270f4 {
+  height: auto;
+}
+.ix_pop ._p.data-v-20e270f4 {
+  margin: 10rpx auto 20rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.ix_pop .ps.data-v-20e270f4 {
+  flex-wrap: wrap;
+}
+.ix_pop .ps .prp.data-v-20e270f4 {
+  margin: 5rpx 10rpx;
+  width: 30%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
+.ix_pop .dis_f .select.data-v-20e270f4 {
+  background-color: #49CAA4;
+  color: white;
+  border: none;
+  border: 2rpx solid #49CAA4;
+}
+.ix_pop .dis_f text.data-v-20e270f4 {
+  background: #FFFFFF;
+  color: #999999;
+  border: 2rpx solid #999999;
+  border-radius: 50rpx;
+  width: 132rpx;
+  padding: 5rpx 30rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  text-align: center;
+  font-size: 26rpx;
+}
+.ix_pop .btn.data-v-20e270f4 {
+  margin: 80rpx 0 50rpx;
+}
+.ix_pop .btn ._p.data-v-20e270f4 {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #666666;
+}
+.ix_pop .btn button.data-v-20e270f4 {
+  width: 451rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  background: #49CAA4;
+  border-radius: 44rpx;
+  color: white;
+}
+

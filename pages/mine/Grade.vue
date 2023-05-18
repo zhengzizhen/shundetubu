@@ -1,142 +1,172 @@
 <template>
-	<view class="body">
+	<view class="body" v-if="userinfo">
 		<!-- 等级2 -->
-		<view class="grade posir" v-if="lv == 1">
+		<view class="grade posir" v-if="userinfo.level_data.level_id == 1">
 			<image class="banner" src="@/static/image/mine/lv1.jpg" mode=""></image>
 			<view class="position posia dis_f bor2">
 				<view class="left">
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
-					<p style="color: #13903C;">850</p>
+					<image :src="userinfo.avatar" mode=""></image>
+					<p style="color: #13903C;">{{userinfo.level_data.user_exp}}</p>
 				</view>
 				<view class="right">
-					<p style="color: #13903C;">好奇宝宝</p>
+					<p style="color: #13903C;">{{userinfo.level_data.level_name}}</p>
 					<view class="">
 						<view class="dis_f my_jd">
 							<view class="my_line">
 								<view class="dis_f my_txt">
-									<p class="lefts" style="color: #13903C;">下一等级 : 初出毛驴</p>
-									<p class="rights" style="color: #13903C;">1000</p>
+									<p class="lefts" style="color: #13903C;">下一等级 : {{userinfo.level_data.next_level_name}}</p>
+									<p class="rights" style="color: #13903C;">{{userinfo.level_data.next_level_exp}}</p>
 								</view>
-								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#C4FFDB' inactiveColor = '#139F37'></u-line-progress>
+								<u-line-progress :percentage="(userinfo.level_data.level_exp/userinfo.level_data.next_level_exp)*100" :showText="false" height="8" activeColor = '#C4FFDB' inactiveColor = '#139F37'></u-line-progress>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<p class="posiss" style="color: #13903C;">2018年6月加入</p>
+			<!-- <p class="posiss" style="color: #13903C;">2018年6月加入</p> -->
 		</view>
 		
 		<!-- 等级1 -->
-		<view class="grade posir" v-if="lv == 2">
+		<view class="grade posir" v-if="userinfo.level_data.level_id == 2">
 			<image class="banner" src="@/static/image/mine/lv2.jpg" mode=""></image>
 			<view class="position posia dis_f">
 				<view class="left">
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
-					<p>850</p>
+					<image :src="userinfo.avatar" mode=""></image>
+					<p>{{userinfo.level_data.user_exp}}</p>
 				</view>
 				<view class="right">
-					<p>初出茅驴</p>
+					<p>{{userinfo.level_data.level_name}}</p>
 					<view class="">
 						<view class="dis_f my_jd">
 							<view class="my_line">
 								<view class="dis_f my_txt">
-									<p class="lefts">下一等级 : 探路先锋</p>
-									<p class="rights">1000</p>
+									<p class="lefts">下一等级 : {{userinfo.level_data.next_level_name}}</p>
+									<p class="rights">{{userinfo.level_data.next_level_exp}}</p>
 								</view>
-								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#D8F6FF' inactiveColor = '#397F95'></u-line-progress>
+								<u-line-progress :percentage="(userinfo.level_data.level_exp/userinfo.level_data.next_level_exp)*100" :showText="false" height="8" activeColor = '#D8F6FF' inactiveColor = '#397F95'></u-line-progress>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<p class="posiss">2018年6月加入</p>
+			<!-- <p class="posiss">2018年6月加入</p> -->
 		</view>
 		
 		
 		<!-- 等级3 -->
-		<view class="grade posir" v-if="lv == 3">
+		<view class="grade posir" v-if="userinfo.level_data.level_id == 3">
 			<image class="banner" src="@/static/image/mine/lv3.jpg" mode=""></image>
 			<view class="position posia dis_f bor3">
 				<view class="left">
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
-					<p style="color: #AF7A19;">850</p>
+					<image :src="userinfo.avatar" mode=""></image>
+					<p style="color: #AF7A19;">{{userinfo.level_data.user_exp}}</p>
 				</view>
 				<view class="right">
-					<p style="color: #AF7A19;">探路先锋</p>
+					<p style="color: #AF7A19;">{{userinfo.level_data.level_name}}</p>
 					<view class="">
 						<view class="dis_f my_jd">
 							<view class="my_line">
 								<view class="dis_f my_txt">
-									<p class="lefts" style="color: #AF7A19;">下一等级 : 冒险达人</p>
-									<p class="rights" style="color: #AF7A19;">1000</p>
+									<p class="lefts" style="color: #AF7A19;">下一等级 : {{userinfo.level_data.next_level_name}}</p>
+									<p class="rights" style="color: #AF7A19;">{{userinfo.level_data.next_level_exp}}</p>
 								</view>
-								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#FEF0B7' inactiveColor = '#AF7A19'></u-line-progress>
+								<u-line-progress :percentage="(userinfo.level_data.level_exp/userinfo.level_data.next_level_exp)*100" :showText="false" height="8" activeColor = '#FEF0B7' inactiveColor = '#AF7A19'></u-line-progress>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<p class="posiss" style="color: #AF7A19;">2018年6月加入</p>
+			<!-- <p class="posiss" style="color: #AF7A19;">2018年6月加入</p> -->
 		</view>
 		
 		<!-- 等级4 -->
-		<view class="grade posir" v-if="lv == 4">
+		<view class="grade posir" v-if="userinfo.level_data.level_id == 4">
 			<image class="banner" src="@/static/image/mine/lv4.jpg" mode=""></image>
 			<view class="position posia dis_f bor4">
 				<view class="left">
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
-					<p style="color: #C7337D;">850</p>
+					<image :src="userinfo.avatar" mode=""></image>
+					<p style="color: #C7337D;">{{userinfo.level_data.user_exp}}</p>
 				</view>
 				<view class="right">
-					<p style="color: #C7337D;">冒险达人</p>
+					<p style="color: #C7337D;">{{userinfo.level_data.level_name}}</p>
 					<view class="">
 						<view class="dis_f my_jd">
 							<view class="my_line">
 								<view class="dis_f my_txt">
-									<p class="lefts" style="color: #C7337D;">下一等级 : 环旅玩家</p>
-									<p class="rights" style="color: #C7337D;">1000</p>
+									<p class="lefts" style="color: #C7337D;">下一等级 : {{userinfo.level_data.next_level_name}}</p>
+									<p class="rights" style="color: #C7337D;">{{userinfo.level_data.next_level_exp}}</p>
 								</view>
-								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#FFD0EC' inactiveColor = '#C7337D'></u-line-progress>
+								<u-line-progress :percentage="(userinfo.level_data.level_exp/userinfo.level_data.next_level_exp)*100" :showText="false" height="8" activeColor = '#FFD0EC' inactiveColor = '#C7337D'></u-line-progress>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<p class="posiss" style="color: #C7337D;">2018年6月加入</p>
+			<!-- <p class="posiss" style="color: #C7337D;">2018年6月加入</p> -->
 		</view>
 		
 		<!-- 等级4 -->
-		<view class="grade posir" v-if="lv == 5">
+		<view class="grade posir" v-if="userinfo.level_data.level_id == 5">
 			<image class="banner" src="@/static/image/mine/lv5.jpg" mode=""></image>
 			<view class="position posia dis_f bor5">
 				<view class="left">
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
-					<p style="color: #4D3ED2;">850</p>
+					<image :src="userinfo.avatar" mode=""></image>
+					<p style="color: #4D3ED2;">{{userinfo.level_data.user_exp}}</p>
 				</view>
 				<view class="right">
-					<p style="color: #4D3ED2;">环旅玩家</p>
+					<p style="color: #4D3ED2;">{{userinfo.level_data.level_name}}</p>
 					<view class="">
 						<view class="dis_f my_jd">
 							<view class="my_line">
 								<view class="dis_f my_txt">
-									<p class="lefts" style="color: #4D3ED2;">下一等级 : 环旅玩家</p>
-									<p class="rights" style="color: #4D3ED2;">1000</p>
+									<p class="lefts" style="color: #4D3ED2;">下一等级 : {{userinfo.level_data.next_level_name}}</p>
+									<p class="rights" style="color: #4D3ED2;">{{userinfo.level_data.next_level_exp}}</p>
 								</view>
-								<u-line-progress :percentage="30" :showText="false" height="8" activeColor = '#D2C2FF' inactiveColor = '#4D3ED2'></u-line-progress>
+								<u-line-progress :percentage="(userinfo.level_data.level_exp/userinfo.level_data.next_level_exp)*100" :showText="false" height="8" activeColor = '#D2C2FF' inactiveColor = '#4D3ED2'></u-line-progress>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<p class="posiss" style="color: #4D3ED2;">2018年6月加入</p>
+			<!-- <p class="posiss" style="color: #4D3ED2;">2018年6月加入</p> -->
 		</view>
 		
 		<p class="ge_tit pd30">等级权益</p>
 		
 		<view class="pd30 m20 dis_f flexw">
-			<view class="content dis_f flex_c alitmc" v-for="(item,index) in list" :key="index">
+			<view class="content dis_f flex_c alitmc" v-if="level_data.level_birthday_coupon">
 				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
 				<p>生日礼券</p>
+				<text>点击查看</text>
+			</view>
+			
+			<view class="content dis_f flex_c alitmc">
+				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
+				<p>赠送代金券</p>
+				<text>{{level_data.level_coupon}}</text>
+			</view>
+			
+			<view class="content dis_f flex_c alitmc">
+				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
+				<p>旅行折扣率</p>
+				<text>{{level_data.level_trip_discount_rate}}</text>
+			</view>
+			
+			<view class="content dis_f flex_c alitmc" v-if="level_data.level_dadge">
+				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
+				<p>专属定制徽章</p>
+				<text>点击查看</text>
+			</view>
+			
+			<view class="content dis_f flex_c alitmc" v-if="level_data.level_gift">
+				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
+				<p>不定期神秘礼物</p>
+				<text>点击查看</text>
+			</view>
+			
+			<view class="content dis_f flex_c alitmc" v-if="level_data.level_active">
+				<image src="@/static/image/trends/wxx.jpg" mode=""></image>
+				<p>不定期线下活动</p>
 				<text>点击查看</text>
 			</view>
 		</view>
@@ -144,15 +174,22 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex'
+	import store from '@/store/index.js';
 	export default {
+		computed:{
+			...mapState(['userinfo']),
+		},
 		data() {
 			return {
-				list:[1,2,3,4,5,6],
-				lv:1,
+				level_data:{},
 			}
 		},
-		onLoad(option) {
-			this.lv = option.lv
+		onLoad() {
+			this.level_data = this.$store.state.userinfo.level_data
+			console.log(this.level_data);
 		},
 		methods: {
 

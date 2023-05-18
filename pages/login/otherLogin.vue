@@ -8,14 +8,14 @@
 
 			<view class="mn_ps">
 				<u--input type='number' maxlength='6' placeholder="请输入验证码" shape='circle' :customStyle='styobj'
-					border="surround" v-model="user.code">
+					border="surround" v-model="user.sms_code">
 					<template slot="suffix">
 						<u-code ref="uCode" @change="codeChange" seconds="60" changeText="X秒重新获取"></u-code>
 						<u-button class="getcode" @tap="getCode" :text="tips"></u-button>
 					</template>
 				</u--input>
 			</view>
-			<button class="button">登录</button>
+			<button class="button" @click="toindex">登录</button>
 			<p class="os" @click='myLogin()'>本机号码一键登录</p>
 		</view>
 
@@ -33,7 +33,7 @@
 			return {
 				user: {
 					phone: '',
-					code: ''
+					sms_code: ''
 				},
 				isShow: true,
 				styobj: {
@@ -42,42 +42,61 @@
 					height: '50rpx'
 				},
 				tips: '',
-				value: ''
+				value: '',
 			}
 		},
 		onLoad() {
-			this.getUser()
-			console.log();
+
 		},
 		methods: {
-			async  getUser() {
-			  try {
-			    const data = await this.$request({
-			      url: '/user/over/order'
-			    })
-			    console.log(data)
-			  } catch (error) {
-			    console.log(error)
-			  }
-			},
 			change(e) {
 				console.log('change', e);
 			},
-			getCode() {
+			async getCode() {
 				if (this.$refs.uCode.canGetCode) {
-					// 模拟向后端请求验证码
+					// 向后端请求验证码
 					uni.showLoading({
 						title: '正在获取验证码'
 					})
-					setTimeout(() => {
-						uni.hideLoading();
-						// 这里此提示会被this.start()方法中的提示覆盖
-						uni.$u.toast('验证码已发送');
-						// 通知验证码组件内部开始倒计时
-						this.$refs.uCode.start();
-					}, 2000);
+
+					let phone = /^1((34[0-8])|(8\d{2})|(([35][0-35-9]|4[579]|66|7[35678]|9[1389])\d{1}))\d{7}$/
+
+					if (!phone.test(this.user.phone)) {
+						uni.$u.toast('请输入正确的手机号码')
+						return false
+					} else {
+						uni.showLoading()
+						const res = await this.$http('/send/sms', {
+							phone: this.user.phone,
+							type: 'register'
+						})
+						uni.hideLoading()
+						uni.$u.toast(res.data.msg)
+					}
 				} else {
 					uni.$u.toast('倒计时结束后再发送');
+				}
+			},
+			async toindex() {
+				let phone = /^1((34[0-8])|(8\d{2})|(([35][0-35-9]|4[579]|66|7[35678]|9[1389])\d{1}))\d{7}$/
+
+				if (!phone.test(this.user.phone)) {
+					uni.$u.toast('请输入正确的手机号')
+					return false
+				} else if (this.user.sms_code.length < 6) {
+					uni.$u.toast('验证码格式不正确')
+					return false
+				} else {
+					uni.showLoading()
+					const res = await this.$http('/login/phone_smscode', this.user)
+					uni.hideLoading()
+					uni.$u.toast('登陆成功')
+					uni.setStorageSync('userinfo', res.data)
+					uni.setStorageSync('token', res.data.data.token)
+					setTimeout(() => {
+						this.$jump('/pages/index/index', 'reLaunch')
+					}, 200)
+					return false
 				}
 			},
 			codeChange(text) {

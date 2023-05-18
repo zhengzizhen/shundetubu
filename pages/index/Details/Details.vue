@@ -1,12 +1,10 @@
 <template>
 	<view class="ds_body">
 		<view class="ds_banner posir">
-			<swiper class="swiper"  circular :indicator-dots="true" :autoplay="false"
-				:duration="500">
+			<swiper class="swiper" circular :indicator-dots="true" :autoplay="false" :duration="500">
 				<swiper-item @click="$Resize(swiperlist,index)" v-for="(item,index) in swiperlist" :key="index">
 					<image :src="item" mode=""></image>
 				</swiper-item>
-				
 			</swiper>
 			<p class="swiperposi posia">
 				{{this.swiperlist.length}}张照片
@@ -14,42 +12,44 @@
 		</view>
 		<view class="pd30">
 			<p class="header_title">
-				郑州2日游玉米楼-夜景如梦
+				{{detail.title}}
 			</p>
-			<label class="red">2000元/人</label>
+			<label class="red" v-if="detail.team">{{detail.team[curry].data[teamcurry].price}}元/人</label>
 			<view class="ds_user dis_f">
-				<image src="@/static/trends/user.png" mode=""></image>
+				<image :src="avatar" mode=""></image>
 				<p class="dis_f flex_c">
-					<text>领队人</text>
-					<text>评分：4.9（1000人点评）</text>
+					<text>{{nickname}}</text>
+					<text>评分：{{grade}}（{{grade_number}}人点评）</text>
 				</p>
-				<view class="ds_love dis_f flex_c alitmc"  @click="toshow = !toshow">
-					<image v-show="!toshow" src="@/static/trends/ax.png" mode=""></image>
-					<image v-show="toshow" src="@/static/image/trends/zan.png" mode="">
+				<view class="ds_love dis_f flex_c alitmc" @click="tolove">
+					<image v-show="!detail.is_attention" src="@/static/trends/ax.png" mode=""></image>
+					<image v-show="detail.is_attention" src="@/static/image/trends/zan.png" mode="">
 					</image>
 					<label>种草</label>
 				</view>
 			</view>
 
-			<p class="ds_lv">难度:休闲深度游<label>+182成长值</label></p>
-			<p class="ds_lv">集合：西藏</p>
+			<p class="ds_lv">难度:{{detail.difficulty_level}}<label>+{{detail.exp}}成长值</label></p>
+			<p class="ds_lv">集合：{{venue}}</p>
 			<p class="ds_lv mrtop dis_f jscb" @click='isShow1 = true'>
-				<text>当地集合</text>
+				<text>{{setof}}集合</text>
 				<u-icon name="arrow-right" color='#acacac' size='16'></u-icon>
 			</p>
 			<!-- 选择框 -->
 			<view class="ts_tbs dis_f">
-				<p :class="curry == index ?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v,index)">
-					{{v.name}}
+				<p v-if="!(v.data == '')" :class="curry == index ?'green':''" v-for="(v,index) in detail.team"
+					:key="index" @click="chetbs(v,index)">
+					{{v.month}}月
 				</p>
 			</view>
-			<view class="dis_f">
-				<view @click="Datetbs(item)" :class="item.state?'ds_datehot':'bgs ds_datehot'"
-					v-for="(item,index) in datelist" :key="index" class="dis_f alitmc flex_c jscc">
-					<p>{{item.date}}</p>
-					<text class="one" v-if="item.static == 1">已满员</text>
-					<text class="two" v-else-if="item.static == 2">已成行</text>
-					<text class="three" v-else>火热报名中</text>
+			<view class="dis_f" v-if="detail.team">
+				<view @click="Datetbs(item,index)" :class="teamcurry == index ?'ds_datehot':'bgs ds_datehot'"
+					v-for="(item,index) in detail.team[curry].data" :key="index" class="dis_f alitmc flex_c jscc">
+					<p>{{item.time_interval}}</p>
+					<text class="three" v-if="item.status == 0">火热报名中</text>
+					<text class="one" v-else-if="item.status == 1">即将成团</text>
+					<text class="two" v-else-if="item.status == 2">已成团</text>
+					<text class="two" v-else-if="item.status == 3">已满员</text>
 				</view>
 			</view>
 
@@ -58,7 +58,7 @@
 				<u-icon @click='isShow = true' name="arrow-right" color='#acacac' size='16'></u-icon>
 			</p>
 
-			<p class="ds_lv mrtop dis_f jscb noborder">
+			<!-- <p class="ds_lv mrtop dis_f jscb noborder">
 				<view>
 					<text>活动分销</text><label>分销成功提成3%</label>
 				</view>
@@ -66,21 +66,21 @@
 					<image src="@/static/image/Details/wen.jpg" mode=""></image>
 					<text>分销说明</text>
 				</view>
-			</p>
+			</p> -->
 		</view>
 		<!-- 已参加的人 -->
 		<view class="ams">
 			<view class="dsimg">
-				<p class="ds_lv mrtop dis_f jscb">
-					<text>已参加的人(8人成行)</text>
-					<view class="dis_f" @click="toCratic()">
-						<text>总共12/20人</text>
+				<p class="ds_lv mrtop dis_f jscb" v-if="detail.team">
+					<text>已参加的人({{detail.team[curry].data[teamcurry].minimum_people_number}}人成行)</text>
+					<view class="dis_f" @click="toCratic(users)">
+						<text>总共{{detail.team[curry].data[teamcurry].people_count}}/{{detail.team[curry].data[teamcurry].maximum_people_number}}人</text>
 						<u-icon name="arrow-right" color='#acacac' size='16'></u-icon>
 					</view>
 				</p>
 				<view class="os_img dis_f">
-					<view v-for="(v,i) in list" :key="i" class="sio">
-						<image src="@/static/trends/user.png" mode=""></image>
+					<view v-if="i<5" v-for="(v,i) in users" :key="i" class="sio">
+						<image :src="v.avatar" mode=""></image>
 					</view>
 				</view>
 			</view>
@@ -96,63 +96,88 @@
 			</view>
 			<!-- 活动详情 -->
 			<view v-show="tabcurry == 0" class="hotDetiails pd30">
-				<image src="/static/index/chang.jpg" mode=""></image>
+				<!-- <image src="/static/index/chang.jpg" mode=""></image> -->
+				<text class="tit">活动详情</text>
+				<u-parse :content="detail.trip_content"></u-parse>
 			</view>
 			<!-- 行程与准备 -->
 			<view v-show="tabcurry == 1" class="reday pd30">
-				<p class="tit">详细行程 (共四天)</p>
-				<p class="ftit">
-					<label>(3月16日)</label>
-					全国各地-贵阳（集合日）
-				</p>
+				<p class="tit" v-if="detail.journey_content">详细行程 (共{{detail.journey_content.length}}天)</p>
+				<view v-for="(item,index) in detail.journey_content" :key="index">
+					<p class="ftit">
+						<label>({{item.day}})</label>
+						{{item.title}}
+					</p>
 
-				<view class="dis_f">
-					<p class="left">上午</p>
-					<view class="leftbor">
-						<p class="dis"></p>
-						<p class="content">全国各地出发，开启一路向黔的浪漫樱花之旅早到的小伙伴上午可以去黔灵山看看黔金丝猴，坐个缆车上山俯瞰贵阳新城,感受下贵阳人民的后花园</p>
+					<view v-if='item.all'>
+						<view class="dis_f">
+							<p class="left">全天</p>
+							<view class="leftbor">
+								<p class="dis"></p>
+								<p class="content">{{item.all}}</p>
+							</view>
+						</view>
 					</view>
-				</view>
-				<view class="dis_f">
-					<p class="left">下午</p>
-					<view class="leftbor">
-						<p class="dis"></p>
-						<p class="content">
-							来到贵阳不可不去的是贵州省博,不管任何年龄段的伙伴都能从中找到乐趣!文化的、历史的、收藏的慎物馆是保护和和传承人类文明的重要殿堂.我们会邀约讲解带上大家在此参观1.5-2小时了解贵州的历史文化.而后可去到最美网红书店钟书阁(对博物馆实在不感兴趣的伙伴可以自行去到黔灵山/甲秀楼.欣赏贵州地标)
-						</p>
-					</view>
-				</view>
-				<view class="dis_f">
-					<p class="left">晚上</p>
-					<view class="leftbor">
-						<p class="dis"></p>
-						<p class="content">
-							来到贵阳不可不去的是贵州省博,不管任何年龄段的伙伴都能从中找到乐趣!文化的、历史的、收藏的慎物馆是保护和和传承人类文明的重要殿堂.我们会邀约讲解带上大家在此参观1.5-2小时了解贵州的历史文化.而后可去到最美网红书店钟书阁
-						</p>
-					</view>
-				</view>
 
-				<view class="dis_f">
-					<p class="left">餐饮</p>
-					<view class="leftbor">
-						<image src="@/static/image/Details/eat.jpg" mode=""></image>
-						<p class="content">三餐自理</p>
+					<view v-else>
+						<view class="dis_f" v-if="item.am != null">
+							<p class="left">上午</p>
+							<view class="leftbor">
+								<p class="dis"></p>
+								<p class="content">{{item.am}}</p>
+							</view>
+						</view>
+						<view class="dis_f" v-if="item.noon != null">
+							<p class="left">中午</p>
+							<view class="leftbor">
+								<p class="dis"></p>
+								<p class="content">
+									{{item.noon}}
+								</p>
+							</view>
+						</view>
+						<view class="dis_f" v-if="item.pm != null">
+							<p class="left">下午</p>
+							<view class="leftbor">
+								<p class="dis"></p>
+								<p class="content">
+									{{item.pm}}
+								</p>
+							</view>
+						</view>
+						<view class="dis_f" v-if="item.night != null">
+							<p class="left">晚上</p>
+							<view class="leftbor">
+								<p class="dis"></p>
+								<p class="content">
+									{{item.night}}
+								</p>
+							</view>
+						</view>
 					</view>
-				</view>
 
-				<view class="dis_f">
-					<p class="left">住宿</p>
-					<view class="leftbor">
-						<image src="@/static/image/Details/shuip.jpg" mode=""></image>
-						<p class="content">精品酒店</p>
+					<view class="dis_f">
+						<p class="left">餐饮</p>
+						<view class="leftbor">
+							<image src="@/static/image/Details/eat.jpg" mode=""></image>
+							<p class="content">{{item.catering}}</p>
+						</view>
 					</view>
-				</view>
 
-				<view class="dis_f">
-					<p class="left">交通</p>
-					<view class="leftbor noborder">
-						<image src="@/static/image/Details/bus.jpg" mode=""></image>
-						<p class="content">高铁5小时</p>
+					<view class="dis_f">
+						<p class="left">住宿</p>
+						<view class="leftbor">
+							<image src="@/static/image/Details/shuip.jpg" mode=""></image>
+							<p class="content">{{item.stay}}</p>
+						</view>
+					</view>
+
+					<view class="dis_f">
+						<p class="left">交通</p>
+						<view class="leftbor noborder">
+							<image src="@/static/image/Details/bus.jpg" mode=""></image>
+							<p class="content">{{item.vehicle}}</p>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -160,32 +185,36 @@
 			<!-- 费用须知 -->
 			<view class="notice pd30" v-show="tabcurry == 2">
 				<text class="tit">费用须知</text>
-				<p>本活动谢绝孕妇参加;</p>
+
+				<u-parse :content="detail.cost_content"></u-parse>
+				<!-- <p>本活动谢绝孕妇参加;</p>
 				<p>本活动谢绝携带未报名的婴幼儿参加:</p>
 				<p>本活动谢绝私自替员参加活动:</p>
 				<p>本活动谢绝携宠物参加</p>
-				<p>本活动可报名的年龄范围为5-65岁</p>
+				<p>本活动可报名的年龄范围为5-65岁</p> -->
 			</view>
 
 			<!-- 最新评价 -->
 			<view class="notice pd30" v-show="tabcurry == 3">
-				<text class="tit">最新评价</text>
-				<view class="new" v-for="(v,index) in list" :key="index">
-					<view class="dis_f">
-						<view class="user_img dis_f flex_c alitmc">
-							<image src="@/static/trends/user.png" mode=""></image>
-							<text class="username">清天</text>
+				<scroll-view  :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper"
+					@scrolltolower="lower" @scroll="scroll">
+					<text class="tit">最新评价</text>
+					<view class="new" v-for="(v,index) in evaluate" :key="index">
+						<view class="dis_f">
+							<view class="user_img dis_f flex_c alitmc">
+								<image :src="v.user_avatar" mode=""></image>
+								<text class="username">{{v.user_nickname}}</text>
+							</view>
+							<text class="content">
+								{{v.content}}
+							</text>
 						</view>
-						<text class="content">
-							路线:
-							作为亮点和卖点，11号出发看不到平坝樱花还是很遗憾，虽然当天额外安排了乌当的早樱和白玉兰。另外安顺的云峰堡屯也在整修，除了油菜花其实并没有什么好玩和好看的。所以路线满意度打了个折。领队十一热情友好，很会拍照，旅程结束还很贴心地打印了个人照给我们留念
-						</text>
+						<view class="rate">
+							<u-rate readonly :count="count" v-model="v.grade"></u-rate>
+							<text class="nstit">{{v.start_day}}出发 领队：{{v.akela_nickname}}</text>
+						</view>
 					</view>
-					<view class="rate">
-						<u-rate readonly :count="count" v-model="value"></u-rate>
-						<text class="nstit">03-10出发 领队：李欣</text>
-					</view>
-				</view>
+				</scroll-view>
 			</view>
 
 			<view class="btn dis_f">
@@ -225,8 +254,9 @@
 				<p>出发城市选择</p>
 				<view class="dis_f ps">
 					<view class="dis_f prp" v-for="(item,index) in addList" :key="index" @click="ckaddress(item,index)">
-						<image src="@/static/trends/user.png" mode=""></image>
-						<image v-show="curryimg == index " class="position" src="@/static/image/Details/success.png" mode="">
+						<image :src="item.image" mode=""></image>
+						<image v-show="curryimg == index " class="position" src="@/static/image/Details/success.png"
+							mode="">
 						</image>
 						<text>{{item.name}}</text>
 					</view>
@@ -248,10 +278,12 @@
 				</view>
 			</view>
 		</u-popup>
-		
+
 		<view class="fixed">
 			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
 		</view>
+		
+		<u-overlay :show="overlay" @click="show = false"></u-overlay>
 	</view>
 </template>
 
@@ -259,7 +291,7 @@
 	export default {
 		data() {
 			return {
-				swiperlist:['../../../static/index/zheng.jpg','../../../static/index/chang.jpg'],
+				swiperlist: [],
 				toshow: false,
 				list: [1, 2, 3, 4, 5],
 				count: 5, //评分
@@ -267,7 +299,7 @@
 				isShow: false,
 				isShow1: false,
 				isShow2: false,
-				curry:0,//月份选择
+				curry: 0, //月份选择
 				tablist: [{
 						name: '3月',
 					},
@@ -275,22 +307,11 @@
 						name: '4月',
 					}
 				],
-				curryimg:0,//地区选择器
-				addList: [{
-						name: '北京'
-					}, {
-						name: '上海'
-					},
-					{
-						name: '广州'
-					},
-					{
-						name: '曹县'
-					}
-				],
-				tabcurry:0,//底部选择器
-				CheckTablist: ['活动详情','行程与准备','费用须知', '评价'],
-				datecurry:0,//日期选择
+				curryimg: 0, //地区选择器
+				addList: [],
+				tabcurry: 0, //底部选择器
+				CheckTablist: ['活动详情', '行程与准备', '费用须知', '评价'],
+				datecurry: 0, //日期选择
 				datelist: [{
 						date: '3/25 周六~04/01',
 						static: '1'
@@ -302,31 +323,157 @@
 						date: '3/25 周六~04/01',
 						static: '3'
 					},
-				]
+				],
+				detail: {}, //总数据
+				start_address: '', //集合地数据
+				setof: '', //当下集合地
+				venue: '', //默认集合地
+				teamcurry: 0, //团队选中
+				nickname: '', //领队人
+				avatar: '', //领队头像
+				grade: '', //领对评分
+				grade_number: '', //评分人数
+				users: [], //已报名人数
+				id: '', //详情页id
+				page: 1, //页码
+				evaluate: [], //评价列表
+				scrollTop: 0,
+				old: {
+					scrollTop: 0
+				},
+				timer:null,//设置防抖
+				overlay:true,//遮罩层
 			}
 		},
 		onLoad(option) {
-			this.datelist.forEach(function(item, index) {
-				item.state = false
-			})
-			this.datelist[0].state = true
+			this.id = option.id
+			//获取详情页数据
+			this.getlist(option.id)
+			//评论列表
+			this.getevaluate()
 		},
 		methods: {
+			async getlist(id) {
+				uni.showLoading({
+					title:'加载中'
+				})
+				const res = await this.$http('/trip/detail', {
+					trip_id: id
+				})
+				this.overlay = false
+				uni.hideLoading()
+				const datas = res.data.data
+				this.detail = res.data.data
+				this.swiperlist = datas.assist_images // 轮播图
+				this.start_address = datas.start_citys //出发地
+				this.setof = this.start_address[0].name
+				this.venue = this.start_address[0].venue
+				this.addList = datas.start_citys
+				this.nickname = datas.team[0].data[0].master_akela.nickname
+				this.avatar = datas.team[0].data[0].master_akela.avatar
+				this.grade = datas.team[0].data[0].master_akela.grade
+				this.grade_number = datas.team[0].data[0].master_akela.grade_number
+				this.users = datas.team[0].data[0].users
+				this.Datetbs(datas.team[0].data[0], 0)
+			},
+			//获取评论
+			async getevaluate() {
+				let _this = this
+				const res = await this.$http('/trip/evaluate/list', {
+					trip_id: _this.id,
+					page: _this.page,
+					limit: 10
+				})
+				this.evaluate = res.data.data
+			},
+			//种草
+			async tolove() {
+				// 防抖方法
+				// clearTimeout(this.timer)
+				// let that = this
+				// this.timer = setTimeout(async ()=>{
+				// 	that.detail.is_attention = !that.detail.is_attention
+				// 	if (that.detail.is_attention == true) {
+				// 		that.detail.attention_number = that.detail.attention_number + 1
+				// 		const res = await that.$http('/trip/attention', {
+				// 			trip_id: that.id
+				// 		})
+				// 		return false
+				// 	} else if (that.detail.is_attention == false) {
+				// 		that.detail.attention_number = that.detail.attention_number - 1
+				// 		const res = await that.$http('/trip/attention', {
+				// 			trip_id: that.id
+				// 		})
+				// 	}
+				// },200)
+				
+				let that = this
+				that.detail.is_attention = !that.detail.is_attention
+				if (that.detail.is_attention == true) {
+					that.detail.attention_number = that.detail.attention_number + 1
+					const res = await that.$http('/trip/attention', {
+						trip_id: that.id
+					})
+					return false
+				} else if (that.detail.is_attention == false) {
+					that.detail.attention_number = that.detail.attention_number - 1
+					const res = await that.$http('/trip/attention', {
+						trip_id: that.id
+					})
+				}
+			},
 			chetbs(e, index) {
 				this.curry = index
+				console.log(e.data[0]);
+				this.Datetbs(e.data[0], 0)
 			},
-			Datetbs(e) {
-				this.datelist.forEach(function(item, index) {
-					item.state = false
+			async Datetbs(e, index) {
+				this.teamcurry = index
+				this.nickname = this.detail.team[this.curry].data[index].master_akela.nickname
+				this.avatar = this.detail.team[this.curry].data[index].master_akela.avatar
+				this.grade = this.detail.team[this.curry].data[index].master_akela.grade
+				this.grade_number = this.detail.team[this.curry].data[index].master_akela.grade_number
+				this.users = this.detail.team[this.curry].data[index].users
+				const teamid = e.id
+				const res = await this.$http('/trip/team/detail', {
+					trip_id: this.id,
+					trip_team_id: teamid
 				})
-				e.state = true
-				this.$forceUpdate()
+				this.detail.journey_content = res.data.data.journey_content
 			},
 			CheckTab(e, index) {
 				this.tabcurry = index
 			},
 			popClose() {
 				this.isShow = false
+			},
+			//懒加载
+			upper: function(e) {
+				// console.log(e)
+			},
+			lower: async function(e) {
+				console.log(e)
+				console.log(111);
+				uni.showLoading({
+					title:'加载中'
+				})
+				this.page = this.page + 1
+				const res = await this.$http('/trip/evaluate/list', {
+					trip_id: this.id,
+					page: this.page,
+					limit: 10
+				})
+				uni.hideLoading()
+				console.log(res);
+				if(res.data.data == ''){
+					uni.$u.toast('已经到底部了')
+					return false
+				}
+				this.evaluate = this.evaluate.concat(res.data.data)
+			},
+			 scroll: function(e) {
+				// console.log(e)
+				this.old.scrollTop = e.detail.scrollTop
 			},
 			popOpen() {
 
@@ -344,7 +491,7 @@
 
 			},
 			toCratic() {
-				this.$jump('./Cratic')
+				this.$jump('./Cratic?user=', 'params', JSON.stringify(this.users))
 			},
 			toApply() {
 				this.$jump('./Apply')
@@ -356,13 +503,16 @@
 					icon: 'none'
 				});
 			},
-			ckaddress(e,index) {
+			ckaddress(e, index) {
 				this.curryimg = index
+				this.setof = this.start_address[index].name
+				this.venue = this.start_address[index].venue
+				this.isShow1 = false
 			},
-			toback(){
+			toback() {
 				uni.navigateBack()
 			},
-			toRestore(){
+			toRestore() {
 				this.$jump('/pages/retail/restore')
 			}
 		}
@@ -373,21 +523,24 @@
 	.ds_banner {
 		width: 100%;
 		height: 494rpx;
+
 		image {
 			width: 100%;
 			height: 494rpx;
 		}
-		.swiper{
+
+		.swiper {
 			width: 100%;
 			height: 494rpx;
 		}
-		.swiperposi{
+
+		.swiperposi {
 			top: 60rpx;
 			right: 30rpx;
 			z-index: 99;
 			color: red;
 			background-color: rgba(32, 32, 32, .5);
-			padding:8rpx 20rpx;
+			padding: 8rpx 20rpx;
 			border-radius: 32rpx;
 			font-size: 26rpx;
 			color: #FFFFFF;
@@ -409,7 +562,6 @@
 
 	.ds_user {
 		margin: 20rpx 0;
-
 		image {
 			width: 100rpx;
 			height: 100rpx;
@@ -433,7 +585,7 @@
 		}
 
 		.ds_love {
-			margin-left: 240rpx;
+			margin-left: 260rpx;
 
 			image {
 				width: 40rpx;
@@ -710,10 +862,17 @@
 		color: #222222;
 	}
 
-	.notice {
-		max-height: 300px; //设置最大的高度
+	.scroll-Y {
+		max-height: 500rpx;
 		overflow: auto; // 超出这个最大高度的数据，会被隐藏起来，上下滑动
 		overflow-x: hidden; //隐藏x轴滚动条
+	}
+
+	.notice {
+		// max-height: 300px; //设置最大的高度
+		// overflow: auto; // 超出这个最大高度的数据，会被隐藏起来，上下滑动
+		// overflow-x: hidden; //隐藏x轴滚动条
+		max-height: 500rpx;
 
 		.new {
 			padding: 20rpx 0;
@@ -748,7 +907,6 @@
 		}
 
 		.rate {
-			margin-top: 30rpx;
 			margin-left: 114rpx;
 
 			.nstit {
@@ -892,7 +1050,8 @@
 			color: #49CAA4;
 		}
 	}
-	.fixed{
+
+	.fixed {
 		position: fixed;
 		top: 80rpx;
 		left: 20rpx;

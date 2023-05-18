@@ -26,19 +26,33 @@
 		},
 		data() {
 			return {
-				name: ''
+				name: '',
+				oldname:''
 			};
 		},
 		onLoad(option) {
+			this.oldname = option.name
 			this.name = option.name
-		},
-		created() {
 		},
 		methods: {
 			back() {
 				uni.navigateBack()
 			},
-			reback() {
+			async reback() {
+				if(this.name.length<2){
+					uni.$u.toast('昵称格式不正确')
+					return false
+				}
+				if(this.name == this.oldname){
+					this.$jump('./Setting', 'redirect')
+					return false
+				}
+				uni.showLoading()
+				const res = await this.$http('/user/update/data',{
+					nickname:this.name
+				})
+				uni.hideLoading()
+				this.$store.commit('rename',this.name)
 				this.$jump('./Setting', 'redirect')
 			},
 		}

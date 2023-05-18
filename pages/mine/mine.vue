@@ -1,132 +1,134 @@
 <template>
-	<view>
+	<view >
 		<!-- 头部 -->
-		<view class="my_header">
-			<image  class="banners" src="@/static/image/mine/banner.jpg" mode=""></image>
-			<!-- 顶部按钮 -->
-			<view class="position pd30" @click='upimage'>
-				<view class="my_seting dis_f">
-					<image @click.stop="toSignin()" src="@/static/mine/date.png" mode=""></image>
-					<view class="dis_f my_set">
-						<image src="@/static/mine/msg.png" @click.stop="toMessage()" mode=""></image>
-						<image src="@/static/mine/seting.png" @click.stop="toSetting()" mode=""></image>
+		<view v-if="userinfo">
+			<view class="my_header">
+				<image  class="banners" v-if="userinfo.background" src="@/static/image/mine/banner.jpg" mode=""></image>
+				<image  class="banners" v-else src="@/static/image/mine/banner.jpg" mode=""></image>
+				<!-- 顶部按钮 -->
+				<view class="position pd30" @click='upimage'>
+					<view class="my_seting dis_f">
+						<image @click.stop="toSignin()" src="@/static/mine/date.png" mode=""></image>
+						<view class="dis_f my_set">
+							<image src="@/static/mine/msg.png" @click.stop="toMessage()" mode=""></image>
+							<image src="@/static/mine/seting.png" @click.stop="toSetting()" mode=""></image>
+						</view>
 					</view>
-				</view>
-
-				<!-- 头像信息 -->
-				<view class="my_user dis_f">
-					<image class="img" src="@/static/trends/user.png" mode=""></image>
-					<view class="my_username dis_f">
-						<p>{{name}}</p>
-						<view class="dis_f my_rywj">
-							<image v-if="lv==1" src="@/static/image/mine/l1.png" mode=""></image>
-							<image v-if="lv==2" src="@/static/image/mine/l2.png" mode=""></image>
-							<image v-if="lv==3" src="@/static/image/mine/l3.png" mode=""></image>
-							<image v-if="lv==4" src="@/static/image/mine/l4.png" mode=""></image>
-							<image v-if="lv==5" src="@/static/image/mine/l5.png" mode=""></image>
-							<view class="my_jin" @click.stop="toguide()">
-								<p>进入领队板块</p>
+			
+					<!-- 头像信息 -->
+					<view class="my_user dis_f">
+						<image class="img" :src="userinfo.avatar" mode=""></image>
+						<view class="my_username dis_f">
+							<p>{{userinfo.nickname}}</p>
+							<view class="dis_f my_rywj">
+								<image v-if="userinfo.level_data.level_id==1" src="@/static/image/mine/l1.png" mode=""></image>
+								<image v-if="userinfo.level_data.level_id==2" src="@/static/image/mine/l2.png" mode=""></image>
+								<image v-if="userinfo.level_data.level_id==3" src="@/static/image/mine/l3.png" mode=""></image>
+								<image v-if="userinfo.level_data.level_id==4" src="@/static/image/mine/l4.png" mode=""></image>
+								<image v-if="userinfo.level_data.level_id==5" src="@/static/image/mine/l5.png" mode=""></image>
+								<view class="my_jin" @click.stop="toguide()">
+									<p>进入领队板块</p>
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-		</view>
-
-		<view class="my_center">
-			<view class="dis_f my_jd">
-				<p>190</p>
-				<view class="my_line">
-					<view class="dis_f my_txt">
-						<p class="left">当前等级 : 探路先锋</p>
-						<p class="right">下一等级 : 冒险达人</p>
-					</view>
-					<u-line-progress :percentage="30" :showText="false" height="8"></u-line-progress>
-				</view>
-			</view>
-			<u-line color="#E6E6E6" margin='40rpx 0'></u-line>
-
-			<!-- 菜单 -->
-			<view class="my_menu dis_f">
-				<view class="my_phone dis_f" v-for="(item,index) in menulist" :key="index" @click="gotmenu(index)">
-					<image :src="item.image" mode=""></image>
-					<p>{{item.name}}</p>
-				</view>
-			</view>
-			<!-- 卡券 -->
-			<view class="my_frist dis_f">
-				<view class="fone" @click="toCard()">
-					<view class="ptext">
-						<p>卡券</p>
-						<span>0张可用</span>
+			
+			<view class="my_center">
+				<view class="dis_f my_jd">
+					<p>{{userinfo.level_data.user_exp}}</p>
+					<view class="my_line">
+						<view class="dis_f my_txt">
+							<p class="left">当前等级 : {{userinfo.level_data.level_name}}</p>
+							<p class="right">下一等级 : {{userinfo.level_data.next_level_name}}</p>
+						</view>
+						<u-line-progress :percentage="(userinfo.level_data.level_exp/userinfo.level_data.next_level_exp)*100" :showText="false" height="8"></u-line-progress>
 					</view>
 				</view>
-				<view class="ftwo" @click="toCircle()">
-					<view class="ptext">
-						<p>圈币</p>
-						<span>2000</span>
+				<u-line color="#E6E6E6" margin='40rpx 0'></u-line>
+			
+				<!-- 菜单 -->
+				<view class="my_menu dis_f">
+					<view class="my_phone dis_f" v-for="(item,index) in menulist" :key="index" @click="gotmenu(index)">
+						<image :src="item.image" mode=""></image>
+						<p>{{item.name}}</p>
 					</view>
 				</view>
-				<view class="fthree" @click="toRecommend()">
-					<view class="ptext">
-						<p>种草</p>
-						<span>2条记录</span>
+				<!-- 卡券 -->
+				<view class="my_frist dis_f">
+					<view class="fone" @click="toCard()">
+						<view class="ptext">
+							<p>卡券</p>
+							<span>0张可用</span>
+						</view>
+					</view>
+					<view class="ftwo" @click="toCircle()">
+						<view class="ptext">
+							<p>圈币</p>
+							<span>{{userinfo.money}}</span>
+						</view>
+					</view>
+					<view class="fthree" @click="toRecommend()">
+						<view class="ptext">
+							<p>种草</p>
+							<span>{{userinfo.attention_number}}条记录</span>
+						</view>
+					</view>
+				</view>
+			
+				<!-- 邀请 -->
+				<!-- <view class="my_green dis_f">
+					<p>立即邀请</p>
+				</view> -->
+			
+				<!-- 活动订单 -->
+				<view class="my_hot dis_f">
+					<view class="hot" @click="toHotorder()">
+						<p>活动订单</p>
+						<span>查看全部订单<u-icon name="arrow-right" color='#ccc' size='12'></u-icon></span>
+					</view>
+					<view class="hot" @click='toShoporder()'>
+						<p>商品订单</p>
+						<span>查看全部订单<u-icon name="arrow-right" color='#ccc' size='12'></u-icon>
+						</span>
+					</view>
+				</view>
+			
+				<!-- 更多服务 -->
+				<p class="litt">更多服务</p>
+				<view class="ix_shop index_pad dis_f">
+					<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click="toindex(item)">
+						<image :src="item.image" mode=""></image>
+						<text>{{item.name}}</text>
+					</view>
+				</view>
+			
+				<!-- 热门推荐 -->
+				<view class="ix_block index_pad">
+					<label>热门推荐</label>
+					<view class="ix_img dis_f">
+						<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails()">
+							<image :src="item.image"></image>
+							<p class="ix_posi">{{item.title}}</p>
+							<p class="ix_title">{{item.text}}</p>
+							<p class="ix_txtgreen">草原花开</p>
+						</view>
 					</view>
 				</view>
 			</view>
-
-			<!-- 邀请 -->
-			<!-- <view class="my_green dis_f">
-				<p>立即邀请</p>
-			</view> -->
-
-			<!-- 活动订单 -->
-			<view class="my_hot dis_f">
-				<view class="hot" @click="toHotorder()">
-					<p>活动订单</p>
-					<span>查看全部订单<u-icon name="arrow-right" color='#ccc' size='12'></u-icon></span>
-				</view>
-				<view class="hot" @click='toShoporder()'>
-					<p>商品订单</p>
-					<span>查看全部订单<u-icon name="arrow-right" color='#ccc' size='12'></u-icon>
-					</span>
-				</view>
-			</view>
-
-			<!-- 更多服务 -->
-			<p class="litt">更多服务</p>
-			<view class="ix_shop index_pad dis_f">
-				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click="toindex(item)">
-					<image :src="item.image" mode=""></image>
-					<text>{{item.name}}</text>
-				</view>
-			</view>
-
-			<!-- 热门推荐 -->
-			<view class="ix_block index_pad">
-				<label>热门推荐</label>
-				<view class="ix_img dis_f">
-					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails()">
-						<image :src="item.image"></image>
-						<p class="ix_posi">{{item.title}}</p>
-						<p class="ix_title">{{item.text}}</p>
-						<p class="ix_txtgreen">草原花开</p>
-					</view>
-				</view>
-			</view>
-
 		</view>
 	</view>
 </template>
 
 <script>
 	import {
-		mapState
+		mapState,mapMutations
 	} from 'vuex';
 	import store from '@/store/index.js';
 	export default {
 		computed: {
-			...mapState(['name']),
+			...mapState(['userinfo']),
 		},
 		data() {
 			return {
@@ -205,9 +207,14 @@
 			};
 		},
 		onLoad() {
-
+			this.getlist()
 		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/user/detail')
+				this.$store.commit('getuser',res.data.data)
+				uni.setStorageSync('userinfo',res.data.data)
+			},
 			gotmenu(index) {
 				switch (index) {
 					case 0:

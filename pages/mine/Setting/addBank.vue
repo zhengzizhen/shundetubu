@@ -5,21 +5,20 @@
 
 		<view class="ak_content">
 			<label>持卡人姓名</label>
-			<input type="text" placeholder="请输入持卡人姓名" v-model="user.name">
+			<input type="text" placeholder="请输入持卡人姓名" v-model="user.username">
 
 			<label>银行卡号</label>
-			<input type="text" maxlength="18" placeholder="请输入银行卡号" v-model="user.BankID">
+			<input type="text" maxlength="18" placeholder="请输入银行卡号" v-model="user.code">
 
 			<label>银行类型</label>
-			<input type="text" maxlength="18" placeholder="请选择银行类型" v-model="user.Bank" @click="isShow = true">
+			<input disabled type="text" maxlength="18" placeholder="请选择银行类型" v-model="user.bank_name" @click="isShow = true">
 
 			<label>开户支行</label>
-			<input type="text" placeholder="请输入开户行" v-model="user.Bankaddress">
+			<input type="text" placeholder="请输入开户行" v-model="user.subbank_name">
 		</view>
 
-		<p class="btn">确认</p>
-		<u-picker @cancel="close()" @confirm="confirm" :show="isShow"
-			:columns="columns"></u-picker>
+		<p class="btn" @click='submit()'>确认</p>
+		<u-picker @cancel="close()" @confirm="confirm" :show="isShow" :columns="columns"></u-picker>
 	</view>
 </template>
 
@@ -28,10 +27,10 @@
 		data() {
 			return {
 				user: {
-					name: '',
-					Bankaddress: '',
-					BankID: '',
-					Bank: ''
+					username: '',
+					code: '',
+					bank_name: '',
+					subbank_name: ''
 				},
 				isShow: false,
 				columns: [
@@ -42,11 +41,33 @@
 		methods: {
 			confirm(e) {
 				this.isShow = false
-				this.user.Bank = e.value[0]
-				console.log(e.value);
+				this.user.bank_name = e.value[0]
 			},
 			close() {
 				this.isShow = false
+			},
+			async submit() {
+				if (this.user.username == '') {
+					uni.$u.toast('持卡人姓名不能为空')
+					return false;
+				} else if (this.user.code == '') {
+					uni.$u.toast('银行卡号不能为空')
+					return false;
+				} else if (this.user.bank_name == '') {
+					uni.$u.toast('银行类型不能为空')
+					return false;
+				} else if (this.user.subbank_name == '') {
+					uni.$u.toast('开户支行不能为空')
+					return false;
+				}
+				uni.showLoading()
+				const res = await this.$http('/user/update/bank', this.user)
+				this.$store.commit('bank_status', this.user)
+				uni.hideLoading()
+				uni.$u.toast('绑定成功')
+				setTimeout(() => {
+					this.$jump('/pages/mine/Setting/playRMB', 'redirect')
+				}, 500)
 			}
 		}
 	}
@@ -56,6 +77,7 @@
 	.ak_body {
 		padding-top: 100rpx;
 		margin-top: 100rpx;
+
 		.title {
 			font-size: 48rpx;
 			font-weight: bold;

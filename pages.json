@@ -879,7 +879,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "顺德徒步",
-		"navigationBarBackgroundColor": "white",
+		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#ffffff",
 		"app-plus": {
 			"bounce": "none"

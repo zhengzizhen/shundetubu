@@ -1,0 +1,282 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.st_body {
+  background: #FAFAFA;
+  padding-bottom: 90rpx;
+}
+.st_top {
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1px solid #f7f7f7;
+  background-color: white;
+}
+.st_top .right {
+  color: #999999;
+  align-items: center;
+}
+.st_top .right ._p {
+  font-size: 30rpx;
+}
+.st_top .right .image {
+  width: 62rpx;
+  height: 62rpx;
+}
+.m30 {
+  margin-top: 30rpx;
+}
+.popview {
+  position: relative;
+  box-sizing: border-box;
+  width: 540rpx;
+  height: 903rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 20rpx 30rpx;
+  text-align: center;
+}
+.popview .closes {
+  position: absolute;
+  right: 20rpx;
+  height: 0;
+  width: 20rpx;
+  height: 20rpx;
+}
+.popview .tit {
+  display: block;
+  margin: 10rpx 0;
+}
+.popview .label {
+  margin-top: 20rpx;
+  text-align: center;
+  font-size: 22rpx;
+  display: block;
+  padding: 10rpx;
+  border-radius: 50rpx;
+  width: 178rpx;
+  height: 33rpx;
+  line-height: 33rpx;
+  border: 1px solid #CCCCCC;
+  color: #999999;
+}
+.popview .color {
+  width: 500rpx;
+  margin-top: 40rpx;
+  flex-wrap: wrap;
+}
+.popview .color ._p {
+  margin-top: 20rpx;
+  margin-right: 30rpx;
+  text-align: center;
+  padding: 10rpx 30rpx;
+  font-size: 22rpx;
+  border-radius: 50rpx;
+}
+.popview .color .active1 {
+  color: white;
+  background-color: #49CAA4;
+  border: 1px solid #49CAA4;
+}
+.popview .color .dactive1 {
+  color: #49CAA4;
+  background-color: white;
+  border: 1px solid #49CAA4;
+}
+.popview .color .active2 {
+  color: white;
+  background-color: #F2AD5A;
+  border: 1px solid #F2AD5A;
+}
+.popview .color .dactive2 {
+  color: #F2AD5A;
+  background-color: white;
+  border: 1px solid #F2AD5A;
+}
+.popview .color .active3 {
+  color: white;
+  background-color: #90D1FF;
+  border: 1px solid #90D1FF;
+}
+.popview .color .dactive3 {
+  color: #90D1FF;
+  background-color: white;
+  border: 1px solid #90D1FF;
+}
+.popview .color .active4 {
+  color: white;
+  background-color: #97F68E;
+  border: 1px solid #97F68E;
+}
+.popview .color .dactive4 {
+  color: #97F68E;
+  background-color: white;
+  border: 1px solid #97F68E;
+}
+.popview .color .active5 {
+  color: white;
+  background-color: #AAA9FF;
+  border: 1px solid #AAA9FF;
+}
+.popview .color .dactive5 {
+  color: #AAA9FF;
+  background-color: white;
+  border: 1px solid #AAA9FF;
+}
+.srotate {
+  margin-top: 310rpx;
+  width: 100%;
+  align-items: center;
+}
+.srotate .ps {
+  justify-content: center;
+  align-items: center;
+}
+.srotate text {
+  font-size: 22rpx;
+  color: #49CAA4;
+}
+.srotate image {
+  width: 28rpx;
+  height: 30rpx;
+}
+.input {
+  margin-top: 30rpx;
+  align-items: center;
+}
+.input label {
+  font-size: 22rpx;
+}
+.input input {
+  padding-left: 10rpx;
+  text-align: left;
+  font-size: 22rpx;
+  color: #49CAA4;
+  width: 341rpx;
+  height: 53rpx;
+  background: #FFFFFF;
+  border: 1px solid #49CAA4;
+  border-radius: 26rpx;
+}
+.input1 input {
+  color: #49CAA4;
+  background: #FFFFFF;
+  border: 1px solid #49CAA4;
+}
+.input2 input {
+  color: #F2AD5A;
+  background: #FFFFFF;
+  border: 1px solid #F2AD5A;
+}
+.input3 input {
+  color: #90D1FF;
+  background: #FFFFFF;
+  border: 1px solid #90D1FF;
+}
+.input4 input {
+  color: #97F68E;
+  background: #FFFFFF;
+  border: 1px solid #97F68E;
+}
+.input5 input {
+  color: #AAA9FF;
+  background: #FFFFFF;
+  border: 1px solid #AAA9FF;
+}
+.sltcolor ._p {
+  margin-right: 20rpx;
+}
+.sltcolor .c1 {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #49CAA4;
+  border-radius: 6rpx;
+}
+.sltcolor .c2 {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #F2AD5A;
+  border-radius: 6rpx;
+}
+.sltcolor .c3 {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #90D1FF;
+  border-radius: 6rpx;
+}
+.sltcolor .c4 {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #97F68E;
+  border-radius: 6rpx;
+}
+.sltcolor .c5 {
+  width: 40rpx;
+  height: 40rpx;
+  background-color: #AAA9FF;
+  border-radius: 6rpx;
+}
+.inpt {
+  margin-top: 70rpx;
+}
+.btn {
+  width: 460rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  border-radius: 40rpx;
+  color: white;
+  text-align: center;
+  margin-top: 80rpx;
+}
+.btns {
+  width: 660rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  border-radius: 40rpx;
+  color: white;
+  text-align: center;
+  margin-top: 80rpx;
+}
+.btn1 {
+  background: #49CAA4;
+}
+.btn2 {
+  background: #F2AD5A;
+}
+.btn3 {
+  background: #90D1FF;
+}
+.btn4 {
+  background: #97F68E;
+}
+.btn5 {
+  background: #AAA9FF;
+}
+.ss {
+  margin-left: 10rpx;
+}
+

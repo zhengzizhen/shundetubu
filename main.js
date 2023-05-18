@@ -6,21 +6,21 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 import uView from 'uview-ui'
 Vue.use(uView)
+
 import {
 	jump
 } from '@/tools/navgo.js'
 Vue.prototype.$jump = jump
+
+import {myRequest}  from "@/tools/request.js"
+Vue.prototype.$http = myRequest;
+
 import {
 	Resize
 } from '@/tools/ReSize.js'
 Vue.prototype.$Resize = Resize
 
 import store from './store'
-
-
-import request from '@/tools/request.js'
-
-Vue.prototype.$request = request
 
 
 

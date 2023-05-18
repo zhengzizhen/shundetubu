@@ -11,15 +11,15 @@
 		<view class="header">
 			<view class="top pd30 dis_f">
 				<view class="dis_f alitmc">
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
+					<image :src="$store.state.userinfo.avatar" mode=""></image>
 					<view class="text">
-						<p>已经连续签到1天</p>
-						<text>明天签到可获得10圈币</text>
+						<p>已经连续签到{{stats}}天</p>
+						<text v-if="list[stats]">明天签到可获得{{list[stats].money}}圈币</text>
 					</view>
 				</view>
 				<view class="right dis_f alitmc">
 					<image src="@/static/image/mine/money.jpg" mode=""></image>
-					<text>421</text>
+					<text>{{$store.state.userinfo.money}}</text>
 				</view>
 			</view>
 		</view>
@@ -30,8 +30,7 @@
 				<view @click="cheout(item)"  :class="item.state?'greendiv':'greendivs'" class=" dis_f" v-for="(item,index) in list" :key="index">
 					<p>{{item.name}}</p>
 					<image src="@/static/image/mine/money.jpg" mode=""></image>
-					<p class="ns">10圈币</p>
-					
+					<p class="ns">{{item.money}}圈币</p>
 				</view>
 				
 			</view>
@@ -41,7 +40,7 @@
 		
 		<view class="views sn_hig pd30 mat">
 			<p class="tit">做任务赚金币</p>
-			<view class="dis_f sn_image alitmc">
+			<view class="dis_f sn_image alitmc" @click="tosign(3)">
 				<image src="../../static/image/mine/3day.jpg" mode=""></image>
 				<view class="sn_mar20">
 					<p>累计签到3天</p>
@@ -50,13 +49,11 @@
 				
 				<view class="sn_logo dis_f">
 					<image src="@/static/image/mine/money2.png" mode=""></image>
-					<label>+21</label>
+					<label>+{{task.continuous_3_day}}</label>
 				</view>
 			</view>
 			
-			
-			
-			<view class="dis_f sn_image alitmc">
+			<view class="dis_f sn_image alitmc" @click="tosign(7)">
 				<image src="../../static/image/mine/7day.jpg" mode=""></image>
 				<view class="sn_mar20">
 					<p>累计签到7天</p>
@@ -64,7 +61,7 @@
 				</view>
 				<view class="sn_logo dis_f">
 					<image src="@/static/image/mine/money2.png" mode=""></image>
-					<label>+21</label>
+					<label>+{{task.continuous_7_day}}</label>
 				</view>
 				
 			</view>
@@ -77,22 +74,66 @@
 		data() {
 			return {
 				list:[
-					{name:'第一天',state:true},
-					{name:'第二天',state:false},
-					{name:'第三天',state:false},
-					{name:'第四天',state:false},
-					{name:'第五天',state:false},
-					{name:'第六天',state:false},
-					{name:'第七天',state:false},
-				]
+					{name:'第一天',state:false,money:''},
+					{name:'第二天',state:false,money:''},
+					{name:'第三天',state:false,money:''},
+					{name:'第四天',state:false,money:''},
+					{name:'第五天',state:false,money:''},
+					{name:'第六天',state:false,money:''},
+					{name:'第七天',state:false,money:''},
+				],
+				day:[],
+				task:[],
+				stats:'',//连续签到天数
+				static:null,//判断是否已签到
+				static3:null,//判断3天任务
+				static7:null,//判断7天任务
 			}
 		},
+		onLoad() {
+			this.getlist()
+		},
 		methods: {
-			cheout(v){
-				// this.list.forEach((item,index)=>{
-				// 	item.state = false
-				// })
-				// v.state = true
+			async getlist(){
+				const res = await this.$http('/user/sign/detail')
+				
+				this.day = res.data.data.set.day
+				this.task = res.data.data.set.task
+				for(let i = 0;i<this.day.length;i++){
+					this.list[i].money = this.day[i]
+				}
+				this.stats = res.data.data.status.continuous_sign_number
+				this.static = res.data.data.status.today_sign
+				this.static3 = res.data.data.status.task_3day_get, //3天任务状态：0未达标、1已达标、2已领取
+				this.static7 = res.data.data.status.task_7day_get, //7天任务状态：0未达标、1已达标、2已领取
+				this.list[this.stats].state = true
+			},
+			async cheout(v){
+				if(v.state == false){
+					return false
+				}
+				if(this.static == true){
+					uni.$u.toast('您今天已经签到过了哦，请明天再来')
+					return false
+				}
+				const res = await this.$http('/user/sign')
+				this.static3 = res.data.data.status.task_3day_get
+				this.static7 = res.data.data.status.task_7day_get
+				this.$store.commit("set_sign",this.day[stats])
+				uni.$u.toast('签到成功！')
+			},
+			async tosign(e){
+				if(this.static3 == 0){
+					uni.$u.toast('当前任务未达到领取条件')
+					return false
+				}else if(this.static3 == 2){
+					uni.$u.toast('您已经领取过了')
+					return false
+				}
+				const res = await this.$http('/user/sign/task',{
+					task_day:e
+				})
+				console.log(res.data.data);
 			},
 			toback(){
 				uni.navigateBack()
@@ -246,9 +287,11 @@
 	}
 	.sn_logo{
 		align-items: center;
-		margin-left: 100rpx;
+		margin-left: 120rpx;
 		background-color: #49CAA4;
 		padding: 15rpx 20rpx;
+		width: 120rpx;
+		height: 40rpx;
 		border-radius: 50rpx;
 		image{
 			width: 40rpx;

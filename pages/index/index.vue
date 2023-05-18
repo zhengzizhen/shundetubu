@@ -17,21 +17,22 @@
 				</view>
 				<!-- 轮播图 -->
 				<view class="Swiper">
-					<u-swiper circular :list="list1" @change="e =>changeSwiper(e)" @click="toDetails"></u-swiper>
+					<u-swiper circular :list="list1" keyName="image" @change="e =>changeSwiper(e)"
+						@click="toDetails"></u-swiper>
 				</view>
 				<view class="ix_noti dis_f">
 					<view class="ix_message dis_f">
 						<span>公告</span>
-						<p>花满出行3月20日出行，即将...</p>
+						<p>{{notice}}</p>
 					</view>
 				</view>
 			</view>
 
 			<!-- 菜单 -->
 			<view class="ix_shop index_pads dis_f">
-				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='clinto(item.name)'>
-					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
-					<text>{{item.name}}</text>
+				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="item.id" @click='clinto(item.title)'>
+					<image style="border-radius: 50%;" :src="item.value" mode=""></image>
+					<text>{{item.title}}</text>
 				</view>
 			</view>
 
@@ -41,20 +42,20 @@
 					<image class="bor_r" :src="v.image" mode=""></image>
 					<view class="ix_float">
 						<text>{{v.title}}</text>
-						<p>{{v.text}}</p>
+						<p>{{v.sub_title}}</p>
 					</view>
 				</view>
 			</view>
 
 			<!-- 省内一天路线 -->
 			<view class="ix_block index_pad">
-				<label>省内一天路线</label>
+				<label>{{Province.name}}</label>
 				<view class="ix_subsection dis_f">
 					<p :class="curry == index ?'check':'checks'" v-for="(item,index) in checklist" :key="index"
-						@click="checkout(item,index)">{{item.name}}</p>
+						@click="checkout(item,index)">{{item}}</p>
 				</view>
 				<view class="ix_img dis_f">
-					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails(index)">
+					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails(item.id)">
 						<image :src="item.image"></image>
 						<p class="ix_posi">{{item.title}}</p>
 						<p class="content" :class="'content'+index">4.9分 | 681人去过</p>
@@ -66,39 +67,39 @@
 			<!-- 全国精选路线 -->
 			<view class="ix_block index_pad">
 				<view class="ix_block_header dis_f">
-					<label>全国精选路线</label>
+					<label>{{Selection.name}}</label>
 					<view class="ix_icon" @click="toambitus">
 						<span>更多</span>
 						<u-icon name="arrow-right" size='12'></u-icon>
 					</view>
 				</view>
-				<view class="ix_imgplus dis_f">
+				<view class="ix_imgplus dis_f" v-if="Selection.data">
 					<view class="rltw" @click="toDetails(1)">
-						<image class="imgplus bor_r" src="@/static/index/changplus.jpg"></image>
+						<image class="imgplus bor_r" :src="Selection.data[0].master_image"></image>
 						<view class="abslt ix_botn">
-							<p style="color: white;">斯里兰卡</p>
-							<p style="color: white;">[夏日清爽]中部深度游</p>
+							<p style="color: white;">{{Selection.data[0].title}}</p>
+							<!-- <p style="color: white;">[夏日清爽]中部深度游</p> -->
 						</view>
 					</view>
 					<view class="ix_bot" @click="toDetails(2)">
-						<image class="ix_imgbot bor_r" src="@/static/index/zheng.jpg"></image>
+						<image class="ix_imgbot bor_r" :src="Selection.data[1].master_image"></image>
 						<view class="abslt ix_botn">
-							<p style="color: white;">斯里兰卡</p>
-							<p style="color: white;">[夏日清爽]中部深度游</p>
+							<p style="color: white;word-wrap:break-word;width: 284rpx;word-break:break-all;">
+								{{Selection.data[1].title}}</p>
 						</view>
 						<view class="ix_botsub bor_r">
 							<view class="ix_posi_r">
-								<image class="bor_r" @click="toDetails(3)" src="@/static/index/chang.jpg"></image>
+								<image class="bor_r" @click="toDetails(3)" :src="Selection.data[2].master_image">
+								</image>
 								<view class="ix_pos_c">
-									<p style="color: white;">斯里兰卡</p>
-									<p style="color: white;">[夏日清爽]中部深度游</p>
+									<p style="color: white;">{{Selection.data[2].title}}</p>
 								</view>
 							</view>
 							<view class="ix_posi_r">
-								<image class="bor_r" @click="toDetails(4)" src="@/static/index/chang.jpg"></image>
+								<image class="bor_r" @click="toDetails(4)" :src="Selection.data[3].master_image">
+								</image>
 								<view class="ix_pos_c">
-									<p style="color: white;">斯里兰卡</p>
-									<p style="color: white;">[夏日清爽]中部深度游</p>
+									<p style="color: white;">{{Selection.data[3].title}}</p>
 								</view>
 							</view>
 						</view>
@@ -107,7 +108,7 @@
 			</view>
 
 			<!-- 本周活动 -->
-			<view class="ix_block index_pad">
+			<!-- <view class="ix_block index_pad">
 				<label>本周活动</label>
 				<view class="dis_f cont jscb m20">
 					<view class="posir" @click="toDetails">
@@ -135,47 +136,44 @@
 						</p>
 					</view>
 				</view>
-			</view>
+			</view> -->
 
 			<!-- 活动日历 -->
 			<view class="ix_block index_pad">
-				<label>活动日历</label>
+				<label>{{calendar.name}}</label>
 				<view class="ix_imgplus dis_f">
 					<view class="ix_background bor_r" @click="todateHot(4)">
 						<view class="ix_bgfz">
-							<p>四月 春和日丽</p>
+							<p>{{calendar.data[0].month}}月 {{calendar.data[0].name}}</p>
 							<span>更多<u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
 						</view>
 						<view class="ix_bg_img">
-							<image src="@/static/index/zheng.jpg"></image>
-							<image src="@/static/index/chang.jpg"></image>
-							<image src="@/static/index/zheng.jpg"></image>
+							<image v-for="(v,index) in trip" :src="v.image"></image>
 						</view>
 					</view>
 					<view class="ix_bot">
 						<view class="ix_imgbotbg bor_r" @click="todateHot(5)">
 							<view class="ix_bgfz">
-								<p>五月 春和日丽</p>
+								<p>{{calendar.data[1].month}}月 {{calendar.data[1].name}}</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
 							</view>
 							<view class="ix_five bor_r">
 								<view class="ix_six">
-									<p>仙居恩施清幽秘境</p>
-									<u-divider color='#E6E6E6'></u-divider>
-									<p>北疆大环线</p>
+									<p class="god" v-for="(v,index) in calendar.data[1].trip" :key="v.id">{{v.title}}
+									</p>
 								</view>
 							</view>
 						</view>
-						<view class="ix_imgbotbg bor_r" @click="todateHot(6)">
+
+						<view class="ix_imgbotbg bor_r" @click="todateHot(5)">
 							<view class="ix_bgfz">
-								<p>六月 春和日丽</p>
+								<p>{{calendar.data[2].month}}月 {{calendar.data[2].name}}</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
 							</view>
 							<view class="ix_five bor_r">
 								<view class="ix_six">
-									<p>独库伊昭公路</p>
-									<u-divider color='#E6E6E6'></u-divider>
-									<p>贵州全景大环线</p>
+									<p class="god" v-for="(v,index) in calendar.data[2].trip" :key="v.id">{{v.title}}
+									</p>
 								</view>
 							</view>
 						</view>
@@ -184,7 +182,7 @@
 			</view>
 
 			<!-- 品牌IP活动 -->
-			<view class="ix_block index_pad">
+			<!-- <view class="ix_block index_pad">
 				<label>品牌IP活动</label>
 				<view class="dis_f god jscb m20">
 					<image @click="tomemberday" class="les bor_r" src="@/static/as/changs.jpg" mode=""></image>
@@ -193,8 +191,7 @@
 						<image @click="tomemberday" class="ri bor_r" src="@/static/index/zheng.jpg" mode=""></image>
 					</view>
 				</view>
-
-			</view>
+			</view> -->
 
 			<!-- 童步营 -->
 			<view class="ix_block index_pad">
@@ -275,36 +272,13 @@
 			<!-- 地区选择器 -->
 			<u-popup :round="10" :show="isShow" :closeable='true' @close="close" @open="open">
 				<view class="ix_pop pd30">
-					<p>请选择你所在的城市</p>
-					<view class="dis_f ps">
-						<view class="dis_f prp">
-							<image src="@/static/trends/user.png" mode=""></image>
-							<text>全国</text>
-						</view>
-						<view class="dis_f prp">
-							<image src="@/static/trends/user.png" mode=""></image>
-							<text>郑州</text>
-						</view>
-					</view>
-
-					<p>华南地区</p>
-					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="ckaddress(v,index)">
-							<image src="@/static/trends/user.png" mode=""></image>
-							<image v-show="addcurry == index" class="position" src="@/static/image/Details/success.png" mode="">
-								<text>{{v.address}}</text>
-						</view>
-					</view>
-
-					<p>华东地区</p>
-					<view class="dis_f ps">
-						<view class="dis_f prp">
-							<image src="@/static/trends/user.png" mode=""></image>
-							<text>上海</text>
-						</view>
-						<view class="dis_f prp">
-							<image src="@/static/trends/user.png" mode=""></image>
-							<text>杭州</text>
+					<view v-if="v.city" v-for="(v,index) in city" :key="v.id">
+						<p>{{v.name}}</p>
+						<view class="dis_f ps">
+							<view class="dis_f prp" v-for="(item,i) in v.city" :key="item.id">
+								<image :src="item.image" mode=""></image>
+								<text>{{item.name}}</text>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -312,7 +286,9 @@
 			<!-- 联系客服 -->
 			<u-popup closeable mode="center" :round="10" :show="isShow1" @close="close1" @open="open1">
 				<view class="ke">
-					<image  src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800" mode=""></image>
+					<image
+						src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800"
+						mode=""></image>
 					<p>扫码联系客服</p>
 				</view>
 			</u-popup>
@@ -326,146 +302,18 @@
 		data() {
 			return {
 				seachValue: '',
-				list1: [ //轮播图
-					'../../static/index/chang.jpg',
-					'../../static/index/zheng.jpg',
-					'../../static/index/chang.jpg',
-				],
-				curry:0,//省内一天路线切换
-				checklist: [{
-						name: '当季热门',
-						state: true
-					},
-					{
-						name: '好评榜单',
-						state: false
-					},
-					{
-						name: '最新上架',
-						state: false
-					},
-				],
-				arrlist: [{
-						name: '周边路线',
-						image: '../../static/index/zblx.jpg'
-					},
-					{
-						name: '国内精选',
-						image: '../../static/index/gnjx.jpg'
-					},
-					{
-						name: '国外精选',
-						image: '../../static/index/gwjx.jpg'
-					},
-					{
-						name: '活动日历',
-						image: '../../static/index/hdrl.jpg'
-					},
-					{
-						name: '好物商城',
-						image: '../../static/index/hwsc.jpg'
-					},
-					{
-						name: '必玩榜单',
-						image: '../../static/index/bwbd.jpg'
-					},
-					{
-						name: '团队定制',
-						image: '../../static/index/tddz.jpg'
-					},
-					{
-						name: '亲子路线',
-						image: '../../static/index/qzlx.jpg'
-					},
-					{
-						name: '城市玩家',
-						image: '../../static/index/cswj.jpg'
-					},
-					{
-						name: '联系客服',
-						image: '../../static/index/lxkf.jpg'
-					},
-				],
-				modelList: [{
-						title: '本下周活动',
-						text: '说走就走',
-						image: '../../static/index/one.jpg'
-					},
-					{
-						title: '五一假期',
-						text: '出行好时光',
-						image: '../../static/index/two.jpg'
-					},
-					{
-						title: '春暖花开',
-						text: '赏花正当时',
-						image: '../../static/index/three.jpg'
-					},
-				],
+				list1: [], //轮播图
+				curry: 0, //省内一天路线切换
+				checklist: ['当季热门', '好评榜单', '最新上架'],
+				arrlist: [], //金刚区
+				modelList: [], //本下周活动
+				Province: {}, //省内一天你路线
+				Selection: {}, //全国精选路线
+				trip: [], //图片
+				calendar: {
+					data: [{}, {}, {}]
+				}, //活动日历
 				imglist: [],
-				imglist1: [{
-						title: '跟团-8天',
-						image: '../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					}
-				],
-				imglist2: [{
-						title: '跟团-8天',
-						image: '../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/image/index/banners.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/image/index/banners.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					}
-				],
-				imglist3: [{
-						title: '跟团-8天',
-						image: '../../static/image/index/banners.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/image/index/banners.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					}
-				],
 				datelist: [{
 						date: '3月25日',
 						state: "已成行"
@@ -495,45 +343,44 @@
 					},
 				],
 				isShow: false,
-				isShow1:false,
-				addcurry:0,
-				addresslist: [{
-						address: '广州'
-					},
-					{
-						address: '深圳'
-					},
-					{
-						address: '佛山'
-					},
-					{
-						address: '东莞'
-					},
-					{
-						address: '中山'
-					},
-					{
-						address: '江门'
-					},
-				],
+				isShow1: false,
+				addcurry: 0,
+				city: [],
+				notice: '', //公告内容
 			}
 		},
 		onLoad() {
-			this.imglist = this.imglist1
-			// this.getUser()
+			this.getlist()
+			//获取用户信息
 		},
 		methods: {
-			async getUser() {
-				try {
-					const res = await this.$request('/user/order/list', {
-						type: '打车',
-						page: 1,
-						limit: 10
-					})
-					console.log(res)
-				} catch (error) {
-					console.log(error)
-				}
+			async getlist() {
+				let that = this
+				const res = await this.$http('/sys/index')
+				let datas = res.data.data
+				that.list1 = datas.banner
+				that.notice = datas.notice.content
+				that.arrlist = datas.icon
+				that.modelList = datas.active
+				//城市列表
+				const citys = await this.$http('/sys/city')
+				that.city = citys.data.data
+
+				//活动数据
+				const hotdate = await this.$http('/index/trip')
+				// console.log(hotdate.data.data);
+				//省内一天路线
+				that.Province = hotdate.data.data[0]
+				that.imglist = this.Province.data.hot
+				//全国精选路线
+				that.Selection = hotdate.data.data[1]
+
+				that.calendar = hotdate.data.data[2]
+				that.trip = that.calendar.data[0].trip
+				// console.log(that.calendar.data[1]);
+
+				const requrist = await this.$http('/user/detail')
+				this.$store.commit('getuser', requrist.data.data)
 			},
 			//轮播图修改
 			changeSwiper(e) {
@@ -543,19 +390,19 @@
 				// 轮播图点击
 			},
 			todateHot(v) {
-				this.$jump('./dateHot?date=','params',v)
+				this.$jump('./dateHot?date=', 'params', v)
 			},
 			checkout(e, index) {
-				this.curry = index 
-				switch (index){
+				this.curry = index
+				switch (index) {
 					case 0:
-						this.imglist = this.imglist1
+						this.imglist = this.Province.data.hot
 						break;
 					case 1:
-						this.imglist = this.imglist2
+						this.imglist = this.Province.data.grade
 						break;
 					case 2:
-						this.imglist = this.imglist3
+						this.imglist = this.Province.data.new
 						break;
 				}
 			},
@@ -568,8 +415,8 @@
 			close() {
 				this.isShow = false
 			},
-			open1(){
-				
+			open1() {
+
 			},
 			close1() {
 				this.isShow1 = false
@@ -614,10 +461,10 @@
 			toSeach() {
 				this.$jump('./Seach/Seach');
 			},
-			toDetails() {
-				this.$jump('./Details/Details');
+			toDetails(e) {
+				this.$jump('./Details/Details?id=', 'params', e);
 			},
-			ckaddress(e,index) {
+			ckaddress(e, index) {
 				this.addcurry = index
 			},
 			tomemberday() {
@@ -635,6 +482,7 @@
 		background: url(@/static/index/banner.jpg) no-repeat;
 		background-size: 100% 740rpx;
 	}
+
 	.ix_headr_text {
 		margin-bottom: 20rpx;
 		height: 60rpx;
@@ -1076,8 +924,17 @@
 
 			p {
 				text-align: left;
-				font-size: 28rpx;
+				font-size: 22rpx;
 				color: black !important;
+			}
+
+			.god {
+				padding: 10rpx 0 !important;
+				border-bottom: 1px solid #E6E6E6 !important;
+			}
+
+			.god:last-child {
+				border-bottom: none !important;
 			}
 		}
 	}
@@ -1086,6 +943,8 @@
 		left: 20rpx;
 		bottom: 20rpx;
 		font-size: 26rpx;
+
+		word-wrap:break-word p {}
 	}
 
 	.ix_pop {
@@ -1166,13 +1025,15 @@
 			height: 230rpx;
 		}
 	}
-	.ke{
+
+	.ke {
 		width: 506rpx;
 		height: 447rpx;
 		background: #FFFFFF;
 		border-radius: 20rpx;
 		text-align: center;
-		image{
+
+		image {
 			margin: 50rpx 0 20rpx;
 			width: 311rpx;
 			height: 311rpx;

@@ -1,0 +1,257 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.cheborder.data-v-6a3b63fa {
+  width: 100%;
+  font-size: 30rpx;
+}
+.cheborder ._p.data-v-6a3b63fa {
+  margin-right: 20rpx;
+  margin-top: 10rpx;
+  border-radius: 50rpx;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 10rpx 30rpx;
+  color: #49CAA4;
+}
+.cheborder .colors.data-v-6a3b63fa {
+  color: white;
+  background-color: #49CAA4;
+  border: 1px solid #49CAA4;
+}
+.min.data-v-6a3b63fa {
+  max-height: 740rpx;
+  overflow: auto;
+  overflow-x: hidden;
+  padding-bottom: 20rpx;
+}
+.dc_mod.data-v-6a3b63fa {
+  position: relative;
+  background-color: white;
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+  border-bottom: 1px solid #E6E6E6;
+}
+.dc_mod image.data-v-6a3b63fa {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 20rpx;
+}
+.dc_mod .dc_god.data-v-6a3b63fa {
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+.dc_mod .posw.data-v-6a3b63fa {
+  position: absolute;
+  top: 30rpx;
+  left: 20rpx;
+  width: 80rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  background: #49CAA4;
+  z-index: 2;
+  border-radius: 20rpx 0rpx 20rpx 0rpx;
+  text-align: center;
+  color: white;
+  font-size: 22rpx;
+}
+.dc_mod .dc_latt.data-v-6a3b63fa {
+  margin-top: 20rpx;
+}
+.dc_mod .dc_latt text.data-v-6a3b63fa {
+  padding: 5rpx 8rpx;
+  color: #FFFFFF;
+  font-size: 22rpx;
+  background-color: #49CAA4;
+  margin-left: 10rpx;
+}
+.dc_mod .dc_latt label.data-v-6a3b63fa {
+  padding: 5rpx 8rpx;
+  color: #FFFFFF;
+  font-size: 22rpx;
+  background-color: #F2AD5A;
+}
+.dc_mod .dc_latt ._p.data-v-6a3b63fa {
+  font-size: 22rpx;
+  align-items: center;
+  margin-left: 10rpx;
+}
+.dc_span.data-v-6a3b63fa {
+  margin-top: 35rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+.dc_span label.data-v-6a3b63fa {
+  color: #999999;
+  font-size: 24rpx;
+}
+.dc_span text.data-v-6a3b63fa {
+  color: #FF4040;
+  font-weight: bold;
+}
+.HKtitle.data-v-6a3b63fa {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin: 20rpx 0;
+  color: #000000;
+}
+.as_zh.data-v-6a3b63fa {
+  width: 33%;
+  flex-direction: column;
+  position: relative;
+  width: 240rpx;
+}
+.as_zh image.data-v-6a3b63fa {
+  width: 217rpx;
+  height: 217rpx;
+  border-radius: 20rpx;
+}
+.as_zh label.data-v-6a3b63fa {
+  position: absolute;
+  top: 0%;
+  left: 0rpx;
+  width: 80rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  background: #49CAA4;
+  border-radius: 20rpx 0rpx 20rpx 0rpx;
+  color: white;
+  text-align: center;
+  font-size: 22rpx;
+}
+.as_zh text.data-v-6a3b63fa {
+  font-size: 28rpx;
+  margin: 10rpx 0;
+  text-align: left;
+}
+.as_zh ._p.data-v-6a3b63fa {
+  color: red;
+  font-weight: bold;
+  text-align: left;
+}
+.ix_block.data-v-6a3b63fa {
+  position: relative;
+  margin-top: 60rpx;
+}
+.ix_block label.data-v-6a3b63fa {
+  display: flex;
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-bottom: 30rpx;
+}
+.ix_block .ix_img.data-v-6a3b63fa {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.ix_block .ix_img image.data-v-6a3b63fa {
+  margin: 20rpx auto 10rpx;
+  width: 335rpx;
+  height: 335rpx;
+  border-radius: 20rpx;
+}
+.ix_block .ix_img .ix_flexs.data-v-6a3b63fa {
+  position: relative;
+  width: 335rpx;
+  height: auto;
+}
+.ix_block .ix_img .ix_flexs .posw.data-v-6a3b63fa {
+  position: absolute;
+  top: 20rpx;
+  left: 0rpx;
+  width: 80rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  background: #49CAA4;
+  z-index: 2;
+  border-radius: 20rpx 0rpx 20rpx 0rpx;
+  text-align: center;
+  color: white;
+  font-size: 22rpx;
+}
+.ix_block .ix_img .ix_posi.data-v-6a3b63fa {
+  position: absolute;
+  top: 20rpx;
+  left: 0;
+  width: 125rpx;
+  height: 42rpx;
+  background: #000000;
+  border-radius: 20rpx 0rpx 20rpx 0rpx;
+  padding: 5rpx 20rpx;
+  color: white;
+  text-align: center;
+  opacity: 0.5;
+}
+.ix_block .ix_img .ix_title.data-v-6a3b63fa {
+  margin: 0 auto 20rpx;
+  word-wrap: normal;
+  font-size: 28rpx;
+}
+.ix_block .ix_img .ix_txtgreen.data-v-6a3b63fa {
+  width: 106rpx;
+  height: 36rpx;
+  color: #49CAA4;
+  font-size: 22rpx;
+  text-align: center;
+  background: #EBFFF9;
+  border-radius: 6rpx;
+}
+.ix_block .ix_img .ix_yellow.data-v-6a3b63fa {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #FF4040;
+}
+.ds_bt.data-v-6a3b63fa {
+  height: 40rpx;
+  justify-content: space-between;
+}
+.ds_bt label.data-v-6a3b63fa {
+  height: 40rpx;
+  background: #49CAA4;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 36rpx;
+  padding: 5rpx 10rpx;
+}
+.ds_bt ._p.data-v-6a3b63fa {
+  font-size: 24rpx;
+  color: #999999;
+}
+.sp.data-v-6a3b63fa {
+  margin-top: 20rpx;
+  justify-content: space-between;
+}
+.sp ._p.data-v-6a3b63fa {
+  color: red !important;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.sp label.data-v-6a3b63fa {
+  color: #999999;
+  font-size: 24rpx;
+}
+

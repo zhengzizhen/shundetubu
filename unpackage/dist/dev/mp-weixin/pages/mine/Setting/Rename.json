@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "编辑名字",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "nav": "/component/navgation/navgation"
+  }
+}

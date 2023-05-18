@@ -1,16 +1,18 @@
 <template>
 	<view class="br_conent pd30">
-		<view class="dc_mod dis_f" @click="toDetail()" v-for=" (item,index) in list" :key="index">
-			<image src="@/static/image/index/banners.jpg" mode=""></image>
+		<view class="dc_mod dis_f" @click="toDetail(item.trip_id)" v-for="(item,index) in list" :key="index">
+			<image :src="item.trip_data.master_image" mode=""></image>
 			<view class="dc_god">
-				<p>{{item.title}}</p>
+				<p>{{item.trip_data.title}}</p>
 				<view class="dc_latt dis_f">
-					<label>03.16 | 全国出发</label>
+					<label>{{item.trip_team.start_day}} | {{item.trip_team.status_text}}</label>
 				</view>
 				<view class="dc_span dis_f alitmc jscb">
-					<text>2天前浏览</text>
-					<label class="green" v-if="item.state == 1">报名中</label>
-					<label v-if="item.state == 0">已成行</label>
+					<text>{{item.time}}浏览</text>
+					<label class="green" v-if="item.trip_team.status == 0">报名中</label>
+					<label class="green" v-if="item.trip_team.status == 1">即将成团</label>
+					<label class="green" v-if="item.trip_team.status == 2">已成团</label>
+					<label class="green" v-if="item.trip_team.status == 3">已满员</label>
 				</view>
 			</view>
 		</view>
@@ -21,16 +23,38 @@
 	export default {
 		data() {
 			return {
-				list:[
-					{title:'【亭可马里季】斯里兰卡纯玩9天',state:0},
-					{title:'献出心脏吧！！！',state:1},
-					{title:'芜湖大司马',state:1},
-				]
+				list:[],
+				page:1,
+				bottom:false
 			}
 		},
+		onLoad() {
+			this.getlist(1)
+		},
+		onReachBottom() {
+			if(this.bottom == true){
+				return false
+			}
+			this.page+=1
+			this.getlist(this.page)
+		},
 		methods: {
-			toDetail(){
-				this.$jump('/pages/index/Details/Details')
+			async getlist(page){
+				uni.showLoading()
+				const res = await this.$http('/trip/browsing/list',{
+					page,
+					limit:10
+				})
+				uni.hideLoading()
+				if(res.data.data == ''){
+					this.bottom = true
+					uni.$u.toast('已经到底了哦')
+					return false
+				}
+				this.list = this.list.concat(res.data.data)  
+			},
+			toDetail(e){
+				this.$jump('/pages/index/Details/Details?id=','params',e)
 			}
 		}
 	}
