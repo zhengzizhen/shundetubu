@@ -2,21 +2,21 @@
 	<view class="dt_body">
 		<view>
 			<uni-calendar :date='dater' :insert="true" :lunar="false" :disable-before="true" :start-date="start"
-			 :selected='selected'	:end-date="end" @change="change" />
+				:selected='selected' :end-date="end" @change="change" />
 		</view>
 		<view class="dt_text">
-			<view class="dt_bor">
+			<!-- <view class="dt_bor">
 				<p @click='checktabs(item,index)' :class="curry == index ?'green':''" v-for="(item,index) in lists"
-					:key="index">{{item}}</p>
-			</view>
+					:key="index">{{item.title}}</p>
+			</view> -->
 			<view class="dis_f dt_col">
-				<view class="dt_im dis_f" v-for="(item,index) in list" :key="index">
-					<image src="@/static/image/index/banners.jpg" mode=""></image>
-					<view class="dis_f dt_kk">
-						<text class="one">亭可马里季-斯里兰卡纯玩9天</text>
-						<text class="two">领队：卢本伟</text>
-						<text class="three"><text class="ls">周六丨报名中</text>
-							<text>03月28日丨8天</text>
+				<view @click="toDetails(item.trip_id)" class="dt_im dis_f" v-for="(item,index) in list" :key="index">
+					<image :src="item.trip_image" mode=""></image>
+					<view class="dis_f dt_kk flex_c jscb">
+						<text class="one">{{item.trip_title}}</text>
+						<text class="two">领队：{{item.akela_nickname}}</text>
+						<text class="three"><text class="ls">{{item.week}}丨{{item.status_text}}</text>
+							<text>{{item.month}}月{{item.day}}日丨{{item.trip_day}}天</text>
 						</text>
 					</view>
 				</view>
@@ -33,24 +33,53 @@
 				start: '',
 				end: '',
 				show: true,
-				list: [1, 2, 3],
+				list: [],
 				curry: null,
-				lists: ['1天', '2~3天', '3~4天', '5天+'],
-				selected:[{date: '2023-05-01', info: '劳动节'}]
+				lists: [],
+				selected: [
+					// 	{
+					// 	date: '2023-05-01',
+					// 	info: '劳动节'
+					// },
+				],
+				year: '',
+				month: '',
+				page:1,
+				seach:''
 			}
 		},
 		onLoad(option) {
+			this.getseach()
+			const date = new Date()
+			let a = date.getFullYear()
+			let b = date.getMonth() + 1
+			let c = date.getDate()
+			this.month = b
+			if (b < 10) {
+				b = '0' + b
+			}
+			if (c < 10) {
+				c = '0' + c
+			}
 			if (option.date >= 10) {
-				this.dater = '2023-' + option.date + '-01'
-				this.start = '2023-' + option.date + '-01'
-				this.end = '2023-' + option.date + '-31'
+				this.month = option.date
+				this.dater = a + '-' + option.date 
+				this.start = a + '-' + option.date
+				this.end = a + '-' + option.date + '-31'
+				this.getlist()
 				return false
 			} else if (option.date < 10) {
-				this.dater = '2023-0' + option.date + '-01'
-				this.start = '2023-0' + option.date + '-01'
-				this.end = '2023-' + option.date + '-31'
+				this.month = option.date
+				this.dater = a + '-0' + option.date
+				this.start = a + '-0' + option.date
+				this.end = a + '-' + option.date + '-31'
+				this.getlist()
 				return false
 			}
+			this.dater = a + '-' + b + '-' + c
+			this.start = a + '-' + b
+			this.end = a + '-' + b + '-31'
+			this.getlist()
 		},
 		onReady() {
 			this.$nextTick(() => {
@@ -59,6 +88,18 @@
 			// TODO 模拟请求异步同步数据
 		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/trip/calendar/trip',{
+					page:this.page,
+					limit:10,
+					month:this.month
+				})
+				this.list = this.list.concat(res.data.data) 
+			},
+			async getseach(){
+				const res = await this.$http('/trip/search/calendar')
+				this.lists = res.data.data.search_price
+			},
 			change(e) {
 				console.log('change 返回:', e)
 				// 模拟动态打卡
@@ -67,13 +108,40 @@
 				// 	date: e.fulldate,
 				// 	info: '打卡'
 				// })
+				this.page = 1
+				this.list = []
+				const params = {
+					page:this.page,
+					limit:10,
+					month:this.month,
+					day:e.date
+				}
+				this.getlistplus(params)
 			},
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
 			},
-			checktabs(item, index) {
-				this.curry = index
-			}
+			// checktabs(item, index) {
+			// 	this.page = 1
+			// 	this.list = []
+			// 	this.curry = index
+			// 	const params = {
+			// 		page:this.page,
+			// 		limit:10,
+			// 		search_min_day:item.min,
+			// 		search_max_day:item.max
+			// 	}
+			// 	this.getlistplus(params)
+			// },
+			async getlistplus(params){
+				uni.showLoading()
+				const res = await this.$http('/trip/calendar/trip',params)
+				uni.hideLoading()
+				this.list = res.data.data
+			},
+			toDetails(e) {
+				this.$jump('./Details/Details?id=', 'params', e);
+			},
 		}
 	}
 </script>

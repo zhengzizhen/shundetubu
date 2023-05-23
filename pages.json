@@ -511,7 +511,6 @@
                 "navigationBarTitleText": "徽章",
                 "enablePullDownRefresh": false
             }
-            
         }
         ,{
             "path" : "pages/index/ambitus/oneday",
@@ -525,7 +524,7 @@
             "path" : "pages/index/ambitus/speed",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "高铁路线",
                 "enablePullDownRefresh": false
             }
             
@@ -875,6 +874,42 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/guide/Casuh",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "提现",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/ambitus/delicacy",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "美食路线",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/ambitus/mountaineering",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登山路线",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/ambitus/NonWeekend",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "非周末",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -905,6 +940,7 @@
 			"iconPath": "static/tabbar/trends.jpg",
 			"selectedIconPath": "static/tabbar/trends1.jpg",
 			"text": "圈子"
+			
 		},{
 			"pagePath": "pages/retail/retail",
 			"iconPath": "static/tabbar/retail.jpg",

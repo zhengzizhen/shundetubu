@@ -241,7 +241,14 @@
 				this.$jump('./signin')
 			},
 			toguide() {
-				this.$jump('./guide/guide')
+				console.log();
+				if(this.userinfo.akela_status == 1){
+					//已认证
+					this.$jump('./guide/guide')
+					return false
+				}else{
+					this.$jump('./guide/userguide')
+				}
 			},
 			toDetails() {
 				this.$jump('/pages/index/Details/Details')

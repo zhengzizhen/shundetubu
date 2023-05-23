@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 871))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
     },
   }
 } catch (e) {
@@ -125,14 +125,6 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function ($event) {
-      _vm.isShow = !_vm.isShow
-    }
-    _vm.e1 = function ($event) {
-      _vm.isShow = !_vm.isShow
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -168,10 +160,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
 //
 //
 //
@@ -247,24 +244,65 @@ var _default = {
   data: function data() {
     return {
       isShow: false,
-      list: [{
-        mone: '9',
-        day: '14',
-        img: ['../../static/index/zheng.jpg', '../../static/index/zheng.jpg'],
-        cont: "分币不掏就是转，主打的就是一个陪伴。",
-        show: false,
-        lovenum: 56
-      }, {
-        mone: '9',
-        day: '13',
-        img: ['../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg'],
-        cont: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈",
-        show: false,
-        lovenum: 99
-      }]
+      list: [],
+      userinfo: null,
+      //用户信息
+      nickname: '',
+      //用户名
+      level: '',
+      is_attention: '',
+      attention_number: '',
+      to_attention_number: '',
+      dynamic_number: '',
+      order_number: '',
+      avatar: '',
+      userid: ''
     };
   },
+  onLoad: function onLoad(option) {
+    this.getlist(option.id);
+    this.userid = option.id;
+  },
+  onShow: function onShow() {
+    this.getlist(this.userid);
+  },
   methods: {
+    getlist: function getlist(id) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                uni.showLoading();
+                _context.next = 3;
+                return _this.$http('/circle/user/detail', {
+                  to_uid: id
+                });
+              case 3:
+                res = _context.sent;
+                uni.hideLoading();
+                _this.changlist(res.data.data);
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    changlist: function changlist(data) {
+      this.nickname = data.nickname; //昵称
+      this.level = data.level; //级别
+      this.is_attention = data.is_attention; //是否关注
+      this.attention_number = data.attention_number; //关注人数
+      this.to_attention_number = data.to_attention_number; //粉丝数量
+      this.dynamic_number = data.dynamic_number; //轻季
+      this.order_number = data.order_number; //昵称
+      this.avatar = data.avatar; //头像
+      this.list = data.dynamic_list;
+    },
     love: function love(item) {
       item.show = !item.show;
       if (item.show == false) {
@@ -272,6 +310,35 @@ var _default = {
       } else {
         item.lovenum++;
       }
+    },
+    attention: function attention() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                //关注用户
+                _this2.is_attention = !_this2.is_attention;
+                _context2.next = 3;
+                return _this2.$http('/circle/user/attention', {
+                  to_uid: _this2.userid
+                });
+              case 3:
+                res = _context2.sent;
+                if (res.data.data.status == true) {
+                  uni.$u.toast('关注成功');
+                } else {
+                  uni.$u.toast('取消关注');
+                }
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     toback: function toback() {
       uni.navigateBack();

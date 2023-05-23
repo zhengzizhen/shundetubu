@@ -101,13 +101,13 @@ var components
 try {
   components = {
     uSwitch: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-switch/u-switch */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-switch/u-switch")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-switch/u-switch.vue */ 980))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-switch/u-switch */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-switch/u-switch")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-switch/u-switch.vue */ 988))
     },
     uDatetimePicker: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-datetime-picker/u-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-datetime-picker/u-datetime-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-datetime-picker/u-datetime-picker.vue */ 988))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-datetime-picker/u-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-datetime-picker/u-datetime-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-datetime-picker/u-datetime-picker.vue */ 996))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 896))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
     },
   }
 } catch (e) {
@@ -173,90 +173,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _vuex = __webpack_require__(/*! vuex */ 162);
+var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 161));
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var _default = {
+  computed: _objectSpread({}, (0, _vuex.mapState)(['userinfo'])),
   data: function data() {
     return {
       isShow: false,
@@ -290,43 +213,47 @@ var _default = {
         state: false
       }, {
         title: '隐藏活动记录',
-        state: true
+        state: false
       }, {
         title: '关注的领队动态提醒',
-        state: true
+        state: false
       }, {
         title: '有全新路线时提醒我',
-        state: true
+        state: false
       }, {
         title: '有评论/回复提醒我',
-        state: true
+        state: false
       }, {
         title: '有券过期通知我',
-        state: true
+        state: false
       }],
       labelLsit: [{
-        label: '新手求带',
+        label: '',
         state: true
       }, {
-        label: '人肉点唱机',
+        label: '',
         state: false
       }, {
-        label: '我车速超快的',
+        label: '',
         state: false
       }, {
-        label: '山顶蹦迪',
+        label: '',
         state: false
       }, {
-        label: '泡面小能手',
+        label: '',
         state: false
       }, {
-        label: '岔路口等我',
+        label: '',
         state: false
       }],
       sum: 1,
       new_date: null,
       //更新时间
-      end_date: null //结束时间
+      end_date: null,
+      //结束时间
+      label: null,
+      //提交的label
+      labelvalue: '' //输入框自定义标签
     };
   },
   onLoad: function onLoad() {
@@ -335,24 +262,39 @@ var _default = {
   onShow: function onShow() {
     //vuex赋值
     this.getlist();
+    //获取标签
+    this.getmsg();
   },
   methods: {
     getlist: function getlist() {
-      var store = this.$store.state.userinfo;
-      this.list[0].text = store.nickname;
-      this.list[1].image = store.avatar;
-      this.list[2].text = store.sex;
-      if (store.birthday == '') {
+      //个人信息
+      this.list[0].text = this.userinfo.nickname;
+      this.list[1].image = this.userinfo.avatar;
+      this.list[2].text = this.userinfo.sex;
+      if (this.userinfo.birthday == '') {
         this.list[3].text = '暂未设置生日';
       } else {
-        this.list[3].text = store.birthday;
-        this.new_date = new Date(store.birthday).valueOf();
+        this.list[3].text = this.userinfo.birthday;
+        this.new_date = new Date(this.userinfo.birthday).valueOf();
       }
-      if (store.real_status == 0) {
+      if (this.userinfo.real_status == 0) {
         this.list[4].text = '未绑定';
       } else {
         this.list[4].text = '已实名';
       }
+
+      //匿名报名
+      this.radiolist[0].state = this.userinfo.message_set.anonymity;
+      //隐藏活动记录
+      this.radiolist[1].state = this.userinfo.message_set.hide_trip_log;
+      //关注的领队
+      this.radiolist[2].state = this.userinfo.message_set.attention_akela_dynamic;
+      //新活动
+      this.radiolist[3].state = this.userinfo.message_set.new_trip;
+      //新评论
+      this.radiolist[4].state = this.userinfo.message_set.new_comment;
+      //过期
+      this.radiolist[5].state = this.userinfo.message_set.coupon_out;
     },
     change: function change(e) {
       console.log(e);
@@ -372,7 +314,7 @@ var _default = {
           this.isShow = true;
           break;
         case '实名认证':
-          if (this.$store.state.userinfo.real_status == 0) {
+          if (this.userinfo.real_status == 0) {
             this.$jump('./userID');
           } else {
             uni.$u.toast('您已实名');
@@ -502,16 +444,168 @@ var _default = {
       this.sum = v;
     },
     chelabel: function chelabel(v) {
+      console.log(v);
       this.labelLsit.forEach(function (item, index) {
         item.state = false;
       });
       v.state = true;
+      this.label = v.label;
     },
     submit: function submit() {
-      this.popShow = false;
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var _res, res;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                uni.showLoading();
+                if (!(_this4.labelvalue != '')) {
+                  _context4.next = 10;
+                  break;
+                }
+                _context4.next = 4;
+                return _this4.$http('/user/update/label', {
+                  label: _this4.labelvalue,
+                  label_color: _this4.sum
+                });
+              case 4:
+                _res = _context4.sent;
+                _this4.$store.commit('changeLabel', _this4.sum);
+                _this4.labelvalue = '';
+                uni.hideLoading();
+                _this4.popShow = false;
+                return _context4.abrupt("return", false);
+              case 10:
+                _context4.next = 12;
+                return _this4.$http('/user/update/label', {
+                  label: _this4.label,
+                  label_color: _this4.sum
+                });
+              case 12:
+                res = _context4.sent;
+                _this4.$store.commit('changeLabel', _this4.sum);
+                uni.hideLoading();
+                _this4.popShow = false;
+              case 16:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     },
     goLogin: function goLogin() {
+      uni.removeStorageSync('token');
+      uni.removeStorageSync('userinfo');
+      this.$store.commit('remove', null);
       this.$jump('../../login/otherLogin', 'reLaunch');
+    },
+    //获取消息列表
+    getmsg: function getmsg() {
+      var _this5 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
+        var res, i;
+        return _regenerator.default.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _this5.$http('/user/set/label/list');
+              case 2:
+                res = _context5.sent;
+                for (i = 0; i < res.data.data.list.length; i++) {
+                  _this5.labelLsit[i].label = res.data.data.list[i];
+                }
+                if (!(_this5.userinfo.label_color == '')) {
+                  _context5.next = 7;
+                  break;
+                }
+                _this5.sum = 1;
+                return _context5.abrupt("return", false);
+              case 7:
+                _this5.sum = _this5.userinfo.label_color;
+              case 8:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    //更改关注列表
+    messageset: function messageset(v) {
+      var _this6 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
+        var res, res1, res2, res3, res4, res5;
+        return _regenerator.default.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.t0 = v;
+                _context6.next = _context6.t0 === 0 ? 3 : _context6.t0 === 1 ? 8 : _context6.t0 === 2 ? 13 : _context6.t0 === 3 ? 18 : _context6.t0 === 4 ? 23 : _context6.t0 === 5 ? 28 : 33;
+                break;
+              case 3:
+                _context6.next = 5;
+                return _this6.$http('/user/update/messageset', {
+                  anonymity: _this6.radiolist[0].state
+                });
+              case 5:
+                res = _context6.sent;
+                _this6.$store.commit('anonymity', _this6.radiolist[0].state);
+                return _context6.abrupt("break", 33);
+              case 8:
+                _context6.next = 10;
+                return _this6.$http('/user/update/messageset', {
+                  hide_trip_log: _this6.radiolist[1].state
+                });
+              case 10:
+                res1 = _context6.sent;
+                _this6.$store.commit('hide_trip_log', _this6.radiolist[1].state);
+                return _context6.abrupt("break", 33);
+              case 13:
+                _context6.next = 15;
+                return _this6.$http('/user/update/messageset', {
+                  attention_akela_dynamic: _this6.radiolist[2].state
+                });
+              case 15:
+                res2 = _context6.sent;
+                _this6.$store.commit('attention_akela_dynamic', _this6.radiolist[2].state);
+                return _context6.abrupt("break", 33);
+              case 18:
+                _context6.next = 20;
+                return _this6.$http('/user/update/messageset', {
+                  new_trip: _this6.radiolist[3].state
+                });
+              case 20:
+                res3 = _context6.sent;
+                _this6.$store.commit('new_trip', _this6.radiolist[3].state);
+                return _context6.abrupt("break", 33);
+              case 23:
+                _context6.next = 25;
+                return _this6.$http('/user/update/messageset', {
+                  new_comment: _this6.radiolist[4].state
+                });
+              case 25:
+                res4 = _context6.sent;
+                _this6.$store.commit('new_comment', _this6.radiolist[4].state);
+                return _context6.abrupt("break", 33);
+              case 28:
+                _context6.next = 30;
+                return _this6.$http('/user/update/messageset', {
+                  coupon_out: _this6.radiolist[5].state
+                });
+              case 30:
+                res5 = _context6.sent;
+                _this6.$store.commit('coupon_out', _this6.radiolist[5].state);
+                return _context6.abrupt("break", 33);
+              case 33:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
     }
   }
 };

@@ -157,7 +157,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: ['../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg']
+      list: ['../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg']
     };
   },
   onLoad: function onLoad() {

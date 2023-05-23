@@ -1,17 +1,18 @@
 <template>
 	<view>
+		<!-- 无背景 -->
 		<view class="minebanner pd30">
 			<view class="dis_f mine">
-				<image src="@/static/trends/user.png" mode=""></image>
+				<image :src="avatar" mode=""></image>
 				<view class="sp dis_f">
 					<view>
-						<p>一个阳光明媚的人</p>
-						<text>级别：好奇宝宝</text>
+						<p>{{nickname}}</p>
+						<text>级别：{{level}}</text>
 					</view>
-					<text class="attention" v-show="isShow" @click="isShow = !isShow">
+					<text class="attention" v-show="!is_attention" @click="attention(userid)">
 						+关注
 					</text>
-					<text class="attention" v-show="!isShow" @click="isShow = !isShow">
+					<text class="attention" v-show="is_attention" @click="attention(userid)">
 						已关注
 					</text>
 				</view>
@@ -20,49 +21,50 @@
 
 		<view class="dis_f dos">
 			<view class="hot">
-				<p>3</p>
+				<p>{{order_number}}</p>
 				<text>活动</text>
 			</view>
 			<view class="hot">
-				<p>1</p>
+				<p>{{dynamic_number}}</p>
 				<text>轻季</text>
 			</view>
 			<view class="hot">
-				<p>0</p>
+				<p>{{attention_number}}</p>
 				<text>关注</text>
 			</view>
 			<view class="hot">
-				<p>993</p>
+				<p>{{to_attention_number}}</p>
 				<text>粉丝</text>
 			</view>
 		</view>
 
 
 		<view class="cont pd30 dis_f" v-for="(item,index) in list" :key="index">
-			<p><label>{{item.day}}</label>/{{item.mone}}月</p>
+			<p><label>{{item.day}}</label>/{{item.month}}月</p>
 			<view class="is">
-				<view class="right" >
-					<image  @click='$Resize(item.img,i)' v-for="(v,i) in item.img" :key="i" :src="v" mode=""></image>
-					
+				<view class="right">
+					<image @click='$Resize(item.images,i)' v-for="(v,i) in item.images" :key="i" :src="v" mode="">
+					</image>
 				</view>
 				<view class="io">
-					<p>{{item.cont}}</p>
+					<p>{{item.content}}</p>
 				</view>
 				<view class="dis_f plq">
 					<image class="sn" src="@/static/trends/pl.png"></image>
 					<view class="dis_f ssss">
 						<image v-show="!item.show" @click="love(item)" src="@/static/trends/ax.png"></image>
-						<image v-show="item.show" @click="love(item)" src="@/static/image/trends/zan.png" mode=""></image>
-						<span style="margin-left: 10rpx;color:#666">{{item.lovenum}}</span>
+						<image v-show="item.show" @click="love(item)" src="@/static/image/trends/zan.png" mode="">
+						</image>
+						<span style="margin-left: 10rpx;color:#666">{{item.like_number}}</span>
 					</view>
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="fixed">
 			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
 		</view>
-		
+
 		<view class="ts_flex" @click="toNews()">
 			<image src="@/static/trends/tels.png" mode=""></image>
 		</view>
@@ -73,46 +75,68 @@
 	export default {
 		data() {
 			return {
-				isShow:false,
-				list: [
-					{
-						mone: '9',
-						day: '14',
-						img: [
-							'../../static/index/zheng.jpg',
-							'../../static/index/zheng.jpg',
-						],
-						cont: "分币不掏就是转，主打的就是一个陪伴。",
-						show:false,
-						lovenum:56
-					},
-					{
-						mone: '9',
-						day: '13',
-						img: [
-							'../../static/index/zheng.jpg',
-							'../../static/index/zheng.jpg',
-							'../../static/index/zheng.jpg',
-							'../../static/index/zheng.jpg',
-						],
-						cont: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈",
-						show:false,
-						lovenum:99
-					},
-				]
+				isShow: false,
+				list: [],
+				userinfo: null, //用户信息
+				nickname: '', //用户名
+				level: '',
+				is_attention: '',
+				attention_number: '',
+				to_attention_number: '',
+				dynamic_number: '',
+				order_number: '',
+				avatar: '',
+				userid: ''
 			}
 		},
+		onLoad(option) {
+			this.getlist(option.id)
+			this.userid = option.id
+		},
+		onShow() {
+			this.getlist(this.userid)
+		},
 		methods: {
-			love(item){
+			async getlist(id) {
+				uni.showLoading()
+				const res = await this.$http('/circle/user/detail', {
+					to_uid: id
+				})
+				uni.hideLoading()
+				this.changlist(res.data.data)
+			},
+			changlist(data) {
+				this.nickname = data.nickname //昵称
+				this.level = data.level //级别
+				this.is_attention = data.is_attention //是否关注
+				this.attention_number = data.attention_number //关注人数
+				this.to_attention_number = data.to_attention_number //粉丝数量
+				this.dynamic_number = data.dynamic_number //轻季
+				this.order_number = data.order_number //昵称
+				this.avatar = data.avatar //头像
+				this.list = data.dynamic_list
+			},
+			love(item) {
 				item.show = !item.show
-				if(item.show == false){
+				if (item.show == false) {
 					item.lovenum--
-				}else{
+				} else {
 					item.lovenum++
 				}
-				
+
 			},
-			toback(){
+			async attention() { //关注用户
+				this.is_attention = !this.is_attention
+				const res = await this.$http('/circle/user/attention', {
+					to_uid: this.userid
+				})
+				if (res.data.data.status == true) {
+					uni.$u.toast('关注成功')
+				} else {
+					uni.$u.toast('取消关注')
+				}
+			},
+			toback() {
 				uni.navigateBack()
 			},
 			toNews() {
@@ -190,6 +214,7 @@
 
 		p {
 			font-size: 28rpx;
+
 			label {
 				font-size: 34rpx;
 				font-weight: bold;
@@ -197,7 +222,7 @@
 		}
 
 		.right {
-			width: 590rpx;
+			width: 560rpx;
 
 			image {
 				width: 180rpx;
@@ -232,20 +257,23 @@
 			height: 40rpx;
 		}
 	}
-	.is{
+
+	.is {
 		// margin-left: 20rpx;
 	}
-	.fixed{
+
+	.fixed {
 		position: fixed;
 		top: 80rpx;
 		left: 20rpx;
 	}
+
 	.ts_flex {
 		position: fixed;
 		bottom: 200rpx;
 		right: 50rpx;
 		z-index: 99;
-	
+
 		image {
 			width: 114rpx;
 			height: 114rpx;

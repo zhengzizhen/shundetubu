@@ -31,7 +31,7 @@
   padding: 60rpx 0rpx 0 0rpx;
 }
 .ie_nav .ie_left.data-v-4b2a720c {
-  margin-left: 80rpx;
+  margin-left: 60rpx;
   color: white;
 }
 .ie_nav .ie_left ._p.data-v-4b2a720c {

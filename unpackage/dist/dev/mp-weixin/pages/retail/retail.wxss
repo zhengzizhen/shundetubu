@@ -51,4 +51,12 @@
   width: 40rpx;
   height: 40rpx;
 }
+.swiper.data-v-b378f734 {
+  width: 100%;
+  height: 320rpx;
+}
+.swiper image.data-v-b378f734 {
+  width: 100%;
+  height: 320rpx;
+}
 

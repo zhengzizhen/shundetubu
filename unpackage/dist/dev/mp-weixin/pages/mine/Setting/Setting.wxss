@@ -79,7 +79,6 @@
   width: 178rpx;
   height: 33rpx;
   line-height: 33rpx;
-  border: 1px solid #CCCCCC;
   color: #999999;
 }
 .popview .color {

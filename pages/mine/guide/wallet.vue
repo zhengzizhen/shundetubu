@@ -3,17 +3,17 @@
 		<view class="wt_ios dis_f jscb alitmc">
 			<view class="dis_f flex_c">
 				<text class="text">我的余额</text>
-				<text class="money">￥ 273.02</text>
+				<text class="money">￥ {{money}}</text>
 			</view>
 			<p class="got" @click='toCashout()'>去提现</p>
 		</view>
 		<p class="pd30 title">提现记录</p>
 		<view class="take dis_f alitmc jscb" v-for="(item,index) in list" :key="index">
 			<view>
-				<p>{{item.tit}}</p>
-				<label>{{item.date}}</label>
+				<p>{{item.fund_type}}</p>
+				<label>{{item.created_at}}</label>
 			</view>
-			<text>+{{item.money}}</text>
+			<text>+{{item.number}}</text>
 		</view>
 	</view>
 </template>
@@ -22,17 +22,25 @@
 	export default {
 		data() {
 			return {
-				list:[
-					{tit:'领队工资',date:'2023-09-22 18:11',money:'229'},
-					{tit:'领队工资',date:'2023-09-21 18:11',money:'121'},
-					{tit:'报销项目',date:'2023-09-20 18:11',money:'100'}
-				]
+				money:null,
+				list:[]
 			}
 		},
+		onLoad(option) {
+			this.money = option.money
+			this.getlist()
+		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/akela/fund/log',{
+					page:1,
+					limit:10
+				})
+				this.list = res.data.data
+			},
 			toCashout(){
 				uni.navigateTo({
-					url:'/pages/retail/Cashout/Cashout'
+					url:'./Casuh?money='+ this.money
 				})
 			}
 		}

@@ -31,7 +31,7 @@
 			</view>
 			<text>添加标签</text>
 		</view>
-		<button>发布笔记</button>
+		<button @click="submit">发布笔记</button>
 	</view>
 </template>
 
@@ -40,8 +40,9 @@
 		data() {
 			return {
 				fileList1: [],
-				title: '',
-				content: ''
+				title: '',//标题
+				content: '',//内容
+				imagelist:[],//图片数组
 			}
 		},
 		methods: {
@@ -75,7 +76,7 @@
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
-						url: 'http://192.168.2.21:7001/upload', // 仅为示例，非真实的接口地址
+						url: 'https://www.tbq11.com/api/upload', // 仅为示例，非真实的接口地址
 						filePath: url,
 						name: 'file',
 						formData: {
@@ -84,6 +85,8 @@
 						success: (res) => {
 							setTimeout(() => {
 								resolve(res.data.data)
+								let image = JSON.parse(res.data).data.path
+								this.imagelist = this.imagelist.concat(image)
 							}, 1000)
 						}
 					});
@@ -98,6 +101,23 @@
 						this.$jump('./addLabel')
 						break;
 				}
+			},
+			async submit(){ //提交
+				uni.showLoading()
+				// title: '',//标题
+				// content: '',//内容
+				// imagelist:[],//图片数组
+				uni.showLoading()
+				const res = this.$http('/circle/dynamic/add',{
+					title: this.title,//标题
+					content: this.content,//内容
+					images:this.imagelist
+				})
+				uni.hideLoading()
+				uni.$u.toast('发布成功')
+				setTimeout(()=>{
+					uni.navigateBack()
+				},500)
 			}
 		}
 	}

@@ -3,9 +3,9 @@
 		<!-- 列表渲染 -->
 		<view>
 			<view class="ix_shop index_pads dis_f pd30">
-				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='toChild(item.name)'>
-					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
-					<text>{{item.name}}</text>
+				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='toChild(item.title)'>
+					<image style="border-radius: 50%;" :src="item.value" mode=""></image>
+					<text>{{item.title}}</text>
 				</view>
 			</view>
 			<!-- <p class="as_fid">邀请好友</p> -->
@@ -14,16 +14,16 @@
 			<view class="uni-margin-wrap">
 				<swiper class="swiper" @change='change' circular :autoplay="false" next-margin='160rpx'
 					previous-margin='180rpx' :interval="2000" :duration="500">
-					<swiper-item v-for="(item,index) in swiperlist" :key="index">
+					<swiper-item @click="toDetails(item.id)" v-for="(item,index) in swiperlist" :key="index">
 						<view class="posir">
-							<image :src="item" mode=""></image>
+							<image :src="item.master_image" mode=""></image>
 							<view v-show="swipercurrent == index" class="posiswiper dis_f flex_c">
-								<p>春行婺源秘境</p>
-								<view class="ios">
-									<text>高铁往返</text>
-									<text class="m10">闲适2日</text>
+								<p>{{item.title}}</p>
+								<view class="ios" v-if="item.label[0]!=null">
+									<text>{{item.label[0]}}</text>
+									<text class="m10" v-if="item.label[1]!=null">{{item.label[1]}}</text>
 								</view>
-								<label>4.91分丨291人去过</label>
+								<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
 							</view>
 						</view>
 					</swiper-item>
@@ -37,20 +37,22 @@
 				<u-subsection :customStyle='obj' :list="sublist" :current="current" @change="sectionChange"
 					activeColor='#49CAA4'></u-subsection>
 			</view>
-			<!-- //小图 -->
+			<!-- 当季推荐/口碑路线 -->
 			<view class="pd30">
-				<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
-					<image src="@/static/index/zheng.jpg" mode=""></image>
+				<view @click="toDetails(item.id)" class="dc_mod dis_f" v-for="(item,index) in curryents" :key="index">
+					<image :src="item.master_image" mode=""></image>
 					<view class="dc_god">
-						<p>【亭可马里季】斯里兰卡纯玩9天</p>
+						<p>{{item.title}}</p>
 						<view class="dc_latt dis_f">
-							<label>04.02剩3名额</label>
-							<text>03.18已满员</text>
+							<text
+								v-if="item.trip_team[0]!=null">{{item.trip_team[0].start_day}}{{item.trip_team[0].status_text}}</text>
+							<label
+								v-if="item.trip_team[1]!=null">{{item.trip_team[1].start_day}}{{item.trip_team[1].status_text}}</label>
 							<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 						</view>
 						<view class="dc_span dis_f">
-							<text>￥888</text>
-							<label>4.91分丨291人去过</label>
+							<text>￥{{item.price}}</text>
+							<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
 						</view>
 					</view>
 				</view>
@@ -58,29 +60,30 @@
 
 			<p class="as_tit pd30">高铁出行</p>
 			<view class="dis_f pd30">
-				<view class="as_zh dis_f" v-for="(item,index) in list" :key='index'>
-					<image src="@/static/index/zheng.jpg" mode=""></image>
-					<label>3天</label>
-					<text>云端轻奢武功山</text>
-					<p>￥88</p>
+				<view @click="toDetails(item.id)" class="as_zh dis_f" v-for="(item,index) in rail" :key='index'>
+					<image :src="item.master_image" mode=""></image>
+					<label>{{item.day}}天</label>
+					<text>{{item.title}}</text>
+					<p>￥{{item.price}}</p>
 				</view>
 			</view>
 
 			<p class="as_tit pd30">亲子活动</p>
 			<view class="pd30">
-				<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index">
-					<image src="@/static/index/zheng.jpg" mode=""></image>
+				<view @click="toDetails(item.id)" class="dc_mod dis_f" v-for=" (item,index) in chind" :key="index">
+					<image :src="item.master_image" mode=""></image>
 					<view class="dc_god">
-						<p>【亭可马里季】斯里兰卡纯玩9天</p>
-						<text class="posw">3天</text>
-						<view class="dc_latt dis_f">
-							<label>04.02剩3名额</label>
-							<text>03.18已满员</text>
+						<p>{{item.title}}</p>
+						<text class="posw">{{item.day}}天</text>
+						<view class="dc_latt dis_f" v-if="item.trip_team[0]!=null">
+							<text>{{item.trip_team[0].start_day}}{{item.trip_team[0].status_text}}</text>
+							<label
+								v-if="item.trip_team[1]!=null">{{item.trip_team[1].start_day}}{{item.trip_team[1].status_text}}</label>
 							<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 						</view>
 						<view class="dc_span dis_f">
-							<text>￥888</text>
-							<label>4.91分丨291人去过</label>
+							<text>￥{{item.price}}</text>
+							<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
 						</view>
 					</view>
 				</view>
@@ -96,20 +99,19 @@
 			<!-- 热门推荐 -->
 			<view class="ix_block index_pad pd30">
 				<view class="ix_img dis_f">
-					<view class="ix_flexs" v-for="(item,index) in list" :key="index">
-						<image src="@/static/index/zheng.jpg"></image>
-						<text class="posw">3天</text>
-						<p class="ix_title">【花漫天山】新疆伊犁 杏花大环线8日</p>
-						<view class="ds_bt dis_f">
-							<label>04.02丨报名中</label>
+					<view @click="toDetails(item.id)" class="ix_flexs" v-for="(item,index) in periphery" :key="index">
+						<image :src="item.master_image"></image>
+						<text class="posw">{{item.day}}天</text>
+						<p class="ix_title">{{item.title}}</p>
+						<view class="ds_bt dis_f" v-if="item.trip_team[0]!=null">
+							<label>{{item.trip_team[0].start_day}} | {{item.trip_team[0].status_text}}</label>
 							<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 						</view>
 						<view class="sp dis_f">
-							<p>￥88</p>
-							<label>291人去过</label>
+							<p>￥{{item.price}}</p>
+							<label>{{item.traveller_number}}人去过</label>
 						</view>
 					</view>
-
 				</view>
 			</view>
 		</view>
@@ -120,89 +122,177 @@
 	export default {
 		data() {
 			return {
-				arrlist: [{
-						name: '省内1天',
-						image: '../../../static/index/zblx.jpg'
-					},
-					{
-						name: '省内2天',
-						image: '../../../static/index/gnjx.jpg'
-					},
-					{
-						name: '省内亲子',
-						image: '../../../static/index/gwjx.jpg'
-					},
-					{
-						name: '美食路线',
-						image: '../../../static/index/hdrl.jpg'
-					},
-					{
-						name: '登山路线',
-						image: '../../../static/index/hwsc.jpg'
-					},
-					{
-						name: '非周末',
-						image: '../../../static/index/bwbd.jpg'
-					},
-					{
-						name: '高铁出行',
-						image: '../../../static/index/tddz.jpg'
-					},
-					{
-						name: '香港专区',
-						image: '../../../static/index/qzlx.jpg'
-					}
-				],
-				swiperlist: [
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-				],
+				arrlist: [], //金刚区
+				swiperlist: [], //轮播图
 				sublist: ['当季推荐', '口碑路线'],
 				swipercurrent: 0,
 				current: 0,
-				list: ['1', '2', '3'],
-				curry: 0,
-				hotlist: ['本周', '已成行', '1天', '2天'],
+				list: [], //当季推荐
+				lists: [], //口碑路线
+				curryents: [], //赋值数据
+				rail: [], //高铁出行
+				chind: [], //亲子活动
+				curry: null,
+				hotlist: ['报名中','即将成团','已成行', '1天', '2天'],
 				obj: {
 					height: '80rpx'
-				}
+				},
+				page: 1,
+				periphery: [] ,//周边数据
+				bottom:false,//是否触底
 			};
 		},
+		onLoad() {
+			this.getlist()
+			//全部周边活动
+			const params = {
+				page: this.page,
+				limit: 10
+			}
+			this.getperiphery(params)
+		},
+		onReachBottom() {
+			if(this.bottom == true){
+				return false
+			}else{
+				this.page+=1
+				const params = {
+					page: this.page,
+					limit: 10
+				}
+				this.getperiphery(params)
+			}
+		},
 		methods: {
+			async getlist() {
+				const res = await this.$http('/trip/vicinity/index')
+				this.assignment(res.data.data)
+			},
+			async getperiphery(params) {
+				const res = await this.$http('/trip/vicinity/list/all',params)
+				this.periphery = this.periphery.concat(res.data.data)
+				if(this.periphery.length < 10){
+					this.bottom = true
+				}
+			},
+			assignment(data) {
+				this.arrlist = data.icon_list //金刚区
+				this.swiperlist = data.trip.hot //轮播图
+				this.curryents = data.trip.recommend //第一次当季推荐赋值
+				this.list = data.trip.recommend
+				this.lists = data.trip.wom
+				this.rail = data.trip.ktx
+				this.chind = data.trip.chind
+			},
 			sectionChange(index) {
 				this.current = index;
+				if (index == 1) {
+					this.curryents = this.lists
+				} else if (index == 0) {
+					this.curryents = this.list
+				}
 			},
 			chekelist(e, index) {
+				if(index == this.curry){
+					this.curry = null
+					this.page = 1
+					this.periphery = []
+					const params = {
+						page: this.page,
+						limit: 10
+					}
+					this.getperiphery(params)
+					return false
+				}
 				this.curry = index
+				if (index == 0) {
+					//报名中
+					this.page = 1
+					this.periphery = []
+					let params = {
+						page:this.page,
+						limit:10,
+						search_status:0
+					}
+					this.getperiphery(params)
+					return false
+				}else if (index == 1) {
+					//即将成团
+					this.page = 1
+					this.periphery = []
+					let params = {
+						page:this.page,
+						limit:10,
+						search_status:1
+					}
+					this.getperiphery(params)
+					return false
+				}else if (index == 2) {
+					//已成团
+					this.page = 1
+					this.periphery = []
+					let params = {
+						page:this.page,
+						limit:10,
+						search_status:2
+					}
+					this.getperiphery(params)
+					return false
+				}else if (index == 3) {
+					//已成团
+					this.page = 1
+					this.periphery = []
+					let params = {
+						page:this.page,
+						limit:10,
+						search_min_day:1,
+						search_max_day:1
+					}
+					this.getperiphery(params)
+					return false
+				}else if (index == 4) {
+					//已成团
+					this.page = 1
+					this.periphery = []
+					let params = {
+						page:this.page,
+						limit:10,
+						search_min_day:2,
+						search_max_day:2
+					}
+					this.getperiphery(params)
+					return false
+				}
 			},
 			change(e) {
 				console.log(e.detail.current);
 				this.swipercurrent = e.detail.current
 			},
+			toDetails(e) {
+				this.$jump('/pages/index/Details/Details?id=', 'params', e)
+			},
 			toChild(name) {
 				switch (name) {
-					case '省内1天':
+					case '省内一天':
 						this.$jump('./oneday')
 						break;
-					case '省内2天':
+					case '省内两天':
 						this.$jump('./twoday')
 						break;
 					case '省内亲子':
 						this.$jump('./Parenting')
 						break;
 					case '高铁出行':
-						this.$jump('./speed?title=', 'params', '高铁出行')
+						this.$jump('./speed')
 						break;
 					case '非周末':
-						this.$jump('./speed?title=', 'params', '非周末')
+						this.$jump('./NonWeekend')
 						break;
 					case '美食路线':
-						this.$jump('./speed?title=', 'params', '美食路线')
+						this.$jump('./delicacy')
 						break;
 					case '登山路线':
-						this.$jump('./speed?title=', 'params', '登山路线')
+						this.$jump('./mountaineering')
 						break;
 					case '香港专区':
 						this.$jump('./HongKong')
@@ -214,9 +304,13 @@
 </script>
 
 <style lang="scss" scoped>
+	body{
+		box-sizing: border-box;
+	}
 	.as_body {
 		margin-bottom: 1000rpx;
-
+		padding-bottom: 100rpx;
+		box-sizing: border-box;
 	}
 
 	.ix_shop {
@@ -278,6 +372,7 @@
 		}
 
 		.dc_god {
+			width: 400rpx;
 			margin-left: 20rpx;
 		}
 
@@ -305,7 +400,7 @@
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #FFA1AD;
-				margin-left: 10rpx;
+				margin-right: 10rpx;
 			}
 
 			label {
@@ -410,7 +505,10 @@
 			.ix_flexs {
 				position: relative;
 				width: 335rpx;
-				height: auto;
+				height: 568rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
 
 				.posw {
 					position: absolute;
@@ -512,7 +610,7 @@
 	.cheborder {
 		width: 100%;
 		font-size: 30rpx;
-
+		box-sizing: border-box;
 		p {
 			margin-right: 20rpx;
 			margin-top: 10rpx;
@@ -554,11 +652,13 @@
 			padding: 10rpx 20rpx;
 			text-align: left;
 			animation: scaleout .5s ease-in-out;
+
 			p {
 				font-size: 30rpx;
 				font-weight: bold;
 				color: #FFFFFF;
 			}
+
 			text {
 				font-size: 24rpx;
 				font-weight: 500;
@@ -566,12 +666,15 @@
 				background: rgba(255, 255, 255, .5);
 				padding: 5rpx 10rpx;
 			}
+
 			.ios {
 				margin: 10rpx 0 20rpx;
 			}
+
 			.m10 {
 				margin-left: 10rpx;
 			}
+
 			label {
 				font-size: 24rpx;
 				font-weight: 500;
@@ -579,23 +682,26 @@
 			}
 		}
 	}
-	.info{
+
+	.info {
 		width: 100%;
 		text-align: center;
 		margin: 20rpx auto;
 		justify-content: center;
-		p{
+
+		p {
 			margin: 0 8rpx;
 			width: 22rpx;
 			height: 22rpx;
 			background: #F0F0F0;
 			border-radius: 50%;
 		}
-		.active{
+
+		.active {
 			background: #49CAA4 !important;
 		}
 	}
-	
+
 	@keyframes scaleout {
 		0% {
 			opacity: 0;

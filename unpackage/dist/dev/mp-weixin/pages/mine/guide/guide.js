@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uTabs: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 965))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 973))
     },
     uRate: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-rate/u-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-rate/u-rate")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-rate/u-rate.vue */ 1022))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-rate/u-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-rate/u-rate")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-rate/u-rate.vue */ 1030))
     },
   }
 } catch (e) {
@@ -169,12 +169,32 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -350,29 +370,174 @@ var _default = {
         name: '个人动态',
         state: false
       }],
-      list1: [{
-        mone: '9',
-        day: '14',
-        img: ['../../../static/index/zheng.jpg', '../../../static/index/zheng.jpg'],
-        cont: "分币不掏就是转，主打的就是一个陪伴。"
-      }, {
-        mone: '9',
-        day: '13',
-        img: ['../../../static/index/zheng.jpg', '../../../static/index/zheng.jpg', '../../../static/index/zheng.jpg', '../../../static/index/zheng.jpg'],
-        cont: "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
-      }],
-      lists: ['../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg', '../../../static/index/zheng.jpg', '../../../static/index/one.jpg']
+      akela: {},
+      //领队信息
+      hot: {},
+      //带队活动
+      evaluate: null,
+      //评论列表
+      album: null,
+      //相册数据
+      dynamic: null //动态数据
     };
   },
+  onLoad: function onLoad() {
+    //获取领队信息
+    this.getlist();
+    //获取带队活动
+    this.gethot();
+  },
   methods: {
+    getlist: function getlist() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                uni.showLoading();
+                _context.next = 3;
+                return _this.$http('/akela/detail');
+              case 3:
+                res = _context.sent;
+                uni.hideLoading();
+                _this.akela = res.data.data;
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    gethot: function gethot() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/akela/trip/list');
+              case 2:
+                res = _context2.sent;
+                _this2.hot = res.data.data;
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    getevaluate: function getevaluate() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                //评分
+                uni.showLoading();
+                _context3.next = 3;
+                return _this3.$http('/akela/evaluate/list', {
+                  page: 1,
+                  limit: 10
+                });
+              case 3:
+                res = _context3.sent;
+                uni.hideLoading();
+                _this3.evaluate = res.data.data;
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    getalbum: function getalbum() {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var res;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                //相册
+                uni.showLoading();
+                _context4.next = 3;
+                return _this4.$http('/akela/album/list', {
+                  page: 1,
+                  limit: 10
+                });
+              case 3:
+                res = _context4.sent;
+                uni.hideLoading();
+                _this4.album = res.data.data;
+              case 6:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    getdynamic: function getdynamic() {
+      var _this5 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
+        var res;
+        return _regenerator.default.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                //动态
+                uni.showLoading();
+                _context5.next = 3;
+                return _this5.$http('/akela/dynamic/list', {
+                  page: 1,
+                  limit: 10
+                });
+              case 3:
+                res = _context5.sent;
+                uni.hideLoading();
+                _this5.dynamic = res.data.data;
+              case 6:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    // 是否关注
+    attention: function attention() {
+      this.is_attention = !this.is_attention;
+    },
     chelist: function chelist(item) {
       this.list.forEach(function (v, index) {
         v.state = false;
       });
       this.list[item.index].state = true;
+      if (item.index == 0) {
+        this.gethot();
+        return false;
+      } else if (item.index == 1) {
+        this.getevaluate();
+        return false;
+      } else if (item.index == 2) {
+        this.getalbum();
+        return false;
+      } else if (item.index == 3) {
+        this.getdynamic();
+        return false;
+      }
     },
-    toWallet: function toWallet() {
-      this.$jump('./wallet');
+    toWallet: function toWallet(v) {
+      this.$jump('./wallet?money=', 'params', v);
     },
     toWipeout: function toWipeout() {
       this.$jump('./Wipeout');
@@ -386,6 +551,7 @@ var _default = {
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

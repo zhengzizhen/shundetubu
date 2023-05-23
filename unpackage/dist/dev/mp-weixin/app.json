@@ -88,13 +88,14 @@
     "pages/mine/Aboutus",
     "pages/index/memberday",
     "pages/mine/menu/Status",
-    "pages/mine/message/deil"
+    "pages/mine/message/deil",
+    "pages/mine/guide/Casuh"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "顺德徒步",
-    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarBackgroundColor": "#ffffff",
     "backgroundColor": "#ffffff"
   },
   "tabBar": {

@@ -1,10 +1,10 @@
 <template>
 	<view class="pd30">
 		<p class="tit">报销项目</p>
-		<input type="text" placeholder="请输入项目名称" v-model="name">
+		<input type="text" placeholder="请输入项目名称" v-model="akela.title">
 
 		<p class="tit">金额</p>
-		<input type="number" placeholder="请输入金额" v-model="money">
+		<input type="number" placeholder="请输入金额" v-model="akela.number">
 
 		<p class="tit">截图上传</p>
 		
@@ -13,7 +13,7 @@
 				:maxCount="10"></u-upload>
 		</view>
 		
-		<p class="btn">提交</p>
+		<p class="btn" @click='submit'>提交</p>
 	</view>
 </template>
 
@@ -21,12 +21,24 @@
 	export default {
 		data() {
 			return {
-				fileList1: [],
-				name:'',
-				money:''
+				akela:{
+					title:'',
+					number:'',
+					images:[]
+				},
+				fileList1:[]
 			}
 		},
 		methods: {
+			async submit(){
+				uni.showLoading()
+				const res = await this.$http('/akela/dispatch',this.akela)
+				uni.hideLoading()
+				uni.$u.toast('报销申请成功')
+				setTimeout(()=>{
+					uni.navigateBack()
+				},500)
+			},
 			// 删除图片
 			deletePic(event) {
 				this[`fileList${event.name}`].splice(event.index, 1)
@@ -57,7 +69,7 @@
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
-						url: 'http://192.168.2.21:7001/upload', // 仅为示例，非真实的接口地址
+						url: 'https://www.tbq11.com/api/upload', // 仅为示例，非真实的接口地址
 						filePath: url,
 						name: 'file',
 						formData: {
@@ -66,6 +78,8 @@
 						success: (res) => {
 							setTimeout(() => {
 								resolve(res.data.data)
+								let image = JSON.parse(res.data).data.path
+								this.akela.images = this.akela.images.concat(image)
 							}, 1000)
 						}
 					});

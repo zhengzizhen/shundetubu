@@ -2,17 +2,17 @@
 	<view class="pd30 body">
 		<view class="input dis_f">
 			<label>姓名</label>
-			<input type="text" placeholder="请输入姓名" v-model="user.name">
+			<input type="text" placeholder="请输入姓名" v-model="user.username">
 		</view>
 
 		<view class="input dis_f">
 			<label>手机号</label>
-			<input type="text" placeholder="请输入手机号" v-model="user.phone">
+			<input type="number" maxlength="11" placeholder="请输入手机号" v-model="user.phone">
 		</view>
 
 		<view class="input dis_f">
 			<label>身份证号</label>
-			<input type="text" placeholder="请输入身份证号" v-model="user.ID">
+			<input type="text" placeholder="请输入身份证号" maxlength="18" v-model="user.idcard">
 		</view>
 
 		<view class="input dis_f">
@@ -27,7 +27,7 @@
 
 		<view class="input dis_f">
 			<label>签名</label>
-			<input type="text" placeholder="请输入签名" v-model="user.tyrs">
+			<input type="text" placeholder="请输入签名" v-model="user.intro">
 		</view>
 
 		<view class="input dis_f">
@@ -35,7 +35,7 @@
 			<p>{{ID}}</p>
 		</view>
 
-		<p class="btn">立即核对信息</p>
+		<p class="btn" @click='submit'>立即核对信息</p>
 	</view>
 </template>
 
@@ -44,18 +44,43 @@
 		data() {
 			return {
 				user: {
-					name: '',
+					username: '',
 					phone: '',
-					id: '',
+					idcard: '',
 					address: '',
 					city: '',
-					tyrs: ''
+					intro: ''
 				},
-				ID:123456
+				ID:''
 			}
 		},
+		onLoad() {
+			this.ID = this.$store.state.userinfo.id
+		},
 		methods: {
-
+			async submit(){
+				if(this.user.username == ''){
+					uni.$u.toast('姓名不能为空')
+					return false;
+				}else if(this.user.phone == ''){
+					uni.$u.toast('手机号不能为空')
+					return false;
+				}else if(this.user.idcard == ''){
+					uni.$u.toast('身份证号不能为空')
+					return false;
+				}else if(this.user.address == ''){
+					uni.$u.toast('住址不能为空')
+					return false;
+				}else if(this.user.city == ''){
+					uni.$u.toast('城市不能为空')
+					return false;
+				}
+				
+				uni.showLoading()
+				const res = await this.$http('/user/apply/akela',this.user)
+				uni.hideLoading()
+				this.$jump('./guide')
+			}
 		}
 	}
 </script>

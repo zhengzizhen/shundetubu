@@ -3,13 +3,13 @@
 		<view class="ie_nav dis_f">
 			<view class="ie_left">
 				<text>余额 (元)</text>
-				<p>9.10</p>
+				<p>{{list.balance}}</p>
 				<label>当前余额只展示已完成的订单佣金</label>
 			</view>
 			<view class="ie_right dis_f flex_c">
 				<p @click='jupCase()'>立即提现</p>
-				<text>满100元以上可提现</text>
-				<text>申请提现后7个工作日到账</text>
+				<text>满{{list.withdraw_full_set}}元以上可提现</text>
+				<text>申请提现后{{list.withdraw_delayed_set}}个工作日到账</text>
 			</view>
 		</view>
 
@@ -26,7 +26,7 @@
 				<p>分销佣金</p>
 				<p>余额</p>
 			</view>
-			<view class="dis_f ie_cont" v-for="(v,i) in contlist" :key="i">
+			<view class="dis_f ie_cont" v-for="(v,i) in price" :key="i">
 				<p class="date">{{v.date}}</p>
 				<p>{{v.ordermoney}}</p>
 				<p  class="green">{{v.retaiilmoney}}</p>
@@ -79,11 +79,34 @@
 						date: '2023-04-05 11:53',
 						money: 9.9
 					}
-				]
+				],
+				list:[],//接口数据
+				lists:[],//分销记录
+				price:[],//佣金明细
+				log:[],//提现明细
+				page:1
 			};
-
+		},
+		onLoad() {
+			//获取分销数据
+			this.getlist()
+			//获取分销记录
+			this.getprice()
 		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/distribution/price')
+				this.list = res.data.data
+				console.log(this.list);
+			},
+			async getprice(){
+				const res = await this.$http('/distribution/log',{
+					type:'佣金明细',
+					page:this.page,
+					limit:10
+				})
+				this.price = res.data.data
+			},
 			jupCase(){
 				this.$jump('./Cashout/Cashout')
 			},
@@ -106,12 +129,9 @@
 		background-color: #49CAA4;
 		box-sizing: border-box;
 		padding: 60rpx 0rpx 0 0rpx;
-
 		.ie_left {
-			margin-left: 80rpx;
-			// width: 400rpx;
+			margin-left: 60rpx;
 			color: white;
-
 			p {
 				font-size: 72rpx;
 				font-weight: bold;

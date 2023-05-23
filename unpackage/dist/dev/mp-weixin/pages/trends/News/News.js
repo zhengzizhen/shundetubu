@@ -101,13 +101,13 @@ var components
 try {
   components = {
     uUpload: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 997))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 1005))
     },
     "u-Input": function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 912))
     },
     "u-Textarea": function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u--textarea/u--textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--textarea/u--textarea")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--textarea/u--textarea.vue */ 1007))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u--textarea/u--textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--textarea/u--textarea")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--textarea/u--textarea.vue */ 1015))
     },
   }
 } catch (e) {
@@ -218,9 +218,13 @@ var _default = {
     return {
       fileList1: [],
       title: '',
-      content: ''
+      //标题
+      content: '',
+      //内容
+      imagelist: [] //图片数组
     };
   },
+
   methods: {
     // 删除图片
     deletePic: function deletePic(event) {
@@ -274,9 +278,10 @@ var _default = {
       }))();
     },
     uploadFilePromise: function uploadFilePromise(url) {
+      var _this2 = this;
       return new Promise(function (resolve, reject) {
         var a = uni.uploadFile({
-          url: 'http://192.168.2.21:7001/upload',
+          url: 'https://www.tbq11.com/api/upload',
           // 仅为示例，非真实的接口地址
           filePath: url,
           name: 'file',
@@ -286,6 +291,8 @@ var _default = {
           success: function success(res) {
             setTimeout(function () {
               resolve(res.data.data);
+              var image = JSON.parse(res.data).data.path;
+              _this2.imagelist = _this2.imagelist.concat(image);
             }, 1000);
           }
         });
@@ -300,6 +307,40 @@ var _default = {
           this.$jump('./addLabel');
           break;
       }
+    },
+    submit: function submit() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                //提交
+                uni.showLoading();
+                // title: '',//标题
+                // content: '',//内容
+                // imagelist:[],//图片数组
+                uni.showLoading();
+                res = _this3.$http('/circle/dynamic/add', {
+                  title: _this3.title,
+                  //标题
+                  content: _this3.content,
+                  //内容
+                  images: _this3.imagelist
+                });
+                uni.hideLoading();
+                uni.$u.toast('发布成功');
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 };

@@ -14,7 +14,7 @@
 			<p class="header_title">
 				{{detail.title}}
 			</p>
-			<label class="red" v-if="detail.team">{{detail.team[curry].data[teamcurry].price}}元/人</label>
+				<label class="red">{{price}}元/人</label>
 			<view class="ds_user dis_f">
 				<image :src="avatar" mode=""></image>
 				<p class="dis_f flex_c">
@@ -69,7 +69,7 @@
 			</p> -->
 		</view>
 		<!-- 已参加的人 -->
-		<view class="ams">
+		<view class="ams" v-if="min">
 			<view class="dsimg">
 				<p class="ds_lv mrtop dis_f jscb" v-if="detail.team">
 					<text>已参加的人({{detail.team[curry].data[teamcurry].minimum_people_number}}人成行)</text>
@@ -78,7 +78,7 @@
 						<u-icon name="arrow-right" color='#acacac' size='16'></u-icon>
 					</view>
 				</p>
-				<view class="os_img dis_f">
+				<view class="os_img dis_f" v-if="users">
 					<view v-if="i<5" v-for="(v,i) in users" :key="i" class="sio">
 						<image :src="v.avatar" mode=""></image>
 					</view>
@@ -343,6 +343,8 @@
 				},
 				timer:null,//设置防抖
 				overlay:true,//遮罩层
+				price:'',
+				min : true
 			}
 		},
 		onLoad(option) {
@@ -369,12 +371,18 @@
 				this.setof = this.start_address[0].name
 				this.venue = this.start_address[0].venue
 				this.addList = datas.start_citys
-				this.nickname = datas.team[0].data[0].master_akela.nickname
-				this.avatar = datas.team[0].data[0].master_akela.avatar
-				this.grade = datas.team[0].data[0].master_akela.grade
-				this.grade_number = datas.team[0].data[0].master_akela.grade_number
-				this.users = datas.team[0].data[0].users
-				this.Datetbs(datas.team[0].data[0], 0)
+				for(let i =0;i<datas.team.length;i++){
+					if(datas.team[i].data.length != 0){
+						this.nickname = datas.team[i].data[0].master_akela.nickname
+						this.avatar = datas.team[i].data[0].master_akela.avatar
+						this.grade = datas.team[i].data[0].master_akela.grade
+						this.grade_number = datas.team[i].data[0].master_akela.grade_number
+						this.users = datas.team[i].data[0].users
+						this.chetbs(datas.team[i],i)
+						return false
+					}
+				}
+				this.min = false
 			},
 			//获取评论
 			async getevaluate() {
@@ -424,16 +432,16 @@
 			},
 			chetbs(e, index) {
 				this.curry = index
-				console.log(e.data[0]);
 				this.Datetbs(e.data[0], 0)
 			},
 			async Datetbs(e, index) {
 				this.teamcurry = index
-				this.nickname = this.detail.team[this.curry].data[index].master_akela.nickname
-				this.avatar = this.detail.team[this.curry].data[index].master_akela.avatar
-				this.grade = this.detail.team[this.curry].data[index].master_akela.grade
+				// this.nickname = this.detail.team[this.curry].data[index].master_akela.nickname
+				// this.avatar = this.detail.team[this.curry].data[index].master_akela.avatar
+				// this.grade = this.detail.team[this.curry].data[index].master_akela.grade
 				this.grade_number = this.detail.team[this.curry].data[index].master_akela.grade_number
 				this.users = this.detail.team[this.curry].data[index].users
+				this.price = this.detail.team[this.curry].data[this.teamcurry].price
 				const teamid = e.id
 				const res = await this.$http('/trip/team/detail', {
 					trip_id: this.id,
@@ -452,8 +460,6 @@
 				// console.log(e)
 			},
 			lower: async function(e) {
-				console.log(e)
-				console.log(111);
 				uni.showLoading({
 					title:'加载中'
 				})
@@ -464,7 +470,6 @@
 					limit: 10
 				})
 				uni.hideLoading()
-				console.log(res);
 				if(res.data.data == ''){
 					uni.$u.toast('已经到底部了')
 					return false
@@ -472,7 +477,6 @@
 				this.evaluate = this.evaluate.concat(res.data.data)
 			},
 			 scroll: function(e) {
-				// console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
 			popOpen() {
@@ -520,6 +524,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.ds_body{
+		padding-bottom: 180rpx;
+	}
 	.ds_banner {
 		width: 100%;
 		height: 494rpx;
@@ -747,16 +754,21 @@
 	}
 
 	.btn {
+		z-index: 9 !important;
 		margin-top: 40rpx;
 		padding-bottom: 60rpx;
 		justify-content: space-around;
 		box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(4, 0, 0, 0.16);
 		padding-top: 20rpx;
 		padding-left: 20rpx;
-
+		background-color: white;
+		width: 100%;
+		box-sizing: border-box;
+		position: fixed;
+		bottom: 0;
+		left: 0;
 		.img {
 			flex: 1;
-
 		}
 
 		image {

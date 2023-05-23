@@ -135,12 +135,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -186,19 +189,82 @@ var _default = {
   data: function data() {
     return {
       user: {
-        name: '',
+        username: '',
         phone: '',
-        id: '',
+        idcard: '',
         address: '',
         city: '',
-        tyrs: ''
+        intro: ''
       },
-      ID: 123456
+      ID: ''
     };
   },
-  methods: {}
+  onLoad: function onLoad() {
+    this.ID = this.$store.state.userinfo.id;
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.user.username == '')) {
+                  _context.next = 5;
+                  break;
+                }
+                uni.$u.toast('姓名不能为空');
+                return _context.abrupt("return", false);
+              case 5:
+                if (!(_this.user.phone == '')) {
+                  _context.next = 10;
+                  break;
+                }
+                uni.$u.toast('手机号不能为空');
+                return _context.abrupt("return", false);
+              case 10:
+                if (!(_this.user.idcard == '')) {
+                  _context.next = 15;
+                  break;
+                }
+                uni.$u.toast('身份证号不能为空');
+                return _context.abrupt("return", false);
+              case 15:
+                if (!(_this.user.address == '')) {
+                  _context.next = 20;
+                  break;
+                }
+                uni.$u.toast('住址不能为空');
+                return _context.abrupt("return", false);
+              case 20:
+                if (!(_this.user.city == '')) {
+                  _context.next = 23;
+                  break;
+                }
+                uni.$u.toast('城市不能为空');
+                return _context.abrupt("return", false);
+              case 23:
+                uni.showLoading();
+                _context.next = 26;
+                return _this.$http('/user/apply/akela', _this.user);
+              case 26:
+                res = _context.sent;
+                uni.hideLoading();
+                _this.$jump('./guide');
+              case 29:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

@@ -101,13 +101,13 @@ var components
 try {
   components = {
     "u-Input": function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 912))
     },
     uCode: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-code/u-code */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-code/u-code")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-code/u-code.vue */ 934))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-code/u-code */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-code/u-code")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-code/u-code.vue */ 942))
     },
     uButton: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 942))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 950))
     },
   }
 } catch (e) {
@@ -241,7 +241,7 @@ var _default = {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!_this.$refs.uCode.canGetCode) {
-                  _context.next = 14;
+                  _context.next = 16;
                   break;
                 }
                 // 向后端请求验证码
@@ -256,20 +256,22 @@ var _default = {
                 uni.$u.toast('请输入正确的手机号码');
                 return _context.abrupt("return", false);
               case 8:
-                _context.next = 10;
+                uni.showLoading();
+                _context.next = 11;
                 return _this.$http('/send/sms', {
                   phone: _this.user.phone,
                   type: 'register'
                 });
-              case 10:
+              case 11:
                 res = _context.sent;
+                uni.hideLoading();
                 uni.$u.toast(res.data.msg);
-              case 12:
-                _context.next = 15;
-                break;
               case 14:
+                _context.next = 17;
+                break;
+              case 16:
                 uni.$u.toast('倒计时结束后再发送');
-              case 15:
+              case 17:
               case "end":
                 return _context.stop();
             }
@@ -300,10 +302,12 @@ var _default = {
                 uni.$u.toast('验证码格式不正确');
                 return _context2.abrupt("return", false);
               case 11:
-                _context2.next = 13;
+                uni.showLoading();
+                _context2.next = 14;
                 return _this2.$http('/login/phone_smscode', _this2.user);
-              case 13:
+              case 14:
                 res = _context2.sent;
+                uni.hideLoading();
                 uni.$u.toast('登陆成功');
                 uni.setStorageSync('userinfo', res.data);
                 uni.setStorageSync('token', res.data.data.token);
@@ -311,7 +315,7 @@ var _default = {
                   _this2.$jump('/pages/index/index', 'reLaunch');
                 }, 200);
                 return _context2.abrupt("return", false);
-              case 19:
+              case 21:
               case "end":
                 return _context2.stop();
             }

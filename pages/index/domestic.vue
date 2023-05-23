@@ -3,129 +3,112 @@
 	<view class="dc_bg">
 		<view class="dc_header pd30">
 			<!-- label标签 -->
-			<view class="dc_label dis_f"  @click="isShow = true">
+			<view class="dc_label dis_f" @click="isShow = true">
 				<view class="dc_spans" v-for="(item,index) in laberlist" :key="index">
-					<text>{{item}}</text>
+					<text>{{item.name}}</text>
 				</view>
 				<view class="sx">
-					<!-- <u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon> -->
 					<image src="@/static/index/sx.png" mode=""></image>
 				</view>
 			</view>
 			<!-- 大图 -->
-			<view class="dc_banner">
-				<p class="dc_posi">3天</p>
-				<image class="bor_r" src="@/static/image/retail/banner.jpg" mode=""></image>
-				<view class="dc_text dis_f">
-					<p>亭可马里季斯里兰卡纯玩9天</p>
-					<view class="dc_span dis_f">
-						<label>4.91分丨291人去过</label>
-						<text>￥888</text>
-					</view>
-					<view class="dc_ms dis_f">
-						<p>查看更多</p>
-						<view class="dc_go dis_f">
-							<text>03.18出发</text>
-							<label class="pink">已满员</label>
-						</view>
-						<view class="dc_go dis_f">
-							<text>03.18出发</text>
-							<label class="pink">已满员</label>
-						</view>
-						<view class="dc_go dis_f">
-							<text>03.18出发</text>
-							<label class="pink">已满员</label>
-						</view>
-						<view class="dc_go dis_f">
-							<text>03.18出发</text>
-							<label class="pink">已满员</label>
+			<view>
+				<view v-for="(item,index) in list" :key="index">
+					<view @click="toDetails(item.id)" class="dc_banner" v-if="index == 0">
+						<p class="dc_posi">{{item.day}}天</p>
+						<image class="bor_r" :src="item.master_image" mode=""></image>
+						<view class="dc_text dis_f">
+							<p>{{item.title}}</p>
+							<view class="dc_span dis_f">
+								<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
+								<text>￥{{item.price}}</text>
+							</view>
+							<view class="dc_ms dis_f jscb">
+								<view v-if="item.trip_team.length != 0">
+									<view class="dc_go dis_f" v-for="(v,i) in item.trip_team" :key="i">
+										<text>{{v.start_day}}出发</text>
+										<label class="pink">{{v.status_text}}</label>
+									</view>
+								</view>
+								<view v-else>
+				
+								</view>
+								<p>查看更多</p>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 
 			<!-- //小图 -->
-			<view class="dc_mod dis_f">
-				<text class="posw">3天</text>
-				<image src="@/static/image/index/banners.jpg" mode=""></image>
-				<view class="dc_god">
-					<p>【亭可马里季】斯里兰卡纯玩 9天</p>
-					<view class="dc_latt dis_f">
-						<text>03.18已满员</text>
-						<label>04.02剩3名额</label>
-						<u-icon name="arrow-right" color="#999999" size='12'></u-icon>
-					</view>
-					<view class="dc_out">
-						<text>03.18已满员</text>
-						<text style="margin-left: 10rpx;">限时40天</text>
-					</view>
-					<view class="dc_span dis_f">
-						<text>￥888</text>
-						<label>4.91分丨291人去过</label>
-					</view>
-				</view>
-			</view>
-
-			<!-- //小图 -->
-			<view class="dc_mod dis_f">
-				<text class="posw">3天</text>
-				<image src="@/static/image/index/banners.jpg" mode=""></image>
-				<view class="dc_god">
-					<p>【亭可马里季】斯里兰卡纯玩 9天</p>
-					<view class="dc_latt dis_f">
-						<text>03.18已满员</text>
-						<label>04.02剩3名额</label>
-						<u-icon name="arrow-right" color="#999999" size='12'></u-icon>
-					</view>
-					<view class="dc_out">
-						<text>03.18已满员</text>
-						<text style="margin-left: 10rpx;">限时40天</text>
-					</view>
-					<view class="dc_span dis_f">
-						<text>￥888</text>
-						<label>4.91分丨291人去过</label>
+			<view @click="toDetails(item.id)" v-for="(item,index) in list" :key="index">
+				<view class="dc_mod dis_f" v-if='index!=0'>
+					<text class="posw">{{item.day}}天</text>
+					<image class="bor_r" :src="item.master_image" mode=""></image>
+					<view class="dc_god dis_f flex_c jscb">
+						<p>{{item.title}}</p>
+						<view class="dc_latt dis_f" v-if="item.trip_team !=''">
+							<text v-for="(v,i) in item.trip_team">{{v.start_day}}{{v.status_text}}</text>
+							<u-icon name="arrow-right" color="#999999" size='12'></u-icon>
+						</view>
+						<view class="dc_out">
+							<text v-for="(s,j) in item.label">{{s}}</text>
+						</view>
+						<view class="dc_span dis_f">
+							<text>￥{{item.price}}</text>
+							<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
+						</view>
 					</view>
 				</view>
 			</view>
 		</view>
 
 		<u-popup :show="isShow" @close="close" @open="open">
-			<u-popup :round="10" :show="isShow" :closeable = 'true' @close="close" @open="open">
+			<u-popup :round="10" :show="isShow" :closeable='true' @close="close" @open="open">
 				<view class="ix_pop pd30">
 					<p>天数</p>
 					<view class="dis_f ps">
 						<view class="dis_f prp" v-for="(item,index) in days" :key="index" @click="todays(item,index)">
-							<text  :class="daycurry == index ?'select':''" >{{item}}</text>
+							<text :class="daycurry == index ?'select':''">{{item.title}}</text>
 						</view>
 					</view>
 					<p>难度</p>
 					<view class="dis_f ps">
 						<view class="dis_f prp" v-for="(item,index) in lvlist" :key="index" @click="tolv(item,index)">
-							<text  :class="lvcurry == index ?'select':''" >{{item}}</text>
+							<text :class="lvcurry == index ?'select':''">{{item.name}}</text>
 						</view>
 					</view>
 					<p>价格</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(item,index) in moenylist" :key="index" @click="tomoney(item,index)">
-							<text  :class="moneycurry == index ?'select':''" >{{item}}</text>
+						<view class="dis_f prp" v-for="(item,index) in moenylist" :key="index"
+							@click="tomoney(item,index)">
+							<text :class="moneycurry == index ?'select':''">{{item.title}}</text>
 						</view>
 					</view>
 					<p>状态</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(item,index) in staticlist" :key="index" @click="tostate(item,index)">
-							<text  :class="statecurry == index ?'select':''" >{{item}}</text>
+						<view class="dis_f prp" v-for="(item,index) in staticlist" :key="index"
+							@click="tostate(item,index)">
+							<text :class="statecurry == index ?'select':''">{{item.name}}</text>
 						</view>
 					</view>
 					<p>地区选择</p>
 					<view class="dis_f ps">
-						<view  class="dis_f prp" v-for="(v,index) in addresslist" :key="index" @click="toaddress(v,index)">
-							<text :class="addcurry == index ?'select':''">{{v}}</text>
+						<view class="dis_f prp" v-for="(v,index) in addresslist" :key="index"
+							@click="toaddress(v,index)">
+							<text :class="addcurry == index ?'select':''">{{v.name}}</text>
 						</view>
 					</view>
-					
+					<p>出行方式</p>
+					<view class="dis_f ps">
+						<view class="dis_f prp" v-for="(v,index) in label" :key="index"
+							@click="tolabel(v,index)">
+							<text :class="labelcurry == index ?'select':''">{{v.name}}</text>
+						</view>
+					</view>
 					<view class="btn dis_f alitmc">
 						<p @click='reset'>重置</p>
-						<button>筛选</button>
+						<button @click='submit'>筛选</button>
 					</view>
 				</view>
 			</u-popup>
@@ -137,52 +120,163 @@
 	export default {
 		data() {
 			return {
-				laberlist: ['亲子路线', '高铁出行', '轻奢活动', '轻奢活动'],
+				laberlist: [],
 				isShow: false,
-				lvcurry:null,
-				lvlist:['休闲','轻松徒步','稍有难度','中等难度','难度较大','高难度'],
-				moneycurry:null,
-				moenylist:['1000以内','1K-2K','2K-3K','3K-5K','5000+'],
-				statecurry:null,
-				staticlist:['报名中','即将成行','已成行'],
-				addcurry:null,
-				addresslist:['广东','云南','福建','新疆','四川','西藏','广西','青岛','海南'],
-				daycurry:null,
-				days:['2~3天','4~5天','6天+']
+				lvcurry: null,
+				lvlist: [],
+				moneycurry: null,
+				moenylist: [],
+				statecurry: null,
+				staticlist: [],
+				addcurry: null,
+				addresslist: [],
+				daycurry: null,
+				label:[],
+				labelcurry:null,
+				days: [],
+				obj: {}, //接收的参数
+				list: [],
+				page: 1,
+				seach:[],
+				search_min_day:'',//最少天数
+				search_max_day:'',//最多天数
+				search_difficulty:'',//难度等级
+				search_status:'',//状态
+				search_bourn:'',//地区id
+				search_min_price:'',//最低价格
+				search_max_price:'',//最高价格
+				search_label:''//标签
 			};
 		},
 		created() {
-			
+
 		},
 		onLoad(option) {
+			this.obj = JSON.parse(option.tit)
 			uni.setNavigationBarTitle({
-				title: option.tit
+				title: this.obj.title
 			});
+			const info = {
+				url: this.obj.url,
+				params: {
+					page: this.page,
+					limit: 10
+				}
+			}
+			this.getlist(info)
+			
+			this.getSeach(this.obj.seach)
 		},
-		methods:{
-			reset(){
-				
+		methods: {
+			async getlist(info) {
+				const res = await this.$http(info.url, info.params)
+				this.list = this.list.concat(res.data.data)
+			},
+			async getSeach(url){
+				const res = await this.$http(url)
+				this.days = res.data.data.search_day
+				this.lvlist = res.data.data.search_difficulty
+				this.moenylist = res.data.data.search_price
+				this.staticlist = res.data.data.search_status
+				this.addresslist = res.data.data.search_bourn
+				this.laberlist = res.data.data.search_label
+				this.label = res.data.data.search_label
+			},
+			reset() {
+				this.lvcurry = null
+				this.addcurry = null
+				this.daycurry = null
+				this.moneycurry = null
+				this.statecurry = null
+				this.labelcurry = null
 			},
 			open() {
-				
+
 			},
 			close() {
 				this.isShow = !this.isShow
 			},
-			todays(v,index){
+			todays(v, index) {
+				if(index == this.daycurry){
+					this.daycurry = null
+					this.search_min_day = ''
+					this.search_max_day = ''
+					return false
+				}
 				this.daycurry = index
+				this.search_min_day = v.min
+				this.search_max_day = v.max
 			},
-			tolv(v,index){
+			tolabel(v, index) {
+				if(index == this.labelcurry){
+					this.labelcurry = null
+					this.search_label = ''
+					return false
+				}
+				this.labelcurry = index
+				this.search_label = v.name
+			},
+			tolv(v, index) {
+				if(index == this.lvcurry){
+					this.lvcurry = null
+					this.search_difficulty = ''
+					return false
+				}
 				this.lvcurry = index
+				this.search_difficulty = v.name
 			},
-			tomoney(v,index){
+			tomoney(v, index) {
+				if(index == this.moneycurry){
+					this.moneycurry = null
+					this.search_min_price = ''
+					this.search_max_price = ''
+					return false
+				}
 				this.moneycurry = index
+				this.search_min_price = v.min
+				this.search_max_price = v.max
 			},
-			tostate(v,index){
+			tostate(v, index) {
+				if(index == this.statecurry){
+					this.statecurry = null
+					this.search_status = ''
+					return false
+				}
 				this.statecurry = index
+				this.search_status = index
 			},
-			toaddress(v,index){
+			toaddress(v, index) {
+				if(index == this.addcurry){
+					this.addcurry = null
+					this.search_bourn = ''
+					return false
+				}
 				this.addcurry = index
+				this.search_bourn = v.id
+			},
+			toDetails(e) {
+				this.$jump('/pages/index/Details/Details?id=', 'params', e);
+			},
+			async submit(){
+				this.page = 1
+				this.list = []
+				const info = {
+					url: this.obj.url,
+					params: {
+						page: this.page,
+						limit: 10,
+						search_min_price:this.search_min_price,
+						search_max_price:this.search_max_price,
+						search_min_day:this.search_min_day,
+						search_max_day:this.search_max_day,
+						search_difficulty:this.search_difficulty,
+						search_status:this.search_status,
+						search_bourn:this.search_bourn,
+						search_label:this.search_label
+					}
+				}
+				this.getlist(info)
+				this.isShow = false
 			}
 		}
 	}
@@ -191,15 +285,14 @@
 <style lang="scss" scoped>
 	.dc_bg {
 		width: 100%;
+		min-height: 750px;
 		height: auto;
 		background-color: #18ACB6;
 		padding-bottom: 50rpx;
 	}
 
 	.dc_header {
-
 		padding-top: 457rpx;
-
 		.dc_label {
 			position: relative;
 
@@ -221,8 +314,9 @@
 				background-color: #18ACB6;
 				position: absolute;
 				right: 0rpx;
-				image{
-					width:40rpx;
+
+				image {
+					width: 40rpx;
 					height: 40rpx;
 				}
 			}
@@ -249,7 +343,7 @@
 				width: 80rpx;
 				height: 42rpx;
 				background: #49CAA4;
-				border-radius: 20rpx 0rpx 20rpx 0rpx;
+				border-radius: 20rpx 0rpx 14rpx 0rpx;
 				text-align: center;
 				color: white;
 			}
@@ -284,12 +378,8 @@
 					position: relative;
 
 					p {
-						position: absolute;
-						right: 0;
-						bottom: 0;
 						background-color: white;
 						width: 60rpx;
-						height: 132rpx;
 						padding: 0 20rpx;
 						display: flex;
 						text-align: center;
@@ -363,8 +453,7 @@
 				font-size: 24rpx;
 				background-color: #FFA1AD;
 			}
-
-			label {
+			text:nth-child(2){
 				margin-left: 10rpx;
 				padding: 5rpx 20rpx;
 				color: #FFFFFF;
@@ -381,6 +470,9 @@
 				color: #E49332;
 				font-size: 24rpx;
 				background-color: #FFECD6;
+			}
+			text:nth-child(2){
+				margin-left: 10rpx;
 			}
 		}
 	}
@@ -400,17 +492,21 @@
 			font-weight: bold;
 		}
 	}
-	.ix_pop{
+
+	.ix_pop {
 		height: auto;
-		p{
+
+		p {
 			margin: 10rpx auto 20rpx;
 			font-size: 32rpx;
 			font-weight: bold;
 		}
-		.ps{
+
+		.ps {
 			flex-wrap: wrap;
-			.prp{
-				margin: 5rpx 10rpx;
+
+			.prp {
+				margin: 0rpx 10rpx;
 				width: 30%;
 				flex-direction: column;
 				justify-content: center;
@@ -419,34 +515,39 @@
 				margin-bottom: 10rpx;
 			}
 		}
-		.dis_f{
-			.select{
-				background-color: #49CAA4;
-				color: white;
-				border: none;
-				border: 2rpx solid #49CAA4;
-			}
-			text{
+
+		.dis_f {
+			text {
 				background: #FFFFFF;
 				color: #999999;
 				border: 2rpx solid #999999;
 				border-radius: 50rpx;
-				width: 132rpx;
-				padding: 5rpx 30rpx;
+				min-width: 142rpx;
+				width: auto;
+				padding: 5rpx 10rpx;
 				height: 54rpx;
 				line-height: 54rpx;
 				text-align: center;
 				font-size: 26rpx;
 			}
+			.select {
+				background-color: #49CAA4;
+				color: white;
+				border: none;
+				border: 2rpx solid #49CAA4;
+			}
 		}
-		.btn{
+
+		.btn {
 			margin: 80rpx 0 50rpx;
-			p{
+
+			p {
 				font-size: 30rpx;
 				font-weight: 500;
 				color: #666666;
 			}
-			button{
+
+			button {
 				width: 451rpx;
 				height: 88rpx;
 				line-height: 88rpx;

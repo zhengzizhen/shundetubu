@@ -11,7 +11,7 @@
 						<span>曼谷</span>
 						<u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon>
 					</view>
-					<u-search @focus='toSeach()' class="input" placeholder="日照香炉生紫烟" v-model="seachValue"
+					<u-search @focus='toSeach()' class="input" placeholder="想去哪就去哪" v-model="seachValue"
 						:showAction='false' :height='28'>
 					</u-search>
 				</view>
@@ -85,7 +85,8 @@
 						<image class="ix_imgbot bor_r" :src="Selection.data[1].master_image"></image>
 						<view class="abslt ix_botn">
 							<p style="color: white;word-wrap:break-word;width: 284rpx;word-break:break-all;">
-								{{Selection.data[1].title}}</p>
+								{{Selection.data[1].title}}
+							</p>
 						</view>
 						<view class="ix_botsub bor_r">
 							<view class="ix_posi_r">
@@ -142,7 +143,7 @@
 			<view class="ix_block index_pad">
 				<label>{{calendar.name}}</label>
 				<view class="ix_imgplus dis_f">
-					<view class="ix_background bor_r" @click="todateHot(4)">
+					<view class="ix_background bor_r" @click="todateHot(calendar.data[0].month)">
 						<view class="ix_bgfz">
 							<p>{{calendar.data[0].month}}月 {{calendar.data[0].name}}</p>
 							<span>更多<u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -152,7 +153,7 @@
 						</view>
 					</view>
 					<view class="ix_bot">
-						<view class="ix_imgbotbg bor_r" @click="todateHot(5)">
+						<view class="ix_imgbotbg bor_r" @click="todateHot(calendar.data[1].month)">
 							<view class="ix_bgfz">
 								<p>{{calendar.data[1].month}}月 {{calendar.data[1].name}}</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -165,7 +166,7 @@
 							</view>
 						</view>
 
-						<view class="ix_imgbotbg bor_r" @click="todateHot(5)">
+						<view class="ix_imgbotbg bor_r" @click="todateHot(calendar.data[2].month)">
 							<view class="ix_bgfz">
 								<p>{{calendar.data[2].month}}月 {{calendar.data[2].name}}</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -430,10 +431,20 @@
 						this.$jump('./ambitus/ambitus');
 						break;
 					case '国内精选':
-						this.$jump('./domestic?tit=', 'params', '国内精选');
+						const params = {
+							url: '/trip/internal/trip',
+							seach: '/trip/search/internal',
+							title: '国内精选'
+						}
+						this.$jump('./domestic?tit=', 'params', JSON.stringify(params));
 						break;
 					case '国外精选':
-						this.$jump('./domestic?tit=', 'params', '国外精选');
+						const info = {
+							url: '/trip/foreign/trip',
+							seach: '/trip/search/foreign',
+							title: '国外精选'
+						}
+						this.$jump('./domestic?tit=', 'params', JSON.stringify(info));
 						break;
 					case '活动日历':
 						this.$jump('./dateHot');

@@ -65,8 +65,13 @@
   font-size: 22rpx;
   font-weight: 500;
   color: white;
+  padding: 2rpx;
   background-color: red;
-  padding: 5rpx 10rpx;
   border-radius: 50rpx;
+  text-align: center;
+  min-height: 30rpx;
+  min-width: 30rpx;
+  height: auto;
+  width: auto;
 }
 

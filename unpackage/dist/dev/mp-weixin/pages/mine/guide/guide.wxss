@@ -49,6 +49,18 @@
 .minebanner .mine .sp text.data-v-3ecea866 {
   font-size: 22rpx;
 }
+.mens.data-v-3ecea866 {
+  padding: 0 !important;
+  background: none;
+}
+.mens .bannes.data-v-3ecea866 {
+  width: 100%;
+  height: 442rpx;
+}
+.mens .sps.data-v-3ecea866 {
+  top: 282rpx;
+  left: 0;
+}
 .attention.data-v-3ecea866 {
   display: block;
   font-size: 28rpx !important;
@@ -240,7 +252,6 @@
 }
 .album.data-v-3ecea866 {
   align-items: center;
-  justify-content: space-around;
   flex-wrap: wrap;
 }
 .album image.data-v-3ecea866 {
@@ -248,8 +259,9 @@
 }
 .c1.data-v-3ecea866 {
   margin: 10rpx 0;
-  width: 450rpx;
+  width: 66%;
   height: 450rpx;
+  text-align: center;
 }
 .c1 image.data-v-3ecea866 {
   width: 450rpx;
@@ -257,14 +269,17 @@
 }
 .c2.data-v-3ecea866 {
   margin: 10rpx 0;
+  margin-left: 10rpx;
   width: 210rpx;
   height: 450rpx;
   overflow: hidden;
   position: relative;
   overflow: hidden;
   border-radius: 20rpx;
+  text-align: center;
 }
 .c2 image.data-v-3ecea866 {
+  height: 450rpx;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -278,8 +293,9 @@
 .c7.data-v-3ecea866,
 .c8.data-v-3ecea866 {
   margin: 10rpx 0;
-  width: 210rpx;
   height: 210rpx;
+  width: 33%;
+  text-align: center;
 }
 .c3 image.data-v-3ecea866,
 .c4 image.data-v-3ecea866,
@@ -292,14 +308,16 @@
 }
 .c9.data-v-3ecea866 {
   margin: 10rpx 0;
+  margin-left: 10rpx;
   width: 210rpx;
   height: 450rpx;
   overflow: hidden;
   position: relative;
-  overflow: hidden;
   border-radius: 20rpx;
+  text-align: center;
 }
 .c9 image.data-v-3ecea866 {
+  height: 450rpx;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -308,8 +326,10 @@
 }
 .c10.data-v-3ecea866 {
   margin: 10rpx 0;
-  width: 450rpx;
+  width: 66%;
   height: 450rpx;
+  text-align: center;
+  margin-left: 16rpx;
 }
 .c10 image.data-v-3ecea866 {
   width: 450rpx;
@@ -322,8 +342,9 @@
 .c15.data-v-3ecea866,
 .c16.data-v-3ecea866 {
   margin: 10rpx 0;
-  width: 210rpx;
   height: 210rpx;
+  width: 33%;
+  text-align: center;
 }
 .c11 image.data-v-3ecea866,
 .c12 image.data-v-3ecea866,

@@ -137,10 +137,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -164,25 +167,42 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: [{
-        tit: '领队工资',
-        date: '2023-09-22 18:11',
-        money: '229'
-      }, {
-        tit: '领队工资',
-        date: '2023-09-21 18:11',
-        money: '121'
-      }, {
-        tit: '报销项目',
-        date: '2023-09-20 18:11',
-        money: '100'
-      }]
+      money: null,
+      list: []
     };
   },
+  onLoad: function onLoad(option) {
+    this.money = option.money;
+    this.getlist();
+  },
   methods: {
+    getlist: function getlist() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/akela/fund/log', {
+                  page: 1,
+                  limit: 10
+                });
+              case 2:
+                res = _context.sent;
+                _this.list = res.data.data;
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     toCashout: function toCashout() {
       uni.navigateTo({
-        url: '/pages/retail/Cashout/Cashout'
+        url: './Casuh?money=' + this.money
       });
     }
   }

@@ -1,12 +1,13 @@
 <template>
 	<view class="body pd30">
-		<p class="title">3月29日</p>
-		
-		<view class="cont">
-			<image @click="todeil" class="banner" src="@/static/as/changs.jpg" mode=""></image>
-			<view class="txt dis_f" v-for="(item,index) in list" @click="todeil">
-				<p>房车纵横计划·南疆，驰骋帕米尔 之春!我愿称之为“马尔地阿福”</p>
-				<image src="@/static/index/zheng.jpg" mode=""></image>
+		<view class="m30" v-for="(v,i) in list" :key="i" @click="todeil(v.id)">
+			<!-- <p class="title">3月29日</p> -->
+			<view class="cont">
+				<image class="banner" :src="v.image" mode=""></image>
+				<view class="txt">
+					<p>{{v.title}}</p>
+					<text>{{v.intro}}</text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -16,11 +17,23 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3,4,5,6,7]
+				list: [],
+				page:1
 			}
 		},
+		onLoad() {
+			this.getlist()
+		},
 		methods: {
-			todeil(){
+			async getlist(){
+				const res = await this.$http('/user/message/article/list',{
+					page:this.page,
+					limit:10,
+					category_id:11
+				})
+				this.list = res.data.data
+			},
+			todeil() {
 				this.$jump('./deil')
 			}
 		}
@@ -47,35 +60,33 @@
 		background: #DEDFE1;
 		line-height: 34rpx;
 	}
-	.cont{
+
+	.cont {
 		border-radius: 20rpx;
 		margin-top: 30rpx;
 		background-color: white;
-		.banner{
+
+		.banner {
 			border-radius: 20rpx 20rpx 0 0;
 			width: 100%;
 			height: 300rpx;
 		}
-		.txt{
-			margin: 20rpx 0;
-			padding: 0 20rpx;
-			align-items: center;
-			padding-bottom: 20rpx;
-			border-bottom: 1px solid #e6e6e6;
-			justify-content: space-between;
-			font-size: 30rpx;
-			p{
-				width:432rpx;
-			}
-			image{
-				width: 108rpx;
-				height: 108rpx;
-				border-radius: 20rpx;
-			}
+	}
+
+	.txt {
+		padding: 20rpx;
+
+		p {
+			color: #222222;
 		}
-		.txt:last-of-type{
-			border-bottom: none;
+
+		text {
+			font-size: 24rpx;
+			color: #666666;
 		}
 	}
-	
+
+	.m30 {
+		margin-top: 40rpx;
+	}
 </style>

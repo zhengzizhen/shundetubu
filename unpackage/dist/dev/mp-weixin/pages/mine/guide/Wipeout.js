@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uUpload: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 997))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-upload/u-upload.vue */ 1005))
     },
   }
 } catch (e) {
@@ -192,56 +192,34 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var _default = {
   data: function data() {
     return {
-      fileList1: [],
-      name: '',
-      money: ''
+      akela: {
+        title: '',
+        number: '',
+        images: []
+      },
+      fileList1: []
     };
   },
   methods: {
-    // 删除图片
-    deletePic: function deletePic(event) {
-      this["fileList".concat(event.name)].splice(event.index, 1);
-    },
-    // 新增图片
-    afterRead: function afterRead(event) {
+    submit: function submit() {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var lists, fileListLen, i, result, item;
+        var res;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
-                lists = [].concat(event.file);
-                fileListLen = _this["fileList".concat(event.name)].length;
-                lists.map(function (item) {
-                  _this["fileList".concat(event.name)].push(_objectSpread(_objectSpread({}, item), {}, {
-                    status: 'uploading',
-                    message: '上传中'
-                  }));
-                });
-                i = 0;
-              case 4:
-                if (!(i < lists.length)) {
-                  _context.next = 14;
-                  break;
-                }
-                _context.next = 7;
-                return _this.uploadFilePromise(lists[i].url);
+                uni.showLoading();
+                _context.next = 3;
+                return _this.$http('/akela/dispatch', _this.akela);
+              case 3:
+                res = _context.sent;
+                uni.hideLoading();
+                uni.$u.toast('报销申请成功');
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
               case 7:
-                result = _context.sent;
-                item = _this["fileList".concat(event.name)][fileListLen];
-                _this["fileList".concat(event.name)].splice(fileListLen, 1, Object.assign(item, {
-                  status: 'success',
-                  message: '',
-                  url: result
-                }));
-                fileListLen++;
-              case 11:
-                i++;
-                _context.next = 4;
-                break;
-              case 14:
               case "end":
                 return _context.stop();
             }
@@ -249,10 +227,62 @@ var _default = {
         }, _callee);
       }))();
     },
+    // 删除图片
+    deletePic: function deletePic(event) {
+      this["fileList".concat(event.name)].splice(event.index, 1);
+    },
+    // 新增图片
+    afterRead: function afterRead(event) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var lists, fileListLen, i, result, item;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                // 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
+                lists = [].concat(event.file);
+                fileListLen = _this2["fileList".concat(event.name)].length;
+                lists.map(function (item) {
+                  _this2["fileList".concat(event.name)].push(_objectSpread(_objectSpread({}, item), {}, {
+                    status: 'uploading',
+                    message: '上传中'
+                  }));
+                });
+                i = 0;
+              case 4:
+                if (!(i < lists.length)) {
+                  _context2.next = 14;
+                  break;
+                }
+                _context2.next = 7;
+                return _this2.uploadFilePromise(lists[i].url);
+              case 7:
+                result = _context2.sent;
+                item = _this2["fileList".concat(event.name)][fileListLen];
+                _this2["fileList".concat(event.name)].splice(fileListLen, 1, Object.assign(item, {
+                  status: 'success',
+                  message: '',
+                  url: result
+                }));
+                fileListLen++;
+              case 11:
+                i++;
+                _context2.next = 4;
+                break;
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     uploadFilePromise: function uploadFilePromise(url) {
+      var _this3 = this;
       return new Promise(function (resolve, reject) {
         var a = uni.uploadFile({
-          url: 'http://192.168.2.21:7001/upload',
+          url: 'https://www.tbq11.com/api/upload',
           // 仅为示例，非真实的接口地址
           filePath: url,
           name: 'file',
@@ -262,6 +292,8 @@ var _default = {
           success: function success(res) {
             setTimeout(function () {
               resolve(res.data.data);
+              var image = JSON.parse(res.data).data.path;
+              _this3.akela.images = _this3.akela.images.concat(image);
             }, 1000);
           }
         });

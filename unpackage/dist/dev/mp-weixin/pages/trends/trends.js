@@ -101,19 +101,19 @@ var components
 try {
   components = {
     uSearch: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-search/u-search */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-search/u-search")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-search/u-search.vue */ 880))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-search/u-search */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-search/u-search")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-search/u-search.vue */ 888))
     },
     "u-Input": function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 912))
     },
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 871))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
     },
     uLine: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-line/u-line */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-line/u-line")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 910))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-line/u-line */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-line/u-line")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 918))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 896))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
     },
   }
 } catch (e) {
@@ -141,8 +141,8 @@ var render = function () {
     _vm.e0 = function (e) {
       return _vm.change(e)
     }
-    _vm.e1 = function ($event) {
-      _vm.isShow = true
+    _vm.e1 = function (e) {
+      return _vm.change(e)
     }
   }
 }
@@ -180,10 +180,81 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -300,80 +371,183 @@ var _default = {
         state: false
       }],
       userlist: [],
-      userlist1: [{
-        name: '一个阳光明媚的人',
-        huodong: '5篇活动动态',
-        text: '遗憾是常有的吧',
-        isshow: true,
-        img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg", "../../static/index/zheng.jpg"],
-        isimage: false,
-        num: 66
-      }, {
-        name: '卢本伟',
-        huodong: '5篇活动动态',
-        text: '下山的路太吵了，跟上山时一样。',
-        isshow: true,
-        img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg"],
-        isimage: true,
-        num: 66
-      }],
-      userlist2: [{
-        name: '世界上最爱我的人',
-        huodong: '10篇活动动态',
-        text: '遗憾是常有的吧',
-        isshow: true,
-        img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg", "../../static/index/zheng.jpg"],
-        isimage: true,
-        num: 66
-      }, {
-        name: '小李白',
-        huodong: '5篇活动动态',
-        text: '谁有不平事!',
-        isshow: true,
-        img: ["../../static/index/zheng.jpg", "../../static/index/zheng.jpg"],
-        isimage: true,
-        num: 68
-      }],
+      userlist1: [],
+      userlist2: [],
       obj: {
         height: '28rpx',
         backgroundColor: '#F4F5F7'
       },
-      isShow: false
+      isShow: false,
+      state: true,
+      //什么位置
+      comment: [],
+      //评论列表
+      recommendPage: 1,
+      //推荐页数
+      followPage: 1,
+      //关注页数
+      rebottom: false,
+      //推荐页是否触底
+      fobottom: false //关注页是否触底
     };
   },
-  onLoad: function onLoad() {
-    this.userlist = this.userlist1;
+  onLoad: function onLoad() {},
+  onShow: function onShow() {
+    //关注列表
+    this.getlist('关注');
+    // //推荐列表
+    this.getlistc('推荐');
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.state == false) {
+      if (this.rebottom == true) {
+        uni.$u.toast('已经到底了哦');
+        return false;
+      }
+      this.recommendPage += 1;
+      this.getlistc('推荐');
+      return false;
+    } else if (this.state == true) {
+      if (this.fobottom == true) {
+        uni.$u.toast('已经到底了哦');
+        return false;
+      }
+      this.followPage += 1;
+      this.getlist('关注');
+      return false;
+    }
   },
   methods: {
+    //获取关注列表
+    getlist: function getlist(e) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                uni.showLoading();
+                _context.next = 3;
+                return _this.$http('/circle/dynamic/list', {
+                  type: e,
+                  page: _this.followPage,
+                  limit: 10
+                });
+              case 3:
+                res = _context.sent;
+                _this.userlist1 = _this.userlist1.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this.fobottom = true;
+                }
+                uni.hideLoading();
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    //获取推荐列表
+    getlistc: function getlistc(e) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                uni.showLoading();
+                _context2.next = 3;
+                return _this2.$http('/circle/dynamic/list', {
+                  type: e,
+                  page: _this2.recommendPage,
+                  limit: 10
+                });
+              case 3:
+                res = _context2.sent;
+                _this2.userlist2 = _this2.userlist2.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this2.rebottom = true;
+                }
+                uni.hideLoading();
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     open: function open() {},
     close: function close() {
       this.isShow = false;
     },
-    chetbs: function chetbs(e) {
+    chetbs: function chetbs(e, index) {
+      if (e.state == true) {
+        return false;
+      }
       this.tablist.forEach(function (item, index) {
         item.state = false;
       });
+      this.fobottom = false;
+      this.rebottom = false;
       e.state = true;
-      if (e.name == '推荐') {
-        this.userlist = this.userlist2;
-      } else if (e.name == '关注') {
-        this.userlist = this.userlist1;
+      this.state = !this.state;
+      if (this.state == true) {
+        this.userlist1 = [];
+        this.getlist('关注');
       }
     },
     isClik: function isClik(v, index) {
-      this.userlist[index].isshow = !this.userlist[index].isshow;
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$http('/circle/user/attention', {
+                  to_uid: v.user_detail.uid
+                });
+              case 2:
+                res = _context3.sent;
+                _this3.userlist1.forEach(function (item, i) {
+                  if (item.user_detail.uid == v.user_detail.uid) {
+                    item.user_detail.is_attention = !item.user_detail.is_attention;
+                  }
+                });
+                _this3.userlist2.forEach(function (item, i) {
+                  if (item.user_detail.uid == v.user_detail.uid) {
+                    item.user_detail.is_attention = !item.user_detail.is_attention;
+                  }
+                });
+                if (res.data.data.status == true) {
+                  uni.$u.toast('关注成功');
+                } else if (res.data.data.status == false) {
+                  uni.$u.toast('已取消关注');
+                }
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     },
     change: function change(e) {
       // console.log(e)
     },
     clickImg: function clickImg(item, index) {
       uni.previewImage({
-        urls: item.img,
+        urls: item,
         current: index
       });
     },
-    goSpace: function goSpace() {
-      this.$jump('./Space');
+    goSpace: function goSpace(e) {
+      this.$jump('./Space?id=', 'params', e);
     },
     gomsg: function gomsg() {
       this.$jump('./message');
@@ -382,12 +556,124 @@ var _default = {
       this.$jump('./News/News');
     },
     addlove: function addlove(e, index) {
-      this.userlist[index].isimage = false;
-      this.userlist[index].num++;
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var res;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (_this4.state == true) {
+                  _this4.userlist1[index].is_like = true;
+                } else {
+                  _this4.userlist2[index].is_like = true;
+                }
+                e.like_number += 1;
+                _context4.next = 4;
+                return _this4.$http('/circle/dynamic/like', {
+                  dynamic_id: e.id
+                });
+              case 4:
+                res = _context4.sent;
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     },
     relove: function relove(e, index) {
-      this.userlist[index].isimage = true;
-      this.userlist[index].num--;
+      var _this5 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
+        var res;
+        return _regenerator.default.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (_this5.state == true) {
+                  _this5.userlist1[index].is_like = false;
+                } else {
+                  _this5.userlist2[index].is_like = false;
+                }
+                e.like_number -= 1;
+                _context5.next = 4;
+                return _this5.$http('/circle/dynamic/like', {
+                  dynamic_id: e.id
+                });
+              case 4:
+                res = _context5.sent;
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    addcomment: function addcomment(item) {
+      var _this6 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
+        var res;
+        return _regenerator.default.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                if (!(item.pinlun == null)) {
+                  _context6.next = 2;
+                  break;
+                }
+                return _context6.abrupt("return", false);
+              case 2:
+                _context6.next = 4;
+                return _this6.$http('/circle/dynamic/comment', {
+                  dynamic_id: item.id,
+                  content: item.pinlun
+                });
+              case 4:
+                res = _context6.sent;
+                if (item.comment_number == 0) {
+                  item.comment.nickname = _this6.$store.state.userinfo.nickname;
+                  item.comment.content = item.pinlun;
+                  item.comment_number = 1;
+                }
+                uni.$u.toast('评论成功');
+                item.pinlun = '';
+                console.log(item);
+              case 9:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    changeShow: function changeShow(item) {
+      var _this7 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7() {
+        var res;
+        return _regenerator.default.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                //打开评论区
+                uni.showLoading();
+                _context7.next = 3;
+                return _this7.$http('/circle/dynamic/comment/list', {
+                  dynamic_id: item.id
+                });
+              case 3:
+                res = _context7.sent;
+                uni.hideLoading();
+                _this7.isShow = true;
+                _this7.comment = res.data.data;
+              case 7:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
     }
   }
 };

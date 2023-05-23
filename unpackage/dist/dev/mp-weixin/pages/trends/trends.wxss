@@ -26,6 +26,7 @@
 /* 文章场景相关 */
 .trends.data-v-7f1a3d06 {
   width: 100%;
+  padding-bottom: 150rpx;
 }
 .headerimg.data-v-7f1a3d06 {
   margin-left: 40rpx;
@@ -94,6 +95,7 @@
   margin-top: 20rpx;
 }
 .ts_imglist .ts_js.data-v-7f1a3d06 {
+  margin: 10rpx 0;
   width: 33%;
   justify-content: center;
 }

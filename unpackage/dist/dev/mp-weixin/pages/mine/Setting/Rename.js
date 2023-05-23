@@ -155,7 +155,7 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 var Nav = function Nav() {
   __webpack_require__.e(/*! require.ensure | component/navgation/navgation */ "component/navgation/navgation").then((function () {
-    return resolve(__webpack_require__(/*! @/component/navgation/navgation.vue */ 973));
+    return resolve(__webpack_require__(/*! @/component/navgation/navgation.vue */ 981));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

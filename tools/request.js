@@ -29,6 +29,14 @@ export const myRequest = (url, datas, methods) => {
 							uni.navigateBack()
 						},500)
 					}
+					//支付宝未绑定
+					if(url == '/akela/withdraw'&& res.data.msg === '请选择已绑定的支付方式'){
+						setTimeout(()=>{
+							uni.navigateTo({
+								url:'/pages/mine/Setting/playRMB'
+							})
+						},1000)
+					}
 					return uni.showToast({
 						title: res.data.msg,
 						icon: 'none'
