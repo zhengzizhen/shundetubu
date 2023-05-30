@@ -59,6 +59,7 @@
 	.cc_user {
 		flex-wrap: wrap;
 		background-color: white;
+		text-align: center;
 		.cc_group {
 			width: 20%;
 			margin: 0rpx 0 20rpx;

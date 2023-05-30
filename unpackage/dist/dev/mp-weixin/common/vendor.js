@@ -95,7 +95,268 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1001:
+/***/ 1002:
+/*!****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-tabs/props.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 滑块的移动过渡时间，单位ms
+    duration: {
+      type: Number,
+      default: uni.$u.props.tabs.duration
+    },
+    // tabs标签数组
+    list: {
+      type: Array,
+      default: uni.$u.props.tabs.list
+    },
+    // 滑块颜色
+    lineColor: {
+      type: String,
+      default: uni.$u.props.tabs.lineColor
+    },
+    // 菜单选择中时的样式
+    activeStyle: {
+      type: [String, Object],
+      default: uni.$u.props.tabs.activeStyle
+    },
+    // 菜单非选中时的样式
+    inactiveStyle: {
+      type: [String, Object],
+      default: uni.$u.props.tabs.inactiveStyle
+    },
+    // 滑块长度
+    lineWidth: {
+      type: [String, Number],
+      default: uni.$u.props.tabs.lineWidth
+    },
+    // 滑块高度
+    lineHeight: {
+      type: [String, Number],
+      default: uni.$u.props.tabs.lineHeight
+    },
+    // 滑块背景显示大小，当滑块背景设置为图片时使用
+    lineBgSize: {
+      type: String,
+      default: uni.$u.props.tabs.lineBgSize
+    },
+    // 菜单item的样式
+    itemStyle: {
+      type: [String, Object],
+      default: uni.$u.props.tabs.itemStyle
+    },
+    // 菜单是否可滚动
+    scrollable: {
+      type: Boolean,
+      default: uni.$u.props.tabs.scrollable
+    },
+    // 当前选中标签的索引
+    current: {
+      type: [Number, String],
+      default: uni.$u.props.tabs.current
+    },
+    // 默认读取的键名
+    keyName: {
+      type: String,
+      default: uni.$u.props.tabs.keyName
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 101:
+/*!********************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/indexList.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:13:35
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/indexList.js
+ */
+var _default = {
+  // indexList 组件
+  indexList: {
+    inactiveColor: '#606266',
+    activeColor: '#5677fc',
+    indexList: function indexList() {
+      return [];
+    },
+    sticky: true,
+    customNavHeight: 0
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1017:
+/*!******************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-switch/props.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否为加载中状态
+    loading: {
+      type: Boolean,
+      default: uni.$u.props.switch.loading
+    },
+    // 是否为禁用装填
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.switch.disabled
+    },
+    // 开关尺寸，单位px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.switch.size
+    },
+    // 打开时的背景颜色
+    activeColor: {
+      type: String,
+      default: uni.$u.props.switch.activeColor
+    },
+    // 关闭时的背景颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.switch.inactiveColor
+    },
+    // 通过v-model双向绑定的值
+    value: {
+      type: [Boolean, String, Number],
+      default: uni.$u.props.switch.value
+    },
+    // switch打开时的值
+    activeValue: {
+      type: [String, Number, Boolean],
+      default: uni.$u.props.switch.activeValue
+    },
+    // switch关闭时的值
+    inactiveValue: {
+      type: [String, Number, Boolean],
+      default: uni.$u.props.switch.inactiveValue
+    },
+    // 是否开启异步变更，开启后需要手动控制输入值
+    asyncChange: {
+      type: Boolean,
+      default: uni.$u.props.switch.asyncChange
+    },
+    // 圆点与外边框的距离
+    space: {
+      type: [String, Number],
+      default: uni.$u.props.switch.space
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 102:
+/*!****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/input.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:13:55
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/input.js
+ */
+var _default = {
+  // index 组件
+  input: {
+    value: '',
+    type: 'text',
+    fixed: false,
+    disabled: false,
+    disabledColor: '#f5f7fa',
+    clearable: false,
+    password: false,
+    maxlength: -1,
+    placeholder: null,
+    placeholderClass: 'input-placeholder',
+    placeholderStyle: 'color: #c0c4cc',
+    showWordLimit: false,
+    confirmType: 'done',
+    confirmHold: false,
+    holdKeyboard: false,
+    focus: false,
+    autoBlur: false,
+    disableDefaultPadding: false,
+    cursor: -1,
+    cursorSpacing: 30,
+    selectionStart: -1,
+    selectionEnd: -1,
+    adjustPosition: true,
+    inputAlign: 'left',
+    fontSize: '15px',
+    color: '#303133',
+    prefixIcon: '',
+    prefixIconStyle: '',
+    suffixIcon: '',
+    suffixIconStyle: '',
+    border: 'surround',
+    readonly: false,
+    shape: 'square',
+    formatter: null
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1025:
 /*!***************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-datetime-picker/props.js ***!
   \***************************************************************************************/
@@ -230,7 +491,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1002:
+/***/ 1026:
 /*!********************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/util/dayjs.js ***!
   \********************************************************************/
@@ -543,10 +804,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = 
 
 /***/ }),
 
-/***/ 101:
-/*!********************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/indexList.js ***!
-  \********************************************************************************/
+/***/ 103:
+/*!*******************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/keyboard.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -563,26 +824,35 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:13:35
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/indexList.js
+ * @lastTime     : 2021-08-20 17:07:49
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/keyboard.js
  */
 var _default = {
-  // indexList 组件
-  indexList: {
-    inactiveColor: '#606266',
-    activeColor: '#5677fc',
-    indexList: function indexList() {
-      return [];
-    },
-    sticky: true,
-    customNavHeight: 0
+  // 键盘组件
+  keyboard: {
+    mode: 'number',
+    dotDisabled: false,
+    tooltip: true,
+    showTips: true,
+    tips: '',
+    showCancel: true,
+    showConfirm: true,
+    random: false,
+    safeAreaInsetBottom: true,
+    closeOnClickOverlay: true,
+    show: false,
+    overlay: true,
+    zIndex: 10075,
+    cancelText: '取消',
+    confirmText: '确定',
+    autoChange: false
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1010:
+/***/ 1034:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-upload/utils.js ***!
   \******************************************************************************/
@@ -727,7 +997,7 @@ function chooseFile(_ref) {
 
 /***/ }),
 
-/***/ 1011:
+/***/ 1035:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-upload/mixin.js ***!
   \******************************************************************************/
@@ -755,7 +1025,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1012:
+/***/ 1036:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-upload/props.js ***!
   \******************************************************************************/
@@ -898,10 +1168,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 102:
-/*!****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/input.js ***!
-  \****************************************************************************/
+/***/ 104:
+/*!***************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/line.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -918,53 +1188,25 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:13:55
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/input.js
+ * @lastTime     : 2021-08-20 17:04:49
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/line.js
  */
 var _default = {
-  // index 组件
-  input: {
-    value: '',
-    type: 'text',
-    fixed: false,
-    disabled: false,
-    disabledColor: '#f5f7fa',
-    clearable: false,
-    password: false,
-    maxlength: -1,
-    placeholder: null,
-    placeholderClass: 'input-placeholder',
-    placeholderStyle: 'color: #c0c4cc',
-    showWordLimit: false,
-    confirmType: 'done',
-    confirmHold: false,
-    holdKeyboard: false,
-    focus: false,
-    autoBlur: false,
-    disableDefaultPadding: false,
-    cursor: -1,
-    cursorSpacing: 30,
-    selectionStart: -1,
-    selectionEnd: -1,
-    adjustPosition: true,
-    inputAlign: 'left',
-    fontSize: '15px',
-    color: '#303133',
-    prefixIcon: '',
-    prefixIconStyle: '',
-    suffixIcon: '',
-    suffixIconStyle: '',
-    border: 'surround',
-    readonly: false,
-    shape: 'square',
-    formatter: null
+  // line组件
+  line: {
+    color: '#d6d7d9',
+    length: '100%',
+    direction: 'row',
+    hairline: true,
+    margin: 0,
+    dashed: false
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1020:
+/***/ 1044:
 /*!********************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-textarea/props.js ***!
   \********************************************************************************/
@@ -1097,7 +1339,44 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1026:
+/***/ 105:
+/*!***********************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/lineProgress.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:14:11
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/lineProgress.js
+ */
+var _default = {
+  // lineProgress 组件
+  lineProgress: {
+    activeColor: '#19be6b',
+    inactiveColor: '#ececec',
+    percentage: 0,
+    showText: true,
+    height: 12
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1050:
 /*!*****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-parse/props.js ***!
   \*****************************************************************************/
@@ -1158,7 +1437,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1027:
+/***/ 1051:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-parse/parser.js ***!
   \******************************************************************************/
@@ -2090,55 +2369,7 @@ module.exports = parser;
 
 /***/ }),
 
-/***/ 103:
-/*!*******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/keyboard.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:07:49
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/keyboard.js
- */
-var _default = {
-  // 键盘组件
-  keyboard: {
-    mode: 'number',
-    dotDisabled: false,
-    tooltip: true,
-    showTips: true,
-    tips: '',
-    showCancel: true,
-    showConfirm: true,
-    random: false,
-    safeAreaInsetBottom: true,
-    closeOnClickOverlay: true,
-    show: false,
-    overlay: true,
-    zIndex: 10075,
-    cancelText: '取消',
-    confirmText: '确定',
-    autoChange: false
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 1035:
+/***/ 1059:
 /*!****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-rate/props.js ***!
   \****************************************************************************/
@@ -2226,9 +2457,9 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 104:
+/***/ 106:
 /*!***************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/line.js ***!
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/link.js ***!
   \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2236,35 +2467,40 @@ exports.default = _default;
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 65));
 /*
  * @Author       : LQ
  * @Description  :
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:04:49
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/line.js
+ * @lastTime     : 2021-08-20 17:45:36
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/link.js
  */
+
+var color = _config.default.color;
 var _default = {
-  // line组件
-  line: {
-    color: '#d6d7d9',
-    length: '100%',
-    direction: 'row',
-    hairline: true,
-    margin: 0,
-    dashed: false
+  // link超链接组件props参数
+  link: {
+    color: color['u-primary'],
+    fontSize: 15,
+    underLine: false,
+    href: '',
+    mpTips: '链接已复制，请在浏览器打开',
+    lineColor: '',
+    text: ''
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1043:
+/***/ 1067:
 /*!*******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-overlay/props.js ***!
   \*******************************************************************************/
@@ -2307,10 +2543,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 105:
-/*!***********************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/lineProgress.js ***!
-  \***********************************************************************************/
+/***/ 107:
+/*!***************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/list.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2327,24 +2563,33 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:14:11
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/lineProgress.js
+ * @lastTime     : 2021-08-20 17:14:53
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/list.js
  */
 var _default = {
-  // lineProgress 组件
-  lineProgress: {
-    activeColor: '#19be6b',
-    inactiveColor: '#ececec',
-    percentage: 0,
-    showText: true,
-    height: 12
+  // list 组件
+  list: {
+    showScrollbar: false,
+    lowerThreshold: 50,
+    upperThreshold: 0,
+    scrollTop: 0,
+    offsetAccuracy: 10,
+    enableFlex: false,
+    pagingEnabled: false,
+    scrollable: true,
+    scrollIntoView: '',
+    scrollWithAnimation: false,
+    enableBackToTop: false,
+    height: 0,
+    width: 0,
+    preLoadScreen: 1
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1051:
+/***/ 1075:
 /*!***********************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-radio-group/props.js ***!
   \***********************************************************************************/
@@ -2447,7 +2692,40 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1059:
+/***/ 108:
+/*!*******************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/listItem.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:15:40
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/listItem.js
+ */
+var _default = {
+  // listItem 组件
+  listItem: {
+    anchor: ''
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1083:
 /*!*****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-radio/props.js ***!
   \*****************************************************************************/
@@ -2530,10 +2808,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 106:
-/*!***************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/link.js ***!
-  \***************************************************************************/
+/***/ 109:
+/*!**********************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/loadingIcon.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2552,28 +2830,32 @@ var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 65));
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:45:36
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/link.js
+ * @lastTime     : 2021-08-20 17:45:47
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/loadingIcon.js
  */
 
 var color = _config.default.color;
 var _default = {
-  // link超链接组件props参数
-  link: {
-    color: color['u-primary'],
-    fontSize: 15,
-    underLine: false,
-    href: '',
-    mpTips: '链接已复制，请在浏览器打开',
-    lineColor: '',
-    text: ''
+  // loading-icon加载中图标组件
+  loadingIcon: {
+    show: true,
+    color: color['u-tips-color'],
+    textColor: color['u-tips-color'],
+    vertical: false,
+    mode: 'spinner',
+    size: 24,
+    textSize: 15,
+    text: '',
+    timingFunction: 'ease-in-out',
+    duration: 1200,
+    inactiveColor: ''
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1067:
+/***/ 1091:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-picker/props.js ***!
   \******************************************************************************/
@@ -2676,53 +2958,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 107:
-/*!***************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/list.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:14:53
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/list.js
- */
-var _default = {
-  // list 组件
-  list: {
-    showScrollbar: false,
-    lowerThreshold: 50,
-    upperThreshold: 0,
-    scrollTop: 0,
-    offsetAccuracy: 10,
-    enableFlex: false,
-    pagingEnabled: false,
-    scrollable: true,
-    scrollIntoView: '',
-    scrollWithAnimation: false,
-    enableBackToTop: false,
-    height: 0,
-    width: 0,
-    preLoadScreen: 1
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 1075:
+/***/ 1099:
 /*!**********************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-notice-bar/props.js ***!
   \**********************************************************************************/
@@ -2811,10 +3047,36 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 108:
-/*!*******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/listItem.js ***!
-  \*******************************************************************************/
+/***/ 11:
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 12);
+function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 110:
+/*!**********************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/loadingPage.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2831,20 +3093,27 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:15:40
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/listItem.js
+ * @lastTime     : 2021-08-20 17:00:23
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/loadingPage.js
  */
 var _default = {
-  // listItem 组件
-  listItem: {
-    anchor: ''
+  // loading-page组件
+  loadingPage: {
+    loadingText: '正在加载',
+    image: '',
+    loadingMode: 'circle',
+    loading: false,
+    bgColor: '#ffffff',
+    color: '#C8C8C8',
+    fontSize: 19,
+    loadingColor: '#C8C8C8'
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1083:
+/***/ 1107:
 /*!*****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-modal/props.js ***!
   \*****************************************************************************/
@@ -2947,54 +3216,54 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 109:
-/*!**********************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/loadingIcon.js ***!
-  \**********************************************************************************/
+/***/ 111:
+/*!*******************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/loadmore.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 65));
 /*
  * @Author       : LQ
  * @Description  :
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:45:47
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/loadingIcon.js
+ * @lastTime     : 2021-08-20 17:15:26
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/loadmore.js
  */
-
-var color = _config.default.color;
 var _default = {
-  // loading-icon加载中图标组件
-  loadingIcon: {
-    show: true,
-    color: color['u-tips-color'],
-    textColor: color['u-tips-color'],
-    vertical: false,
-    mode: 'spinner',
-    size: 24,
-    textSize: 15,
-    text: '',
-    timingFunction: 'ease-in-out',
-    duration: 1200,
-    inactiveColor: ''
+  // loadmore 组件
+  loadmore: {
+    status: 'loadmore',
+    bgColor: 'transparent',
+    icon: true,
+    fontSize: 14,
+    color: '#606266',
+    loadingIcon: 'spinner',
+    loadmoreText: '加载更多',
+    loadingText: '正在加载...',
+    nomoreText: '没有更多了',
+    isDot: false,
+    iconColor: '#b7b7b7',
+    marginTop: 10,
+    marginBottom: 10,
+    height: 'auto',
+    line: false
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1091:
+/***/ 1115:
 /*!************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-loading-icon/props.js ***!
   \************************************************************************************/
@@ -3072,7 +3341,55 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1099:
+/***/ 112:
+/*!****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/modal.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:15:59
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/modal.js
+ */
+var _default = {
+  // modal 组件
+  modal: {
+    show: false,
+    title: '',
+    content: '',
+    confirmText: '确认',
+    cancelText: '取消',
+    showConfirmButton: true,
+    showCancelButton: false,
+    confirmColor: '#2979ff',
+    cancelColor: '#606266',
+    buttonReverse: false,
+    zoom: true,
+    asyncClose: false,
+    closeOnClickOverlay: false,
+    negativeTop: 0,
+    width: '650rpx',
+    confirmButtonShape: ''
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1123:
 /*!****************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-swiper-indicator/props.js ***!
   \****************************************************************************************/
@@ -3120,73 +3437,57 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 11:
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 12);
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 110:
-/*!**********************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/loadingPage.js ***!
-  \**********************************************************************************/
+/***/ 113:
+/*!*****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/navbar.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 114));
 /*
  * @Author       : LQ
  * @Description  :
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:00:23
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/loadingPage.js
+ * @lastTime     : 2021-08-20 17:16:18
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/navbar.js
  */
 var _default = {
-  // loading-page组件
-  loadingPage: {
-    loadingText: '正在加载',
-    image: '',
-    loadingMode: 'circle',
-    loading: false,
+  // navbar 组件
+  navbar: {
+    safeAreaInsetTop: true,
+    placeholder: false,
+    fixed: true,
+    border: false,
+    leftIcon: 'arrow-left',
+    leftText: '',
+    rightText: '',
+    rightIcon: '',
+    title: '',
     bgColor: '#ffffff',
-    color: '#C8C8C8',
-    fontSize: 19,
-    loadingColor: '#C8C8C8'
+    titleWidth: '400rpx',
+    height: '44px',
+    leftIconSize: 20,
+    leftIconColor: _color.default.mainColor,
+    autoBack: false,
+    titleStyle: ''
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1107:
+/***/ 1131:
 /*!**********************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-transition/props.js ***!
   \**********************************************************************************/
@@ -3229,7 +3530,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1108:
+/***/ 1132:
 /*!***************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-transition/transition.js ***!
   \***************************************************************************************/
@@ -3246,7 +3547,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 1109));
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 1133));
 // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {
   return new Promise(function (resolve) {
@@ -3339,7 +3640,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1109:
+/***/ 1133:
 /*!*****************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \*****************************************************************************************/
@@ -3533,199 +3834,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 111:
-/*!*******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/loadmore.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:15:26
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/loadmore.js
- */
-var _default = {
-  // loadmore 组件
-  loadmore: {
-    status: 'loadmore',
-    bgColor: 'transparent',
-    icon: true,
-    fontSize: 14,
-    color: '#606266',
-    loadingIcon: 'spinner',
-    loadmoreText: '加载更多',
-    loadingText: '正在加载...',
-    nomoreText: '没有更多了',
-    isDot: false,
-    iconColor: '#b7b7b7',
-    marginTop: 10,
-    marginBottom: 10,
-    height: 'auto',
-    line: false
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 1117:
-/*!**********************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-status-bar/props.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    bgColor: {
-      type: String,
-      default: uni.$u.props.statusBar.bgColor
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 112:
-/*!****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/modal.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:15:59
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/modal.js
- */
-var _default = {
-  // modal 组件
-  modal: {
-    show: false,
-    title: '',
-    content: '',
-    confirmText: '确认',
-    cancelText: '取消',
-    showConfirmButton: true,
-    showCancelButton: false,
-    confirmColor: '#2979ff',
-    cancelColor: '#606266',
-    buttonReverse: false,
-    zoom: true,
-    asyncClose: false,
-    closeOnClickOverlay: false,
-    negativeTop: 0,
-    width: '650rpx',
-    confirmButtonShape: ''
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 1125:
-/*!***********************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-safe-bottom/props.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {}
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 113:
-/*!*****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/navbar.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 114));
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:16:18
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/navbar.js
- */
-var _default = {
-  // navbar 组件
-  navbar: {
-    safeAreaInsetTop: true,
-    placeholder: false,
-    fixed: true,
-    border: false,
-    leftIcon: 'arrow-left',
-    leftText: '',
-    rightText: '',
-    rightIcon: '',
-    title: '',
-    bgColor: '#ffffff',
-    titleWidth: '400rpx',
-    height: '44px',
-    leftIconSize: 20,
-    leftIconColor: _color.default.mainColor,
-    autoBack: false,
-    titleStyle: ''
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
 /***/ 114:
 /*!**********************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/color.js ***!
@@ -3760,10 +3868,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1147:
-/*!*****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-badge/props.js ***!
-  \*****************************************************************************/
+/***/ 1141:
+/*!**********************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-status-bar/props.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3776,78 +3884,35 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   props: {
-    // 是否显示圆点
-    isDot: {
-      type: Boolean,
-      default: uni.$u.props.badge.isDot
-    },
-    // 显示的内容
-    value: {
-      type: [Number, String],
-      default: uni.$u.props.badge.value
-    },
-    // 是否显示
-    show: {
-      type: Boolean,
-      default: uni.$u.props.badge.show
-    },
-    // 最大值，超过最大值会显示 '{max}+'
-    max: {
-      type: [Number, String],
-      default: uni.$u.props.badge.max
-    },
-    // 主题类型，error|warning|success|primary
-    type: {
-      type: String,
-      default: uni.$u.props.badge.type
-    },
-    // 当数值为 0 时，是否展示 Badge
-    showZero: {
-      type: Boolean,
-      default: uni.$u.props.badge.showZero
-    },
-    // 背景颜色，优先级比type高，如设置，type参数会失效
     bgColor: {
-      type: [String, null],
-      default: uni.$u.props.badge.bgColor
-    },
-    // 字体颜色
-    color: {
-      type: [String, null],
-      default: uni.$u.props.badge.color
-    },
-    // 徽标形状，circle-四角均为圆角，horn-左下角为直角
-    shape: {
       type: String,
-      default: uni.$u.props.badge.shape
-    },
-    // 设置数字的显示方式，overflow|ellipsis|limit
-    // overflow会根据max字段判断，超出显示`${max}+`
-    // ellipsis会根据max判断，超出显示`${max}...`
-    // limit会依据1000作为判断条件，超出1000，显示`${value/1000}K`，比如2.2k、3.34w，最多保留2位小数
-    numberType: {
-      type: String,
-      default: uni.$u.props.badge.numberType
-    },
-    // 设置badge的位置偏移，格式为 [x, y]，也即设置的为top和right的值，absolute为true时有效
-    offset: {
-      type: Array,
-      default: uni.$u.props.badge.offset
-    },
-    // 是否反转背景和字体颜色
-    inverted: {
-      type: Boolean,
-      default: uni.$u.props.badge.inverted
-    },
-    // 是否绝对定位
-    absolute: {
-      type: Boolean,
-      default: uni.$u.props.badge.absolute
+      default: uni.$u.props.statusBar.bgColor
     }
   }
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 1149:
+/*!***********************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-safe-bottom/props.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {}
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -3974,6 +4039,185 @@ exports.default = _default;
 /***/ }),
 
 /***/ 1171:
+/*!*****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-badge/props.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否显示圆点
+    isDot: {
+      type: Boolean,
+      default: uni.$u.props.badge.isDot
+    },
+    // 显示的内容
+    value: {
+      type: [Number, String],
+      default: uni.$u.props.badge.value
+    },
+    // 是否显示
+    show: {
+      type: Boolean,
+      default: uni.$u.props.badge.show
+    },
+    // 最大值，超过最大值会显示 '{max}+'
+    max: {
+      type: [Number, String],
+      default: uni.$u.props.badge.max
+    },
+    // 主题类型，error|warning|success|primary
+    type: {
+      type: String,
+      default: uni.$u.props.badge.type
+    },
+    // 当数值为 0 时，是否展示 Badge
+    showZero: {
+      type: Boolean,
+      default: uni.$u.props.badge.showZero
+    },
+    // 背景颜色，优先级比type高，如设置，type参数会失效
+    bgColor: {
+      type: [String, null],
+      default: uni.$u.props.badge.bgColor
+    },
+    // 字体颜色
+    color: {
+      type: [String, null],
+      default: uni.$u.props.badge.color
+    },
+    // 徽标形状，circle-四角均为圆角，horn-左下角为直角
+    shape: {
+      type: String,
+      default: uni.$u.props.badge.shape
+    },
+    // 设置数字的显示方式，overflow|ellipsis|limit
+    // overflow会根据max字段判断，超出显示`${max}+`
+    // ellipsis会根据max判断，超出显示`${max}...`
+    // limit会依据1000作为判断条件，超出1000，显示`${value/1000}K`，比如2.2k、3.34w，最多保留2位小数
+    numberType: {
+      type: String,
+      default: uni.$u.props.badge.numberType
+    },
+    // 设置badge的位置偏移，格式为 [x, y]，也即设置的为top和right的值，absolute为true时有效
+    offset: {
+      type: Array,
+      default: uni.$u.props.badge.offset
+    },
+    // 是否反转背景和字体颜色
+    inverted: {
+      type: Boolean,
+      default: uni.$u.props.badge.inverted
+    },
+    // 是否绝对定位
+    absolute: {
+      type: Boolean,
+      default: uni.$u.props.badge.absolute
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 118:
+/*!********************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/numberBox.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:11:46
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/numberBox.js
+ */
+var _default = {
+  // 步进器组件
+  numberBox: {
+    name: '',
+    value: 0,
+    min: 1,
+    max: Number.MAX_SAFE_INTEGER,
+    step: 1,
+    integer: false,
+    disabled: false,
+    disabledInput: false,
+    asyncChange: false,
+    inputWidth: 35,
+    showMinus: true,
+    showPlus: true,
+    decimalLength: null,
+    longPress: true,
+    color: '#323233',
+    buttonSize: 30,
+    bgColor: '#EBECEE',
+    cursorSpacing: 100,
+    disableMinus: false,
+    disablePlus: false,
+    iconStyle: ''
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 119:
+/*!*************************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:08:05
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/numberKeyboard.js
+ */
+var _default = {
+  // 数字键盘
+  numberKeyboard: {
+    mode: 'number',
+    dotDisabled: false,
+    random: false
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1195:
 /*!*******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-toolbar/props.js ***!
   \*******************************************************************************/
@@ -4026,7 +4270,60 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1179:
+/***/ 12:
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
+var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ 14);
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 120:
+/*!******************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/overlay.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:06:50
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/overlay.js
+ */
+var _default = {
+  // overlay组件
+  overlay: {
+    show: false,
+    zIndex: 10070,
+    duration: 300,
+    opacity: 0.5
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 1203:
 /*!*************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-column-notice/props.js ***!
   \*************************************************************************************/
@@ -4100,10 +4397,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 118:
-/*!********************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/numberBox.js ***!
-  \********************************************************************************/
+/***/ 121:
+/*!****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/parse.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4120,40 +4417,27 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:11:46
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/numberBox.js
+ * @lastTime     : 2021-08-20 17:17:33
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/parse.js
  */
 var _default = {
-  // 步进器组件
-  numberBox: {
-    name: '',
-    value: 0,
-    min: 1,
-    max: Number.MAX_SAFE_INTEGER,
-    step: 1,
-    integer: false,
-    disabled: false,
-    disabledInput: false,
-    asyncChange: false,
-    inputWidth: 35,
-    showMinus: true,
-    showPlus: true,
-    decimalLength: null,
-    longPress: true,
-    color: '#323233',
-    buttonSize: 30,
-    bgColor: '#EBECEE',
-    cursorSpacing: 100,
-    disableMinus: false,
-    disablePlus: false,
-    iconStyle: ''
+  // parse
+  parse: {
+    copyLink: true,
+    errorImg: '',
+    lazyLoad: false,
+    loadingImg: '',
+    pauseVideo: true,
+    previewImg: true,
+    setTitle: true,
+    showImgMenu: true
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 1187:
+/***/ 1211:
 /*!**********************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-row-notice/props.js ***!
   \**********************************************************************************/
@@ -4208,134 +4492,6 @@ var _default = {
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 119:
-/*!*************************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:08:05
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/numberKeyboard.js
- */
-var _default = {
-  // 数字键盘
-  numberKeyboard: {
-    mode: 'number',
-    dotDisabled: false,
-    random: false
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 12:
-/*!**************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
-var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ 14);
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
-}
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 120:
-/*!******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/overlay.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:06:50
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/overlay.js
- */
-var _default = {
-  // overlay组件
-  overlay: {
-    show: false,
-    zIndex: 10070,
-    duration: 300,
-    opacity: 0.5
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 121:
-/*!****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/parse.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:17:33
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/parse.js
- */
-var _default = {
-  // parse
-  parse: {
-    copyLink: true,
-    errorImg: '',
-    lazyLoad: false,
-    loadingImg: '',
-    pauseVideo: true,
-    previewImg: true,
-    setTitle: true,
-    showImgMenu: true
-  }
-};
-exports.default = _default;
 
 /***/ }),
 
@@ -6054,11 +6210,13 @@ var BASE_URL = 'https://www.tbq11.com/api';
 var myRequest = function myRequest(url, datas, methods) {
   return new Promise(function (resolve, reject) {
     var token = uni.getStorageSync('token');
+    var cityid = uni.getStorageSync('cityid');
     uni.request({
       url: BASE_URL + url,
       header: {
         'content-type': 'application/x-www-form-urlencoded',
         // 'Content-Type': 'multipart/form-data',
+        'cityid': cityid,
         'token': token
       },
       method: methods || 'POST',
@@ -9096,7 +9254,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -16119,7 +16277,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -16140,14 +16298,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -16243,7 +16401,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"顺德徒步","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -23637,7 +23795,124 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 884:
+/***/ 89:
+/*!******************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/countTo.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 16:57:32
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/countTo.js
+ */
+var _default = {
+  // countTo 组件
+  countTo: {
+    startVal: 0,
+    endVal: 0,
+    duration: 2000,
+    autoplay: true,
+    decimals: 0,
+    useEasing: true,
+    decimal: '.',
+    color: '#606266',
+    fontSize: 22,
+    bold: false,
+    separator: ''
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 9:
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 90:
+/*!*************************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/datetimePicker.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 16:57:48
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/datetimePicker.js
+ */
+var _default = {
+  // datetimePicker 组件
+  datetimePicker: {
+    show: false,
+    showToolbar: true,
+    value: '',
+    title: '',
+    mode: 'datetime',
+    maxDate: new Date(new Date().getFullYear() + 10, 0, 1).getTime(),
+    minDate: new Date(new Date().getFullYear() - 10, 0, 1).getTime(),
+    minHour: 0,
+    maxHour: 23,
+    minMinute: 0,
+    maxMinute: 59,
+    filter: null,
+    formatter: null,
+    loading: false,
+    itemHeight: 44,
+    cancelText: '取消',
+    confirmText: '确认',
+    cancelColor: '#909193',
+    confirmColor: '#3c9cff',
+    visibleItemCount: 5,
+    closeOnClickOverlay: false,
+    defaultIndex: function defaultIndex() {
+      return [];
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 908:
 /*!****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-icon/icons.js ***!
   \****************************************************************************/
@@ -23869,7 +24144,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 885:
+/***/ 909:
 /*!****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-icon/props.js ***!
   \****************************************************************************/
@@ -23977,9 +24252,9 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 89:
+/***/ 91:
 /*!******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/countTo.js ***!
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/divider.js ***!
   \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -23997,30 +24272,27 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 16:57:32
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/countTo.js
+ * @lastTime     : 2021-08-20 16:58:03
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/divider.js
  */
 var _default = {
-  // countTo 组件
-  countTo: {
-    startVal: 0,
-    endVal: 0,
-    duration: 2000,
-    autoplay: true,
-    decimals: 0,
-    useEasing: true,
-    decimal: '.',
-    color: '#606266',
-    fontSize: 22,
-    bold: false,
-    separator: ''
+  // divider组件
+  divider: {
+    dashed: false,
+    hairline: true,
+    dot: false,
+    textPosition: 'center',
+    text: '',
+    textSize: 14,
+    textColor: '#909399',
+    lineColor: '#dcdfe6'
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 893:
+/***/ 917:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-search/props.js ***!
   \******************************************************************************/
@@ -24157,28 +24429,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 9:
-/*!*****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-  return arr2;
-}
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 90:
-/*!*************************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/datetimePicker.js ***!
-  \*************************************************************************************/
+/***/ 92:
+/*!****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/empty.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24195,43 +24449,30 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 16:57:48
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/datetimePicker.js
+ * @lastTime     : 2021-08-20 17:03:27
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/empty.js
  */
 var _default = {
-  // datetimePicker 组件
-  datetimePicker: {
-    show: false,
-    showToolbar: true,
-    value: '',
-    title: '',
-    mode: 'datetime',
-    maxDate: new Date(new Date().getFullYear() + 10, 0, 1).getTime(),
-    minDate: new Date(new Date().getFullYear() - 10, 0, 1).getTime(),
-    minHour: 0,
-    maxHour: 23,
-    minMinute: 0,
-    maxMinute: 59,
-    filter: null,
-    formatter: null,
-    loading: false,
-    itemHeight: 44,
-    cancelText: '取消',
-    confirmText: '确认',
-    cancelColor: '#909193',
-    confirmColor: '#3c9cff',
-    visibleItemCount: 5,
-    closeOnClickOverlay: false,
-    defaultIndex: function defaultIndex() {
-      return [];
-    }
+  // empty组件
+  empty: {
+    icon: '',
+    text: '',
+    textColor: '#c0c4cc',
+    textSize: 14,
+    iconColor: '#c0c4cc',
+    iconSize: 90,
+    mode: 'data',
+    width: 160,
+    height: 160,
+    show: true,
+    marginTop: 0
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 901:
+/***/ 925:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-swiper/props.js ***!
   \******************************************************************************/
@@ -24375,7 +24616,53 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 909:
+/***/ 93:
+/*!***************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/form.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:03:49
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/form.js
+ */
+var _default = {
+  // form 组件
+  form: {
+    model: function model() {
+      return {};
+    },
+    rules: function rules() {
+      return {};
+    },
+    errorType: 'message',
+    borderBottom: true,
+    labelPosition: 'left',
+    labelWidth: 45,
+    labelAlign: 'left',
+    labelStyle: function labelStyle() {
+      return {};
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 933:
 /*!*****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-popup/props.js ***!
   \*****************************************************************************/
@@ -24473,10 +24760,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 91:
-/*!******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/divider.js ***!
-  \******************************************************************************/
+/***/ 94:
+/*!*******************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/formItem.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24493,27 +24780,27 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 16:58:03
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/divider.js
+ * @lastTime     : 2021-08-20 17:04:32
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/formItem.js
  */
 var _default = {
-  // divider组件
-  divider: {
-    dashed: false,
-    hairline: true,
-    dot: false,
-    textPosition: 'center',
-    text: '',
-    textSize: 14,
-    textColor: '#909399',
-    lineColor: '#dcdfe6'
+  // formItem 组件
+  formItem: {
+    label: '',
+    prop: '',
+    borderBottom: '',
+    labelWidth: '',
+    rightIcon: '',
+    leftIcon: '',
+    required: false,
+    leftIconStyle: ''
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 917:
+/***/ 941:
 /*!*****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-input/props.js ***!
   \*****************************************************************************/
@@ -24714,50 +25001,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 92:
-/*!****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/empty.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:03:27
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/empty.js
- */
-var _default = {
-  // empty组件
-  empty: {
-    icon: '',
-    text: '',
-    textColor: '#c0c4cc',
-    textSize: 14,
-    iconColor: '#c0c4cc',
-    iconSize: 90,
-    mode: 'data',
-    width: 160,
-    height: 160,
-    show: true,
-    marginTop: 0
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 923:
+/***/ 947:
 /*!****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-line/props.js ***!
   \****************************************************************************/
@@ -24809,10 +25053,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 93:
-/*!***************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/form.js ***!
-  \***************************************************************************/
+/***/ 95:
+/*!**************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/gap.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24829,33 +25073,24 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:03:49
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/form.js
+ * @lastTime     : 2021-08-20 17:05:25
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/gap.js
  */
 var _default = {
-  // form 组件
-  form: {
-    model: function model() {
-      return {};
-    },
-    rules: function rules() {
-      return {};
-    },
-    errorType: 'message',
-    borderBottom: true,
-    labelPosition: 'left',
-    labelWidth: 45,
-    labelAlign: 'left',
-    labelStyle: function labelStyle() {
-      return {};
-    }
+  // gap组件
+  gap: {
+    bgColor: 'transparent',
+    height: 20,
+    marginTop: 0,
+    marginBottom: 0,
+    customStyle: {}
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 931:
+/***/ 955:
 /*!*************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-line-progress/props.js ***!
   \*************************************************************************************/
@@ -24902,7 +25137,42 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 939:
+/***/ 96:
+/*!***************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/grid.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:05:57
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/grid.js
+ */
+var _default = {
+  // grid组件
+  grid: {
+    col: 3,
+    border: false,
+    align: 'left'
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 963:
 /*!**********************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-subsection/props.js ***!
   \**********************************************************************************/
@@ -24970,9 +25240,9 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 94:
+/***/ 97:
 /*!*******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/formItem.js ***!
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/gridItem.js ***!
   \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -24990,27 +25260,21 @@ exports.default = void 0;
  * @version      : 1.0
  * @Date         : 2021-08-20 16:44:21
  * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:04:32
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/formItem.js
+ * @lastTime     : 2021-08-20 17:06:13
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/gridItem.js
  */
 var _default = {
-  // formItem 组件
-  formItem: {
-    label: '',
-    prop: '',
-    borderBottom: '',
-    labelWidth: '',
-    rightIcon: '',
-    leftIcon: '',
-    required: false,
-    leftIconStyle: ''
+  // grid-item组件
+  gridItem: {
+    name: null,
+    bgColor: 'transparent'
   }
 };
 exports.default = _default;
 
 /***/ }),
 
-/***/ 947:
+/***/ 971:
 /*!****************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-code/props.js ***!
   \****************************************************************************/
@@ -25063,44 +25327,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 95:
-/*!**************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/gap.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:05:25
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/gap.js
- */
-var _default = {
-  // gap组件
-  gap: {
-    bgColor: 'transparent',
-    height: 20,
-    marginTop: 0,
-    marginBottom: 0,
-    customStyle: {}
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 955:
+/***/ 979:
 /*!**********************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/mixin/button.js ***!
   \**********************************************************************/
@@ -25131,7 +25358,60 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 956:
+/***/ 98:
+/*!***************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/icon.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 65));
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 18:00:14
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/icon.js
+ */
+
+var color = _config.default.color;
+var _default = {
+  // icon组件
+  icon: {
+    name: '',
+    color: color['u-content-color'],
+    size: '16px',
+    bold: false,
+    index: '',
+    hoverClass: '',
+    customPrefix: 'uicon',
+    label: '',
+    labelPos: 'right',
+    labelSize: '15px',
+    labelColor: color['u-content-color'],
+    space: '3px',
+    imgMode: '',
+    width: '',
+    height: '',
+    top: 0,
+    stop: false
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 980:
 /*!************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/mixin/openType.js ***!
   \************************************************************************/
@@ -25174,7 +25454,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 957:
+/***/ 981:
 /*!******************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-button/props.js ***!
   \******************************************************************************/
@@ -25354,42 +25634,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 96:
-/*!***************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/grid.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:05:57
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/grid.js
- */
-var _default = {
-  // grid组件
-  grid: {
-    col: 3,
-    border: false,
-    align: 'left'
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 965:
+/***/ 989:
 /*!************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/uni_modules/uni-calendar/components/uni-calendar/util.js ***!
   \************************************************************************************/
@@ -25407,7 +25652,7 @@ exports.default = void 0;
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 966));
+var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 990));
 var Calendar = /*#__PURE__*/function () {
   function Calendar() {
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -25805,7 +26050,55 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 966:
+/***/ 99:
+/*!****************************************************************************!*\
+  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/image.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-20 16:44:21
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-20 17:01:51
+ * @FilePath     : /u-view2.0/uview-ui/libs/config/props/image.js
+ */
+var _default = {
+  // image组件
+  image: {
+    src: '',
+    mode: 'aspectFill',
+    width: '300',
+    height: '225',
+    shape: 'square',
+    radius: 0,
+    lazyLoad: true,
+    showMenuByLongpress: true,
+    loadingIcon: 'photo',
+    errorIcon: 'error-circle',
+    showLoading: true,
+    showError: true,
+    fade: true,
+    webp: false,
+    duration: 500,
+    bgColor: '#f3f4f6'
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 990:
 /*!****************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/uni_modules/uni-calendar/components/uni-calendar/calendar.js ***!
   \****************************************************************************************/
@@ -26323,7 +26616,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 967:
+/***/ 991:
 /*!******************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/uni_modules/uni-calendar/components/uni-calendar/i18n/index.js ***!
   \******************************************************************************************/
@@ -26338,9 +26631,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 968));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 969));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 970));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 992));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 993));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 994));
 var _default = {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -26350,7 +26643,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 968:
+/***/ 992:
 /*!*****************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/uni_modules/uni-calendar/components/uni-calendar/i18n/en.json ***!
   \*****************************************************************************************/
@@ -26361,7 +26654,7 @@ module.exports = JSON.parse("{\"uni-calender.ok\":\"ok\",\"uni-calender.cancel\"
 
 /***/ }),
 
-/***/ 969:
+/***/ 993:
 /*!**********************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/uni_modules/uni-calendar/components/uni-calendar/i18n/zh-Hans.json ***!
   \**********************************************************************************************/
@@ -26372,41 +26665,7 @@ module.exports = JSON.parse("{\"uni-calender.ok\":\"确定\",\"uni-calender.canc
 
 /***/ }),
 
-/***/ 97:
-/*!*******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/gridItem.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:06:13
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/gridItem.js
- */
-var _default = {
-  // grid-item组件
-  gridItem: {
-    name: null,
-    bgColor: 'transparent'
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 970:
+/***/ 994:
 /*!**********************************************************************************************!*\
   !*** D:/郑州/顺德/shundetubu/uni_modules/uni-calendar/components/uni-calendar/i18n/zh-Hant.json ***!
   \**********************************************************************************************/
@@ -26414,263 +26673,6 @@ exports.default = _default;
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"uni-calender.ok\":\"確定\",\"uni-calender.cancel\":\"取消\",\"uni-calender.today\":\"今日\",\"uni-calender.SUN\":\"日\",\"uni-calender.MON\":\"一\",\"uni-calender.TUE\":\"二\",\"uni-calender.WED\":\"三\",\"uni-calender.THU\":\"四\",\"uni-calender.FRI\":\"五\",\"uni-calender.SAT\":\"六\"}");
-
-/***/ }),
-
-/***/ 978:
-/*!****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-tabs/props.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 滑块的移动过渡时间，单位ms
-    duration: {
-      type: Number,
-      default: uni.$u.props.tabs.duration
-    },
-    // tabs标签数组
-    list: {
-      type: Array,
-      default: uni.$u.props.tabs.list
-    },
-    // 滑块颜色
-    lineColor: {
-      type: String,
-      default: uni.$u.props.tabs.lineColor
-    },
-    // 菜单选择中时的样式
-    activeStyle: {
-      type: [String, Object],
-      default: uni.$u.props.tabs.activeStyle
-    },
-    // 菜单非选中时的样式
-    inactiveStyle: {
-      type: [String, Object],
-      default: uni.$u.props.tabs.inactiveStyle
-    },
-    // 滑块长度
-    lineWidth: {
-      type: [String, Number],
-      default: uni.$u.props.tabs.lineWidth
-    },
-    // 滑块高度
-    lineHeight: {
-      type: [String, Number],
-      default: uni.$u.props.tabs.lineHeight
-    },
-    // 滑块背景显示大小，当滑块背景设置为图片时使用
-    lineBgSize: {
-      type: String,
-      default: uni.$u.props.tabs.lineBgSize
-    },
-    // 菜单item的样式
-    itemStyle: {
-      type: [String, Object],
-      default: uni.$u.props.tabs.itemStyle
-    },
-    // 菜单是否可滚动
-    scrollable: {
-      type: Boolean,
-      default: uni.$u.props.tabs.scrollable
-    },
-    // 当前选中标签的索引
-    current: {
-      type: [Number, String],
-      default: uni.$u.props.tabs.current
-    },
-    // 默认读取的键名
-    keyName: {
-      type: String,
-      default: uni.$u.props.tabs.keyName
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 98:
-/*!***************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/icon.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 65));
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 18:00:14
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/icon.js
- */
-
-var color = _config.default.color;
-var _default = {
-  // icon组件
-  icon: {
-    name: '',
-    color: color['u-content-color'],
-    size: '16px',
-    bold: false,
-    index: '',
-    hoverClass: '',
-    customPrefix: 'uicon',
-    label: '',
-    labelPos: 'right',
-    labelSize: '15px',
-    labelColor: color['u-content-color'],
-    space: '3px',
-    imgMode: '',
-    width: '',
-    height: '',
-    top: 0,
-    stop: false
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 99:
-/*!****************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/libs/config/props/image.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-20 16:44:21
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-20 17:01:51
- * @FilePath     : /u-view2.0/uview-ui/libs/config/props/image.js
- */
-var _default = {
-  // image组件
-  image: {
-    src: '',
-    mode: 'aspectFill',
-    width: '300',
-    height: '225',
-    shape: 'square',
-    radius: 0,
-    lazyLoad: true,
-    showMenuByLongpress: true,
-    loadingIcon: 'photo',
-    errorIcon: 'error-circle',
-    showLoading: true,
-    showError: true,
-    fade: true,
-    webp: false,
-    duration: 500,
-    bgColor: '#f3f4f6'
-  }
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 993:
-/*!******************************************************************************!*\
-  !*** D:/郑州/顺德/shundetubu/node_modules/uview-ui/components/u-switch/props.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否为加载中状态
-    loading: {
-      type: Boolean,
-      default: uni.$u.props.switch.loading
-    },
-    // 是否为禁用装填
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.switch.disabled
-    },
-    // 开关尺寸，单位px
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.switch.size
-    },
-    // 打开时的背景颜色
-    activeColor: {
-      type: String,
-      default: uni.$u.props.switch.activeColor
-    },
-    // 关闭时的背景颜色
-    inactiveColor: {
-      type: String,
-      default: uni.$u.props.switch.inactiveColor
-    },
-    // 通过v-model双向绑定的值
-    value: {
-      type: [Boolean, String, Number],
-      default: uni.$u.props.switch.value
-    },
-    // switch打开时的值
-    activeValue: {
-      type: [String, Number, Boolean],
-      default: uni.$u.props.switch.activeValue
-    },
-    // switch关闭时的值
-    inactiveValue: {
-      type: [String, Number, Boolean],
-      default: uni.$u.props.switch.inactiveValue
-    },
-    // 是否开启异步变更，开启后需要手动控制输入值
-    asyncChange: {
-      type: Boolean,
-      default: uni.$u.props.switch.asyncChange
-    },
-    // 圆点与外边框的距离
-    space: {
-      type: [String, Number],
-      default: uni.$u.props.switch.space
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ })
 

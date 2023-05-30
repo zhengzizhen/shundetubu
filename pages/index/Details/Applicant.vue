@@ -1,34 +1,37 @@
 <template>
 	<view class="body">
-		<view class="card dis_f flex_c pd30" v-for="(v,index) in list" :key="index">
+		<view @click="setpropos(v)" class="card dis_f flex_c pd30" v-for="(v,index) in list" :key="index">
 			<p class="header">
 				<label>默认</label>
-				<text>{{v.name}}</text>
+				<text>{{v.username}}</text>
 				<text>{{v.phone}}</text>
 			</p>
-			<p class="center">{{v.address}}</p>
+			<p class="center">{{v.idcard}}</p>
 			<view class="bottom dis_f alitmc">
 				<p class="dis_f alitmc">
-					<image v-show="!v.state" @click="check(v.state,index)" class="ius" src="@/static/image/mine/radio.png" mode="">
+					<image v-if="v.is_default == 0" @click.stop="check(v,index)"  class="ius" src="@/static/image/mine/radio.png" mode="">
 					</image>
-					<image v-show="v.state" @click="check(v.state,index)" class="ius" src="@/static/image/mine/radio1.png" mode="">
+					<image v-else  class="ius" src="@/static/image/mine/radio1.png" mode="">
 					</image>
 					<label>设为默认</label>
 				</p>
-				<p class="dis_f alitmc left">
+				<p @click.stop="touser(v)" class="dis_f alitmc left">
 					<image src="@/static/image/mine/bianji.png" mode=""></image>
-					<label @click="toaddress">编辑</label>
+					<label >编辑</label>
 				</p>
-				<p class="dis_f alitmc ml20">
+				<p  class="dis_f alitmc ml20">
 					<image src="@/static/image/mine/delete.png" mode=""></image>
-					<label>删除</label>
+					<label @click.stop="deletes(v)">删除</label>
 				</p>
 			</view>
 		</view>
-
-		<view class="btn dis_f alitmc jscc" @click="toAdd">
-			<image src="@/static/image/mine/add.png" mode=""></image>
-			<p>添加地址</p>
+		
+		
+		<view class="posfx">
+			<view class="btn dis_f alitmc jscc" @click="toAdd">
+				<image src="@/static/image/mine/add.png" mode=""></image>
+				<p>添加报名人</p>
+			</view>
 		</view>
 	</view>
 </template>
@@ -38,28 +41,54 @@
 		data() {
 			return {
 				isShow: true,
-				list:[
-					{name:'神秘狗',phone:'17633612613',address:'河南省南阳市社旗县S333',state:0},
-					{name:'钱多多',phone:'17698859631',address:'广州省花都区花都广场50号',state:0},
-					{name:'郭晋安',phone:'15474474888',address:'上海市静安区静安寺5454',state:0},
-				]
+				list:[]
 			}
 		},
+		onLoad() {
+		},
+		onShow() {
+			this.getlist()
+		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/trip/traveller/list')
+				this.list = res.data.data
+			},
 			back() {
 				uni.navigateBack()
 			},
-			check(v,index) {
-				this.list.forEach((item,index)=>[
-					item.state = false
-				])
-				this.list[index].state = !this.list[index].state 
+			async check(v,index) {
+				uni.showLoading()
+				const res = await this.$http('/trip/traveller/default',{
+					traveller_id:v.id
+				})
+				uni.hideLoading()
+				uni.$u.toast('设置成功')
+				this.getlist()
 			},
 			toAdd() {
 				this.$jump('./Adduser')
 			},
 			toaddress(){
 				this.$jump('./Adduser')
+			},
+			touser(v){
+				this.$jump('./Adduser?obj=','params',JSON.stringify(v))
+			},
+			async deletes(v){
+				uni.showLoading({
+					title:'删除中'
+				})
+				const ress = await this.$http('/trip/traveller/delete',{
+					traveller_id:v.id
+				})
+				uni.hideLoading()
+				uni.$u.toast('删除成功')
+				this.getlist()
+			},
+			setpropos(v){
+				uni.setStorageSync('Applicant',v)
+				uni.navigateBack()
 			}
 		}
 	}
@@ -139,8 +168,15 @@
 				}
 			}
 		}
-
+		.posfx{
+			width: 100%;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			padding-bottom: 80rpx;
+		}
 		.btn {
+			
 			margin: 500rpx auto 0;
 			width: 690rpx;
 			height: 84rpx;

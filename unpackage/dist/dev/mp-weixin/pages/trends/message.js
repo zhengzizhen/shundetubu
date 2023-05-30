@@ -135,12 +135,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
 //
 //
 //
@@ -183,32 +189,127 @@ var _default = {
   data: function data() {
     return {
       tablist: ['评论/回复', '赞', '关注'],
-      pllist: [{
-        name: '玉米粥',
-        date: '11-12',
-        cont: '不错不错'
-      }, {
-        name: '玉米粥',
-        date: '11-11',
-        cont: '整的不赖'
-      }],
-      godlist: [{
-        name: '世界的尽头',
-        date: '11-12'
-      }, {
-        name: '世界的尽头',
-        date: '11-10'
-      }],
-      curry: 0
+      pllist: [],
+      godlist: [],
+      gzlist: [],
+      curry: 0,
+      page: 1
     };
   },
+  onLoad: function onLoad() {
+    this.getlist(); //评论区
+    this.godslist(); //赞
+    this.gzslist(); //关注
+  },
+
   methods: {
+    getlist: function getlist() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/circle/user/comment/list', {
+                  page: _this.page,
+                  limit: 10
+                });
+              case 2:
+                res = _context.sent;
+                _this.pllist = res.data.data;
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    godslist: function godslist() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/circle/user/like/list', {
+                  page: _this2.page,
+                  limit: 10
+                });
+              case 2:
+                res = _context2.sent;
+                _this2.godlist = res.data.data;
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    gzslist: function gzslist() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$http('/circle/user/attention/list', {
+                  page: _this3.page,
+                  limit: 10
+                });
+              case 2:
+                res = _context3.sent;
+                _this3.gzlist = res.data.data;
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     chetbs: function chetbs(e, index) {
       this.curry = index;
+    },
+    goSpace: function goSpace(e) {
+      this.$jump('./Space?id=', 'params', e);
+    },
+    chat: function chat(item) {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var res;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                uni.showLoading();
+                _context4.next = 3;
+                return _this4.$http('/circle/user/attention', {
+                  uid: item.uid
+                });
+              case 3:
+                res = _context4.sent;
+                uni.hideLoading();
+                item.is_attention = !item.is_attention;
+              case 6:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

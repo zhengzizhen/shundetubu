@@ -101,19 +101,19 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uParse: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-parse/u-parse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-parse/u-parse")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-parse/u-parse.vue */ 1021))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-parse/u-parse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-parse/u-parse")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-parse/u-parse.vue */ 1045))
     },
     uRate: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-rate/u-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-rate/u-rate")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-rate/u-rate.vue */ 1030))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-rate/u-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-rate/u-rate")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-rate/u-rate.vue */ 1054))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
     uOverlay: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-overlay/u-overlay */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-overlay/u-overlay")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-overlay/u-overlay.vue */ 1038))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-overlay/u-overlay */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-overlay/u-overlay")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-overlay/u-overlay.vue */ 1062))
     },
   }
 } catch (e) {
@@ -566,7 +566,12 @@ var _default = {
       },
       timer: null,
       //设置防抖
-      overlay: true //遮罩层
+      overlay: true,
+      //遮罩层
+      price: '',
+      min: true,
+      teamid: '',
+      start_day: ''
     };
   },
   onLoad: function onLoad(option) {
@@ -580,7 +585,7 @@ var _default = {
     getlist: function getlist(id) {
       var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var res, datas;
+        var res, datas, i;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -603,13 +608,30 @@ var _default = {
                 _this2.setof = _this2.start_address[0].name;
                 _this2.venue = _this2.start_address[0].venue;
                 _this2.addList = datas.start_citys;
-                _this2.nickname = datas.team[0].data[0].master_akela.nickname;
-                _this2.avatar = datas.team[0].data[0].master_akela.avatar;
-                _this2.grade = datas.team[0].data[0].master_akela.grade;
-                _this2.grade_number = datas.team[0].data[0].master_akela.grade_number;
-                _this2.users = datas.team[0].data[0].users;
-                _this2.Datetbs(datas.team[0].data[0], 0);
-              case 19:
+                i = 0;
+              case 14:
+                if (!(i < datas.team.length)) {
+                  _context.next = 26;
+                  break;
+                }
+                if (!(datas.team[i].data.length != 0)) {
+                  _context.next = 23;
+                  break;
+                }
+                _this2.nickname = datas.team[i].data[0].master_akela.nickname;
+                _this2.avatar = datas.team[i].data[0].master_akela.avatar;
+                _this2.grade = datas.team[i].data[0].master_akela.grade;
+                _this2.grade_number = datas.team[i].data[0].master_akela.grade_number;
+                _this2.users = datas.team[i].data[0].users;
+                _this2.chetbs(datas.team[i], i);
+                return _context.abrupt("return", false);
+              case 23:
+                i++;
+                _context.next = 14;
+                break;
+              case 26:
+                _this2.min = false;
+              case 27:
               case "end":
                 return _context.stop();
             }
@@ -707,7 +729,6 @@ var _default = {
     },
     chetbs: function chetbs(e, index) {
       this.curry = index;
-      console.log(e.data[0]);
       this.Datetbs(e.data[0], 0);
     },
     Datetbs: function Datetbs(e, index) {
@@ -719,11 +740,14 @@ var _default = {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _this5.teamcurry = index;
-                _this5.nickname = _this5.detail.team[_this5.curry].data[index].master_akela.nickname;
-                _this5.avatar = _this5.detail.team[_this5.curry].data[index].master_akela.avatar;
-                _this5.grade = _this5.detail.team[_this5.curry].data[index].master_akela.grade;
+                // this.nickname = this.detail.team[this.curry].data[index].master_akela.nickname
+                // this.avatar = this.detail.team[this.curry].data[index].master_akela.avatar
+                // this.grade = this.detail.team[this.curry].data[index].master_akela.grade
                 _this5.grade_number = _this5.detail.team[_this5.curry].data[index].master_akela.grade_number;
                 _this5.users = _this5.detail.team[_this5.curry].data[index].users;
+                _this5.price = _this5.detail.team[_this5.curry].data[_this5.teamcurry].price;
+                _this5.teamid = e.id;
+                _this5.start_day = e.start_day;
                 teamid = e.id;
                 _context4.next = 9;
                 return _this5.$http('/trip/team/detail', {
@@ -758,31 +782,28 @@ var _default = {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                console.log(e);
-                console.log(111);
                 uni.showLoading({
                   title: '加载中'
                 });
                 this.page = this.page + 1;
-                _context5.next = 6;
+                _context5.next = 4;
                 return this.$http('/trip/evaluate/list', {
                   trip_id: this.id,
                   page: this.page,
                   limit: 10
                 });
-              case 6:
+              case 4:
                 res = _context5.sent;
                 uni.hideLoading();
-                console.log(res);
                 if (!(res.data.data == '')) {
-                  _context5.next = 12;
+                  _context5.next = 9;
                   break;
                 }
                 uni.$u.toast('已经到底部了');
                 return _context5.abrupt("return", false);
-              case 12:
+              case 9:
                 this.evaluate = this.evaluate.concat(res.data.data);
-              case 13:
+              case 10:
               case "end":
                 return _context5.stop();
             }
@@ -795,7 +816,6 @@ var _default = {
       return lower;
     }(),
     scroll: function scroll(e) {
-      // console.log(e)
       this.old.scrollTop = e.detail.scrollTop;
     },
     popOpen: function popOpen() {},
@@ -811,7 +831,13 @@ var _default = {
       this.$jump('./Cratic?user=', 'params', JSON.stringify(this.users));
     },
     toApply: function toApply() {
-      this.$jump('./Apply');
+      var params = {
+        trip_id: this.id,
+        trip_team_id: this.teamid,
+        price: this.price,
+        start_day: this.start_day
+      };
+      this.$jump('./Apply?obj=', 'params', JSON.stringify(params));
     },
     Popbtn: function Popbtn() {
       this.isShow = false;
@@ -821,6 +847,7 @@ var _default = {
       });
     },
     ckaddress: function ckaddress(e, index) {
+      uni.setStorageSync('cityid', e.id);
       this.curryimg = index;
       this.setof = this.start_address[index].name;
       this.venue = this.start_address[index].venue;

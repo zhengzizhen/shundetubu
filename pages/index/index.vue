@@ -8,7 +8,7 @@
 				<!-- 头部搜索框 -->
 				<view class="index_seach dis_f">
 					<view class="address" @click="isShow = true">
-						<span>曼谷</span>
+						<span>{{cityname}}</span>
 						<u-icon name="arrow-down" color="#FFFFFF" size='12'></u-icon>
 					</view>
 					<u-search @focus='toSeach()' class="input" placeholder="想去哪就去哪" v-model="seachValue"
@@ -273,10 +273,10 @@
 			<!-- 地区选择器 -->
 			<u-popup :round="10" :show="isShow" :closeable='true' @close="close" @open="open">
 				<view class="ix_pop pd30">
-					<view v-if="v.city" v-for="(v,index) in city" :key="v.id">
+					<view  v-if="v.city" v-for="(v,index) in city" :key="v.id">
 						<p>{{v.name}}</p>
 						<view class="dis_f ps">
-							<view class="dis_f prp" v-for="(item,i) in v.city" :key="item.id">
+							<view @click="changecity(item)" class="dis_f prp" v-for="(item,i) in v.city" :key="item.id">
 								<image :src="item.image" mode=""></image>
 								<text>{{item.name}}</text>
 							</view>
@@ -348,6 +348,8 @@
 				addcurry: 0,
 				city: [],
 				notice: '', //公告内容
+				cityid:9998,
+				cityname:'全国'
 			}
 		},
 		onLoad() {
@@ -356,6 +358,7 @@
 		},
 		methods: {
 			async getlist() {
+				uni.setStorageSync('cityid',this.cityid)
 				let that = this
 				const res = await this.$http('/sys/index')
 				let datas = res.data.data
@@ -453,10 +456,20 @@
 						this.$jump('./team/team');
 						break;
 					case '亲子路线':
-						this.$jump('./Province?name=', 'params', '亲子路线');
+						const kids = {
+							title:'亲子路线',
+							url:'/trip/kids/trip',
+							seach:'/trip/search/kids'
+						}
+						this.$jump('./Province?obj=', 'params', JSON.stringify(kids));
 						break;
 					case '城市玩家':
-						this.$jump('./Province?name=', 'params', '城市玩家');
+						const city = {
+							title:'城市玩家',
+							url:'/trip/city/trip',
+							seach:'/trip/search/city'
+						}
+						this.$jump('./Province?obj=', 'params', JSON.stringify(city));
 						break;
 					case '必玩榜单':
 						this.$jump('./mustPlay');
@@ -480,6 +493,12 @@
 			},
 			tomemberday() {
 				this.$jump('./memberday')
+			},
+			changecity(v){
+				this.cityid = v.id
+				this.cityname = v.name
+				uni.setStorageSync('city',this.cityid)
+				this.isShow = false
 			}
 		}
 	}

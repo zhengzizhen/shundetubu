@@ -338,7 +338,7 @@
             "path" : "pages/index/team/oneday",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "1日团建",
+                "navigationBarTitleText": "1",
                 "enablePullDownRefresh": false
             }
             
@@ -688,7 +688,7 @@
             "path" : "pages/index/Province",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "亲子路线",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             

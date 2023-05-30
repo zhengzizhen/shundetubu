@@ -143,7 +143,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var Nav = function Nav() {
   __webpack_require__.e(/*! require.ensure | component/navgation/navgation */ "component/navgation/navgation").then((function () {
-    return resolve(__webpack_require__(/*! @/component/navgation/navgation.vue */ 981));
+    return resolve(__webpack_require__(/*! @/component/navgation/navgation.vue */ 1005));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

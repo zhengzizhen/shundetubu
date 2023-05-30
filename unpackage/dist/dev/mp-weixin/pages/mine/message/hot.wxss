@@ -52,24 +52,17 @@
   width: 100%;
   height: 300rpx;
 }
-.cont .txt.data-v-6bb2c282 {
-  margin: 20rpx 0;
-  padding: 0 20rpx;
-  align-items: center;
-  padding-bottom: 20rpx;
-  border-bottom: 1px solid #e6e6e6;
-  justify-content: space-between;
-  font-size: 30rpx;
+.txt.data-v-6bb2c282 {
+  padding: 20rpx;
 }
-.cont .txt ._p.data-v-6bb2c282 {
-  width: 432rpx;
+.txt ._p.data-v-6bb2c282 {
+  color: #222222;
 }
-.cont .txt image.data-v-6bb2c282 {
-  width: 108rpx;
-  height: 108rpx;
-  border-radius: 20rpx;
+.txt text.data-v-6bb2c282 {
+  font-size: 24rpx;
+  color: #666666;
 }
-.cont .txt.data-v-6bb2c282:last-of-type {
-  border-bottom: none;
+.m30.data-v-6bb2c282 {
+  margin-top: 40rpx;
 }
 

@@ -129,6 +129,7 @@
   width: 100%;
   justify-content: space-between;
   margin-top: 20rpx;
+  box-sizing: border-box;
 }
 .as_mon .img image.data-v-0865c169 {
   width: 200rpx;
@@ -330,6 +331,9 @@
 }
 .swiper .posiswiper .ios.data-v-0865c169 {
   margin: 10rpx 0 20rpx;
+}
+.swiper .posiswiper .ios text.data-v-0865c169:nth-child(2) {
+  margin-left: 10rpx;
 }
 .swiper .posiswiper .m10.data-v-0865c169 {
   margin-left: 10rpx;

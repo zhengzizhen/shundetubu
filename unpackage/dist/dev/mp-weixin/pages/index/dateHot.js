@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uniCalendar: function () {
-      return Promise.all(/*! import() | uni_modules/uni-calendar/components/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-calendar/components/uni-calendar/uni-calendar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue */ 960))
+      return Promise.all(/*! import() | uni_modules/uni-calendar/components/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-calendar/components/uni-calendar/uni-calendar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue */ 984))
     },
   }
 } catch (e) {
@@ -158,12 +158,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -199,27 +202,53 @@ var _default = {
       start: '',
       end: '',
       show: true,
-      list: [1, 2, 3],
+      list: [],
       curry: null,
-      lists: ['1天', '2~3天', '3~4天', '5天+'],
-      selected: [{
-        date: '2023-05-01',
-        info: '劳动节'
-      }]
+      lists: [],
+      selected: [
+        // 	{
+        // 	date: '2023-05-01',
+        // 	info: '劳动节'
+        // },
+      ],
+      year: '',
+      month: '',
+      page: 1,
+      seach: ''
     };
   },
   onLoad: function onLoad(option) {
+    this.getseach();
+    var date = new Date();
+    var a = date.getFullYear();
+    var b = date.getMonth() + 1;
+    var c = date.getDate();
+    this.month = b;
+    if (b < 10) {
+      b = '0' + b;
+    }
+    if (c < 10) {
+      c = '0' + c;
+    }
     if (option.date >= 10) {
-      this.dater = '2023-' + option.date + '-01';
-      this.start = '2023-' + option.date + '-01';
-      this.end = '2023-' + option.date + '-31';
+      this.month = option.date;
+      this.dater = a + '-' + option.date;
+      this.start = a + '-' + option.date;
+      this.end = a + '-' + option.date + '-31';
+      this.getlist();
       return false;
     } else if (option.date < 10) {
-      this.dater = '2023-0' + option.date + '-01';
-      this.start = '2023-0' + option.date + '-01';
-      this.end = '2023-' + option.date + '-31';
+      this.month = option.date;
+      this.dater = a + '-0' + option.date;
+      this.start = a + '-0' + option.date;
+      this.end = a + '-' + option.date + '-31';
+      this.getlist();
       return false;
     }
+    this.dater = a + '-' + b + '-' + c;
+    this.start = a + '-' + b;
+    this.end = a + '-' + b + '-31';
+    this.getlist();
   },
   onReady: function onReady() {
     var _this = this;
@@ -230,6 +259,52 @@ var _default = {
   },
 
   methods: {
+    getlist: function getlist() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this2.$http('/trip/calendar/trip', {
+                  page: _this2.page,
+                  limit: 10,
+                  month: _this2.month
+                });
+              case 2:
+                res = _context.sent;
+                _this2.list = _this2.list.concat(res.data.data);
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getseach: function getseach() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this3.$http('/trip/search/calendar');
+              case 2:
+                res = _context2.sent;
+                _this3.lists = res.data.data.search_price;
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     change: function change(e) {
       console.log('change 返回:', e);
       // 模拟动态打卡
@@ -238,16 +313,61 @@ var _default = {
       // 	date: e.fulldate,
       // 	info: '打卡'
       // })
+      this.page = 1;
+      this.list = [];
+      var params = {
+        page: this.page,
+        limit: 10,
+        month: this.month,
+        day: e.date
+      };
+      this.getlistplus(params);
     },
     monthSwitch: function monthSwitch(e) {
       console.log('monthSwitchs 返回:', e);
     },
-    checktabs: function checktabs(item, index) {
-      this.curry = index;
+    // checktabs(item, index) {
+    // 	this.page = 1
+    // 	this.list = []
+    // 	this.curry = index
+    // 	const params = {
+    // 		page:this.page,
+    // 		limit:10,
+    // 		search_min_day:item.min,
+    // 		search_max_day:item.max
+    // 	}
+    // 	this.getlistplus(params)
+    // },
+    getlistplus: function getlistplus(params) {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                uni.showLoading();
+                _context3.next = 3;
+                return _this4.$http('/trip/calendar/trip', params);
+              case 3:
+                res = _context3.sent;
+                uni.hideLoading();
+                _this4.list = res.data.data;
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    toDetails: function toDetails(e) {
+      this.$jump('./Details/Details?id=', 'params', e);
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

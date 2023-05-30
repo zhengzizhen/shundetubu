@@ -1,27 +1,24 @@
 <template>
 	<view class="oy_body">
 		<view class="oy_cont bor_r" v-for="(item,index) in list" :key="index">
-			<image src="@/static/index/chang.jpg" mode=""></image>
-			<p class="tit">【亭可马里季】斯里兰卡纯玩9天</p>
+			<image :src="item.master_image" mode=""></image>
+			<p class="tit">{{item.title}}</p>
 			<view class="oy_location dis_f jscb">
 				<view class="left dis_f alitmc ">
 					<image src="@/static/image/team/location.png" mode=""></image>
-					<label>安徽·黄山 2023-01-12 出发</label>
+					<label>{{item.bourn}} {{item.day}}天</label>
 				</view>
 				<view class="right">
-					<label>￥888人</label><text>起</text>
+					<label>￥{{item.price}}/人</label><text>起</text>
 				</view>
 			</view>
 			
 			<view class="oy_tos dis_f alitmc jscb">
 				<view class="tosimg">
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
-					<image src="@/static/image/trends/wxx.jpg" mode=""></image>
-					<image src="@/static/image/trends/qq.jpg" mode=""></image>
-					<image src="@/static/image/trends/wxx.jpg" mode=""></image>
+					<image v-for="(v,i) in item.user_avatar" :key="i" :src="v" mode=""></image>
 				</view>
-				<p>18919人去过</p>
-				<button>查看详情</button>
+				<p>{{item.traveller_number}}人去过</p>
+				<button @click="toDetails(item.id)">查看详情</button>
 			</view>
 		</view>
 	</view>
@@ -31,11 +28,29 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3]
+				list:[],
+				page:1
 			}
 		},
+		onLoad(option) {
+			this.params = JSON.parse(option.obj)
+			uni.setNavigationBarTitle({
+				title:this.params.name
+			})
+			this.getlist(this.params.id)
+		},
 		methods: {
-
+			async getlist(id){
+				const res = await this.$http('/trip/teamcustom/detail',{
+					page:this.page,
+					limit:10,
+					id
+				})
+				this.list = this.list.concat(res.data.data)
+			},
+			toDetails(e) {
+				this.$jump('/pages/index/Details/Details?id=', 'params', e);
+			},
 		}
 	}
 </script>
@@ -44,7 +59,8 @@
 	.oy_body {
 		background-color: #18ACB6;
 		padding: 392rpx 30rpx 100rpx;
-
+		min-height: 750px;
+		height: auto;
 	}
 
 	.oy_cont {

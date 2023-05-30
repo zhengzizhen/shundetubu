@@ -3,18 +3,13 @@
 		<view class="pd30">
 			<view class="dc_mod dis_f" v-for=" (item,index) in list" :key="index" @click.stop="toDeatil(item.id)">
 				<image :src="item.master_image" mode=""></image>
-				<view class="dc_god">
+				<view class="dc_god dis_f flex_c jscb">
 					<p>{{item.title}}</p>
-					<view class="dc_latt dis_f">
-						<p class="text">
-							<text>{{item.trip_team[0].start_day}}丨</text>
-							<text v-if="item.trip_team[0].status==0">火热报名中</text>
-							<text v-else-if="item.trip_team[0].status==1">即将成行</text>
-							<text v-else-if="item.trip_team[0].status==2">火热报名中</text>
-							<text v-else-if="item.trip_team[0].status==3">火热报名中</text>
+					<view class="dc_latt dis_f" v-if="item.trip_team[0]">
+						<p class="text" v-for="(v,u) in item.trip_team">
+							<text>{{v.start_day}}丨</text>
+							<text>{{v.status_text}}</text>
 						</p>
-						<label
-							v-if="item.trip_team[1]">{{item.trip_team[1].start_day}}丨剩余{{item.trip_team[1].residue_people_number}}人数</label>
 						<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 					</view>
 					<view class="dc_span dis_f">
@@ -48,7 +43,7 @@
 			}
 		},
 		onLoad() {
-			this.getlist(1)
+			this.getlist(this.page)
 		},
 		onReachBottom() {
 			if(this.bottom == true){
@@ -66,10 +61,8 @@
 				})
 				uni.hideLoading()
 				this.overlay = false
-				if(res.data.data == ''){
-					uni.$u.toast('已经到底部了')
+				if(res.data.data.length < 10){
 					this.bottom = true
-					return false
 				}
 				uni.hideLoading()
 				this.list = this.list.concat(res.data.data)
@@ -131,22 +124,18 @@
 
 		.dc_latt {
 			margin-top: 10rpx;
-
 			.text {
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #49CAA4;
-				margin-right: 10rpx;
 			}
-
-			label {
+			.text:nth-child(2){
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
 				font-size: 22rpx;
 				background-color: #F2AD5A;
 			}
-
 			p {
 				font-size: 22rpx;
 				align-items: center;

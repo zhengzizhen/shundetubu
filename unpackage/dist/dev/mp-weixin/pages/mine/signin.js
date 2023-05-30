@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
   }
 } catch (e) {
@@ -342,10 +342,10 @@ var _default = {
                 return _this2.$http('/user/sign');
               case 7:
                 res = _context2.sent;
+                uni.$u.toast('签到成功！');
                 _this2.static3 = res.data.data.status.task_3day_get;
                 _this2.static7 = res.data.data.status.task_7day_get;
                 _this2.$store.commit("set_sign", _this2.day[stats]);
-                uni.$u.toast('签到成功！');
               case 12:
               case "end":
                 return _context2.stop();

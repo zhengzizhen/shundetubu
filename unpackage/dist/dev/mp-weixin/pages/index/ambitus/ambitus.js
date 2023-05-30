@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uSubsection: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-subsection/u-subsection")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 934))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-subsection/u-subsection")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 958))
     },
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
   }
 } catch (e) {
@@ -163,10 +163,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
 //
 //
 //
@@ -288,76 +293,219 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      arrlist: [{
-        name: '省内1天',
-        image: '../../../static/index/zblx.jpg'
-      }, {
-        name: '省内2天',
-        image: '../../../static/index/gnjx.jpg'
-      }, {
-        name: '省内亲子',
-        image: '../../../static/index/gwjx.jpg'
-      }, {
-        name: '美食路线',
-        image: '../../../static/index/hdrl.jpg'
-      }, {
-        name: '登山路线',
-        image: '../../../static/index/hwsc.jpg'
-      }, {
-        name: '非周末',
-        image: '../../../static/index/bwbd.jpg'
-      }, {
-        name: '高铁出行',
-        image: '../../../static/index/tddz.jpg'
-      }, {
-        name: '香港专区',
-        image: '../../../static/index/qzlx.jpg'
-      }],
-      swiperlist: ['../../../static/as/changs.jpg', '../../../static/as/changs.jpg', '../../../static/as/changs.jpg', '../../../static/as/changs.jpg'],
+      arrlist: [],
+      //金刚区
+      swiperlist: [],
+      //轮播图
       sublist: ['当季推荐', '口碑路线'],
       swipercurrent: 0,
       current: 0,
-      list: ['1', '2', '3'],
-      curry: 0,
-      hotlist: ['本周', '已成行', '1天', '2天'],
+      list: [],
+      //当季推荐
+      lists: [],
+      //口碑路线
+      curryents: [],
+      //赋值数据
+      rail: [],
+      //高铁出行
+      chind: [],
+      //亲子活动
+      curry: null,
+      hotlist: ['报名中', '即将成团', '已成行', '1天', '2天'],
       obj: {
         height: '80rpx'
-      }
+      },
+      page: 1,
+      periphery: [],
+      //周边数据
+      bottom: false //是否触底
     };
   },
+  onLoad: function onLoad() {
+    this.getlist();
+    //全部周边活动
+    var params = {
+      page: this.page,
+      limit: 10
+    };
+    this.getperiphery(params);
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    } else {
+      this.page += 1;
+      var params = {
+        page: this.page,
+        limit: 10
+      };
+      this.getperiphery(params);
+    }
+  },
   methods: {
+    getlist: function getlist() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/vicinity/index');
+              case 2:
+                res = _context.sent;
+                _this.assignment(res.data.data);
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getperiphery: function getperiphery(params) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/vicinity/list/all', params);
+              case 2:
+                res = _context2.sent;
+                _this2.periphery = _this2.periphery.concat(res.data.data);
+                if (_this2.periphery.length < 10) {
+                  _this2.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    assignment: function assignment(data) {
+      this.arrlist = data.icon_list; //金刚区
+      this.swiperlist = data.trip.hot; //轮播图
+      this.curryents = data.trip.recommend; //第一次当季推荐赋值
+      this.list = data.trip.recommend;
+      this.lists = data.trip.wom;
+      this.rail = data.trip.ktx;
+      this.chind = data.trip.chind;
+    },
     sectionChange: function sectionChange(index) {
       this.current = index;
+      if (index == 1) {
+        this.curryents = this.lists;
+      } else if (index == 0) {
+        this.curryents = this.list;
+      }
     },
     chekelist: function chekelist(e, index) {
+      if (index == this.curry) {
+        this.curry = null;
+        this.page = 1;
+        this.periphery = [];
+        var params = {
+          page: this.page,
+          limit: 10
+        };
+        this.getperiphery(params);
+        return false;
+      }
       this.curry = index;
+      if (index == 0) {
+        //报名中
+        this.page = 1;
+        this.periphery = [];
+        var _params = {
+          page: this.page,
+          limit: 10,
+          search_status: 0
+        };
+        this.getperiphery(_params);
+        return false;
+      } else if (index == 1) {
+        //即将成团
+        this.page = 1;
+        this.periphery = [];
+        var _params2 = {
+          page: this.page,
+          limit: 10,
+          search_status: 1
+        };
+        this.getperiphery(_params2);
+        return false;
+      } else if (index == 2) {
+        //已成团
+        this.page = 1;
+        this.periphery = [];
+        var _params3 = {
+          page: this.page,
+          limit: 10,
+          search_status: 2
+        };
+        this.getperiphery(_params3);
+        return false;
+      } else if (index == 3) {
+        //已成团
+        this.page = 1;
+        this.periphery = [];
+        var _params4 = {
+          page: this.page,
+          limit: 10,
+          search_min_day: 1,
+          search_max_day: 1
+        };
+        this.getperiphery(_params4);
+        return false;
+      } else if (index == 4) {
+        //已成团
+        this.page = 1;
+        this.periphery = [];
+        var _params5 = {
+          page: this.page,
+          limit: 10,
+          search_min_day: 2,
+          search_max_day: 2
+        };
+        this.getperiphery(_params5);
+        return false;
+      }
     },
     change: function change(e) {
       console.log(e.detail.current);
       this.swipercurrent = e.detail.current;
     },
+    toDetails: function toDetails(e) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', e);
+    },
     toChild: function toChild(name) {
       switch (name) {
-        case '省内1天':
+        case '省内一天':
           this.$jump('./oneday');
           break;
-        case '省内2天':
+        case '省内两天':
           this.$jump('./twoday');
           break;
         case '省内亲子':
           this.$jump('./Parenting');
           break;
         case '高铁出行':
-          this.$jump('./speed?title=', 'params', '高铁出行');
+          this.$jump('./speed');
           break;
         case '非周末':
-          this.$jump('./speed?title=', 'params', '非周末');
+          this.$jump('./NonWeekend');
           break;
         case '美食路线':
-          this.$jump('./speed?title=', 'params', '美食路线');
+          this.$jump('./delicacy');
           break;
         case '登山路线':
-          this.$jump('./speed?title=', 'params', '登山路线');
+          this.$jump('./mountaineering');
           break;
         case '香港专区':
           this.$jump('./HongKong');

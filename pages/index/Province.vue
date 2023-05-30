@@ -1,27 +1,23 @@
 <template>
 	<view class="body pd30">
 		<view class="sky">
-			<p>省内1天</p>
-			<p>2-3天</p>
-			<p>亲子长线</p>
+			<p @click='tocheckout(v,i)' :class="curry == i?'green':''" v-for="(v,i) in seach" :key="i">{{v.title}}</p>
 		</view>
-		<view class="dc_mod dis_f bor_r" v-for=" (item,index) in list" :key="index">
-			<image src="@/static/index/zheng.jpg" mode=""></image>
-			<view class="dc_god">
-				<p>【亭可马里季】斯里兰卡纯玩9天</p>
-				<text class="posw">3天</text>
-				<view class="dc_latt dis_f">
-					<text>03.18已满员</text>
-					<label>04.02剩3名额</label>
+		<view @click="toDeatil(item.id)" class="dc_mod dis_f bor_r" v-for=" (item,index) in list" :key="index">
+			<image :src="item.master_image" mode=""></image>
+			<view class="dc_god dis_f flex_c jscb">
+				<p>{{item.title}}</p>
+				<text class="posw">{{item.day}}天</text>
+				<view class="dc_latt dis_f" v-if="item.trip_team.length!=0">
+					<text v-for="(v,i) in item.trip_team" :key="i">{{v.start_day}}{{v.status_text}}</text>
 					<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 				</view>
 				<p class="title dis_f">
-					<label>出入西藏首选</label>
-					<label>限时40天</label>
+					<label v-for='(s,x) in item.label' :key="x">{{s}}</label>
 				</p>
 				<view class="dc_span dis_f">
-					<text>￥888</text>
-					<label>4.91分丨291人去过</label>
+					<text>￥{{item.price}}</text>
+					<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
 				</view>
 			</view>
 		</view>
@@ -32,44 +28,114 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3,4]
+				list: [],
+				params: {},
+				page: 1,
+				seach: [],
+				curry: null,
+				search_min_day:'',
+				search_max_day:'',
+				bottom:false
 			}
 		},
 		onLoad(option) {
+			this.params = JSON.parse(option.obj)
 			uni.setNavigationBarTitle({
-				title:option.name
+				title: this.params.title
 			})
+			this.getlist(this.params.url)
+
+			this.getseach(this.params.seach)
+		},
+		onReachBottom() {
+			if(this.bottom == true){
+				return false
+			}else{
+				this.page+=1
+				this.concatlist(this.params.url)
+			}
 		},
 		methods: {
-			
+			async getlist(params) {
+				const res = await this.$http(params, {
+					page: this.page,
+					limit: 10,
+				})
+				if(res.data.data.length < 10){
+					this.bottom = true
+				}
+				this.list = res.data.data
+			},
+			async getseach(url) {
+				const res = await this.$http(url)
+				this.seach = res.data.data.search_day
+			},
+			async concatlist(params) {
+				const res = await this.$http(params, {
+					page: this.page,
+					limit: 10,
+					search_min_day:this.search_min_day,
+					search_max_day:this.search_max_day
+				})
+				if(res.data.data.length < 10){
+					this.bottom = true
+				}
+				this.list = this.list.concat(res.data.data)
+			},
+			toDeatil(v) {
+				this.$jump('/pages/index/Details/Details?id=', 'params', v)
+			},
+			async tocheckout(v,index) {
+				this.curry = index
+				this.search_min_day = v.min
+				this.search_max_day = v.max
+				this.bottom = false
+				uni.showLoading()
+				const res = await this.$http(this.params.url,{
+					page:this.page,
+					limit:10,
+					search_min_day:v.min,
+					search_max_day:v.max
+				})
+				uni.hideLoading()
+				if(res.data.data.length < 10){
+					this.bottom = true
+				}
+				this.list = res.data.data
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.sky{
-		p{
+	.sky {
+		p {
 			display: inline-block;
 			border-radius: 32rpx;
 			padding: 10rpx 30rpx;
-			background: rgba(255, 255, 255,0.4);
-			border: 1px solid  rgba(255, 255, 255,0.4);
+			background: rgba(255, 255, 255, 0.4);
+			border: 1px solid rgba(255, 255, 255, 0.4);
 			color: white;
 			font-size: 28rpx;
 			margin-right: 20rpx;
 		}
 	}
-	.body{
-		padding-top: 490rpx;
+
+	.body {
+		padding-top: 400rpx;
 		background-color: #2A755E;
 		padding-bottom: 100rpx;
+		min-height: 750px;
+		height: auto;
 	}
-	.ty_title{
+
+	.ty_title {
 		text-align: right;
 		color: white;
 		justify-content: flex-end;
 		align-items: center;
-		label{
+
+		label {
 			display: block;
 			font-size: 30rpx;
 			font-weight: 500;
@@ -77,11 +143,13 @@
 			margin-right: 10rpx;
 		}
 	}
+
 	.dc_mod {
 		position: relative;
 		background-color: white;
 		padding: 20rpx 20rpx;
 		margin: 20rpx 0;
+
 		image {
 			width: 240rpx;
 			height: 240rpx;
@@ -90,7 +158,8 @@
 
 		.dc_god {
 			margin-left: 20rpx;
-			p{
+
+			p {
 				font-size: 30rpx;
 				font-weight: 500;
 				color: #222222;
@@ -123,7 +192,7 @@
 				background-color: #FFA1AD;
 			}
 
-			label {
+			text:nth-child(2) {
 				margin-left: 10rpx;
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
@@ -172,5 +241,13 @@
 			color: #FF4040;
 			font-weight: bold;
 		}
+	}
+
+	.green {
+		color: white;
+		font-size: 22rpx;
+		text-align: center;
+		background-color: #49CAA4 !important;
+		border-radius: 6rpx;
 	}
 </style>

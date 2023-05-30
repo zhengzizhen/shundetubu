@@ -101,19 +101,19 @@ var components
 try {
   components = {
     uSearch: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-search/u-search */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-search/u-search")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-search/u-search.vue */ 888))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-search/u-search */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-search/u-search")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-search/u-search.vue */ 912))
     },
     "u-Input": function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 912))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u--input/u--input.vue */ 936))
     },
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uLine: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-line/u-line */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-line/u-line")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 918))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-line/u-line */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-line/u-line")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 942))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
   }
 } catch (e) {
@@ -358,6 +358,9 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -388,7 +391,9 @@ var _default = {
       //关注页数
       rebottom: false,
       //推荐页是否触底
-      fobottom: false //关注页是否触底
+      fobottom: false,
+      //关注页是否触底
+      message: 0
     };
   },
   onLoad: function onLoad() {},
@@ -397,6 +402,7 @@ var _default = {
     this.getlist('关注');
     // //推荐列表
     this.getlistc('推荐');
+    this.getmsg();
   },
   onReachBottom: function onReachBottom() {
     if (this.state == false) {
@@ -480,6 +486,27 @@ var _default = {
         }, _callee2);
       }))();
     },
+    getmsg: function getmsg() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$http('/circle/circle/message/number');
+              case 2:
+                res = _context3.sent;
+                _this3.message = parseInt(res.data.data.comment_number + res.data.data.like_number + res.data.data.attention_number);
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     open: function open() {},
     close: function close() {
       this.isShow = false;
@@ -496,30 +523,31 @@ var _default = {
       e.state = true;
       this.state = !this.state;
       if (this.state == true) {
+        this.followPage = 1;
         this.userlist1 = [];
         this.getlist('关注');
       }
     },
     isClik: function isClik(v, index) {
-      var _this3 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
         var res;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
+        return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context3.next = 2;
-                return _this3.$http('/circle/user/attention', {
+                _context4.next = 2;
+                return _this4.$http('/circle/user/attention', {
                   to_uid: v.user_detail.uid
                 });
               case 2:
-                res = _context3.sent;
-                _this3.userlist1.forEach(function (item, i) {
+                res = _context4.sent;
+                _this4.userlist1.forEach(function (item, i) {
                   if (item.user_detail.uid == v.user_detail.uid) {
                     item.user_detail.is_attention = !item.user_detail.is_attention;
                   }
                 });
-                _this3.userlist2.forEach(function (item, i) {
+                _this4.userlist2.forEach(function (item, i) {
                   if (item.user_detail.uid == v.user_detail.uid) {
                     item.user_detail.is_attention = !item.user_detail.is_attention;
                   }
@@ -531,10 +559,10 @@ var _default = {
                 }
               case 6:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     change: function change(e) {
@@ -556,34 +584,6 @@ var _default = {
       this.$jump('./News/News');
     },
     addlove: function addlove(e, index) {
-      var _this4 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
-        var res;
-        return _regenerator.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                if (_this4.state == true) {
-                  _this4.userlist1[index].is_like = true;
-                } else {
-                  _this4.userlist2[index].is_like = true;
-                }
-                e.like_number += 1;
-                _context4.next = 4;
-                return _this4.$http('/circle/dynamic/like', {
-                  dynamic_id: e.id
-                });
-              case 4:
-                res = _context4.sent;
-              case 5:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }))();
-    },
-    relove: function relove(e, index) {
       var _this5 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
         var res;
@@ -592,11 +592,11 @@ var _default = {
             switch (_context5.prev = _context5.next) {
               case 0:
                 if (_this5.state == true) {
-                  _this5.userlist1[index].is_like = false;
+                  _this5.userlist1[index].is_like = true;
                 } else {
-                  _this5.userlist2[index].is_like = false;
+                  _this5.userlist2[index].is_like = true;
                 }
-                e.like_number -= 1;
+                e.like_number += 1;
                 _context5.next = 4;
                 return _this5.$http('/circle/dynamic/like', {
                   dynamic_id: e.id
@@ -611,7 +611,7 @@ var _default = {
         }, _callee5);
       }))();
     },
-    addcomment: function addcomment(item) {
+    relove: function relove(e, index) {
       var _this6 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
         var res;
@@ -619,21 +619,49 @@ var _default = {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
+                if (_this6.state == true) {
+                  _this6.userlist1[index].is_like = false;
+                } else {
+                  _this6.userlist2[index].is_like = false;
+                }
+                e.like_number -= 1;
+                _context6.next = 4;
+                return _this6.$http('/circle/dynamic/like', {
+                  dynamic_id: e.id
+                });
+              case 4:
+                res = _context6.sent;
+              case 5:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    addcomment: function addcomment(item) {
+      var _this7 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7() {
+        var res;
+        return _regenerator.default.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
                 if (!(item.pinlun == null)) {
-                  _context6.next = 2;
+                  _context7.next = 2;
                   break;
                 }
-                return _context6.abrupt("return", false);
+                return _context7.abrupt("return", false);
               case 2:
-                _context6.next = 4;
-                return _this6.$http('/circle/dynamic/comment', {
+                _context7.next = 4;
+                return _this7.$http('/circle/dynamic/comment', {
                   dynamic_id: item.id,
                   content: item.pinlun
                 });
               case 4:
-                res = _context6.sent;
+                res = _context7.sent;
                 if (item.comment_number == 0) {
-                  item.comment.nickname = _this6.$store.state.userinfo.nickname;
+                  item.comment.nickname = _this7.$store.state.userinfo.nickname;
                   item.comment.content = item.pinlun;
                   item.comment_number = 1;
                 }
@@ -642,37 +670,37 @@ var _default = {
                 console.log(item);
               case 9:
               case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }))();
-    },
-    changeShow: function changeShow(item) {
-      var _this7 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7() {
-        var res;
-        return _regenerator.default.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                //打开评论区
-                uni.showLoading();
-                _context7.next = 3;
-                return _this7.$http('/circle/dynamic/comment/list', {
-                  dynamic_id: item.id
-                });
-              case 3:
-                res = _context7.sent;
-                uni.hideLoading();
-                _this7.isShow = true;
-                _this7.comment = res.data.data;
-              case 7:
-              case "end":
                 return _context7.stop();
             }
           }
         }, _callee7);
+      }))();
+    },
+    changeShow: function changeShow(item) {
+      var _this8 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee8() {
+        var res;
+        return _regenerator.default.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                //打开评论区
+                uni.showLoading();
+                _context8.next = 3;
+                return _this8.$http('/circle/dynamic/comment/list', {
+                  dynamic_id: item.id
+                });
+              case 3:
+                res = _context8.sent;
+                uni.hideLoading();
+                _this8.isShow = true;
+                _this8.comment = res.data.data;
+              case 7:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
       }))();
     }
   }

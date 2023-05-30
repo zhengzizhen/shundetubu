@@ -88,6 +88,13 @@
 .body .card .bottom .left.data-v-25ca04cf {
   margin-left: 300rpx;
 }
+.body .posfx.data-v-25ca04cf {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-bottom: 80rpx;
+}
 .body .btn.data-v-25ca04cf {
   margin: 500rpx auto 0;
   width: 690rpx;

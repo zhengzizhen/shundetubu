@@ -53,10 +53,10 @@
 					<text>报销管理</text>
 				</view>
 
-				<view class="menu dis_f flex_c alitmc" @click="toconcat()">
+				<!-- <view class="menu dis_f flex_c alitmc" @click="toconcat()">
 					<image src="@/static/image/mine/qiandao.png" mode=""></image>
 					<text>签到管理</text>
-				</view>
+				</view> -->
 			</view>
 		</view>
 
@@ -89,10 +89,10 @@
 
 			<!-- 带队活动 -->
 			<view class="pb20" v-show="list[0].state">
-				<view v-if="hot.no_start != null">
-					<view class="shaky pd30" v-for="(v,i) in hot.no_start" :key="i">
+				<view v-if="no_start != null">
+					<view class="shaky pd30" v-for="(v,i) in no_start" :key="i">
 						<view class="shaky_banner">
-							<p class="shaky_position">{{v.no_start.identity}}</p>
+							<p class="shaky_position">{{v.identity}}</p>
 							<image :src="v.master_image" mode=""></image>
 						</view>
 						<view class="shaky_content">
@@ -196,6 +196,7 @@
 				evaluate: null, //评论列表
 				album: null, //相册数据
 				dynamic: null, //动态数据
+				no_start:[]
 			}
 		},
 		onLoad() {
@@ -214,6 +215,7 @@
 			async gethot() { //活动
 				const res = await this.$http('/akela/trip/list')
 				this.hot = res.data.data
+				this.no_start = res.data.data.no_start
 			},
 			async getevaluate() { //评分
 				uni.showLoading()

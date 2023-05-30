@@ -137,10 +137,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
 //
 //
 //
@@ -180,39 +186,104 @@ var _default = {
   data: function data() {
     return {
       isShow: true,
-      list: [{
-        name: '神秘狗',
-        phone: '17633612613',
-        address: '河南省南阳市社旗县S333',
-        state: 0
-      }, {
-        name: '钱多多',
-        phone: '17698859631',
-        address: '广州省花都区花都广场50号',
-        state: 0
-      }, {
-        name: '郭晋安',
-        phone: '15474474888',
-        address: '上海市静安区静安寺5454',
-        state: 0
-      }]
+      list: []
     };
   },
+  onLoad: function onLoad() {},
+  onShow: function onShow() {
+    this.getlist();
+  },
   methods: {
+    getlist: function getlist() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/traveller/list');
+              case 2:
+                res = _context.sent;
+                _this.list = res.data.data;
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     back: function back() {
       uni.navigateBack();
     },
     check: function check(v, index) {
-      this.list.forEach(function (item, index) {
-        return [item.state = false];
-      });
-      this.list[index].state = !this.list[index].state;
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                uni.showLoading();
+                _context2.next = 3;
+                return _this2.$http('/trip/traveller/default', {
+                  traveller_id: v.id
+                });
+              case 3:
+                res = _context2.sent;
+                uni.hideLoading();
+                uni.$u.toast('设置成功');
+                _this2.getlist();
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     toAdd: function toAdd() {
       this.$jump('./Adduser');
     },
     toaddress: function toaddress() {
       this.$jump('./Adduser');
+    },
+    touser: function touser(v) {
+      this.$jump('./Adduser?obj=', 'params', JSON.stringify(v));
+    },
+    deletes: function deletes(v) {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var ress;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                uni.showLoading({
+                  title: '删除中'
+                });
+                _context3.next = 3;
+                return _this3.$http('/trip/traveller/delete', {
+                  traveller_id: v.id
+                });
+              case 3:
+                ress = _context3.sent;
+                uni.hideLoading();
+                uni.$u.toast('删除成功');
+                _this3.getlist();
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    setpropos: function setpropos(v) {
+      uni.setStorageSync('Applicant', v);
+      uni.navigateBack();
     }
   }
 };

@@ -34,6 +34,24 @@
 .ts_tbs .green.data-v-3801ff91 {
   color: #49CAA4;
 }
+.ts_tabs.data-v-3801ff91 {
+  margin: 30rpx 0;
+  text-align: center;
+}
+.ts_tabs ._p.data-v-3801ff91 {
+  width: 158rpx;
+  height: 62rpx;
+  line-height: 62rpx;
+  text-align: center;
+  background: #F4F4F4;
+  border-radius: 31rpx;
+  margin-right: 20rpx;
+  font-size: 28rpx;
+}
+.ts_tabs .green.data-v-3801ff91 {
+  color: white;
+  background: #49CAA4;
+}
 .dc_mod.data-v-3801ff91 {
   position: relative;
   background-color: white;
@@ -46,6 +64,10 @@
 }
 .dc_mod .dc_god.data-v-3801ff91 {
   margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
 }
 .dc_mod .dc_god ._p.data-v-3801ff91 {
   font-size: 30rpx;
@@ -68,19 +90,20 @@
 }
 .dc_mod .dc_latt.data-v-3801ff91 {
   margin-top: 10rpx;
+  flex: 1;
 }
-.dc_mod .dc_latt text.data-v-3801ff91 {
+.dc_mod .dc_latt text.data-v-3801ff91:nth-child(1) {
   padding: 5rpx 8rpx;
   color: #FFFFFF;
   font-size: 22rpx;
   background-color: #FFA1AD;
 }
-.dc_mod .dc_latt label.data-v-3801ff91 {
+.dc_mod .dc_latt text.data-v-3801ff91:nth-child(2) {
+  margin-left: 10rpx;
   padding: 5rpx 8rpx;
   color: #FFFFFF;
   font-size: 22rpx;
   background-color: #F2AD5A;
-  margin-left: 10rpx;
 }
 .dc_mod .dc_latt ._p.data-v-3801ff91 {
   font-size: 22rpx;
@@ -120,7 +143,6 @@
   color: #000000;
 }
 .oy_tabs.data-v-3801ff91 {
-  margin: 0rpx 0;
   text-align: center;
 }
 .oy_tabs ._p.data-v-3801ff91 {
@@ -130,10 +152,9 @@
   text-align: center;
   background: #F4F4F4;
   border-radius: 8rpx;
-  margin-right: 20rpx;
   font-size: 28rpx;
   border: 1px solid #F4F4F4;
-  margin: 10rpx 10rpx 20rpx 0rpx;
+  margin: 10rpx 40rpx 20rpx 0rpx;
 }
 .oy_tabs .green.data-v-3801ff91 {
   background: #E9FFF9;
@@ -148,7 +169,7 @@
   background: #FFFFFF;
   text-align: center;
   box-sizing: border-box;
-  margin-top: 80rpx;
+  margin-top: 140rpx;
 }
 .btn .ps.data-v-3801ff91 {
   border: 1px solid #999999;

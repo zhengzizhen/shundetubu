@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
   }
 } catch (e) {
@@ -165,6 +165,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 //
 //
@@ -276,86 +278,85 @@ var _default = {
   data: function data() {
     var _ref;
     return _ref = {
-      arrlist: [{
-        name: '1日团建',
-        image: '../../../static/index/zblx.jpg',
-        label: '畅游周边轻拓展'
-      }, {
-        name: '2-3日',
-        image: '../../../static/index/gnjx.jpg',
-        label: '团队放松小假日'
-      }, {
-        name: '4日以上',
-        image: '../../../static/index/gwjx.jpg',
-        label: '向远方同行出发'
-      }, {
-        name: '美食路线',
-        image: '../../../static/index/hdrl.jpg',
-        label: '自由式休闲度假'
-      }, {
-        name: '小众深度',
-        image: '../../../static/index/hwsc.jpg',
-        label: '人气宝藏旅行地'
-      }, {
-        name: '户外酷玩',
-        image: '../../../static/index/bwbd.jpg',
-        label: '玩些与众不同的'
-      }, {
-        name: '亲子定制',
-        image: '../../../static/index/tddz.jpg',
-        label: '打造童年小时光'
-      }, {
-        name: '关于我们',
-        image: '../../../static/index/qzlx.jpg',
-        label: '专业团建服务方'
-      }],
-      swiperlist: ['../../../static/as/changs.jpg', '../../../static/as/changs.jpg', '../../../static/as/changs.jpg', '../../../static/as/changs.jpg'],
+      arrlist: [],
+      swiperlist: [],
       sublist: ['当季推荐', '口碑路线'],
       swipercurrent: 0
-    }, (0, _defineProperty2.default)(_ref, "swiperlist", ['../../../static/as/changs.jpg', '../../../static/as/changs.jpg', '../../../static/as/changs.jpg', '../../../static/as/changs.jpg']), (0, _defineProperty2.default)(_ref, "current", 0), (0, _defineProperty2.default)(_ref, "list", ['1', '2', '3']), (0, _defineProperty2.default)(_ref, "radios", [{
-      checked: true
+    }, (0, _defineProperty2.default)(_ref, "swiperlist", []), (0, _defineProperty2.default)(_ref, "current", 0), (0, _defineProperty2.default)(_ref, "list", []), (0, _defineProperty2.default)(_ref, "curry", 0), (0, _defineProperty2.default)(_ref, "checklist", ['1天定制', '2~3天', '4天以上']), (0, _defineProperty2.default)(_ref, "curry1", 0), (0, _defineProperty2.default)(_ref, "checklist1", [{
+      name: '企业定制'
     }, {
-      checked: false
+      name: '亲子定制'
     }, {
-      checked: false
-    }]), (0, _defineProperty2.default)(_ref, "curry", null), (0, _defineProperty2.default)(_ref, "checklist", ['2~3天', '4天以上', '1天定制']), (0, _defineProperty2.default)(_ref, "curry1", null), (0, _defineProperty2.default)(_ref, "checklist1", [{
-      name: '企业定制',
-      state: true
-    }, {
-      name: '亲子定制',
-      state: false
-    }, {
-      name: '私人定制',
-      state: false
-    }]), (0, _defineProperty2.default)(_ref, "imglist", [{
-      title: '3天',
-      image: '../../../static/index/chang.jpg',
-      text: '【花漫天山】新疆伊犁 杏花大环线8日'
-    }, {
-      title: '3天',
-      image: '../../../static/index/zheng.jpg',
-      text: '【花漫天山】新疆伊犁 杏花大环线8日'
-    }, {
-      title: '3天',
-      image: '../../../static/index/zheng.jpg',
-      text: '【花漫天山】新疆伊犁 杏花大环线8日'
-    }, {
-      title: '3天',
-      image: '../../../static/index/chang.jpg',
-      text: '【花漫天山】新疆伊犁 杏花大环线8日'
-    }]), _ref;
+      name: '私人定制'
+    }]), (0, _defineProperty2.default)(_ref, "imglist", []), (0, _defineProperty2.default)(_ref, "public_praise", []), (0, _defineProperty2.default)(_ref, "team", []), (0, _defineProperty2.default)(_ref, "monthlist", []), _ref;
+  },
+  onLoad: function onLoad() {
+    this.getlist();
+    this.getmonth();
   },
   methods: {
+    getlist: function getlist() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/teamcustom/index');
+              case 2:
+                res = _context.sent;
+                _this.arrlist = res.data.data.icon_list; //金刚区
+                _this.swiperlist = res.data.data.hot;
+                _this.public_praise = res.data.data.public_praise;
+                _this.list = res.data.data.public_praise.day1;
+                _this.team = res.data.data.team;
+                _this.imglist = res.data.data.team.firm;
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getmonth: function getmonth() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/teamcustom/dynamic/list', {
+                  page: 1,
+                  limit: 3
+                });
+              case 2:
+                res = _context2.sent;
+                _this2.monthlist = res.data.data;
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     sectionChange: function sectionChange(index) {
       this.current = index;
     },
-    radioClick: function radioClick(name) {
-      this.radios.map(function (item, index) {
-        item.checked = index === name ? true : false;
-      });
-    },
     checkout: function checkout(e, index) {
       this.curry = index;
+      if (this.curry == 0) {
+        this.list = this.public_praise.day1;
+      } else if (this.curry == 1) {
+        this.list = this.public_praise.day23;
+      } else if (this.curry == 2) {
+        this.list = this.public_praise.day4;
+      }
     },
     change: function change(e) {
       console.log(e.detail.current);
@@ -363,16 +364,26 @@ var _default = {
     },
     checkout1: function checkout1(e, index) {
       this.curry1 = index;
+      if (this.curry1 == 0) {
+        this.list = this.team.firm;
+      } else if (this.curry1 == 1) {
+        this.list = this.team.kids;
+      } else if (this.curry1 == 2) {
+        this.list = this.team.private;
+      }
+    },
+    toDetails: function toDetails(e) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', e);
     },
     goWonderful: function goWonderful() {
       this.$jump('./Wonderful');
     },
-    clinto: function clinto(index) {
-      this.$jump('./oneday');
-      // switch (index){
-      // 	case 0:
-      // 		this.$jump('./oneday')
-      // }
+    clinto: function clinto(item, index) {
+      var params = {
+        id: item.id,
+        name: item.title
+      };
+      this.$jump('./oneday?obj=', 'params', JSON.stringify(params));
     }
   }
 };

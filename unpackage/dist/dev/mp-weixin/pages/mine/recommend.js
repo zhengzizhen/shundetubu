@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uOverlay: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-overlay/u-overlay */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-overlay/u-overlay")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-overlay/u-overlay.vue */ 1038))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-overlay/u-overlay */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-overlay/u-overlay")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-overlay/u-overlay.vue */ 1062))
     },
   }
 } catch (e) {
@@ -225,7 +225,7 @@ var _default = {
     };
   },
   onLoad: function onLoad() {
-    this.getlist(1);
+    this.getlist(this.page);
   },
   onReachBottom: function onReachBottom() {
     if (this.bottom == true) {
@@ -253,20 +253,15 @@ var _default = {
                 res = _context.sent;
                 uni.hideLoading();
                 _this.overlay = false;
-                if (!(res.data.data == '')) {
-                  _context.next = 10;
-                  break;
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
                 }
-                uni.$u.toast('已经到底部了');
-                _this.bottom = true;
-                return _context.abrupt("return", false);
-              case 10:
                 uni.hideLoading();
                 _this.list = _this.list.concat(res.data.data);
                 for (i = 0; i < _this.list.length; i++) {
                   _this.list[i].state = true;
                 }
-              case 13:
+              case 10:
               case "end":
                 return _context.stop();
             }

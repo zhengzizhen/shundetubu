@@ -101,7 +101,10 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
+    },
+    uPopup: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
   }
 } catch (e) {
@@ -125,6 +128,11 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function ($event) {
+      _vm.isShow = true
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -160,10 +168,31 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -194,10 +223,139 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: [1, 2, 3, 4]
+      isShow: false,
+      list: [],
+      Seach: [],
+      daycurry: null,
+      cityid: [],
+      bottom: false,
+      page: 1,
+      city: '',
+      citys: ''
     };
   },
-  methods: {}
+  onLoad: function onLoad() {
+    var params = {
+      page: this.page,
+      limit: 10
+    };
+    this.getlist(params);
+    this.getSeach();
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    } else {
+      var params = {
+        page: this.page,
+        limit: 10
+      };
+      this.getlist(params);
+    }
+  },
+  methods: {
+    getlist: function getlist(params) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/vicinity/list/2day', params);
+              case 2:
+                res = _context.sent;
+                _this.list = _this.list.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    close: function close() {
+      this.isShow = false;
+    },
+    getSeach: function getSeach() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/search/vicinity_workday');
+              case 2:
+                res = _context2.sent;
+                _this2.Seach = res.data.data.search_city;
+                _this2.city = _this2.Seach[0].name;
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    open: function open() {
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    checkday: function checkday(e, index) {
+      //出行天数
+      this.daycurry = index;
+      this.cityid = e.id;
+      this.citys = e.name;
+    },
+    resetting: function resetting() {
+      this.daycurry = null;
+    },
+    toclick: function toclick() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var params;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this3.page = 1;
+                _this3.list = [];
+                // this.city = this.Seach[0].name
+                params = {
+                  page: _this3.page,
+                  limit: 10,
+                  city_id: _this3.cityid
+                };
+                _this3.getlist(params);
+                _this3.city = _this3.citys;
+                _this3.isShow = false;
+              case 6:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    toDetails: function toDetails(e) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', e);
+    }
+  }
 };
 exports.default = _default;
 

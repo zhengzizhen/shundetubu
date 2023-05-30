@@ -4,14 +4,18 @@
 			<view class="dis_f jscb al_title">
 				<p>温馨提示</p>
 			</view>
-			<text class="tost">当前选择：3月18日全国出发，单价2812元/人 </text>
+			<text class="tost">当前选择：{{obj.start_day}}日全国出发，单价{{obj.price}}元/人 </text>
 			<label class="label">请填写真实信息，否则报名及保险将无效</label>
 		</view>
 
 		<view class="al_tost">
 			<view class="dis_f jscb al_title">
 				<p>报名信息</p>
-				<p class="to30"><label>小计：</label>0元</p>
+				<p class="to30"><label>小计：</label>{{obj.price*Applicant.length}}元</p>
+			</view>
+			<view class="dis_f jscb rosx" v-for="(v,i) in Applicant" :key="i">
+				<p>{{v.username}}</p>
+				<p>{{v.phone}}</p>
 			</view>
 			<text class="addUser" @click="toAdduser()">+添加报名人</text>
 		</view>
@@ -55,8 +59,8 @@
 
 		<view class="flexi">
 			<view class="dis_f alitmc jscb m20">
-				<p>总费用： 0元</p>
-				<view class="btns">支付</view>
+				<p>总费用： {{obj.price*Applicant.length}}元</p>
+				<view class="btns" @click="submit">支付</view>
 			</view>
 		</view>
 	</view>
@@ -82,7 +86,32 @@
 				],
 				// u-radio-group的v-model绑定的值如果设置为某个radio的name，就会被默认选中
 				radiovalue1: '微信支付',
+				obj:{},
+				Applicant:[],//报名人信息
+				traveller_ids:'',//单、多个
+				type:'h5微信'
 			};
+		},
+		onLoad(option) {
+			this.obj = JSON.parse(option.obj)
+		},
+		onShow() {
+			const Applicant = uni.getStorageSync('Applicant')
+			if(Applicant == ''){
+				return false
+			}
+			if(Applicant.id!=''){
+				for(let i = 0;i<this.Applicant.length;i++){
+					if(this.Applicant[i].id == Applicant.id){
+						uni.$u.toast('不能选择相同的用户')
+						uni.removeStorageSync('Applicant')
+						return false
+					}
+				}
+				this.Applicant = this.Applicant.concat(Applicant)
+				uni.removeStorageSync('Applicant')
+				console.log(this.Applicant );
+			}
 		},
 		methods: {
 			groupChange() {
@@ -93,6 +122,49 @@
 			},
 			toCard(){
 				this.$jump('/pages/mine/Card')
+			},
+			submit(){
+				
+				if(this.isShow == false){
+					uni.$u.toast('请先同意相关协议')
+					return false
+				}
+				
+				if(this.Applicant.length == 0){
+					uni.$u.toast('请选择报名人')
+					return false
+				}
+				if(this.Applicant.length == 1){
+					this.traveller_ids = this.Applicant[0].id
+				}else if(this.Applicant.length > 1){
+					for(let i =0 ; i<this.Applicant.length;i++){
+						if(i == 0){
+							this.traveller_ids = this.Applicant[i].id
+						}else{
+							this.traveller_ids = this.traveller_ids + ',' + this.Applicant[i].id
+						}
+					}
+				}
+				this.type = '';
+				if(this.radiovalue1 == '微信支付'){
+					this.type = 'h5微信'
+				}else if(this.radiovalue1 == '支付宝支付'){
+					this.type = 'h5支付宝'
+				}else if(this.radiovalue1 == '银行卡支付'){
+					this.type = '银行卡'
+				}
+				const params = {
+					trip_id:this.obj.trip_id,
+					trip_team_id:this.obj.trip_team_id,
+					traveller_ids:this.traveller_ids,
+					deduction_money:this.obj.price * this.Applicant.length,
+					pay_method:this.type
+				}
+				this.runload(params)
+			},
+			async runload(params){
+				const res = await this.$http('/trip/order/create',params)
+				
 			}
 		}
 	}
@@ -223,6 +295,13 @@
 			background: #49CAA4;
 			border-radius: 39rpx;
 			margin-right: 30rpx;
+		}
+	}
+	.rosx{
+		margin: 20rpx 0;
+		p{
+			font-size: 30rpx;
+			color: black;
 		}
 	}
 </style>

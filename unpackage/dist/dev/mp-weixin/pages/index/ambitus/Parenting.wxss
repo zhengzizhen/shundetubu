@@ -27,6 +27,8 @@
 .oy_body.data-v-57fedca2 {
   background-color: #18ACB6;
   padding: 392rpx 30rpx 100rpx;
+  min-height: 1500rpx;
+  height: auto;
 }
 .oy_cont.data-v-57fedca2 {
   margin: 20rpx 0;
@@ -39,6 +41,7 @@
   border-radius: 20rpx 20rpx 0 0;
 }
 .oy_cont .tit.data-v-57fedca2 {
+  margin-left: 20rpx;
   margin-top: 20rpx;
   font-size: 30rpx;
   font-weight: 500;

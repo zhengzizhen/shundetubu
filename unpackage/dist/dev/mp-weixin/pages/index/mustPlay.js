@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uTabs: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 973))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 997))
     },
   }
 } catch (e) {
@@ -158,12 +158,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
 //
 //
 //
@@ -238,7 +243,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: [1, 2],
+      list: [],
       list1: [{
         name: '新人榜'
       }, {
@@ -247,20 +252,155 @@ var _default = {
         name: '评分榜'
       }],
       curry: null,
-      checklist: ['1天活动', '2~3天', '4天+']
+      page: 1,
+      name: '新人榜',
+      seach: [],
+      bottom: false
     };
   },
+  onLoad: function onLoad() {
+    this.getlist('新人榜');
+    this.getSeach();
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    } else {
+      this.concatlist();
+    }
+  },
   methods: {
+    getlist: function getlist(type) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/rank/trip', {
+                  page: _this.page,
+                  limit: 10,
+                  type: type
+                });
+              case 2:
+                res = _context.sent;
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+                _this.list = res.data.data;
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getSeach: function getSeach() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/search/rank');
+              case 2:
+                res = _context2.sent;
+                _this2.seach = res.data.data.search_price;
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    // 下拉合并
+    concatlist: function concatlist() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$http('/trip/rank/trip', {
+                  page: _this3.page,
+                  limit: 10,
+                  type: _this3.name,
+                  search_min_day: _this3.search_min_day,
+                  search_max_day: _this3.search_max_day
+                });
+              case 2:
+                res = _context3.sent;
+                if (res.data.data.length < 10) {
+                  _this3.bottom = true;
+                }
+                _this3.list = _this3.list.concat(res.data.data);
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     click: function click(item) {
-      // console.log('item', item);
+      this.curry = null;
+      this.bottom = false;
+      this.page = 1;
+      this.getlist(item.name);
+      this.name = item.name;
     },
     checkout: function checkout(e, index) {
-      // console.log(e) //切换
-      this.curry = index;
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var res;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.curry = index;
+                _this4.bottom = false;
+                _this4.page = 1;
+                uni.showLoading();
+                _this4.search_min_day = e.min;
+                _this4.search_max_day = e.max;
+                _context4.next = 8;
+                return _this4.$http('/trip/rank/trip', {
+                  page: _this4.page,
+                  limit: 10,
+                  type: _this4.name,
+                  search_min_day: e.min,
+                  search_max_day: e.max
+                });
+              case 8:
+                res = _context4.sent;
+                if (res.data.data.length < 10) {
+                  _this4.bottom = true;
+                }
+                uni.hideLoading();
+                _this4.list = res.data.data;
+              case 12:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    toDetails: function toDetails(e) {
+      this.$jump('./Details/Details?id=', 'params', e);
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

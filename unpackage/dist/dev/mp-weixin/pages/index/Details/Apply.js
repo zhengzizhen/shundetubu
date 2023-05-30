@@ -101,13 +101,13 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uRadioGroup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 1046))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 1070))
     },
     uRadio: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio/u-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio/u-radio")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio/u-radio.vue */ 1054))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio/u-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio/u-radio")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio/u-radio.vue */ 1078))
     },
   }
 } catch (e) {
@@ -131,6 +131,8 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.Applicant.length
+  var g1 = _vm.Applicant.length
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
       _vm.isShow = !_vm.isShow
@@ -139,6 +141,15 @@ var render = function () {
       _vm.isShow = !_vm.isShow
     }
   }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+        g1: g1,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -172,12 +183,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
+//
 //
 //
 //
@@ -257,8 +275,35 @@ var _default = {
         disabled: false
       }],
       // u-radio-group的v-model绑定的值如果设置为某个radio的name，就会被默认选中
-      radiovalue1: '微信支付'
+      radiovalue1: '微信支付',
+      obj: {},
+      Applicant: [],
+      //报名人信息
+      traveller_ids: '',
+      //单、多个
+      type: 'h5微信'
     };
+  },
+  onLoad: function onLoad(option) {
+    this.obj = JSON.parse(option.obj);
+  },
+  onShow: function onShow() {
+    var Applicant = uni.getStorageSync('Applicant');
+    if (Applicant == '') {
+      return false;
+    }
+    if (Applicant.id != '') {
+      for (var i = 0; i < this.Applicant.length; i++) {
+        if (this.Applicant[i].id == Applicant.id) {
+          uni.$u.toast('不能选择相同的用户');
+          uni.removeStorageSync('Applicant');
+          return false;
+        }
+      }
+      this.Applicant = this.Applicant.concat(Applicant);
+      uni.removeStorageSync('Applicant');
+      console.log(this.Applicant);
+    }
   },
   methods: {
     groupChange: function groupChange() {},
@@ -267,10 +312,68 @@ var _default = {
     },
     toCard: function toCard() {
       this.$jump('/pages/mine/Card');
+    },
+    submit: function submit() {
+      if (this.isShow == false) {
+        uni.$u.toast('请先同意相关协议');
+        return false;
+      }
+      if (this.Applicant.length == 0) {
+        uni.$u.toast('请选择报名人');
+        return false;
+      }
+      if (this.Applicant.length == 1) {
+        this.traveller_ids = this.Applicant[0].id;
+      } else if (this.Applicant.length > 1) {
+        for (var i = 0; i < this.Applicant.length; i++) {
+          if (i == 0) {
+            this.traveller_ids = this.Applicant[i].id;
+          } else {
+            this.traveller_ids = this.traveller_ids + ',' + this.Applicant[i].id;
+          }
+        }
+      }
+      this.type = '';
+      if (this.radiovalue1 == '微信支付') {
+        this.type = 'h5微信';
+      } else if (this.radiovalue1 == '支付宝支付') {
+        this.type = 'h5支付宝';
+      } else if (this.radiovalue1 == '银行卡支付') {
+        this.type = '银行卡';
+      }
+      var params = {
+        trip_id: this.obj.trip_id,
+        trip_team_id: this.obj.trip_team_id,
+        traveller_ids: this.traveller_ids,
+        deduction_money: this.obj.price * this.Applicant.length,
+        pay_method: this.type
+      };
+      this.runload(params);
+    },
+    runload: function runload(params) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/order/create', params);
+              case 2:
+                res = _context.sent;
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

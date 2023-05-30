@@ -44,7 +44,7 @@
 
 		<view v-show="!isShow" class="pd30">
 			<view>
-				<view v-if="index == 0" class="banner" v-for="(item,index) in overSeach" :key="item.id">
+				<view @click="toDetails(item.id)" v-if="index == 0" class="banner" v-for="(item,index) in overSeach" :key="item.id">
 					<p class="iun">路线-{{item.day}}天</p>
 					<image class="image" :src="item.master_image" mode=""></image>
 					<view class="dis_f txt">
@@ -159,7 +159,6 @@
 			},
 			//搜索框节流
 			changeinput(e) {
-				console.log(e);
 				const that = this
 				if (!that.statu) {
 					return
@@ -177,7 +176,7 @@
 <style lang="scss" scoped>
 	.body {
 		background-color: #FAFAFA;
-		padding-top: 88rpx;
+		padding-top: 0rpx;
 	}
 
 	.bodys {
@@ -373,7 +372,9 @@
 			}
 		}
 	}
-
+	.centers{
+		flex: 1;
+	}
 	.iuso {
 		margin: 10rpx 0;
 
@@ -403,7 +404,6 @@
 		padding: 30rpx 10rpx;
 		margin: 30rpx 0;
 		border-radius: 20rpx;
-
 		image {
 			width: 240rpx;
 			height: 240rpx;

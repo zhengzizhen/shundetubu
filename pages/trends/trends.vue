@@ -3,8 +3,11 @@
 		<view class="ts_header dis_f">
 			<u-search class="input" placeholder="请搜索目的地" v-model="seachValue" clearable :showAction='false'
 				:height='28'></u-search>
-			<view class="headerimg">
-				<image @click="gomsg()" src="@/static/image/trends/msg.jpg" mode=""></image>
+			<view class="headerimg dis_f jscb">
+				<view class="posir">
+					<image @click="gomsg()" src="@/static/image/trends/msg.jpg" mode=""></image>
+					<p class="posia resa" v-if="message!=0"></p>
+				</view>
 				<image v-if="$store.state.userinfo" class="bor_y" @click="goSpace($store.state.userinfo.id)"
 					:src="$store.state.userinfo.avatar" mode=""></image>
 			</view>
@@ -198,6 +201,7 @@
 				followPage: 1, //关注页数
 				rebottom: false, //推荐页是否触底
 				fobottom: false, //关注页是否触底
+				message:0
 			}
 		},
 		onLoad() {},
@@ -206,6 +210,8 @@
 			this.getlist('关注')
 			// //推荐列表
 			this.getlistc('推荐')
+			
+			this.getmsg()
 		},
 		onReachBottom() {
 			if (this.state == false) {
@@ -255,6 +261,10 @@
 				}
 				uni.hideLoading()
 			},
+			async getmsg(){
+				const res = await this.$http('/circle/circle/message/number')
+				this.message = parseInt(res.data.data.comment_number + res.data.data.like_number + res.data.data.attention_number)
+			},
 			open() {
 
 			},
@@ -273,6 +283,7 @@
 				e.state = true
 				this.state = !this.state
 				if (this.state == true) {
+					this.followPage = 1
 					this.userlist1 = []
 					this.getlist('关注')
 				}
@@ -376,7 +387,6 @@
 
 	.headerimg {
 		margin-left: 40rpx;
-
 		image {
 			width: 63rpx;
 			height: 63rpx;
@@ -542,5 +552,14 @@
 			margin-left: 10rpx;
 			font-size: 28rpx;
 		}
+	}
+	.resa{
+		top: -5rpx;
+		right: -0rpx;
+		z-index: 9;
+		width: 16rpx;
+		height: 16rpx;
+		border-radius: 50%;
+		background-color: #FF404E;
 	}
 </style>

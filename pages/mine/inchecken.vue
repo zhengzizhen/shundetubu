@@ -120,8 +120,14 @@
 		onLoad() {
 			this.arrlist = this.list
 			this.Numbers()
+			this.getlist()
 		},
 		methods: {
+			async getlist(){
+				const res = this.$http('/trip/akela/sign/list',{
+					
+				})
+			},
 			toajax() {
 				this.isShow = !this.isShow
 				this.$nextTick(() => {

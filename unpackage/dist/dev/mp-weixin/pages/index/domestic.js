@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
   }
 } catch (e) {
@@ -128,11 +128,27 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.list, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var g0 = index == 0 ? item.trip_team.length : null
+    return {
+      $orig: $orig,
+      g0: g0,
+    }
+  })
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
       _vm.isShow = true
     }
   }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -168,27 +184,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -310,46 +312,214 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      laberlist: ['亲子路线', '高铁出行', '轻奢活动', '轻奢活动'],
+      laberlist: [],
       isShow: false,
       lvcurry: null,
-      lvlist: ['休闲', '轻松徒步', '稍有难度', '中等难度', '难度较大', '高难度'],
+      lvlist: [],
       moneycurry: null,
-      moenylist: ['1000以内', '1K-2K', '2K-3K', '3K-5K', '5000+'],
+      moenylist: [],
       statecurry: null,
-      staticlist: ['报名中', '即将成行', '已成行'],
+      staticlist: [],
       addcurry: null,
-      addresslist: ['广东', '云南', '福建', '新疆', '四川', '西藏', '广西', '青岛', '海南'],
+      addresslist: [],
       daycurry: null,
-      days: ['2~3天', '4~5天', '6天+']
+      label: [],
+      labelcurry: null,
+      days: [],
+      obj: {},
+      //接收的参数
+      list: [],
+      page: 1,
+      seach: [],
+      search_min_day: '',
+      //最少天数
+      search_max_day: '',
+      //最多天数
+      search_difficulty: '',
+      //难度等级
+      search_status: '',
+      //状态
+      search_bourn: '',
+      //地区id
+      search_min_price: '',
+      //最低价格
+      search_max_price: '',
+      //最高价格
+      search_label: '' //标签
     };
   },
   created: function created() {},
   onLoad: function onLoad(option) {
+    this.obj = JSON.parse(option.tit);
     uni.setNavigationBarTitle({
-      title: option.tit
+      title: this.obj.title
     });
+    var info = {
+      url: this.obj.url,
+      params: {
+        page: this.page,
+        limit: 10
+      }
+    };
+    this.getlist(info);
+    this.getSeach(this.obj.seach);
   },
   methods: {
-    reset: function reset() {},
+    getlist: function getlist(info) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http(info.url, info.params);
+              case 2:
+                res = _context.sent;
+                _this.list = _this.list.concat(res.data.data);
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getSeach: function getSeach(url) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http(url);
+              case 2:
+                res = _context2.sent;
+                _this2.days = res.data.data.search_day;
+                _this2.lvlist = res.data.data.search_difficulty;
+                _this2.moenylist = res.data.data.search_price;
+                _this2.staticlist = res.data.data.search_status;
+                _this2.addresslist = res.data.data.search_bourn;
+                _this2.laberlist = res.data.data.search_label;
+                _this2.label = res.data.data.search_label;
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    reset: function reset() {
+      this.lvcurry = null;
+      this.addcurry = null;
+      this.daycurry = null;
+      this.moneycurry = null;
+      this.statecurry = null;
+      this.labelcurry = null;
+    },
     open: function open() {},
     close: function close() {
       this.isShow = !this.isShow;
     },
     todays: function todays(v, index) {
+      if (index == this.daycurry) {
+        this.daycurry = null;
+        this.search_min_day = '';
+        this.search_max_day = '';
+        return false;
+      }
       this.daycurry = index;
+      this.search_min_day = v.min;
+      this.search_max_day = v.max;
+    },
+    tolabel: function tolabel(v, index) {
+      if (index == this.labelcurry) {
+        this.labelcurry = null;
+        this.search_label = '';
+        return false;
+      }
+      this.labelcurry = index;
+      this.search_label = v.name;
     },
     tolv: function tolv(v, index) {
+      if (index == this.lvcurry) {
+        this.lvcurry = null;
+        this.search_difficulty = '';
+        return false;
+      }
       this.lvcurry = index;
+      this.search_difficulty = v.name;
     },
     tomoney: function tomoney(v, index) {
+      if (index == this.moneycurry) {
+        this.moneycurry = null;
+        this.search_min_price = '';
+        this.search_max_price = '';
+        return false;
+      }
       this.moneycurry = index;
+      this.search_min_price = v.min;
+      this.search_max_price = v.max;
     },
     tostate: function tostate(v, index) {
+      if (index == this.statecurry) {
+        this.statecurry = null;
+        this.search_status = '';
+        return false;
+      }
       this.statecurry = index;
+      this.search_status = index;
     },
     toaddress: function toaddress(v, index) {
+      if (index == this.addcurry) {
+        this.addcurry = null;
+        this.search_bourn = '';
+        return false;
+      }
       this.addcurry = index;
+      this.search_bourn = v.id;
+    },
+    toDetails: function toDetails(e) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', e);
+    },
+    submit: function submit() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var info;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.page = 1;
+                _this3.list = [];
+                info = {
+                  url: _this3.obj.url,
+                  params: {
+                    page: _this3.page,
+                    limit: 10,
+                    search_min_price: _this3.search_min_price,
+                    search_max_price: _this3.search_max_price,
+                    search_min_day: _this3.search_min_day,
+                    search_max_day: _this3.search_max_day,
+                    search_difficulty: _this3.search_difficulty,
+                    search_status: _this3.search_status,
+                    search_bourn: _this3.search_bourn,
+                    search_label: _this3.search_label
+                  }
+                };
+                _this3.getlist(info);
+                _this3.isShow = false;
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }
 };

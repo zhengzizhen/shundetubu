@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
   }
 } catch (e) {
@@ -125,6 +125,22 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.list, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var g0 = item.trip_team.length
+    return {
+      $orig: $orig,
+      g0: g0,
+    }
+  })
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -160,14 +176,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -197,15 +212,149 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: [1, 2, 3, 4]
+      list: [],
+      params: {},
+      page: 1,
+      seach: [],
+      curry: null,
+      search_min_day: '',
+      search_max_day: '',
+      bottom: false
     };
   },
   onLoad: function onLoad(option) {
+    this.params = JSON.parse(option.obj);
     uni.setNavigationBarTitle({
-      title: option.name
+      title: this.params.title
     });
+    this.getlist(this.params.url);
+    this.getseach(this.params.seach);
   },
-  methods: {}
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    } else {
+      this.page += 1;
+      this.concatlist(this.params.url);
+    }
+  },
+  methods: {
+    getlist: function getlist(params) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http(params, {
+                  page: _this.page,
+                  limit: 10
+                });
+              case 2:
+                res = _context.sent;
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+                _this.list = res.data.data;
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getseach: function getseach(url) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http(url);
+              case 2:
+                res = _context2.sent;
+                _this2.seach = res.data.data.search_day;
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    concatlist: function concatlist(params) {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$http(params, {
+                  page: _this3.page,
+                  limit: 10,
+                  search_min_day: _this3.search_min_day,
+                  search_max_day: _this3.search_max_day
+                });
+              case 2:
+                res = _context3.sent;
+                if (res.data.data.length < 10) {
+                  _this3.bottom = true;
+                }
+                _this3.list = _this3.list.concat(res.data.data);
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    toDeatil: function toDeatil(v) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', v);
+    },
+    tocheckout: function tocheckout(v, index) {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var res;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.curry = index;
+                _this4.search_min_day = v.min;
+                _this4.search_max_day = v.max;
+                _this4.bottom = false;
+                uni.showLoading();
+                _context4.next = 7;
+                return _this4.$http(_this4.params.url, {
+                  page: _this4.page,
+                  limit: 10,
+                  search_min_day: v.min,
+                  search_max_day: v.max
+                });
+              case 7:
+                res = _context4.sent;
+                uni.hideLoading();
+                if (res.data.data.length < 10) {
+                  _this4.bottom = true;
+                }
+                _this4.list = res.data.data;
+              case 11:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    }
+  }
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))

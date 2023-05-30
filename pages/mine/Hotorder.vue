@@ -7,39 +7,39 @@
 		</view>
 		
 		<view>
-			<view @click="toHotorder" class="content" v-for="(item,index) in list1" :key="index" v-if="item.state == 0">
+			<view @click="toHotorder(item.order_no)" class="content" v-for="(item,index) in list" :key="index" v-show="curry == 0">
 				<view class="cont_header dis_f jscb alitmc">
-					<p>订单编号：{{item.id}}</p>
+					<p>订单编号：{{item.order_no}}</p>
 					<text>已报名</text>
 				</view>
 				<view class="bot dis_f">
-					<image src="@/static/index/zheng.jpg" mode=""></image>
+					<image :src="item.trip_master_image" mode=""></image>
 					<view class="dis_f flex_c right">
 						<p>{{item.title}}</p>
-						<label>下单时间：{{item.date}}</label>
-						<text>订单金额：￥{{item.money}}</text>
+						<label>下单时间：{{item.created_at}}</label>
+						<text>订单金额：￥{{item.all_price}}</text>
 					</view>
 				</view>
 				<view class="bottom dis_f">
-					<p @click.stop='toinchecken'>活动签到</p>
-					<p @click.stop = 'torebook'>改签订单</p>
-					<p>取消报名</p>
+					<p @click.stop='toinchecken(item.order_no)'>活动签到</p>
+					<p @click.stop = 'torebook(item.order_no)'>改签订单</p>
+					<p @click.stop = 'torebook(item.order_no)'>取消报名</p>
 				</view>
 			</view>
 		</view>
 		
 		<view>
-			<view class="content" v-for="(item,index) in list1" :key="index" v-show="item.state == 1">
+			<view @click="toHotorder(item.order_no)"  class="content" v-for="(item,index) in list1" :key="index"  v-show="curry == 1">
 				<view class="cont_header dis_f jscb alitmc">
-					<p>订单编号：{{item.id}}</p>
-					<text class="red">已结束</text>
+					<p>订单编号：{{item.order_no}}</p>
+					<text>已报名</text>
 				</view>
 				<view class="bot dis_f">
-					<image src="@/static/index/zheng.jpg" mode=""></image>
+					<image :src="item.trip_master_image" mode=""></image>
 					<view class="dis_f flex_c right">
 						<p>{{item.title}}</p>
-						<label>下单时间：{{item.date}}</label>
-						<text>订单金额：￥{{item.money}}</text>
+						<label>下单时间：{{item.created_at}}</label>
+						<text>订单金额：￥{{item.all_price}}</text>
 					</view>
 				</view>
 				<view class="bottom dis_f">
@@ -50,17 +50,17 @@
 		</view>
 		
 		<view>
-			<view class="content" v-for="(item,index) in list1" :key="index" v-if="item.state == 2">
+			<view @click="toHotorder(item.order_no)" class="content" v-for="(item,index) in list1" :key="index"  v-show="curry == 2">
 				<view class="cont_header dis_f jscb alitmc">
-					<p>订单编号：{{item.id}}</p>
-					<text class="dis">已退出</text>
+					<p>订单编号：{{item.order_no}}</p>
+					<text>已报名</text>
 				</view>
 				<view class="bot dis_f">
-					<image src="@/static/index/zheng.jpg" mode=""></image>
+					<image :src="item.trip_master_image" mode=""></image>
 					<view class="dis_f flex_c right">
 						<p>{{item.title}}</p>
-						<label>下单时间：{{item.date}}</label>
-						<text>订单金额：￥{{item.money}}</text>
+						<label>下单时间：{{item.created_at}}</label>
+						<text>订单金额：￥{{item.all_price}}</text>
 					</view>
 				</view>
 				<view class="bottom dis_f">
@@ -77,40 +77,7 @@
 	export default {
 		data() {
 			return {
-				list: [{
-					id: 8269685454554,
-					state:0,
-					title:'【亭可马里季】斯里兰卡纯玩9天',
-					date:'2023-02-20 18:19',
-					money:'125',
-				},{
-					id: 8269685454554,
-					state:0,
-					title:'【亭可马里季】斯里兰卡纯玩9天',
-					date:'2023-02-20 18:19',
-					money:'125',
-				},
-				{
-					id: 9448685454554,
-					state:1,
-					title:'芜湖大司马',
-					date:'2023-04-05 18:54',
-					money:'999',
-				},{
-					id: 4858685454554,
-					state:2,
-					title:'慢慢的变呆',
-					date:'2023-06-07 20:19',
-					money:'666',
-				},
-				{
-					id: 4858685454554,
-					state:2,
-					title:'慢慢的变呆',
-					date:'2023-06-07 20:19',
-					money:'666',
-				}
-				],
+				list: [],
 				menu: [{
 					name: '已报名',
 				}, {
@@ -119,49 +86,87 @@
 					name: '已退出',
 				}],
 				list1:[],
+				list2:[],
+				page:1,
+				curry:0,
+				bottom:false
 			}
 		},
 		onLoad() {
-			let arr = {index:0}
-			this.change(arr)
+			this.getlist(1) //已报名
+			this.getlist1(2) //已结束
+			this.getlist2(3) //已退出
+		},
+		onReachBottom() {
+			if(this.bottom == true){
+				return false
+			}
+			this.page += 1
+			if(this.curry == 0){
+				this.getlist(1)
+			}else if(this.curry == 1){
+				this.getlist1(2)
+			}else if(this.curry == 2){
+				this.getlist2(3)
+			}
 		},
 		methods: {
-			change(item) {
-				if (item.index === 0) {
-					this.list1 = []
-					this.list.forEach((item,index)=>{
-						if(item.state == 0){
-							this.list1.push(item)
-						}
-					})
-				} else if (item.index === 1) {
-					this.list1 = []
-					this.list.forEach((item,index)=>{
-						if(item.state == 1){
-							this.list1.push(item)
-							console.log(item);
-						}
-					})
-				} else if (item.index === 2) {
-					this.list1 = []
-					this.list.forEach((item,index)=>{
-						if(item.state == 2){
-							this.list1.push(item)
-						}
-					})
+			async getlist(status){
+				const res = await this.$http('/trip/order/list',{
+					page:this.page,
+					limit:10,
+					status
+				})
+				this.list = this.list.concat(res.data.data) 
+				if(res.data.data.length<10){
+					this.bottom = true
 				}
+			},
+			async getlist1(status){
+				const res = await this.$http('/trip/order/list',{
+					page:this.page,
+					limit:10,
+					status
+				})
+				this.list1 = this.list1.concat(res.data.data) 
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
+			},
+			async getlist2(status){
+				const res = await this.$http('/trip/order/list',{
+					page:this.page,
+					limit:10,
+					status
+				})
+				this.list2 = this.list2.concat(res.data.data) 
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
+			},
+			change(item) {
+				this.page = 1
+				this.bottom = false
+				this.curry = item.index
 			},
 			toactivity(){
 				this.$jump('./menu/activity')
 			},
-			toinchecken(){
-				this.$jump('./inchecken')
+			async toinchecken(v){
+				uni.showLoading({
+					title:'签到中'
+				})
+				const res = this.$http('/trip/order/sign',{
+					order_no:v
+				})
+				uni.hideLoading()
+				uni.$u.toast(res.data.msg)
 			},
-			torebook(){
-				this.$jump('./rebook')
+			torebook(v){
+				this.$jump('./rebook?id=','params',v)
 			},
-			toHotorder(){
-				this.$jump('./Hotorder/Hotorder')
+			toHotorder(v){
+				this.$jump('./Hotorder/Hotorder?id=','params',v)
 			}
 		}
 	}

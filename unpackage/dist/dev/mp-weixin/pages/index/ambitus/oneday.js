@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
   }
 } catch (e) {
@@ -163,17 +163,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -245,46 +241,138 @@ var _default = {
       curry: 0,
       //综合选择
       tablist: ['综合', '口碑', '热度', '筛选'],
-      tablist1: [{
-        name: '登山徒步',
-        state: false
-      }, {
-        name: '美食休闲',
-        state: false
-      }, {
-        name: '亲子活动',
-        state: false
-      }],
-      list: [1, 2, 3, 4, 5],
+      list: [],
       daycurry: null,
-      day: ['美食', '休闲', '徒步'],
+      day: [],
       moneycurry: null,
-      money: ['休闲深度', '轻松徒步', '稀有难度', '中等难度', '较高难度'],
+      money: [],
       statecurry: null,
-      state: ['周六', '周日', '工作日']
+      state: [],
+      page: 1,
+      bottom: false,
+      search_type: '',
+      //出行方式
+      search_difficulty: '',
+      //难度
+      search_time: '' //时间
     };
   },
+  onLoad: function onLoad() {
+    var params = {
+      page: this.page,
+      limit: 10
+    };
+    this.getlist(params);
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    } else {
+      this.page += 1;
+      var params = {
+        page: this.page,
+        limit: 10
+      };
+      this.getlist(params);
+    }
+  },
   methods: {
+    getlist: function getlist(params) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/vicinity/list/1day', params);
+              case 2:
+                res = _context.sent;
+                _this.list = _this.list.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     chetbs: function chetbs(e, index) {
       this.curry = index;
-      if (index == 3) {
-        this.isShow = true;
+      if (index == 0) {
+        var params = {
+          page: this.page,
+          limit: 10
+        };
+        this.getlist(params);
+        return false;
       }
+      if (index == 1) {
+        var _params = {
+          page: this.page,
+          limit: 10,
+          sort: '口碑'
+        };
+        this.getlist(_params);
+        return false;
+      } else if (index == 2) {
+        var _params2 = {
+          page: this.page,
+          limit: 10,
+          sort: '热度'
+        };
+        this.getlist(_params2);
+        return false;
+      } else if (index == 3) {
+        this.getseach();
+        this.isShow = true;
+        return false;
+      }
+    },
+    getseach: function getseach() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/search/vicinity_1day');
+              case 2:
+                res = _context2.sent;
+                _this2.day = res.data.data.search_type;
+                _this2.money = res.data.data.search_difficulty;
+                _this2.state = res.data.data.search_time;
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     chetbs1: function chetbs1(e) {
       e.state = !e.state;
     },
     checkday: function checkday(e, index) {
-      //筛选日期
+      //出行方式
       this.daycurry = index;
+      this.search_type = e.name;
     },
     checkmoney: function checkmoney(e, index) {
-      //筛选价格
+      //难度
       this.moneycurry = index;
+      this.search_difficulty = e.name;
     },
     checkstate: function checkstate(e, index) {
-      //筛选状态
+      //时间
       this.statecurry = index;
+      this.search_time = e.name;
     },
     close: function close() {
       this.isShow = false;
@@ -294,6 +382,22 @@ var _default = {
       this.daycurry = null;
       this.moneycurry = null;
       this.statecurry = null;
+    },
+    toclick: function toclick() {
+      this.page = 1;
+      this.list = [];
+      var params = {
+        page: this.page,
+        limit: 10,
+        search_type: this.search_type,
+        search_difficulty: this.search_difficulty,
+        search_time: this.search_time
+      };
+      this.getlist(params);
+      this.isShow = false;
+    },
+    toDetails: function toDetails(e) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', e);
     }
   }
 };

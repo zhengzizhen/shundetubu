@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
   }
 } catch (e) {
@@ -161,12 +161,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
 
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -235,71 +238,178 @@ var _default = {
   data: function data() {
     return {
       isShow: false,
-      tablist: [{
-        name: '综合',
-        state: true
-      }, {
-        name: '口碑',
-        state: false
-      }, {
-        name: '热度',
-        state: false
-      }, {
-        name: '筛选',
-        state: false
-      }],
-      curry: null,
-      tablist1: ['1天', '2~3天', '4天及以上'],
-      curry1: null,
-      tablist2: ['0-100', '100-200', '200-500', '500-1000', '1000以上'],
-      curry2: null,
-      tablist3: ['报告中', '即将成行', '已成行'],
-      list: [1, 2, 3, 4, 5]
+      curry: 0,
+      //综合选择
+      tablist: ['综合', '口碑', '热度', '筛选'],
+      list: [],
+      daycurry: null,
+      day: [],
+      moneycurry: null,
+      money: [],
+      statecurry: null,
+      state: [],
+      page: 1,
+      bottom: false,
+      search_min_price: '',
+      //最小金额
+      search_max_price: '',
+      //最大金额
+      search_min_day: '',
+      //最少天数
+      search_max_day: '',
+      //最多天数
+      search_status: '' //报名状态
     };
   },
-  onLoad: function onLoad(option) {
-    uni.setNavigationBarTitle({
-      title: option.title
-    });
+  onLoad: function onLoad() {
+    var params = {
+      page: this.page,
+      limit: 10
+    };
+    this.getlist(params);
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    } else {
+      this.page += 1;
+      var params = {
+        page: this.page,
+        limit: 10
+      };
+      this.getlist(params);
+    }
   },
   methods: {
-    chetbs: function chetbs(e) {
-      this.tablist.forEach(function (item, index) {
-        item.state = false;
-      });
-      e.state = true;
-      if (e.name == '筛选') {
+    getlist: function getlist(params) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/vicinity/list/ktx', params);
+              case 2:
+                res = _context.sent;
+                _this.list = res.data.data;
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    chetbs: function chetbs(e, index) {
+      this.curry = index;
+      this.page = 1;
+      if (index == 0) {
+        var params = {
+          page: this.page,
+          limit: 10
+        };
+        this.getlist(params);
+        return false;
+      }
+      if (index == 1) {
+        var _params = {
+          page: this.page,
+          limit: 10,
+          sort: '口碑'
+        };
+        this.getlist(_params);
+        return false;
+      } else if (index == 2) {
+        var _params2 = {
+          page: this.page,
+          limit: 10,
+          sort: '热度'
+        };
+        this.getlist(_params2);
+        return false;
+      } else if (index == 3) {
+        this.getseach();
         this.isShow = true;
+        return false;
       }
     },
-    chetbs1: function chetbs1(e, index) {
-      this.curry = index;
+    getseach: function getseach() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/search/vicinity_ktx');
+              case 2:
+                res = _context2.sent;
+                _this2.day = res.data.data.search_day;
+                _this2.money = res.data.data.search_price;
+                _this2.state = res.data.data.search_status;
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
-    chetbs2: function chetbs2(e, index) {
-      this.curry1 = index;
+    chetbs1: function chetbs1(e) {
+      e.state = !e.state;
     },
-    chetbs3: function chetbs3(e, index) {
-      this.curry2 = index;
+    checkday: function checkday(e, index) {
+      //出行天数
+      this.daycurry = index;
+      this.search_min_day = e.min;
+      this.search_max_day = e.max;
+    },
+    checkmoney: function checkmoney(e, index) {
+      //价格
+      this.moneycurry = index;
+      this.search_min_price = e.min;
+      this.search_max_price = e.max;
+    },
+    checkstate: function checkstate(e, index) {
+      //状态
+      this.statecurry = index;
+      this.search_status = index;
     },
     close: function close() {
       this.isShow = false;
     },
     open: function open() {},
-    resage: function resage() {
-      this.tablist1.forEach(function (item, index) {
-        item.state = false;
-      });
-      this.tablist2.forEach(function (item, index) {
-        item.state = false;
-      });
-      this.tablist3.forEach(function (item, index) {
-        item.state = false;
-      });
+    resetting: function resetting() {
+      this.daycurry = null;
+      this.moneycurry = null;
+      this.statecurry = null;
+    },
+    toclick: function toclick() {
+      this.page = 1;
+      var params = {
+        page: this.page,
+        limit: 10,
+        search_min_price: this.search_min_price,
+        search_max_price: this.search_max_price,
+        search_min_day: this.search_min_day,
+        search_max_day: this.search_max_day,
+        search_status: this.search_status
+      };
+      this.getlist(params);
+      this.isShow = false;
+    },
+    toDetails: function toDetails(e) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', e);
     }
   }
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

@@ -27,6 +27,8 @@
 .oy_body.data-v-1171d102 {
   background-color: #18ACB6;
   padding: 392rpx 30rpx 100rpx;
+  min-height: 750px;
+  height: auto;
 }
 .oy_cont.data-v-1171d102 {
   margin: 20rpx 0;

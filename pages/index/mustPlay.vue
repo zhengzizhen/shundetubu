@@ -19,7 +19,7 @@
 				<p class="ts">经典策划</p>
 				<view class="t_to dis_f">
 					<view class="bk" v-for="(v,i) in list" :key="i">
-						<image src="../../static/index/zheng.jpg" mode=""></image>
+						<image src="/static/index/zheng.jpg" mode=""></image>
 						<p>每月1次</p>
 						<view class="gd dis_f">
 							<label class="tit">青蓝行动</label>
@@ -32,26 +32,30 @@
 						:list="list1" @click="click"></u-tabs>
 				</view>
 				<view class="ix_subsection dis_f">
-					<span :class="curry == index ?'check':'checks'" v-for="(item,index) in checklist" :key="index"
-						@click="checkout(item,index)">{{item}}</span>
+					<span :class="curry == index ?'check':'checks'" v-for="(item,index) in seach" :key="index"
+						@click="checkout(item,index)">{{item.title}}</span>
 				</view>
-				<view class="banner" v-for="(v,i) in list" :key='i'>
+				<view @click="toDetails(v.id)" class="banner" v-for="(v,i) in list" :key='i'>
 					<p class="iun">HOT{{i+1}}</p>
-					<view class="videos">
+					<view class="videos" v-if="v.video != ''">
 						<video class="myVideo"
 							src="https://webstatic.mihoyo.com/upload/static-resource/2022/01/04/72f41ca0acf28922ee3cc2278d920a5f_7569813998111725618.mp4"></video>
 					</view>
+					<view class="images" v-else>
+						<image :src="v.master_image" mode=""></image>
+					</view>
 					<view class="dis_f txt">
-						<p>【亭可马里季】斯里兰卡纯玩9天</p>
+						<p>{{v.title}}</p>
 						<view class="dis_f jscb sil">
-							<label class="green">跟团·3天</label>
-							<label class="red">￥888</label>
+							<label class="green">跟团·{{v.day}}天</label>
+							<label class="red fz32">￥{{v.price}}</label>
 						</view>
-						<view class="">
-							<label class="red">17181 </label><text>新用户首次活动选择</text>
+						<view class="deram">
+							<text>{{v.traveller_number}}人去过丨</text>
+							<label class="red"> {{v.grade}}分</label>
 						</view>
 					</view>
-					<view class="ms_user dis_f">
+					<!-- <view class="ms_user dis_f">
 						<view>
 							<image src="@/static/trends/user.png" mode=""></image>
 							<p>李菲</p>
@@ -60,12 +64,10 @@
 							<text>02-19</text>
 							<p>〝领队阿三非常有责任心 对旅途中每一个点了如指掌 路线设计劳逸结合 给力〞</p>
 						</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
-
 		</view>
-
 	</view>
 </template>
 
@@ -73,7 +75,7 @@
 	export default {
 		data() {
 			return {
-				list: [1, 2],
+				list: [],
 				list1: [{
 					name: '新人榜',
 				}, {
@@ -82,17 +84,84 @@
 					name: '评分榜'
 				}],
 				curry:null,
-				checklist: ['1天活动', '2~3天', '4天+'],
+				page:1,
+				name:'新人榜',
+				seach:[],
+				bottom:false
+			}
+		},
+		onLoad() {
+			this.getlist('新人榜')
+			
+			this.getSeach()
+		},
+		onReachBottom() {
+			if(this.bottom == true){
+				return false
+			}else{
+				this.concatlist()
 			}
 		},
 		methods: {
-			click(item) {
-				// console.log('item', item);
+			async getlist(type){
+				const res = await this.$http('/trip/rank/trip',{
+					page:this.page,
+					limit:10,
+					type
+				})
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
+				this.list = res.data.data
 			},
-			checkout(e,index) {
-				// console.log(e) //切换
+			async getSeach(){
+				const res = await this.$http('/trip/search/rank')
+				this.seach = res.data.data.search_price
+			},
+			// 下拉合并
+			async concatlist(){
+				const res = await this.$http('/trip/rank/trip',{
+					page:this.page,
+					limit:10,
+					type:this.name,
+					search_min_day:this.search_min_day,
+					search_max_day:this.search_max_day
+				})
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
+				this.list = this.list.concat(res.data.data)
+			},
+			click(item) {
+				this.curry = null
+				this.bottom = false
+				this.page = 1
+				this.getlist(item.name)
+				this.name = item.name
+			},
+			async checkout(e,index) {
 				this.curry = index
-			}
+				this.bottom = false
+				this.page = 1
+				uni.showLoading()
+				this.search_min_day = e.min
+				this.search_max_day = e.max
+				const res = await this.$http('/trip/rank/trip',{
+					page:this.page,
+					limit:10,
+					type:this.name,
+					search_min_day:e.min,
+					search_max_day:e.max
+				})
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
+				uni.hideLoading()
+				this.list = res.data.data
+			},
+			toDetails(e) {
+				this.$jump('./Details/Details?id=', 'params', e);
+			},
 		}
 	}
 </script>
@@ -234,7 +303,7 @@
 	}
 
 	.banner {
-		height: 730rpx;
+		height: auto;
 		margin-top: 30rpx;
 		background-color: white;
 		border-radius: 20rpx;
@@ -258,6 +327,13 @@
 			background-color: black;
 			border-radius: 20rpx 20rpx 0 0;
 		}
+		.images{
+			border-radius: 20rpx 20rpx 0 0;
+			image{
+				width: 100%;
+				border-radius: 20rpx 20rpx 0 0;
+			}
+		}
 		.myVideo {
 			width: 100%;
 			height: 340rpx;
@@ -277,10 +353,13 @@
 			}
 			.red{
 				color: red;
-				font-size: 32rpx;
+				font-size: 26rpx;
 				font-weight: normal;
 			}
 		}
+	}
+	.deram{
+		font-size: 26rpx;
 	}
 	.ms_user{
 		padding: 10rpx 20rpx;
@@ -329,5 +408,8 @@
 			padding: 10rpx 30rpx;
 			border-radius: 32rpx;
 		}
+	}
+	.fz32{
+		font-size: 32rpx !important;
 	}
 </style>

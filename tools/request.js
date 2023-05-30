@@ -4,11 +4,13 @@ const BASE_URL = 'https://www.tbq11.com/api';
 export const myRequest = (url, datas, methods) => {
 	return new Promise((resolve, reject) => {
 		const token = uni.getStorageSync('token')
+		const cityid = uni.getStorageSync('cityid')
 		uni.request({
 			url: BASE_URL + url,
 			header: {
 				'content-type': 'application/x-www-form-urlencoded',
 				// 'Content-Type': 'multipart/form-data',
+				'cityid':cityid,
 				'token': token
 			},
 			method: methods || 'POST',

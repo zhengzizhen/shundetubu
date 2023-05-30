@@ -3,10 +3,10 @@
 		<!-- 列表渲染 -->
 		<view>
 			<view class="ix_shop index_pads dis_f pd30">
-				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='clinto(index)'>
+				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='clinto(item,index)'>
 					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
-					<text>{{item.name}}</text>
-					<label>{{item.label}}</label>
+					<text>{{item.title}}</text>
+					<label>{{item.intro}}</label>
 				</view>
 			</view>
 
@@ -19,30 +19,30 @@
 					</view>
 				</view>
 
-				<view class="img dis_f pd30">
-					<view class="" v-for="(v,i) in list" :key="i">
-						<image src="@/static/index/two.jpg" mode=""></image>
-						<p>乔达·意式山城...</p>
+				<view class="img dis_f">
+					<view @click="toDetails(v.id)"  v-for="(v,i) in monthlist" :key="i">
+						<view class="" v-if="i<3">
+							<image v-if="v.images[0]" :src="v.images[0]" mode=""></image>
+							<p>{{v.trip_name}}</p>
+						</view>
 					</view>
 				</view>
 			</view>
 
 			<p class="as_tit pd30">当季热门</p>
-			<!-- <u-swiper :list="swiperlist" previousMargin="30" height='400' :radius='10' indicator indicatorMode="line"
-				nextMargin="30" circular :autoplay="false" radius="5" bgColor="#ffffff"></u-swiper> -->
+			
 			<view class="uni-margin-wrap">
 				<swiper class="swiper" @change='change' circular :autoplay="false" next-margin='160rpx'
 					previous-margin='180rpx' :interval="2000" :duration="500">
-					<swiper-item v-for="(item,index) in swiperlist" :key="index">
+					<swiper-item  @click="toDetails(item.id)" v-for="(item,index) in swiperlist" :key="index">
 						<view class="posir">
-							<image :src="item" mode=""></image>
+							<image :src="item.master_image" mode=""></image>
 							<view v-show="swipercurrent == index" class="posiswiper dis_f flex_c">
-								<p>春行婺源秘境</p>
+								<p>{{item.title}}</p>
 								<view class="ios">
-									<text>高铁往返</text>
-									<text class="m10">闲适2日</text>
+									<text v-for="(v,i) in item.label" :key="i">{{v}}</text>
 								</view>
-								<label>4.91分丨291人去过</label>
+								<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
 							</view>
 						</view>
 					</swiper-item>
@@ -59,15 +59,15 @@
 			<view class="pd30">
 				<view class="as_kb dis_f" v-for="(item,index) in list" :key="index">
 					<view class="as_posi">
-						<p>【樱花物语】听见心动的声音</p>
-						<image src="@/static/index/luowu.jpg" mode=""></image>
+						<p>{{item.title}}</p>
+						<image :src="item.master_image" mode=""></image>
 					</view>
 					<view class="as_text dis_f">
 						<view class="dis_f jus">
-							<text>111个团队去过丨4.93分</text>
-							<label>全球最大的樱花海</label>
+							<text>{{item.traveller_number}}人去过丨{{item.grade}}分</text>
+							<label>{{item.difficulty}}</label>
 						</view>
-						<text class="xq">
+						<text class="xq" @click="toDetails(item.id)">
 							查看详情
 						</text>
 					</view>
@@ -82,25 +82,25 @@
 					@click="checkout1(item,index)">{{item.name}}</span>
 			</view>
 			<view class="ix_img dis_f pd30">
-				<view class="ix_flexs" v-for="(item,index) in imglist" :key="index">
-					<image :src="item.image"></image>
+				<view @click="toDetails(item.id)" class="ix_flexs" v-for="(item,index) in imglist" :key="index">
+					<image :src="item.master_image"></image>
 					<p class="ix_posi">{{item.title}}</p>
-					<p class="ix_title">{{item.text}}</p>
-					<p class="ix_txtgreen">55个团队去过</p>
+					<p class="ix_title">{{item.difficulty}}</p>
+					<p class="ix_txtgreen">{{item.traveller_number}}人去过</p>
 				</view>
 			</view>
 			
-			<p class="as_tit pd30">口碑之选</p>
+			<!-- <p class="as_tit pd30">口碑之选</p>
 			<view class="dis_f tm_img pd30">
 				<image class="c" src="@/static/index/luowu.jpg" mode=""></image>
 				<image class="z" src="@/static/image/index/banners.jpg" mode=""></image>
 			</view>
 			<view class="dis_f jscb ima pd30" >
 				<image class="ima" v-for="(item,index) in list" :key="index" src="@/static/image/index/banners.jpg" mode=""></image>
-			</view>
+			</view> -->
 		</view>
 		
-		<p class="tm_btn">立即定制</p>
+		<!-- <p class="tm_btn">立即定制</p> -->
 	</view>
 </template>
 
@@ -108,123 +108,66 @@
 	export default {
 		data() {
 			return {
-				arrlist: [{
-						name: '1日团建',
-						image: '../../../static/index/zblx.jpg',
-						label:'畅游周边轻拓展'
-					},
-					{
-						name: '2-3日',
-						image: '../../../static/index/gnjx.jpg',
-						label:'团队放松小假日'
-					},
-					{
-						name: '4日以上',
-						image: '../../../static/index/gwjx.jpg',
-						label:'向远方同行出发'
-					},
-					{
-						name: '美食路线',
-						image: '../../../static/index/hdrl.jpg',
-						label:'自由式休闲度假'
-					},
-					{
-						name: '小众深度',
-						image: '../../../static/index/hwsc.jpg',
-						label:'人气宝藏旅行地'
-					},
-					{
-						name: '户外酷玩',
-						image: '../../../static/index/bwbd.jpg',
-						label:'玩些与众不同的'
-					},
-					{
-						name: '亲子定制',
-						image: '../../../static/index/tddz.jpg',
-						label:'打造童年小时光'
-					},
-					{
-						name: '关于我们',
-						image: '../../../static/index/qzlx.jpg',
-						label:'专业团建服务方'
-					}
-				],
-				swiperlist: [
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-				],
+				arrlist: [],
+				swiperlist: [],
 				sublist: ['当季推荐', '口碑路线'],
 				swipercurrent:0,
-				swiperlist: [
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-					'../../../static/as/changs.jpg',
-				],
+				swiperlist: [],
 				current: 0,
-				list: ['1', '2', '3'],
-				radios: [{
-						checked: true
-					},
-					{
-						checked: false
-					},
-					{
-						checked: false
-					}
-				],
-				curry:null,
-				checklist: ['2~3天','4天以上','1天定制'],
-				curry1:null,
+				list: [],
+				curry:0,
+				checklist: ['1天定制','2~3天','4天以上',],
+				curry1:0,
 				checklist1: [{
 						name: '企业定制',
-						state: true
 					},
 					{
 						name: '亲子定制',
-						state: false
 					},
 					{
 						name: '私人定制',
-						state: false
 					},
 				],
-				imglist: [{
-						title: '3天',
-						image: '../../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '3天',
-						image: '../../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '3天',
-						image: '../../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '3天',
-						image: '../../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					}
-				],
+				imglist: [],
+				public_praise:[],//时间选择
+				team:[],//团队选择
+				monthlist:[]
 			};
 		},
+		onLoad() {
+			this.getlist()
+			
+			this.getmonth()
+		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/trip/teamcustom/index')
+				this.arrlist = res.data.data.icon_list //金刚区
+				this.swiperlist = res.data.data.hot
+				this.public_praise = res.data.data.public_praise
+				this.list = res.data.data.public_praise.day1
+				this.team = res.data.data.team
+				this.imglist = res.data.data.team.firm
+			},
+			async getmonth(){
+				const res = await this.$http('/trip/teamcustom/dynamic/list',{
+					page:1,
+					limit:3
+				})
+				this.monthlist = res.data.data
+			},
 			sectionChange(index) {
 				this.current = index;
 			},
-			radioClick(name) {
-				this.radios.map((item, index) => {
-					item.checked = index === name ? true : false
-				})
-			},
 			checkout(e,index) {
 				this.curry = index
+				if(this.curry == 0){
+					this.list = this.public_praise.day1
+				}else if(this.curry == 1){
+					this.list = this.public_praise.day23
+				}else if(this.curry == 2){
+					this.list = this.public_praise.day4
+				}
 			},
 			change(e) {
 				console.log(e.detail.current);
@@ -232,16 +175,26 @@
 			},
 			checkout1(e,index) {
 				this.curry1 = index
+				if(this.curry1 == 0){
+					this.list = this.team.firm
+				}else if(this.curry1 == 1){
+					this.list = this.team.kids
+				}else if(this.curry1 == 2){
+					this.list = this.team.private
+				}
+			},
+			toDetails(e) {
+				this.$jump('/pages/index/Details/Details?id=', 'params', e);
 			},
 			goWonderful(){
 				this.$jump('./Wonderful')
 			},
-			clinto(index){
-				this.$jump('./oneday')
-				// switch (index){
-				// 	case 0:
-				// 		this.$jump('./oneday')
-				// }
+			clinto(item,index){
+				const params = {
+					id:item.id,
+					name:item.title
+				}
+				this.$jump('./oneday?obj=','params',JSON.stringify(params))
 			}
 		}
 	}
@@ -359,7 +312,6 @@
 		border-radius: 20rpx;
 		padding: 30rpx 20rpx;
 		flex-direction: column;
-
 		.tit {
 			justify-content: space-between;
 			align-items: center;
@@ -377,7 +329,7 @@
 			width: 100%;
 			justify-content: space-between;
 			margin-top: 20rpx;
-
+			box-sizing: border-box;
 			image {
 				width: 200rpx;
 				height: 200rpx;
@@ -591,6 +543,9 @@
 			}
 			.ios {
 				margin: 10rpx 0 20rpx;
+				text:nth-child(2){
+					margin-left: 10rpx;
+				}
 			}
 			.m10 {
 				margin-left: 10rpx;

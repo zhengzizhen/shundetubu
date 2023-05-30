@@ -9,12 +9,14 @@
 						<p>{{nickname}}</p>
 						<text>级别：{{level}}</text>
 					</view>
-					<text class="attention" v-show="!is_attention" @click="attention(userid)">
-						+关注
-					</text>
-					<text class="attention" v-show="is_attention" @click="attention(userid)">
-						已关注
-					</text>
+					<view v-if="userid != $store.state.userinfo.id">
+						<text class="attention" v-show="!is_attention" @click="attention(userid)">
+							+关注
+						</text>
+						<text class="attention" v-show="is_attention" @click="attention(userid)">
+							已关注
+						</text>
+					</view>
 				</view>
 			</view>
 		</view>

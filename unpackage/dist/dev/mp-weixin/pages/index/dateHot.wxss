@@ -61,9 +61,9 @@
   border-radius: 20rpx;
 }
 .dt_im .dt_kk.data-v-3dff364e {
-  width: 500rpx;
   margin-left: 20rpx;
   flex-direction: column;
+  flex: 1;
 }
 .dt_im .dt_kk .one.data-v-3dff364e {
   font-size: 30rpx;

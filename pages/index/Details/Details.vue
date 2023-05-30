@@ -344,7 +344,9 @@
 				timer:null,//设置防抖
 				overlay:true,//遮罩层
 				price:'',
-				min : true
+				min : true,
+				teamid:'',
+				start_day:''
 			}
 		},
 		onLoad(option) {
@@ -442,6 +444,8 @@
 				this.grade_number = this.detail.team[this.curry].data[index].master_akela.grade_number
 				this.users = this.detail.team[this.curry].data[index].users
 				this.price = this.detail.team[this.curry].data[this.teamcurry].price
+				this.teamid = e.id
+				this.start_day = e.start_day
 				const teamid = e.id
 				const res = await this.$http('/trip/team/detail', {
 					trip_id: this.id,
@@ -498,7 +502,13 @@
 				this.$jump('./Cratic?user=', 'params', JSON.stringify(this.users))
 			},
 			toApply() {
-				this.$jump('./Apply')
+				const params = {
+					trip_id:this.id,
+					trip_team_id:this.teamid,
+					price:this.price,
+					start_day:this.start_day
+				}
+				this.$jump('./Apply?obj=','params',JSON.stringify(params))
 			},
 			Popbtn() {
 				this.isShow = false;
@@ -508,6 +518,7 @@
 				});
 			},
 			ckaddress(e, index) {
+				uni.setStorageSync('cityid',e.id)
 				this.curryimg = index
 				this.setof = this.start_address[index].name
 				this.venue = this.start_address[index].venue

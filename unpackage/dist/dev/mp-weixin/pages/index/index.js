@@ -101,16 +101,16 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 879))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
     uSearch: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-search/u-search */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-search/u-search")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-search/u-search.vue */ 888))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-search/u-search */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-search/u-search")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-search/u-search.vue */ 912))
     },
     uSwiper: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-swiper/u-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-swiper/u-swiper")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-swiper/u-swiper.vue */ 896))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-swiper/u-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-swiper/u-swiper")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-swiper/u-swiper.vue */ 920))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 904))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
   }
 } catch (e) {
@@ -175,7 +175,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -184,6 +184,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
 //
 //
 //
@@ -533,7 +534,10 @@ var _default = {
       isShow1: false,
       addcurry: 0,
       city: [],
-      notice: '' //公告内容
+      notice: '',
+      //公告内容
+      cityid: 9998,
+      cityname: '全国'
     };
   },
   onLoad: function onLoad() {
@@ -550,10 +554,11 @@ var _default = {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                uni.setStorageSync('cityid', _this.cityid);
                 that = _this;
-                _context.next = 3;
+                _context.next = 4;
                 return _this.$http('/sys/index');
-              case 3:
+              case 4:
                 res = _context.sent;
                 datas = res.data.data;
                 that.list1 = datas.banner;
@@ -561,16 +566,16 @@ var _default = {
                 that.arrlist = datas.icon;
                 that.modelList = datas.active;
                 //城市列表
-                _context.next = 11;
+                _context.next = 12;
                 return _this.$http('/sys/city');
-              case 11:
+              case 12:
                 citys = _context.sent;
                 that.city = citys.data.data;
 
                 //活动数据
-                _context.next = 15;
+                _context.next = 16;
                 return _this.$http('/index/trip');
-              case 15:
+              case 16:
                 hotdate = _context.sent;
                 // console.log(hotdate.data.data);
                 //省内一天路线
@@ -581,12 +586,12 @@ var _default = {
                 that.calendar = hotdate.data.data[2];
                 that.trip = that.calendar.data[0].trip;
                 // console.log(that.calendar.data[1]);
-                _context.next = 23;
+                _context.next = 24;
                 return _this.$http('/user/detail');
-              case 23:
+              case 24:
                 requrist = _context.sent;
                 _this.$store.commit('getuser', requrist.data.data);
-              case 25:
+              case 26:
               case "end":
                 return _context.stop();
             }
@@ -636,10 +641,20 @@ var _default = {
           this.$jump('./ambitus/ambitus');
           break;
         case '国内精选':
-          this.$jump('./domestic?tit=', 'params', '国内精选');
+          var params = {
+            url: '/trip/internal/trip',
+            seach: '/trip/search/internal',
+            title: '国内精选'
+          };
+          this.$jump('./domestic?tit=', 'params', JSON.stringify(params));
           break;
         case '国外精选':
-          this.$jump('./domestic?tit=', 'params', '国外精选');
+          var info = {
+            url: '/trip/foreign/trip',
+            seach: '/trip/search/foreign',
+            title: '国外精选'
+          };
+          this.$jump('./domestic?tit=', 'params', JSON.stringify(info));
           break;
         case '活动日历':
           this.$jump('./dateHot');
@@ -648,10 +663,20 @@ var _default = {
           this.$jump('./team/team');
           break;
         case '亲子路线':
-          this.$jump('./Province?name=', 'params', '亲子路线');
+          var kids = {
+            title: '亲子路线',
+            url: '/trip/kids/trip',
+            seach: '/trip/search/kids'
+          };
+          this.$jump('./Province?obj=', 'params', JSON.stringify(kids));
           break;
         case '城市玩家':
-          this.$jump('./Province?name=', 'params', '城市玩家');
+          var city = {
+            title: '城市玩家',
+            url: '/trip/city/trip',
+            seach: '/trip/search/city'
+          };
+          this.$jump('./Province?obj=', 'params', JSON.stringify(city));
           break;
         case '必玩榜单':
           this.$jump('./mustPlay');
@@ -675,10 +700,17 @@ var _default = {
     },
     tomemberday: function tomemberday() {
       this.$jump('./memberday');
+    },
+    changecity: function changecity(v) {
+      this.cityid = v.id;
+      this.cityname = v.name;
+      uni.setStorageSync('city', this.cityid);
+      this.isShow = false;
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

@@ -131,4 +131,11 @@ label.data-v-2374b5bb {
   border-radius: 39rpx;
   margin-right: 30rpx;
 }
+.rosx.data-v-2374b5bb {
+  margin: 20rpx 0;
+}
+.rosx ._p.data-v-2374b5bb {
+  font-size: 30rpx;
+  color: black;
+}
 

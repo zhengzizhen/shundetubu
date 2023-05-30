@@ -24,7 +24,6 @@
 	
 	p,text,label,input{
 		font-family: "PF";
-		// font-size: 28rpx;
 	}
 	
 </style>

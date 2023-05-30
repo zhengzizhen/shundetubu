@@ -143,12 +143,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
 //
 //
 //
@@ -175,12 +179,167 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      isShow: false
+      isShow: false,
+      username: '',
+      idcard: '',
+      phone: '',
+      is_default: '',
+      change: false,
+      userid: ''
     };
   },
-  methods: {}
+  onLoad: function onLoad(option) {
+    if (option.obj) {
+      var params = JSON.parse(option.obj);
+      this.username = params.username;
+      this.phone = params.phone;
+      this.idcard = params.idcard;
+      this.is_default = params.is_default;
+      this.userid = params.id;
+      if (this.is_default == 0) {
+        this.isShow = false;
+      } else if (this.is_default == 1) {
+        this.isShow = true;
+      }
+      this.change = true;
+    }
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var regu, res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                regu = /^1[3-9][0-9]{9}$/;
+                if (!(_this.username == '')) {
+                  _context.next = 6;
+                  break;
+                }
+                uni.$u.toast('请填写您的姓名');
+                return _context.abrupt("return", false);
+              case 6:
+                if (!(_this.idcard == '')) {
+                  _context.next = 11;
+                  break;
+                }
+                uni.$u.toast('请填写您的身份证号');
+                return _context.abrupt("return", false);
+              case 11:
+                if (!(_this.phone == '')) {
+                  _context.next = 16;
+                  break;
+                }
+                uni.$u.toast('手机号码不能为空');
+                return _context.abrupt("return", false);
+              case 16:
+                if (regu.test(_this.phone)) {
+                  _context.next = 19;
+                  break;
+                }
+                uni.$u.toast('请输入正确的手机号码');
+                return _context.abrupt("return", false);
+              case 19:
+                if (_this.isShow == true) {
+                  _this.is_default = 1;
+                } else {
+                  _this.is_default = 0;
+                }
+                uni.showLoading();
+                _context.next = 23;
+                return _this.$http('/trip/traveller/add', {
+                  username: _this.username,
+                  phone: _this.phone,
+                  idcard: _this.idcard,
+                  is_default: _this.is_default
+                });
+              case 23:
+                res = _context.sent;
+                uni.hideLoading();
+                uni.$u.toast('保存成功');
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 27:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    changemit: function changemit() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var regu, res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                regu = /^1[3-9][0-9]{9}$/;
+                if (!(_this2.username == '')) {
+                  _context2.next = 6;
+                  break;
+                }
+                uni.$u.toast('请填写您的姓名');
+                return _context2.abrupt("return", false);
+              case 6:
+                if (!(_this2.idcard == '')) {
+                  _context2.next = 11;
+                  break;
+                }
+                uni.$u.toast('请填写您的身份证号');
+                return _context2.abrupt("return", false);
+              case 11:
+                if (!(_this2.phone == '')) {
+                  _context2.next = 16;
+                  break;
+                }
+                uni.$u.toast('手机号码不能为空');
+                return _context2.abrupt("return", false);
+              case 16:
+                if (regu.test(_this2.phone)) {
+                  _context2.next = 19;
+                  break;
+                }
+                uni.$u.toast('请输入正确的手机号码');
+                return _context2.abrupt("return", false);
+              case 19:
+                if (_this2.isShow == true) {
+                  _this2.is_default = 1;
+                } else {
+                  _this2.is_default = 0;
+                }
+                uni.showLoading();
+                _context2.next = 23;
+                return _this2.$http('/trip/traveller/update', {
+                  username: _this2.username,
+                  phone: _this2.phone,
+                  idcard: _this2.idcard,
+                  is_default: _this2.is_default,
+                  traveller_id: _this2.userid
+                });
+              case 23:
+                res = _context2.sent;
+                uni.hideLoading();
+                uni.$u.toast('保存成功');
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 27:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

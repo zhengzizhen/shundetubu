@@ -89,7 +89,10 @@
     "pages/index/memberday",
     "pages/mine/menu/Status",
     "pages/mine/message/deil",
-    "pages/mine/guide/Casuh"
+    "pages/mine/guide/Casuh",
+    "pages/index/ambitus/delicacy",
+    "pages/index/ambitus/mountaineering",
+    "pages/index/ambitus/NonWeekend"
   ],
   "subPackages": [],
   "window": {

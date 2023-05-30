@@ -35,9 +35,11 @@
   margin-right: 20rpx;
 }
 .body.data-v-9f0853b4 {
-  padding-top: 490rpx;
+  padding-top: 400rpx;
   background-color: #2A755E;
   padding-bottom: 100rpx;
+  min-height: 750px;
+  height: auto;
 }
 .ty_title.data-v-9f0853b4 {
   text-align: right;
@@ -94,7 +96,7 @@
   font-size: 22rpx;
   background-color: #FFA1AD;
 }
-.dc_mod .dc_latt label.data-v-9f0853b4 {
+.dc_mod .dc_latt text.data-v-9f0853b4:nth-child(2) {
   margin-left: 10rpx;
   padding: 5rpx 8rpx;
   color: #FFFFFF;
@@ -135,5 +137,12 @@
 .dc_span text.data-v-9f0853b4 {
   color: #FF4040;
   font-weight: bold;
+}
+.green.data-v-9f0853b4 {
+  color: white;
+  font-size: 22rpx;
+  text-align: center;
+  background-color: #49CAA4 !important;
+  border-radius: 6rpx;
 }
 

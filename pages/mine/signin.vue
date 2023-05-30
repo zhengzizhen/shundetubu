@@ -117,10 +117,10 @@
 					return false
 				}
 				const res = await this.$http('/user/sign')
+				uni.$u.toast('签到成功！')
 				this.static3 = res.data.data.status.task_3day_get
 				this.static7 = res.data.data.status.task_7day_get
 				this.$store.commit("set_sign",this.day[stats])
-				uni.$u.toast('签到成功！')
 			},
 			async tosign(e){
 				if(this.static3 == 0){

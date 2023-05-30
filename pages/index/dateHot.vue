@@ -189,10 +189,9 @@
 		}
 
 		.dt_kk {
-			width: 500rpx;
 			margin-left: 20rpx;
 			flex-direction: column;
-
+			flex: 1;
 			.one {
 				font-size: 30rpx;
 				font-weight: 500;

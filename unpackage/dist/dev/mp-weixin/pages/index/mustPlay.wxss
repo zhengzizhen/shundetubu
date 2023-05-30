@@ -143,7 +143,7 @@
   margin-top: 180rpx;
 }
 .banner.data-v-65ccdd33 {
-  height: 730rpx;
+  height: auto;
   margin-top: 30rpx;
   background-color: white;
   border-radius: 20rpx;
@@ -168,6 +168,13 @@
   background-color: black;
   border-radius: 20rpx 20rpx 0 0;
 }
+.banner .images.data-v-65ccdd33 {
+  border-radius: 20rpx 20rpx 0 0;
+}
+.banner .images image.data-v-65ccdd33 {
+  width: 100%;
+  border-radius: 20rpx 20rpx 0 0;
+}
 .banner .myVideo.data-v-65ccdd33 {
   width: 100%;
   height: 340rpx;
@@ -188,8 +195,11 @@
 }
 .banner .txt .red.data-v-65ccdd33 {
   color: red;
-  font-size: 32rpx;
+  font-size: 26rpx;
   font-weight: normal;
+}
+.deram.data-v-65ccdd33 {
+  font-size: 26rpx;
 }
 .ms_user.data-v-65ccdd33 {
   padding: 10rpx 20rpx;
@@ -235,5 +245,8 @@
   color: white;
   padding: 10rpx 30rpx;
   border-radius: 32rpx;
+}
+.fz32.data-v-65ccdd33 {
+  font-size: 32rpx !important;
 }
 

@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uTabs: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 973))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 997))
     },
   }
 } catch (e) {
@@ -165,10 +165,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -247,37 +250,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: [{
-        id: 8269685454554,
-        state: 0,
-        title: '【亭可马里季】斯里兰卡纯玩9天',
-        date: '2023-02-20 18:19',
-        money: '125'
-      }, {
-        id: 8269685454554,
-        state: 0,
-        title: '【亭可马里季】斯里兰卡纯玩9天',
-        date: '2023-02-20 18:19',
-        money: '125'
-      }, {
-        id: 9448685454554,
-        state: 1,
-        title: '芜湖大司马',
-        date: '2023-04-05 18:54',
-        money: '999'
-      }, {
-        id: 4858685454554,
-        state: 2,
-        title: '慢慢的变呆',
-        date: '2023-06-07 20:19',
-        money: '666'
-      }, {
-        id: 4858685454554,
-        state: 2,
-        title: '慢慢的变呆',
-        date: '2023-06-07 20:19',
-        money: '666'
-      }],
+      list: [],
       menu: [{
         name: '已报名'
       }, {
@@ -285,41 +258,120 @@ var _default = {
       }, {
         name: '已退出'
       }],
-      list1: []
+      list1: [],
+      list2: [],
+      page: 1,
+      curry: 0,
+      bottom: false
     };
   },
   onLoad: function onLoad() {
-    var arr = {
-      index: 0
-    };
-    this.change(arr);
+    this.getlist(1); //已报名
+    this.getlist1(2); //已结束
+    this.getlist2(3); //已退出
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    }
+    this.page += 1;
+    if (this.curry == 0) {
+      this.getlist(1);
+    } else if (this.curry == 1) {
+      this.getlist1(2);
+    } else if (this.curry == 2) {
+      this.getlist2(3);
+    }
   },
   methods: {
-    change: function change(item) {
+    getlist: function getlist(status) {
       var _this = this;
-      if (item.index === 0) {
-        this.list1 = [];
-        this.list.forEach(function (item, index) {
-          if (item.state == 0) {
-            _this.list1.push(item);
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/order/list', {
+                  page: _this.page,
+                  limit: 10,
+                  status: status
+                });
+              case 2:
+                res = _context.sent;
+                _this.list = _this.list.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context.stop();
+            }
           }
-        });
-      } else if (item.index === 1) {
-        this.list1 = [];
-        this.list.forEach(function (item, index) {
-          if (item.state == 1) {
-            _this.list1.push(item);
-            console.log(item);
+        }, _callee);
+      }))();
+    },
+    getlist1: function getlist1(status) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/order/list', {
+                  page: _this2.page,
+                  limit: 10,
+                  status: status
+                });
+              case 2:
+                res = _context2.sent;
+                _this2.list1 = _this2.list1.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this2.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
           }
-        });
-      } else if (item.index === 2) {
-        this.list1 = [];
-        this.list.forEach(function (item, index) {
-          if (item.state == 2) {
-            _this.list1.push(item);
+        }, _callee2);
+      }))();
+    },
+    getlist2: function getlist2(status) {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$http('/trip/order/list', {
+                  page: _this3.page,
+                  limit: 10,
+                  status: status
+                });
+              case 2:
+                res = _context3.sent;
+                _this3.list2 = _this3.list2.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this3.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
           }
-        });
-      }
+        }, _callee3);
+      }))();
+    },
+    change: function change(item) {
+      this.page = 1;
+      this.bottom = false;
+      this.curry = item.index;
     },
     toactivity: function toactivity() {
       this.$jump('./menu/activity');

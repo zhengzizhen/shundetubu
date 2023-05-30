@@ -4,21 +4,21 @@
 			<p>精彩团建</p>
 		</view>
 		
-		<view class="wl_cont dis_f flex_c pd30" v-for="(v,i) in list" :key="i">
-			<p class="wl_tit">武汉黄金屋</p>
+		<view @click="toDetails(item.id)" class="wl_cont dis_f flex_c pd30" v-for="(v,i) in list" :key="i">
+			<p class="wl_tit">{{v.team_name}}</p>
 			<view class="wl_location">
 				<image  src="@/static/image/team/location.png" mode=""></image>
-				<label>安徽·黄山 2023-01-12 出发</label>
+				<label>{{v.trip_bourn}} {{v.team_start_day}} 出发</label>
 			</view>
 			<view class="wl_img dis_f">
-				<view @click="$Resize(imglist,index)" class="img_c dis_f" v-for="(item,index) in imglist" :key="index">
+				<view @click="$Resize(v.images,index)" class="img_c dis_f" v-for="(item,index) in v.images" :key="index">
 					<image  class="bor_r" :src="item" mode=""></image>
 				</view>
 			</view>
 			
 			<view class="wl_link dis_f alitmc">
 				<image src="@/static/image/team/link.jpg" mode=""></image>
-				<text>【春行婺源】高铁往返，探秘境画里村落</text>
+				<text>{{v.trip_name}}</text>
 			</view>
 		</view>
 	</view>
@@ -28,15 +28,25 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3],
-				imglist:[
-					'../../../static/index/zheng.jpg',
-					'../../../static/index/zheng.jpg',
-					'../../../static/index/zheng.jpg',
-				]
+				list:[],
+				imglist:[],
+				page:1
 			}
 		},
+		onLoad() {
+			this.getlist()
+		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/trip/teamcustom/dynamic/list',{
+					page:this.page,
+					limit:10
+				})
+				this.list = res.data.data
+			},
+			toDetails(e){
+				this.$jump('/pages/index/Details/Details?id=', 'params', e);
+			}
 		}
 	}
 </script>
