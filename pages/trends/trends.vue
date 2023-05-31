@@ -1,7 +1,7 @@
 <template>
 	<view class="trends">
 		<view class="ts_header dis_f">
-			<u-search class="input" placeholder="请搜索目的地" v-model="seachValue" clearable :showAction='false'
+			<u-search @focus='toSeach()' class="input" placeholder="请搜索目的地" v-model="seachValue" clearable :showAction='false'
 				:height='28'></u-search>
 			<view class="headerimg dis_f jscb">
 				<view class="posir">
@@ -233,6 +233,9 @@
 			}
 		},
 		methods: {
+			toSeach() {
+				this.$jump('/pages/index/Seach/Seach');
+			},
 			//获取关注列表
 			async getlist(e) {
 				uni.showLoading()

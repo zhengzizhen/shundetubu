@@ -92,20 +92,36 @@
 			this.getlist()
 			//获取分销记录
 			this.getprice()
+			this.getprices()
 		},
 		methods: {
 			async getlist(){
 				const res = await this.$http('/distribution/price')
 				this.list = res.data.data
-				console.log(this.list);
 			},
 			async getprice(){
+				this.page = 1
 				const res = await this.$http('/distribution/log',{
 					type:'佣金明细',
 					page:this.page,
 					limit:10
 				})
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
 				this.price = res.data.data
+			},
+			async getprices(){
+				this.page = 1
+				const res = await this.$http('/distribution/log',{
+					type:'提现明细',
+					page:this.page,
+					limit:10
+				})
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
+				this.tixianlist = res.data.data
 			},
 			jupCase(){
 				this.$jump('./Cashout/Cashout')

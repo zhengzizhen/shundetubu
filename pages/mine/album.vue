@@ -15,20 +15,31 @@
 	export default {
 		data() {
 			return {
-				list: [
-					'../../static/index/zheng.jpg',
-					'../../static/index/zheng.jpg',
-					'../../static/index/zheng.jpg',
-					'../../static/index/one.jpg',
-				]
+				list: [],
+				page:1,
+				bottom:false
 			}
 		},
 		onLoad() {
 			this.getlist()
 		},
+		onReachBottom() {
+			if(this.bottom == true){
+				return false
+			}
+			this.page+=1
+			this.getlist()
+		},
 		methods: {
-			getlist() {
-				
+			async getlist() {
+				const res = await this.$http('/circle/user/album',{
+					page:this.page,
+					limit:16
+				})
+				this.list = this.list.concat(res.data.data)
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
 			},
 			clickImg(v,index) {
 				uni.previewImage({

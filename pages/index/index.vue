@@ -56,7 +56,7 @@
 				</view>
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails(item.id)">
-						<image :src="item.image"></image>
+						<image :src="item.master_image"></image>
 						<p class="ix_posi">{{item.title}}</p>
 						<p class="content" :class="'content'+index">4.9分 | 681人去过</p>
 						<p class="ix_title">{{item.text}}</p>
@@ -198,11 +198,11 @@
 			<view class="ix_block index_pad">
 				<label>童步营</label>
 				<view class="ix_img dis_f">
-					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails(index)">
-						<image :src="item.image"></image>
-						<p class="ix_posi">{{item.title}}</p>
-						<p class="ix_title">{{item.text}}</p>
-						<p class="ix_txtgreen">草原花开</p>
+					<view class="ix_flexs" v-for="(item,index) in Camp" :key="index" @click="toDetails(item.id)">
+						<image :src="item.master_image"></image>
+						<p class="ix_posi">{{item.day}}天</p>
+						<p class="ix_title">{{item.title}}</p>
+						<!-- <p class="ix_txtgreen">草原花开</p> -->
 					</view>
 				</view>
 			</view>
@@ -210,15 +210,15 @@
 			<!-- 火爆路线 -->
 			<view class="ix_block index_pad">
 				<label>火爆路线</label>
-				<view class="ix_imgplus dis_f">
-					<image class="imgplus bor_r" src="@/static/index/changplus.jpg"></image>
+				<view @click="toDetails(v.id)" class="ix_imgplus dis_f" v-for="(v,index) in datelist" :key="index">
+					<image class="imgplus bor_r" :src="v.master_image"></image>
 					<view class="ix_pos_t">
-						<p>TOP1</p>
+						<p>TOP{{index+1}}</p>
 					</view>
 					<view class="ix_posimg">
-						<view class="ix_pos_p dis_f" v-for="(item,index) in datelist" :key='index'>
-							<p>{{item.date}}</p>
-							<p>{{item.state}}</p>
+						<view class="ix_pos_p dis_f" v-for="(item,i) in v.trip_team" :key='i'>
+							<p>{{item.start_day}}</p>
+							<p>{{item.status_text}}</p>
 						</view>
 						<view class="ix_pos_p dis_f">
 							<p class="ags">更多<u-icon name="arrow-right" color='#FFFFFF' size='12'></u-icon></p>
@@ -226,47 +226,16 @@
 					</view>
 				</view>
 
-				<view class="ix_imgplus dis_f">
-					<image class="imgplus bor_r" src="@/static/index/changplus.jpg"></image>
-					<view class="ix_pos_t">
-						<p>TOP2</p>
-					</view>
-					<view class="ix_posimg">
-						<view class="ix_pos_p dis_f" v-for="(item,index) in datelist" :key='index'>
-							<p>{{item.date}}</p>
-							<p>{{item.state}}</p>
-						</view>
-						<view class="ix_pos_p dis_f">
-							<p class="ags">更多<u-icon name="arrow-right" color='#FFFFFF' size='12'></u-icon></p>
-						</view>
-					</view>
-				</view>
-
-				<view class="ix_imgplus dis_f">
-					<image class="imgplus bor_r" src="@/static/index/changplus.jpg"></image>
-					<view class="ix_pos_t">
-						<p>TOP3</p>
-					</view>
-					<view class="ix_posimg">
-						<view class="ix_pos_p dis_f" v-for="(item,index) in datelist" :key='index'>
-							<p>{{item.date}}</p>
-							<p>{{item.state}}</p>
-						</view>
-						<view class="ix_pos_p dis_f">
-							<p class="ags">更多<u-icon name="arrow-right" color='#FFFFFF' size='12'></u-icon></p>
-						</view>
-					</view>
-				</view>
 			</view>
 
 			<!-- 更多产品 -->
 			<view class="ix_block index_pad">
 				<label>更多产品</label>
 				<view class="ix_img dis_f">
-					<view @click="toshop" class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
-						<image :src="item.image"></image>
-						<p class="ix_title">{{item.text}}</p>
-						<p class="ix_yellow">￥{{item.money}}.00</p>
+					<view @click="toshop(item.id)" class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
+						<image :src="item.master_image"></image>
+						<p class="ix_title">{{item.name}}</p>
+						<p class="ix_yellow">￥{{item.price}}</p>
 					</view>
 				</view>
 			</view>
@@ -315,33 +284,8 @@
 					data: [{}, {}, {}]
 				}, //活动日历
 				imglist: [],
-				datelist: [{
-						date: '3月25日',
-						state: "已成行"
-					},
-					{
-						date: '3月26日',
-						state: "已成行"
-					},
-					{
-						date: '3月27日',
-						state: "已成行"
-					},
-					{
-						date: '3月28日',
-						state: "已成行"
-					},
-				],
-				moenylist: [{
-						image: '../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日',
-						money: '60'
-					},
-					{
-						image: '../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日',
-						money: '75'
-					},
+				datelist: [],
+				moenylist: [
 				],
 				isShow: false,
 				isShow1: false,
@@ -349,7 +293,8 @@
 				city: [],
 				notice: '', //公告内容
 				cityid:9998,
-				cityname:'全国'
+				cityname:'全国',
+				Camp:[]
 			}
 		},
 		onLoad() {
@@ -372,17 +317,21 @@
 
 				//活动数据
 				const hotdate = await this.$http('/index/trip')
-				// console.log(hotdate.data.data);
 				//省内一天路线
 				that.Province = hotdate.data.data[0]
 				that.imglist = this.Province.data.hot
+				uni.setStorageSync('hot',that.imglist)
 				//全国精选路线
 				that.Selection = hotdate.data.data[1]
 
 				that.calendar = hotdate.data.data[2]
 				that.trip = that.calendar.data[0].trip
 				// console.log(that.calendar.data[1]);
-
+				that.Camp = hotdate.data.data[6].data
+				
+				that.datelist = hotdate.data.data[3].data
+				
+				that.moenylist = hotdate.data.data[4].data
 				const requrist = await this.$http('/user/detail')
 				this.$store.commit('getuser', requrist.data.data)
 			},
@@ -425,8 +374,8 @@
 			close1() {
 				this.isShow1 = false
 			},
-			toshop() {
-				this.$jump('/pages/mine/menu/shopDetail')
+			toshop(v) {
+				this.$jump('/pages/mine/menu/shopDetail?id=','params',v)
 			},
 			clinto(v) {
 				switch (v) {

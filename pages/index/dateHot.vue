@@ -5,11 +5,7 @@
 				:selected='selected' :end-date="end" @change="change" />
 		</view>
 		<view class="dt_text">
-			<!-- <view class="dt_bor">
-				<p @click='checktabs(item,index)' :class="curry == index ?'green':''" v-for="(item,index) in lists"
-					:key="index">{{item.title}}</p>
-			</view> -->
-			<view class="dis_f dt_col">
+			<view class="dis_f dt_col" v-if="list.length!=0">
 				<view @click="toDetails(item.trip_id)" class="dt_im dis_f" v-for="(item,index) in list" :key="index">
 					<image :src="item.trip_image" mode=""></image>
 					<view class="dis_f dt_kk flex_c jscb">
@@ -20,6 +16,10 @@
 						</text>
 					</view>
 				</view>
+			</view>
+			
+			<view v-else class="dis_f dt_col">
+				<p>暂无活动</p>
 			</view>
 		</view>
 	</view>
@@ -89,11 +89,13 @@
 		},
 		methods: {
 			async getlist(){
+				uni.showLoading()
 				const res = await this.$http('/trip/calendar/trip',{
 					page:this.page,
 					limit:10,
 					month:this.month
 				})
+				uni.hideLoading()
 				this.list = this.list.concat(res.data.data) 
 			},
 			async getseach(){

@@ -4,9 +4,9 @@
 			<template slot="left">
 				<image @click="back()" class="leftimg" src="@/static/image/retail/back.png" mode=""></image>
 			</template>
-			<template slot="right" >
-					<image  @click="torestore" class="rightimg" src="@/static/image/retail/import.jpg" mode=""></image>
-					<text  @click="torestore" class="fenx" >分销说明</text>
+			<template slot="right">
+				<image @click="torestore" class="rightimg" src="@/static/image/retail/import.jpg" mode=""></image>
+				<text @click="torestore" class="fenx">分销说明</text>
 			</template>
 		</Nav>
 		<view class="rr_body">
@@ -41,25 +41,36 @@
 		},
 		data() {
 			return {
-				list: [{
-					order:'88282292299',
-					state:1,
-				},
-				{
-					order:'88282292299',
-					state:2,
-				},
-				{
-					order:'88282292299',
-					state:3,
-				}]
+				list: [],
+				bottom: false,
+				page: 1
 			}
 		},
+		onLoad() {
+			this.getlist()
+		},
+		onReachBottom() {
+			if (this.bottom = true) {
+				return false
+			}
+			this.page += 1
+			this.getlist()
+		},
 		methods: {
-			back(){
+			async getlist() {
+				const res = await this.$http('/distribution/order/list', {
+					page: this.page,
+					limit: 10
+				})
+				this.list = res.data.data
+				if (res.data.data.length < 10) {
+					this.bottom = true
+				}
+			},
+			back() {
 				uni.navigateBack()
 			},
-			torestore(){
+			torestore() {
 				this.$jump('./restore')
 			}
 		}
@@ -130,12 +141,13 @@
 			}
 		}
 	}
-	.fenx{
+
+	.fenx {
 		font-size: 24rpx;
 	}
-	.rightimg{
+
+	.rightimg {
 		width: 30rpx;
 		height: 30rpx;
 	}
-	
 </style>

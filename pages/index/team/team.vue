@@ -100,7 +100,26 @@
 			</view> -->
 		</view>
 		
-		<!-- <p class="tm_btn">立即定制</p> -->
+		<!-- <p class="tm_btn" @click='isShow = !isShow'>立即定制</p> -->
+		
+		<!-- 我要定制 -->
+		<u-popup :show="isShow" mode="bottom" :closeable='true' @close="popClose" @open="popOpen">
+			<view class="popViews pd30">
+				<p class="Poptitle">想要定制活动吗?</p>
+				<p class="ider">方法一：长按识别二维码，添加策划师企业微信</p>
+				<image
+					src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800"
+					mode=""></image>
+				<p class="ider">方法二：留下你的联系方式，我们会与你联系</p>
+		
+				<input v-model="userphone" type="text" class="wx" placeholder="联系电话/微信号">
+				<view class="dis_f twoipt jscb">
+					<input v-model="username" class="names" type="text" placeholder="如何称呼您？">
+					<input v-model="usernumber" class="names" type="number" placeholder="出行人数是">
+				</view>
+				<p class="popbtn" @click='Popbtn()'>提交</p>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -131,12 +150,15 @@
 				imglist: [],
 				public_praise:[],//时间选择
 				team:[],//团队选择
-				monthlist:[]
+				monthlist:[],
+				isShow:false,
+				username:'',
+				usernumber:'',
+				userphone:''
 			};
 		},
 		onLoad() {
 			this.getlist()
-			
 			this.getmonth()
 		},
 		methods: {
@@ -195,6 +217,19 @@
 					name:item.title
 				}
 				this.$jump('./oneday?obj=','params',JSON.stringify(params))
+			},
+			//提交定制
+			async Popbtn(){
+				const params = {
+					
+				}
+				const res = await this.$http('/feedback/feedback',)
+			},
+			popClose(){
+				this.isShow = !this.isShow
+			},
+			popOpen(){
+				
 			}
 		}
 	}
@@ -571,6 +606,69 @@
 		}
 		.active{
 			background: #49CAA4 !important;
+		}
+	}
+	.popViews {
+		height: 1078rpx;
+		text-align: center;
+	
+		.Poptitle {
+			margin: 40rpx auto;
+			font-size: 36rpx;
+			font-weight: 500;
+			color: #000000;
+		}
+	
+		.ider {
+			font-size: 28rpx;
+			font-weight: 500;
+			color: #000000;
+			text-align: left;
+		}
+	
+		image {
+			width: 228rpx;
+			height: 228rpx;
+			margin: 40rpx auto;
+		}
+	
+		.wx {
+			box-sizing: border-box;
+			margin: 50rpx auto 20rpx;
+			width: 580rpx;
+			height: 92rpx;
+			background: #F6F7F9;
+			border-radius: 20rpx;
+			text-align: left;
+			padding-left: 20rpx;
+			font-size: 28rpx;
+		}
+	
+		.twoipt {
+			width: 580rpx;
+			margin: 0 auto;
+			text-align: left;
+	
+			.names {
+				font-size: 28rpx;
+				box-sizing: border-box;
+				padding-left: 20rpx;
+				width: 280rpx;
+				height: 92rpx;
+				background: #F6F7F9;
+				border-radius: 20rpx;
+			}
+		}
+	
+		.popbtn {
+			width: 580rpx;
+			height: 92rpx;
+			margin: 40rpx auto;
+			background: #49CAA4;
+			border-radius: 46rpx;
+			color: white;
+			line-height: 92rpx;
+			text-align: center;
 		}
 	}
 </style>

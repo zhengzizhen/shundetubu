@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<view class="content pd30">
-			<u--textarea height='140' border='none' confirmType='done' v-model="value"
+			<u--textarea height='140' border='none' confirmType='done' v-model="content"
 				placeholder="请描述您遇到的相关问题(必填)"></u--textarea>
 			<p>上传图片</p>
 			<u-upload :fileList="fileList1" @afterRead="afterRead" @delete="deletePic" name="1" multiple
@@ -10,10 +10,10 @@
 		
 		<view class="m20 dis_f pd30 phone">
 			<label>联系电话</label>
-			<input type="number" maxlength="11" placeholder="请输入联系方式,更好的解决问题">
+			<input v-model="phone" type="number" maxlength="11" placeholder="请输入联系方式,更好的解决问题">
 		</view>
 		
-		<p class="btn">提交反馈</p>
+		<p class="btn" @click='submit'>提交反馈</p>
 	</view>
 </template>
 
@@ -21,15 +21,13 @@
 	export default {
 		data() {
 			return {
-				value: '',
+				content: '',
 				fileList1: [],
+				imagelist:[],
+				phone:''
 			}
 		},
 		methods: {
-			// 删除图片
-			deletePic(event) {
-				this[`fileList${event.name}`].splice(event.index, 1)
-			},
 			// 新增图片
 			async afterRead(event) {
 				// 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
@@ -56,7 +54,7 @@
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
-						url: 'http://192.168.2.21:7001/upload', // 仅为示例，非真实的接口地址
+						url: 'https://www.tbq11.com/api/upload', // 仅为示例，非真实的接口地址
 						filePath: url,
 						name: 'file',
 						formData: {
@@ -65,11 +63,40 @@
 						success: (res) => {
 							setTimeout(() => {
 								resolve(res.data.data)
+								this.imagelist = this.imagelist.concat(JSON.parse(res.data).data.path)
+								console.log(this.imagelist);
 							}, 1000)
 						}
 					});
 				})
 			},
+			async submit(){
+				let reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
+				if(this.content == ''){
+					uni.$u.toast('问题描述不能为空')
+					return false
+				}else if(!reg.test(this.phone)){
+					uni.$u.toast('手机号格式不正确')
+					return false
+				}
+				const params = {
+					images:this.imagelist,
+					content:this.content,
+					phone:this.phone
+				}
+				uni.showLoading({
+					title:'提交中'
+				})
+				const res = await this.$http('/feedback/feedback',params)
+				uni.hideLoading()
+				uni.showToast({
+					title:'提交成功！',
+					icon:'success'
+				})
+				setTimeout(()=>{
+					uni.navigateBack()
+				},500)
+			}
 		}
 	}
 </script>

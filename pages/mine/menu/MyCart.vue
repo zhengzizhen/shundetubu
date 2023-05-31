@@ -1,20 +1,25 @@
 <template>
 	<view class="pd30 body">
-		<p class="mycattitle dis_f" @click='displayRadio'>管理</p>
+		<view class="dis_f jscb">
+			<p class="mycattitle dis_f" @click='displayRadio'>管理</p>
+		</view>
 		<view class="content bor_r">
-			<view class=" israido dis_f alitmc" v-for="(item,index) in list" :key="index">
+			
+			<view  v-if="list.length != 0" class=" israido dis_f alitmc" v-for="(item,index) in list" :key="index">
 				<view v-if="isRadio">
-					<image v-show="!item.radio" @click="item.radio = !item.radio" class="radio"
+					<image v-show="!item.radio" @click="runs(item)" class="radio"
 						src="@/static/image/mine/radio.png" mode=""></image>
-					<image v-show="item.radio" @click="item.radio = !item.radio" class="radio"
+					<image v-show="item.radio" @click="runs(item)" class="radio"
 						src="@/static/image/mine/radio1.png" mode=""></image>
 				</view>
-				<image class="bor_r image" src="@/static/index/zheng.jpg" mode=""></image>
+				<image class="bor_r image" :src="item.master_image" mode=""></image>
 				<view class="text dis_f flex_c">
-					<text class="txt">{{item.tit}}</text>
-					<label>{{item.label}}</label>
+					<text class="txt">{{item.name}}</text>
+					<view class="dis_f">
+						<label v-for="(v,i) in item.sku">{{v}}</label>
+					</view>
 					<p class="dis_f alitmc jscb">
-						<text class="nix">￥{{item.money}}</text>
+						<text class="nix">￥{{item.price}}</text>
 						<view class="number dis_f">
 							<p class="reduce" @click='reduce(item)'>-</p>
 							<text>{{item.number}}</text>
@@ -22,6 +27,13 @@
 						</view>
 					</p>
 				</view>
+				<view v-if="isRadio" class="rundelete">
+					<p class="deletes dis_f" @click='remove(item.id)'>删除</p>
+				</view>
+			</view>
+			
+			<view v-else>
+				<p>暂时还没有选择商品</p>
 			</view>
 		</view>
 
@@ -33,10 +45,10 @@
 
 		<view class="ix_block index_pad">
 			<view class="ix_img dis_f">
-				<view @click="toDetail()" class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
-					<image :src="item.image"></image>
+				<view @click="toDetail(item.id)" class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
+					<image :src="item.master_image"></image>
 					<p class="ix_title">{{item.text}}</p>
-					<p class="ix_yellow">￥{{item.money}}.00</p>
+					<p class="ix_yellow">￥{{item.price}}</p>
 				</view>
 			</view>
 		</view>
@@ -51,7 +63,7 @@
 				<label>含运费</label>
 				<p class="tit">合计</p>
 				<text class="mondy">￥{{count}}</text>
-				<p class="btn">结算</p>
+				<p class="btn" @click='submit'>结算</p>
 			</view>
 		</view>
 	</view>
@@ -62,38 +74,11 @@
 		data() {
 			return {
 				isRadio: false,
-				allRadio: false, //全选
-				list: [{
-						tit: '铝合金外锁登山杖，不走寻常路',
-						label: '绿色',
-						money: 88,
-						number: 1,
-						radio: false,
-					},
-					{
-						tit: '山外青山楼外楼，不走寻常路',
-						label: '绿色',
-						money: 100,
-						number: 1,
-						radio: false,
-					},
-				],
-				moenylist: [{
-						image: '../../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日',
-						money: '60'
-					},
-					{
-						image: '../../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日',
-						money: '75'
-					},
-					{
-						image: '../../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日',
-						money: '75'
-					},
-				],
+				allRadio: true, //全选
+				list: [],
+				moenylist: [],
+				page:1,
+				bottom:false
 			}
 		},
 		computed: {
@@ -101,7 +86,9 @@
 			count() {
 				let totalPrice = 0
 				for (let i = 0; i < this.list.length; i++) {
-					totalPrice += this.list[i].number * parseFloat(this.list[i].money);
+					if (this.list[i].radio == true) {
+						totalPrice += this.list[i].number * parseFloat(this.list[i].price);
+					}
 				}
 				return totalPrice;
 			},
@@ -109,12 +96,46 @@
 			total: function() {
 				let totalCount = 0;
 				for (let i = 0; i < this.list.length; i++) {
-					totalCount += this.list[i].number;
+					if (this.list[i].radio == true) {
+						totalCount += this.list[i].number;
+					}
 				}
 				return totalCount;
 			},
 		},
+		onReachBottom() {
+			if(this.bottom== true){
+				return false
+			}
+			this.page+=1
+			this.youlike()
+		},
+		onLoad() {
+			this.getlist()
+			this.youlike()
+		},
 		methods: {
+			async getlist() {
+				const res = await this.$http('/shop/car/list')
+				res.data.data.forEach((item,index)=>{
+					item.radio = true
+				})
+				this.list = res.data.data
+				this.list.forEach((item,index)=>{
+					
+				})
+			},
+			async youlike(){
+				const res = await this.$http('/shop/goods/list',{
+					is_recommend:1,
+					page:this.page,
+					limit:10
+				})
+				if(res.data.data.length<10){
+					this.bottom = true
+				}
+				this.moenylist = res.data.data
+			},
 			valChange(e) {
 				console.log('当前值为: ' + e.value)
 			},
@@ -134,17 +155,64 @@
 					})
 				}
 			},
-			toDetail() {
-				this.$jump('./shopDetail')
+			runs(v){
+				v.radio = !v.radio
 			},
-			reduce(v){
-				if(v.number == 1){
+			toDetail(v) {
+				this.$jump('./shopDetail?id=','params',v)
+			},
+			async reduce(v) {
+				if (v.number == 1) {
 					return false
 				}
-				v.number--
+				let timer = null
+				if (timer) {
+					clearTimeout(timer)
+					timer = null
+				}
+				timer = setTimeout(async () => {
+					v.number--
+					const res = await this.$http('/shop/car/update', {
+						car_id: v.id,
+						number: -1
+					})
+				}, 200)
 			},
-			add(v){
-				v.number++
+			async add(v) {
+				let timer = null
+				if (timer) {
+					clearTimeout(timer)
+					timer = null
+				}
+				timer = setTimeout(async () => {
+					v.number++
+					const res = await this.$http('/shop/car/update', {
+						car_id: v.id,
+						number:1
+					})
+				}, 200)
+			},
+			async remove(v) {
+				uni.showLoading()
+				const res = await this.$http('/shop/car/delete',{
+					car_ids:v.id
+				})
+				uni.hideLoading()
+				uni.$u.toast('删除成功')
+				this.getlist()
+			},
+			async submit(){
+				if(this.total == 0){
+					uni.$u.toast('请选择商品')
+					return false
+				}
+				var params = []
+				this.list.forEach((item,index)=>{
+					if(item.radio == true){
+						params = params.concat(item)
+					}
+				})
+				this.$jump('./goPlay?obj=','params',JSON.stringify(params))
 			}
 		},
 	}
@@ -155,6 +223,8 @@
 		padding-top: 10rpx;
 		background-color: #FAFAFA;
 		padding-bottom: 170rpx;
+		min-height: 1500rpx;
+		height: auto;
 	}
 
 	.mycattitle {
@@ -188,7 +258,7 @@
 
 		.text {
 			margin-left: 30rpx;
-			width: 400rpx;
+			flex: 1;
 
 			.txt {
 				font-size: 30rpx;
@@ -199,6 +269,7 @@
 			label {
 				margin: 20rpx 0;
 				display: block;
+				margin-left: 10rpx;
 				width: 62rpx;
 				height: 32rpx;
 				line-height: 32rpx;
@@ -327,11 +398,13 @@
 			text-align: center;
 		}
 	}
-	.number{
+
+	.number {
 		background: #fafafa;
 		height: 45rpx;
 		line-height: 45rpx;
-		text{
+
+		text {
 			margin: 0 6rpx;
 			font-size: 30rpx;
 			font-weight: 500;
@@ -340,18 +413,37 @@
 			text-align: center;
 			background-color: #fafafa;
 		}
-		p{
+
+		p {
 			width: 45rpx;
 			height: 45rpx;
 			line-height: 42rpx;
 			border-radius: 10rpx;
 			text-align: center;
 		}
-		.reduce{
+
+		.reduce {
 			color: #999;
 		}
-		.add{
+
+		.add {
 			color: #222;
+		}
+	}
+
+	.rundelete {
+		width: 80rpx;
+		height: 80rpx;
+		background-color: red;
+		border-radius: 20rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.deletes {
+			color: white;
+			font-size: 28rpx;
+			text-align: center;
 		}
 	}
 </style>

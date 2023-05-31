@@ -15,11 +15,15 @@
 			<p class="title">推荐好物</p>
 
 			<view class="content dis_f" v-for="(item,index) in list" :key="index" @click="toshopDetail">
-				<image class="bor_r" src="@/static/index/zheng.jpg" mode=""></image>
-				<view class="text">
-					<p>锡兰红茶，来自斯里兰卡高山 纯手工采摘</p>
-					<text>斯里兰卡原装进口，世界上最干净的 茶op等级锡兰红茶，唐红透亮...</text>
-					<label>火热售罄，正在补货中...</label>
+				<image class="bor_r" :src="item.master_image" mode=""></image>
+				<view class="text dis_f flex_c jscb">
+					<p>{{item.name}}</p>
+					<text>{{item.intro}}</text>
+					<view  v-if="item.stock != 0" class="dis_f label">
+						<label>￥{{item.price}}</label>
+						<p>原价￥{{item.old_price}}</p>
+					</view>
+					<label v-else>火热售罄，正在补货中...</label>
 				</view>
 			</view>
 
@@ -36,45 +40,31 @@
 		data() {
 			return {
 				text1: '月***是  购买了铝合金外锁登山...',
-				list: [1, 2, 3],
-				arrlist: [{
-						name: '限时特惠',
-						image: '../../../static/index/zblx.jpg'
-					},
-					{
-						name: '热销榜单',
-						image: '../../../static/index/gnjx.jpg'
-					},
-					{
-						name: '特色风物',
-						image: '../../../static/index/gwjx.jpg'
-					},
-					{
-						name: '旅行美学',
-						image: '../../../static/index/hdrl.jpg'
-					},
-					{
-						name: '健康轻食',
-						image: '../../../static/index/hwsc.jpg'
-					},
-					{
-						name: '个性饮品',
-						image: '../../../static/index/bwbd.jpg'
-					},
-					{
-						name: '运动户外',
-						image: '../../../static/index/tddz.jpg'
-					},
-					{
-						name: '亲子成长',
-						image: '../../../static/index/qzlx.jpg'
-					}
-				],
+				list: [],
+				arrlist: [],
+				page: 1
 			}
 		},
+		onLoad() {
+			this.getlist()
+			//推荐好物
+			this.getrecommend()
+		},
 		methods: {
+			async getlist() {
+				const res = await this.$http('/shop/goods/category/list')
+				this.arrlist = res.data.data
+			},
+			async getrecommend() {
+				const res = await this.$http('/shop/goods/list', {
+					is_recommend: '推荐好物',
+					page: this.page,
+					limit: 10
+				})
+				this.list = res.data.data
+			},
 			toChild(e) {
-				this.$jump('./Limited')
+				this.$jump('./Limited?id=', 'params', e.id)
 			},
 			toShop() {
 				this.$jump('./MyCart')
@@ -89,14 +79,14 @@
 <style lang="scss" scoped>
 	.ix_shop {
 		flex-wrap: wrap;
-		justify-content: space-between;
+		// justify-content: space-between;
 
 		.ix_list {
 			margin-top: 30rpx;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			width: 24%;
+			width: 25%;
 
 			image {
 				width: 100rpx;
@@ -151,12 +141,21 @@
 					color: #666666;
 				}
 
-				label {
-					display: block;
+				.label {
 					margin-top: 70rpx;
-					font-size: 26rpx;
-					font-weight: 500;
-					color: #FF4040;
+					label{
+						display: block;
+						font-size: 26rpx;
+						font-weight: 500;
+						color: #FF4040;
+					}
+					p{
+						margin-left: 10rpx;
+						font-weight: 500;
+						font-size: 26rpx;
+						text-decoration: line-through;
+						color: #999999;
+					}
 				}
 			}
 		}

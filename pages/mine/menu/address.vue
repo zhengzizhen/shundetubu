@@ -5,39 +5,39 @@
 			<span>收货地址</span>
 		</view>
 
-		<view class="card dis_f flex_c pd30" v-for="(v,index) in list" :key="index">
-			<u-modal :asyncClose="true" :showCancelButton='true' width="400rpx" :show="isShows" content='确定要删除该地址吗'
-				@confirm='confirm(index)' @cancel='cancel'></u-modal>
+		<view @click="setstro(v)" class="card dis_f flex_c pd30" v-for="(v,index) in list" :key="index">
 			<p class="header">
 				<label>默认</label>
 				<text>{{v.name}}</text>
 				<text>{{v.phone}}</text>
 			</p>
-			<p class="center">{{v.address}}</p>
+			<p class="center">{{v.area}}{{v.address}}</p>
 			<view class="bottom dis_f alitmc">
-				<p class="dis_f alitmc">
-					<image v-show="!v.state" @click="check(v.state,index)" class="ius"
+				<p class="dis_f alitmc" @click.stop="check(v,index)">
+					<image v-show="v.is_default != 1"  class="ius"
 						src="@/static/image/mine/radio.png" mode="">
 					</image>
-					<image v-show="v.state" @click="check(v.state,index)" class="ius"
+					<image v-show="v.is_default == 1"  class="ius"
 						src="@/static/image/mine/radio1.png" mode="">
 					</image>
 					<label>设为默认</label>
 				</p>
 				<p class="dis_f alitmc left">
 					<image src="@/static/image/mine/bianji.png" mode=""></image>
-					<label @click="toaddress(v)">编辑</label>
+					<label @click.stop="toaddress(v)">编辑</label>
 				</p>
 				<p class="dis_f alitmc ml20">
 					<image src="@/static/image/mine/delete.png" mode=""></image>
-					<label @click="isShows = true">删除</label>
+					<label @click.stop="deletes(v)">删除</label>
 				</p>
 			</view>
 		</view>
 
-		<view class="btn dis_f alitmc jscc" @click="toAdd">
-			<image src="@/static/image/mine/add.png" mode=""></image>
-			<p>添加地址</p>
+		<view class="fixed dis_f jscc alitmc">
+			<view class="btn dis_f alitmc jscc" @click="toAdd">
+				<image src="@/static/image/mine/add.png" mode=""></image>
+				<p>添加地址</p>
+			</view>
 		</view>
 	</view>
 </template>
@@ -47,38 +47,40 @@
 		data() {
 			return {
 				isShow: true,
-				isShows: false, //模态框
-				list: [{
-						name: '神秘狗',
-						phone: '17633612613',
-						address: '河南省南阳市社旗县S333',
-						state: 0
-					},
-					{
-						name: '钱多多',
-						phone: '17698859631',
-						address: '广州省花都区花都广场50号',
-						state: 1
-					},
-					{
-						name: '郭晋安',
-						phone: '15474474888',
-						address: '上海市静安区静安寺5454',
-						state: 1
-					},
-				],
-				curry: 0
+				list: [],
 			}
 		},
+		onLoad() {
+			this.getaddress()
+		},
 		methods: {
+			async getaddress(){
+				const res = await this.$http('/shop/user/address/list')
+				this.list = res.data.data
+			},
+			setstro(v){
+				const olay = uni.getStorageSync('play')
+				if(olay == 'run'){
+					uni.setStorageSync('address',v)
+					uni.removeStorageSync('play')
+					this.$jump('/pages/mine/menu/goPlay')
+				}
+				return false
+			},
 			back() {
 				uni.navigateBack()
 			},
-			check(v, index) {
-				this.list.forEach((item, index) => [
-					item.state = false
-				])
-				this.list[index].state = !this.list[index].state
+			async check(v, index) {
+				if(v.is_default == 1){
+					return false
+				}
+				uni.showLoading()
+				const res = await this.$http('/shop/user/address/default',{
+					address_id:v.id
+				})
+				uni.hideLoading()
+				v.is_default = 1
+				this.getaddress()
 			},
 			toAdd() {
 				this.$jump('./addAddress')
@@ -88,16 +90,14 @@
 					url: './addAddress?v=' + JSON.stringify(v)
 				})
 			},
-			cancel() {
-				this.isShows = false
-			},
-			confirm(index) {
-				setTimeout(() => {
-					console.log(index);
-					uni.$u.toast('删除成功！')
-					this.isShows = false
-				}, 1000)
-
+			async deletes(v){
+				uni.showLoading()
+				const res = await this.$http('/shop/user/address/delete',{
+					address_id:v.id
+				})
+				uni.hideLoading()
+				uni.$u.toast('删除成功！')
+				this.getaddress()
 			}
 		}
 	}
@@ -178,7 +178,6 @@
 		}
 
 		.btn {
-			margin: 900rpx auto 0;
 			width: 690rpx;
 			height: 84rpx;
 			background: #49CAA4;
@@ -196,5 +195,11 @@
 				height: 33rpx;
 			}
 		}
+	}
+	.fixed{
+		width: 100%;
+		position: fixed;
+		bottom: 80rpx;
+		left: 0;
 	}
 </style>

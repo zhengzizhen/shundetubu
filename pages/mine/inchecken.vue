@@ -57,76 +57,23 @@
 				seachValue: '',
 				isShow: false,
 				arrlist: [],
-				list: [{
-						name: '艾伦',
-						phone: '199999999999',
-						user: '元始天尊',
-						id: '865478798768778',
-						state: 0
-					},
-					{
-						name: '艾伦',
-						phone: '199999999999',
-						user: '元始天尊',
-						id: '865478798768778',
-						state: 0
-					},
-					{
-						name: '米卡桑',
-						phone: '176154898988',
-						user: '原始巨人',
-						id: '41156554654654654',
-						state: 1
-					},
-				],
-				list1: [{
-						name: '艾伦',
-						phone: '199999999999',
-						user: '元始天尊',
-						id: '865478798768778',
-						state: 0
-					},
-					{
-						name: '艾伦',
-						phone: '199999999999',
-						user: '元始天尊',
-						id: '865478798768778',
-						state: 0
-					},
-					{
-						name: '米卡桑',
-						phone: '176154898988',
-						user: '原始巨人',
-						id: '41156554654654654',
-						state: 1
-					},
-					{
-						name: '米卡桑',
-						phone: '176154898988',
-						user: '原始巨人',
-						id: '41156554654654654',
-						state: 1
-					},
-					{
-						name: '米卡桑',
-						phone: '176154898988',
-						user: '原始巨人',
-						id: '41156554654654654',
-						state: 1
-					},
-				]
+				list: [],
+				list1: [],
+				id:''
 			}
 		},
-		onLoad() {
+		onLoad(option) {
+			this.id = option.id
 			this.arrlist = this.list
 			this.Numbers()
 			this.getlist()
 		},
 		methods: {
 			async getlist(){
-				const res = this.$http('/trip/akela/sign/list',{
-					
-				})
+				const params = {
+					trip_team_id:this.id
+				}
+				const res = this.$http('/trip/akela/sign/list',params)
 			},
 			toajax() {
 				this.isShow = !this.isShow

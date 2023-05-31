@@ -51,7 +51,7 @@
 				<view class="io">
 					<p>{{item.content}}</p>
 				</view>
-				<view class="dis_f plq">
+				<!-- <view class="dis_f plq">
 					<image class="sn" src="@/static/trends/pl.png"></image>
 					<view class="dis_f ssss">
 						<image v-show="!item.show" @click="love(item)" src="@/static/trends/ax.png"></image>
@@ -59,7 +59,7 @@
 						</image>
 						<span style="margin-left: 10rpx;color:#666">{{item.like_number}}</span>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 
@@ -118,14 +118,17 @@
 				this.avatar = data.avatar //头像
 				this.list = data.dynamic_list
 			},
-			love(item) {
-				item.show = !item.show
-				if (item.show == false) {
-					item.lovenum--
-				} else {
-					item.lovenum++
-				}
-
+			async love(item) {
+				const res = await this.$http('/circle/dynamic/like',{
+					
+				})
+				// item.show = !item.show
+				// if (item.show == false) {
+				// 	item.lovenum--
+				// } else {
+				// 	item.lovenum++
+				// }
+				console.log(item);
 			},
 			async attention() { //关注用户
 				this.is_attention = !this.is_attention

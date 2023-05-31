@@ -108,11 +108,11 @@
 				<view class="ix_block index_pad">
 					<label>热门推荐</label>
 					<view class="ix_img dis_f">
-						<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails()">
-							<image :src="item.image"></image>
-							<p class="ix_posi">{{item.title}}</p>
-							<p class="ix_title">{{item.text}}</p>
-							<p class="ix_txtgreen">草原花开</p>
+						<view class="ix_flexs" v-for="(item,index) in hot" :key="index" @click="toDetails(item.id)">
+							<image :src="item.master_image"></image>
+							<p class="ix_posi">{{item.day}}天</p>
+							<p class="ix_title">{{item.title}}</p>
+							<p class="ix_txtgreen">评分：{{item.grade}}</p>
 						</view>
 					</view>
 				</view>
@@ -204,10 +204,13 @@
 						text: '【花漫天山】新疆伊犁 杏花大环线8日'
 					}
 				],
+				hot:[]
 			};
 		},
 		onLoad() {
 			this.getlist()
+			this.hot = uni.getStorageSync('hot')
+			console.log(this.hot);
 		},
 		methods: {
 			async getlist(){
@@ -250,8 +253,8 @@
 					this.$jump('./guide/userguide')
 				}
 			},
-			toDetails() {
-				this.$jump('/pages/index/Details/Details')
+			toDetails(v) {
+				this.$jump('/pages/index/Details/Details?id=','params',v)
 			},
 			toCircle() {
 				this.$jump('./Circle')
@@ -614,7 +617,7 @@
 			}
 
 			.ix_txtgreen {
-				width: 106rpx;
+				width: 146rpx;
 				height: 36rpx;
 				color: #49CAA4;
 				font-size: 22rpx;

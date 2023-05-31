@@ -16,14 +16,14 @@
 		<p class="title" v-show="isShow">已取消</p>
 		<label class="state" v-show="isShow">重新购买</label>
 
-		<view class="content dis_f alitmc mt20">
-			<image class="bor_r" src="@/static/index/zheng.jpg" mode=""></image>
+		<view class="content dis_f alitmc mt20" v-for="(item,index) in params.goods" :key="index">
+			<image class="bor_r" :src="item.goods_master_image" mode=""></image>
 			<view class="textcont dis_f flex_c">
-				<p>铝合金外锁登山杖，不走寻常路</p>
-				<label class="label">绿色</label>
+				<p>{{item.goods_name}}</p>
+				<label class="label">{{item.sku}}</label>
 				<view class="dis_f jscb bottext">
-					<text>￥78.00</text>
-					<text>×1</text>
+					<text>￥{{item.unit_price}}</text>
+					<text>×{{item.number}}</text>
 				</view>
 			</view>
 		</view>
@@ -31,12 +31,12 @@
 		<view class="information bor_r mt20">
 			<view class="bor dis_f jscb">
 				<p>下单时间</p>
-				<text>2026-02-29 19:00</text>
+				<text>{{params.created_at}}</text>
 			</view>
 			<view class="bor dis_f jscb">
 				<p>订单号</p>
 				<view class="img dis_f alitmc">
-					<text>2727727722</text>
+					<text>{{params.order_no}}</text>
 					<image @click="copy" src="@/static/image/mine/copy.png" mode=""></image>
 				</view>
 			</view>
@@ -46,20 +46,20 @@
 			</view>
 			<view class="bor dis_f jscb noborder">
 				<p>订单金额</p>
-				<text class="red">￥78.00</text>
+				<text class="red">￥{{money.toFixed(2)}}</text>
 			</view>
 		</view>
 
 
 		<!-- 待支付 -->
 		<view class="fixed dis_f" v-show="isShow1">
-			<p>取消订单</p>
+			<p @click='cancelorder'>取消订单</p>
 			<p>修改地址</p>
 			<p>立即支付</p>
 		</view>
 		<!-- 待发货 -->
 		<view class="fixed dis_f" v-show="isShow2">
-			<p>取消订单</p>
+			<p @click='cancelorder'>取消订单</p>
 		</view>
 		<!-- 待收货 -->
 		<view class="fixed dis_f" v-show="isShow3">
@@ -72,7 +72,7 @@
 		</view>
 		<!-- 已取消 -->
 		<view class="fixed dis_f" v-show="isShow">
-			<p>删除订单</p>
+			<!-- <p>删除订单</p> -->
 		</view>
 	</view>
 </template>
@@ -86,22 +86,29 @@
 				isShow2: false,
 				isShow3: false,
 				isShow4: false,
+				params:{},
+				money:0
 			}
 		},
 		onLoad(option) {
-			if (option.id == 0) {
+			this.params = JSON.parse(option.obj)
+			this.params.goods.forEach((item,index)=>{
+				this.money+= parseFloat(item.all_price)
+			})
+			console.log(this.params);
+			if (this.params.status == -1) {
 				this.isShow = true
 				return false
-			} else if (option.id == 1) {
+			} else if (this.params.status == 0) {
 				this.isShow1 = true
 				return false
-			} else if (option.id == 2) {
+			} else if (this.params.status == 1) {
 				this.isShow2 = true
 				return false
-			} else if (option.id == 3) {
+			} else if (this.params.status == 2) {
 				this.isShow3 = true
 				return false
-			} else if (option.id == 4) {
+			} else if (this.params.status == 3) {
 				this.isShow4 = true
 				return false
 			}
@@ -135,6 +142,19 @@
 				result = document.execCommand("copy")
 				textarea.remove()
 				// #endif
+			},
+			async cancelorder(){
+				uni.showLoading({
+					
+				})
+				const res = await this.$http('/shop/order/cancel',{
+					order_no:this.params.order_no
+				})
+				uni.hideLoading()
+				uni.$u.toast('取消成功')
+				setTimeout(()=>{
+					uni.navigateBack()
+				},500)
 			}
 		}
 	}
@@ -185,9 +205,10 @@
 			}
 
 			.label {
-				margin-top: 8rpx;
-				width: 62rpx;
+				margin-top: 18rpx;
+				width: 100rpx;
 				height: 32rpx;
+				padding: 5rpx 10rpx;
 				background: #F0F0F0;
 				border-radius: 6rpx;
 				font-size: 24rpx;

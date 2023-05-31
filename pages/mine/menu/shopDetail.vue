@@ -12,28 +12,29 @@
 				{{swiperlist.length}}张照片
 			</p>
 		</view>
+
 		<view class="title pd30">
-			<p class="head">原创设计野餐垫</p>
-			<label>斯里兰卡原装进口，世界上最干净的茶op等级锡兰红茶，唐红透 亮...</label>
+			<p class="head">{{goods.name}}</p>
+			<label>{{goods.intro}}</label>
 			<p class="bottom dis_f jscb alitmc">
 				<view class="ius">
-					<p class="red"><text>￥</text>88</p>
+					<p class="red"><text>￥</text>{{runs.price}}</p>
 				</view>
-				<text class="num">已售： 92</text>
+				<text class="num">已售： {{goods.acura}}</text>
 			</p>
 		</view>
 
 		<view class="pd30 content">
 			<view @click="specifications = true" class="pos dis_f">
 				<label>选择:</label>
-				<text>已选: "绿色"</text>
+				<text>已选: "{{guide}}"</text>
 			</view>
 			<view class="pos dis_f">
 				<label>物流:</label>
-				<text>物流：包邮，平日下单后48h之内发货，五一假期期间不发货，节后安排发货</text>
+				<text>物流：包邮，平日下单后{{goods.l_post_l}}h之内发货，五一假期期间不发货，节后安排发货</text>
 			</view>
 			<view class="pos dis_f noborder">
-				<label>7天无忧退换货·臻选商品·正品保障</label>
+				<label>{{goods.qa_tabs}}</label>
 			</view>
 		</view>
 
@@ -46,7 +47,10 @@
 			</view>
 			<!-- 详情 -->
 			<view class="image" v-show="tabcurry == 0">
-				<image src="@/static/as/changs.jpg" mode=""></image>
+				<!-- <image src="@/static/as/changs.jpg" mode=""></image> -->
+				<view class="u-content">
+					<u-parse :content="goods.content"></u-parse>
+				</view>
 			</view>
 			<!-- 评价 -->
 			<view class="nocity" v-show="tabcurry == 1">
@@ -72,7 +76,6 @@
 					</view>
 				</view>
 			</view>
-
 		</view>
 		<!-- 更多好物 -->
 		<view class="bottoms dis_f ">
@@ -90,7 +93,7 @@
 					<text>购物车</text>
 				</view>
 				<view class="dis_f">
-					<p class="addcar">加入购物车</p>
+					<p class="addcar"  @click='tocard'>加入购物车</p>
 					<p class="goshop" @click='toPlay()'>立即购买</p>
 				</view>
 			</view>
@@ -103,23 +106,35 @@
 		<u-popup :show="specifications" mode="bottom" closeable @close="closes" @open="opens">
 			<view class="space pd30">
 				<view class="static dis_f alitmc">
-					<image class="bor_r" src="@/static/index/zheng.jpg" mode=""></image>
+					<image class="bor_r" :src="runs.image" mode=""></image>
 					<view class="popview">
-						<text>￥88</text>
-						<p>已选： “绿色”</p>
+						<text>￥{{runs.price}}</text>
+						<p>已选： “<span v-for="(i,s) in runs.attr">{{i}}</span>”</p>
 					</view>
 				</view>
-				<p class="poptitle">颜色</p>
-				<view class="chekpop">
-					<p @click='chestatic(item,index)' :class="curry == index ? 'chekpops':''"
-						v-for="(item,index) in check" :key="index">{{item}}</p>
+				<view class="" v-if="goods.sku">
+					<view v-if="goods.sku.attrs[0]">
+						<p class="poptitle">{{goods.sku.attrs[0].attr}}</p>
+						<view class="chekpop">
+							<p @click='chestatic(goods.sku.attrs[0],index)' :class="curry == item ? 'chekpops':''"
+								v-for="(item,index) in goods.sku.attrs[0].items" :key="index">{{item}}</p>
+						</view>
+					</view>
+					
+					<view v-if="goods.sku.attrs[1]">
+						<p class="poptitle">{{goods.sku.attrs[1].attr}}</p>
+						<view class="chekpop">
+							<p @click='chestatic1(goods.sku.attrs[1],index)' :class="curry1 == item ? 'chekpops':''"
+								v-for="(item,index) in goods.sku.attrs[1].items" :key="index">{{item}}</p>
+						</view>
+					</view>
 				</view>
 				<p class="mo poptitle">选择数量</p>
 				<view class="number dis_f">
 					<p @click='reduce'>-</p>
 					<text>{{num}}</text>
 					<p @click='add'>+</p>
-					<label>库存 ： 191</label>
+					<label>库存 ： {{runs.stock}}</label>
 				</view>
 				<view class="bottoms dis_f nobor">
 					<view class="dis_f alitmc jscb">
@@ -136,7 +151,7 @@
 							<text>购物车</text>
 						</view>
 						<view class="dis_f">
-							<p class="addcar">加入购物车</p>
+							<p class="addcar" @click='tocard'>加入购物车</p>
 							<p class="goshop" @click='toPlay()'>立即购买</p>
 						</view>
 					</view>
@@ -150,14 +165,14 @@
 	export default {
 		data() {
 			return {
-				swiperlist: ['../../../static/index/chang.jpg', '../../../static/index/chang.jpg'],
+				swiperlist: [],
 				list: [1, 2, 3],
 				count: 5,
 				value: 4,
 				num: 1,
 				specifications: false, //规格选择
-				tabcurry:0,
-				CheckTablist: [ '详情','评价','推荐'],
+				tabcurry: 0,
+				CheckTablist: ['详情', '评价', '推荐'],
 				moenylist: [{
 						image: '../../../static/index/chang.jpg',
 						text: '【花漫天山】新疆伊犁 杏花大环线8日',
@@ -180,15 +195,52 @@
 					},
 				],
 				curry: 0,
-				check: ['绿色', '红色', '彩虹色']
+				curry1:0,
+				check: ['绿色', '红色', '彩虹色'],
+				goods: {},
+				guide:'',
+				attr:[],
+				runs:{},
+				id:'',
+				moeny:''
 			}
 		},
+		onLoad(option) {
+			this.id = option.id
+			this.getlist(option.id)
+		},
 		methods: {
+			async getlist(v) {
+				const res = await this.$http('/shop/goods/detail', {
+					goods_id: v
+				})
+				this.goods = res.data.data
+				this.swiperlist = this.swiperlist.concat(res.data.data.master_image)
+				this.swiperlist = this.swiperlist.concat(res.data.data.assist_images)
+				this.guide = res.data.data.sku.attrs[0].items[0]
+				this.runs = res.data.data.sku.sku[0]
+				this.runs.price = this.runs.price * this.num
+				this.curry = this.runs.attr[0]
+				this.curry1 = this.runs.attr[1]
+				this.attr[0] = this.runs.attr[0]
+				this.attr[1] = this.runs.attr[1]
+			},
 			CheckTab(e, index) {
 				this.tabcurry = index
 			},
 			toPlay() {
-				this.$jump('./goPlay')
+				const params = [
+					{
+						goods_id:this.id,
+						number:this.num,
+						sku:this.attr,
+						price:this.runs.price,
+						master_image:this.goods.master_image,
+						name:this.goods.name,
+						freight:parseInt(this.goods.freight)
+					}
+				]
+				this.$jump('./goPlay?obj=','params',JSON.stringify(params))
 			},
 			toCar() {
 				this.$jump('./MyCart')
@@ -209,19 +261,45 @@
 				this.specifications = false
 			},
 			chestatic(e, index) {
-				this.curry = index
+				this.curry = e.items[index]
+				this.attr[0] = e.items[index] 
+				this.price()
+			},
+			chestatic1(e, index) {
+				this.curry1 = e.items[index]
+				this.attr[1] = e.items[index]
+				this.price()
+			},
+			price(){
+				this.goods.sku.sku.forEach((item,index)=>{
+					if(JSON.stringify(item.attr) === JSON.stringify(this.attr)){
+						this.runs = item
+						this.moeny = item.price
+						this.runs.price = this.moeny * this.num
+					}
+				})
 			},
 			valChange(e) {
 				console.log(e);
 			},
-			reduce(){
-				if(this.num == 1){
+			reduce() {
+				if (this.num == 1) {
 					return false
 				}
 				this.num--
+				this.runs.price = this.moeny*this.num
 			},
-			add(){
+			add() {
 				this.num++
+				this.runs.price = this.moeny*this.num
+			},
+			async tocard(){
+				const res = await this.$http('/shop/car/add',{
+					goods_id:this.id,
+					sku:this.attr,
+					number:this.num
+				})
+				uni.$u.toast('添加成功')
 			}
 		}
 	}
@@ -505,7 +583,7 @@
 		background-color: white;
 		padding: 30rpx;
 		box-sizing: border-box;
-
+		margin-bottom: 200rpx;
 		.static {
 			padding-bottom: 20rpx;
 			border-bottom: 1px solid #E6E6E6;
@@ -563,8 +641,9 @@
 		.mo {
 			margin-top: 0 !important;
 		}
-		.number{
-			text{
+
+		.number {
+			text {
 				margin: 0 10rpx;
 				font-size: 30rpx;
 				font-weight: 500;
@@ -572,7 +651,8 @@
 				width: 40rpx;
 				text-align: center;
 			}
-			p{
+
+			p {
 				width: 42rpx;
 				height: 42rpx;
 				line-height: 42rpx;
@@ -580,14 +660,16 @@
 				border-radius: 10rpx;
 				text-align: center;
 			}
-			label{
+
+			label {
 				font-size: 28rpx;
 				font-weight: 500;
 				color: #999999;
 				margin-left: 20rpx;
 			}
 		}
-		.nobor{
+
+		.nobor {
 			box-shadow: 0rpx 0rpx 0rpx 0rpx !important;
 			margin-bottom: 40rpx;
 		}

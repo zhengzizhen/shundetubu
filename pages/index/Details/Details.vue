@@ -240,10 +240,10 @@
 					mode=""></image>
 				<p class="ider">方法二：留下你的联系方式，我们会与你联系</p>
 
-				<input type="text" class="wx" placeholder="联系电话/微信号">
+				<input v-model="userphone" type="number" maxlength="11" class="wx" placeholder="联系电话/微信号">
 				<view class="dis_f twoipt jscb">
-					<input class="names" type="text" placeholder="如何称呼您？">
-					<input class="names" type="number" placeholder="出行人数是">
+					<input v-model="username" class="names" type="text" placeholder="如何称呼您？">
+					<input v-model="usernumber" class="names" type="number" maxlength="4" placeholder="出行人数是">
 				</view>
 				<p class="popbtn" @click='Popbtn()'>提交</p>
 			</view>
@@ -346,7 +346,10 @@
 				price:'',
 				min : true,
 				teamid:'',
-				start_day:''
+				start_day:'',
+				userphone:'',
+				usernumber:'',
+				username:'',
 			}
 		},
 		onLoad(option) {
@@ -510,8 +513,20 @@
 				}
 				this.$jump('./Apply?obj=','params',JSON.stringify(params))
 			},
-			Popbtn() {
+			async Popbtn() {
+				const params ={
+					trip_id:this.id,
+					name:this.username,
+					phone:this.userphone,
+					people_number:this.usernumber
+				}
+				uni.showLoading()
+				const res = await this.$http('/feedback/custom',params)
+				uni.hideLoading()
 				this.isShow = false;
+				this.username = ''
+				this.usernumber =''
+				this.userphone = ''
 				uni.showToast({
 					title: '提交成功',
 					icon: 'none'

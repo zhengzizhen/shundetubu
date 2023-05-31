@@ -90,7 +90,7 @@
 			<!-- 带队活动 -->
 			<view class="pb20" v-show="list[0].state">
 				<view v-if="no_start != null">
-					<view class="shaky pd30" v-for="(v,i) in no_start" :key="i">
+					<view @click="tocheck(v)" class="shaky pd30" v-for="(v,i) in no_start" :key="i">
 						<view class="shaky_banner">
 							<p class="shaky_position">{{v.identity}}</p>
 							<image :src="v.master_image" mode=""></image>
@@ -278,7 +278,10 @@
 			},
 			toUser() {
 				this.$jump('./userguide')
-			}
+			},
+			tocheck(v){
+				this.$jump('../inchecken?id=','params',v.trip_team_id)
+			},
 		}
 	}
 </script>

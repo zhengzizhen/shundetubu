@@ -16,15 +16,15 @@
 		</view>
 		
 		<p class="totitle">当前居住地</p>
-		<input type="text" placeholder="请输入" v-model="user.adress">
+		<input type="text" placeholder="请输入" v-model="user.start">
 		
 		<p class="totitle">想去旅行地</p>
-		<input type="text" placeholder="请输入" v-model="user.toadress">
+		<input type="text" placeholder="请输入" v-model="user.goto">
 		
 		<p class="totitle">日期时间</p>
-		<input type="text" placeholder="请输入" v-model="user.date">
+		<input type="text" placeholder="请输入" v-model="user.time">
 		
-		<view class="btn">
+		<view class="btn" @click="submit">
 			<p>提交</p>
 		</view>
 	</view>
@@ -38,10 +38,10 @@
 				isradio1:false,
 				user:{
 					name:'',
-					adredss:'',
-					toadress:'',
-					date:'',
-					sex:''
+					start:'',
+					goto:'',
+					time:'',
+					sex:'男'
 				}
 			}
 		},
@@ -55,6 +55,31 @@
 				this.isradio1 = true
 				this.isradio = false
 				this.user.sex = '女'
+			},
+			async submit(){
+				if(this.user.name == ''){
+					uni.$u.toast('姓名不能为空')
+					return false
+				}else if(this.user.start == ''){
+					uni.$u.toast('出发地不能为空')
+					return false
+				}else if(this.user.goto == ''){
+					uni.$u.toast('目的地不能为空')
+					return false
+				}else if(this.user.name == ''){
+					uni.$u.toast('日期时间不能为空')
+					return false
+				}
+				uni.showLoading()
+				const res = await this.$http('/feedback/where',this.user)
+				uni.hideLoading()
+				uni.showToast({
+					title:'提交成功',
+					icon:"success"
+				})
+				setTimeout(()=>{
+					uni.navigateBack()
+				},500)
 			}
 		}
 	}
