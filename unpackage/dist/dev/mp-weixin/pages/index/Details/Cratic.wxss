@@ -40,6 +40,7 @@ image.data-v-568acc02 {
 .cc_user.data-v-568acc02 {
   flex-wrap: wrap;
   background-color: white;
+  text-align: center;
 }
 .cc_user .cc_group.data-v-568acc02 {
   width: 20%;

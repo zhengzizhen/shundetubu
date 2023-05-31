@@ -571,7 +571,10 @@ var _default = {
       price: '',
       min: true,
       teamid: '',
-      start_day: ''
+      start_day: '',
+      userphone: '',
+      usernumber: '',
+      username: ''
     };
   },
   onLoad: function onLoad(option) {
@@ -840,11 +843,40 @@ var _default = {
       this.$jump('./Apply?obj=', 'params', JSON.stringify(params));
     },
     Popbtn: function Popbtn() {
-      this.isShow = false;
-      uni.showToast({
-        title: '提交成功',
-        icon: 'none'
-      });
+      var _this6 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
+        var params, res;
+        return _regenerator.default.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                params = {
+                  trip_id: _this6.id,
+                  name: _this6.username,
+                  phone: _this6.userphone,
+                  people_number: _this6.usernumber
+                };
+                uni.showLoading();
+                _context6.next = 4;
+                return _this6.$http('/feedback/custom', params);
+              case 4:
+                res = _context6.sent;
+                uni.hideLoading();
+                _this6.isShow = false;
+                _this6.username = '';
+                _this6.usernumber = '';
+                _this6.userphone = '';
+                uni.showToast({
+                  title: '提交成功',
+                  icon: 'none'
+                });
+              case 11:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
     },
     ckaddress: function ckaddress(e, index) {
       uni.setStorageSync('cityid', e.id);

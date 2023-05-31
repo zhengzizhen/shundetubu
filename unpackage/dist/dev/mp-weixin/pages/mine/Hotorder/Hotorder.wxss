@@ -169,4 +169,10 @@
   border-radius: 21rpx;
   margin-left: 20rpx;
 }
+.user.data-v-51e9a1cc {
+  height: 260rpx;
+}
+.user .ois.data-v-51e9a1cc {
+  margin: 30rpx 0;
+}
 

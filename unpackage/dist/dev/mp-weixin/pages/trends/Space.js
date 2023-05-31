@@ -306,14 +306,6 @@ var _default = {
       this.list = data.dynamic_list;
     },
     love: function love(item) {
-      item.show = !item.show;
-      if (item.show == false) {
-        item.lovenum--;
-      } else {
-        item.lovenum++;
-      }
-    },
-    attention: function attention() {
       var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
         var res;
@@ -321,14 +313,41 @@ var _default = {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _context2.next = 2;
+                return _this2.$http('/circle/dynamic/like', {});
+              case 2:
+                res = _context2.sent;
+                // item.show = !item.show
+                // if (item.show == false) {
+                // 	item.lovenum--
+                // } else {
+                // 	item.lovenum++
+                // }
+                console.log(item);
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    attention: function attention() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
                 //关注用户
-                _this2.is_attention = !_this2.is_attention;
-                _context2.next = 3;
-                return _this2.$http('/circle/user/attention', {
-                  to_uid: _this2.userid
+                _this3.is_attention = !_this3.is_attention;
+                _context3.next = 3;
+                return _this3.$http('/circle/user/attention', {
+                  to_uid: _this3.userid
                 });
               case 3:
-                res = _context2.sent;
+                res = _context3.sent;
                 if (res.data.data.status == true) {
                   uni.$u.toast('关注成功');
                 } else {
@@ -336,10 +355,10 @@ var _default = {
                 }
               case 5:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }))();
     },
     toback: function toback() {

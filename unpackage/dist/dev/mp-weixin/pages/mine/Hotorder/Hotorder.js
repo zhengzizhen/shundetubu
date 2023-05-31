@@ -103,6 +103,9 @@ try {
     uIcon: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
+    uPopup: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
+    },
   }
 } catch (e) {
   if (
@@ -160,10 +163,30 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -239,13 +262,51 @@ exports.default = void 0;
 //
 var _default = {
   data: function data() {
-    return {};
+    return {
+      list: {},
+      trip: {},
+      id: '',
+      show: false,
+      username: '',
+      phone: '',
+      idcard: ''
+    };
+  },
+  onLoad: function onLoad(option) {
+    this.id = option.id;
+  },
+  onShow: function onShow() {
+    this.getlist(this.id);
   },
   methods: {
+    getlist: function getlist(v) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/order/detail', {
+                  order_no: v
+                });
+              case 2:
+                res = _context.sent;
+                _this.list = res.data.data;
+                _this.trip = res.data.data.trip;
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     toMenu: function toMenu(e) {
       switch (e) {
         case 0:
-          this.$jump('./Hottowhere');
+          this.$jump('./Hottowhere?obj=', 'params', JSON.stringify(this.list));
           break;
         case 2:
           this.$jump('./contact');
@@ -253,16 +314,32 @@ var _default = {
         case 3:
           this.$jump('./Hotknow');
           break;
-        case 4:
-          this.$jump('/pages/index/Details/Applicant');
-          break;
+        // case 4:
+        // 	this.$jump('/pages/index/Details/Applicant')
+        // 	break;
         case 5:
-          this.$jump('/pages/mine/rebook');
+          this.$jump('/pages/mine/rebook?id=', 'params', this.id);
           break;
       }
     },
     toHotde: function toHotde() {
-      this.$jump('./Hottowhere');
+      this.$jump('./Hottowhere?obj=', 'params', JSON.stringify(this.list));
+    },
+    toout: function toout() {
+      this.$jump('/pages/mine/Hotorder/Hotout?id=', 'params', this.id);
+    },
+    userinfo: function userinfo(v) {
+      this.username = v.username;
+      this.phone = v.phone;
+      this.idcard = v.idcard;
+      this.show = true;
+    },
+    open: function open() {
+      // console.log('open');
+    },
+    close: function close() {
+      this.show = false;
+      // console.log('close');
     }
   }
 };

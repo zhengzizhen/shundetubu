@@ -265,6 +265,7 @@ var _default = {
     this.getlist();
     //获取分销记录
     this.getprice();
+    this.getprices();
   },
   methods: {
     getlist: function getlist() {
@@ -280,8 +281,7 @@ var _default = {
               case 2:
                 res = _context.sent;
                 _this.list = res.data.data;
-                console.log(_this.list);
-              case 5:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -297,21 +297,54 @@ var _default = {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _this2.page = 1;
+                _context2.next = 3;
                 return _this2.$http('/distribution/log', {
                   type: '佣金明细',
                   page: _this2.page,
                   limit: 10
                 });
-              case 2:
+              case 3:
                 res = _context2.sent;
+                if (res.data.data.length < 10) {
+                  _this2.bottom = true;
+                }
                 _this2.price = res.data.data;
-              case 4:
+              case 6:
               case "end":
                 return _context2.stop();
             }
           }
         }, _callee2);
+      }))();
+    },
+    getprices: function getprices() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.page = 1;
+                _context3.next = 3;
+                return _this3.$http('/distribution/log', {
+                  type: '提现明细',
+                  page: _this3.page,
+                  limit: 10
+                });
+              case 3:
+                res = _context3.sent;
+                if (res.data.data.length < 10) {
+                  _this3.bottom = true;
+                }
+                _this3.tixianlist = res.data.data;
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     },
     jupCase: function jupCase() {

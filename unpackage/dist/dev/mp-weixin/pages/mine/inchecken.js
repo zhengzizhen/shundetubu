@@ -177,10 +177,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -239,70 +242,45 @@ var _default = {
       seachValue: '',
       isShow: false,
       arrlist: [],
-      list: [{
-        name: '艾伦',
-        phone: '199999999999',
-        user: '元始天尊',
-        id: '865478798768778',
-        state: 0
-      }, {
-        name: '艾伦',
-        phone: '199999999999',
-        user: '元始天尊',
-        id: '865478798768778',
-        state: 0
-      }, {
-        name: '米卡桑',
-        phone: '176154898988',
-        user: '原始巨人',
-        id: '41156554654654654',
-        state: 1
-      }],
-      list1: [{
-        name: '艾伦',
-        phone: '199999999999',
-        user: '元始天尊',
-        id: '865478798768778',
-        state: 0
-      }, {
-        name: '艾伦',
-        phone: '199999999999',
-        user: '元始天尊',
-        id: '865478798768778',
-        state: 0
-      }, {
-        name: '米卡桑',
-        phone: '176154898988',
-        user: '原始巨人',
-        id: '41156554654654654',
-        state: 1
-      }, {
-        name: '米卡桑',
-        phone: '176154898988',
-        user: '原始巨人',
-        id: '41156554654654654',
-        state: 1
-      }, {
-        name: '米卡桑',
-        phone: '176154898988',
-        user: '原始巨人',
-        id: '41156554654654654',
-        state: 1
-      }]
+      list: [],
+      list1: [],
+      id: ''
     };
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad(option) {
+    this.id = option.id;
     this.arrlist = this.list;
     this.Numbers();
+    this.getlist();
   },
   methods: {
-    toajax: function toajax() {
+    getlist: function getlist() {
       var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var params, res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                params = {
+                  trip_team_id: _this.id
+                };
+                res = _this.$http('/trip/akela/sign/list', params);
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    toajax: function toajax() {
+      var _this2 = this;
       this.isShow = !this.isShow;
       this.$nextTick(function () {
-        _this.list = _this.list1;
-        _this.Numbers();
-        _this.all();
+        _this2.list = _this2.list1;
+        _this2.Numbers();
+        _this2.all();
       });
     },
     Numbers: function Numbers() {
@@ -323,20 +301,20 @@ var _default = {
       this.arrlist = this.list;
     },
     tofalse: function tofalse() {
-      var _this2 = this;
+      var _this3 = this;
       this.arrlist = [];
       this.list.forEach(function (item, index) {
         if (item.state == 0) {
-          _this2.arrlist.push(item);
+          _this3.arrlist.push(item);
         }
       });
     },
     totrue: function totrue() {
-      var _this3 = this;
+      var _this4 = this;
       this.arrlist = [];
       this.list.forEach(function (item, index) {
         if (item.state == 1) {
-          _this3.arrlist.push(item);
+          _this4.arrlist.push(item);
         }
       });
     }

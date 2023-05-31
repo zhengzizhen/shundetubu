@@ -87,7 +87,6 @@
   margin-left: 300rpx;
 }
 .body .btn.data-v-3dedf057 {
-  margin: 900rpx auto 0;
   width: 690rpx;
   height: 84rpx;
   background: #49CAA4;
@@ -102,5 +101,11 @@
 .body .btn image.data-v-3dedf057 {
   width: 33rpx;
   height: 33rpx;
+}
+.fixed.data-v-3dedf057 {
+  width: 100%;
+  position: fixed;
+  bottom: 80rpx;
+  left: 0;
 }
 

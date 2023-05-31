@@ -162,7 +162,7 @@
 }
 .leftbor .dis.data-v-f4b7656c {
   position: absolute;
-  top: 0rpx;
+  top: 10rpx;
   left: -12rpx;
   width: 8rpx;
   height: 8rpx;
@@ -176,5 +176,8 @@
   font-weight: 500;
   color: #666666;
   padding-bottom: 50rpx;
+}
+.leftbor.data-v-f4b7656c:nth-last-child(1) {
+  border: none !important;
 }
 

@@ -73,8 +73,33 @@
   font-size: 30rpx;
 }
 .bottom .inpt.data-v-12d9f3e5 {
+  width: 600rpx;
   height: 89rpx;
   color: #000;
   font-size: 30rpx;
+}
+.user.data-v-12d9f3e5 {
+  background-color: white;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+}
+.user .pp.data-v-12d9f3e5 {
+  margin: 20rpx 0;
+}
+.user .ops.data-v-12d9f3e5 {
+  margin: 20rpx 0;
+  justify-content: flex-end;
+}
+.user .ops image.data-v-12d9f3e5 {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.user .ops text.data-v-12d9f3e5 {
+  font-size: 26rpx;
+}
+.user .ops view.data-v-12d9f3e5 {
+  margin-right: 20rpx;
 }
 

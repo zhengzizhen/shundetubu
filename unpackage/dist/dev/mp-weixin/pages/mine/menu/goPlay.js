@@ -125,6 +125,10 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = parseInt(_vm.moeny)
+  var m1 = parseInt(_vm.yuns)
+  var m2 = parseInt(_vm.moeny)
+  var m3 = parseInt(_vm.yuns)
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
       _vm.isShow = !_vm.isShow
@@ -133,6 +137,17 @@ var render = function () {
       _vm.isShow = !_vm.isShow
     }
   }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+        m1: m1,
+        m2: m2,
+        m3: m3,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -166,12 +181,23 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -233,16 +259,111 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      isShow: false
+      isShow: false,
+      goods: {},
+      params: {},
+      remark: '',
+      address: {},
+      moeny: 0,
+      yuns: 0,
+      car_ids: []
     };
   },
+  onLoad: function onLoad(option) {
+    var _this = this;
+    this.params = JSON.parse(option.obj);
+    this.params.forEach(function (item, index) {
+      _this.moeny += item.price;
+    });
+    this.params.forEach(function (item, index) {
+      _this.yuns += item.freight;
+      console.log(item);
+    });
+    console.log(this.params);
+  },
+  onShow: function onShow() {
+    this.address = uni.getStorageSync('address');
+  },
   methods: {
+    getlist: function getlist(v) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this2.$http('/shop/goods/detail', {
+                  goods_id: v
+                });
+              case 2:
+                res = _context.sent;
+                _this2.goods = res.data.data;
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     toAddress: function toAddress() {
+      uni.setStorageSync('play', 'run');
       this.$jump('./address');
+    },
+    submit: function submit() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var _res, res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                uni.showLoading();
+                _this3.params.forEach(function (item, index) {
+                  _this3.car_ids = _this3.car_ids.concat(item.id);
+                });
+                if (!(_this3.params[0].id != null)) {
+                  _context2.next = 8;
+                  break;
+                }
+                _context2.next = 5;
+                return _this3.$http('/shop/order/create', {
+                  car_ids: _this3.car_ids,
+                  address_id: _this3.address.id,
+                  remark: _this3.remark,
+                  pay_method: 'app微信'
+                });
+              case 5:
+                _res = _context2.sent;
+                uni.hideLoading();
+                return _context2.abrupt("return", false);
+              case 8:
+                _context2.next = 10;
+                return _this3.$http('/shop/order/create', {
+                  goods_id: _this3.params[0].goods_id,
+                  number: _this3.params[0].number,
+                  sku: _this3.params[0].sku,
+                  address_id: _this3.address.id,
+                  remark: _this3.remark,
+                  pay_method: 'app微信'
+                });
+              case 10:
+                res = _context2.sent;
+                uni.hideLoading();
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

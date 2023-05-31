@@ -125,6 +125,15 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.list.length
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -267,16 +276,18 @@ var _default = {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                uni.showLoading();
+                _context.next = 3;
                 return _this2.$http('/trip/calendar/trip', {
                   page: _this2.page,
                   limit: 10,
                   month: _this2.month
                 });
-              case 2:
+              case 3:
                 res = _context.sent;
+                uni.hideLoading();
                 _this2.list = _this2.list.concat(res.data.data);
-              case 4:
+              case 6:
               case "end":
                 return _context.stop();
             }

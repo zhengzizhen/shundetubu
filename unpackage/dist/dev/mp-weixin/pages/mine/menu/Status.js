@@ -102,6 +102,15 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.money.toFixed(2)
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -137,10 +146,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -227,23 +239,31 @@ var _default = {
       isShow1: false,
       isShow2: false,
       isShow3: false,
-      isShow4: false
+      isShow4: false,
+      params: {},
+      money: 0
     };
   },
   onLoad: function onLoad(option) {
-    if (option.id == 0) {
+    var _this = this;
+    this.params = JSON.parse(option.obj);
+    this.params.goods.forEach(function (item, index) {
+      _this.money += parseFloat(item.all_price);
+    });
+    console.log(this.params);
+    if (this.params.status == -1) {
       this.isShow = true;
       return false;
-    } else if (option.id == 1) {
+    } else if (this.params.status == 0) {
       this.isShow1 = true;
       return false;
-    } else if (option.id == 2) {
+    } else if (this.params.status == 1) {
       this.isShow2 = true;
       return false;
-    } else if (option.id == 3) {
+    } else if (this.params.status == 2) {
       this.isShow3 = true;
       return false;
-    } else if (option.id == 4) {
+    } else if (this.params.status == 3) {
       this.isShow4 = true;
       return false;
     }
@@ -264,6 +284,34 @@ var _default = {
           });
         }
       });
+    },
+    cancelorder: function cancelorder() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                uni.showLoading({});
+                _context.next = 3;
+                return _this2.$http('/shop/order/cancel', {
+                  order_no: _this2.params.order_no
+                });
+              case 3:
+                res = _context.sent;
+                uni.hideLoading();
+                uni.$u.toast('取消成功');
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 };

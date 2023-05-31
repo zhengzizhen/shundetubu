@@ -163,10 +163,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -213,19 +216,29 @@ var _default = {
   data: function data() {
     return {
       isTrue: null,
-      address: {}
+      address: {
+        name: '',
+        phone: '',
+        area: '',
+        address: '',
+        is_default: ''
+      },
+      btn: '添加地址'
     };
   },
   onLoad: function onLoad(option) {
-    this.address = JSON.parse(option.v);
-    console.log(this.address);
-    if (this.address.state == 0) {
-      this.isTrue = true;
-      return false;
-    } else {
-      this.isTrue = false;
+    if (option.v) {
+      console.log(option.v);
+      this.address = JSON.parse(option.v);
+      if (this.address.is_default == 1) {
+        this.address.is_default = true;
+      } else {
+        this.address.is_default = false;
+      }
+      this.btn = '保存地址';
       return false;
     }
+    console.log(1);
   },
   methods: {
     back: function back() {
@@ -245,7 +258,88 @@ var _default = {
       });
     },
     toadd: function toadd() {
-      this.$jump('./address');
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var params, rend, res, _res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.address.name == '')) {
+                  _context.next = 5;
+                  break;
+                }
+                uni.$u.toast('收货人不能为空');
+                return _context.abrupt("return", false);
+              case 5:
+                if (!(_this.address.phone == '')) {
+                  _context.next = 10;
+                  break;
+                }
+                uni.$u.toast('手机号码不能为空');
+                return _context.abrupt("return", false);
+              case 10:
+                if (!(_this.address.area == '')) {
+                  _context.next = 15;
+                  break;
+                }
+                uni.$u.toast('收货地区不能为空');
+                return _context.abrupt("return", false);
+              case 15:
+                if (!(_this.address.address == '')) {
+                  _context.next = 18;
+                  break;
+                }
+                uni.$u.toast('详细地址不能为空');
+                return _context.abrupt("return", false);
+              case 18:
+                params = _this.address;
+                if (_this.address.is_default == true) {
+                  params.is_default == 1;
+                } else {
+                  params.is_default == 0;
+                }
+                rend = _this.address;
+                if (_this.address.is_default == true) {
+                  rend.is_default == 1;
+                } else {
+                  rend.is_default == 0;
+                }
+                rend.address_id = _this.address.id;
+                if (!(_this.btn == '添加地址')) {
+                  _context.next = 34;
+                  break;
+                }
+                uni.showLoading();
+                _context.next = 27;
+                return _this.$http('/shop/user/address/add', params);
+              case 27:
+                res = _context.sent;
+                uni.hideLoading();
+                uni.$u.toast('添加成功');
+                _this.$jump('./address', 'redirect');
+                return _context.abrupt("return", false);
+              case 34:
+                if (!(_this.btn == '保存地址')) {
+                  _context.next = 43;
+                  break;
+                }
+                uni.showLoading();
+                _context.next = 38;
+                return _this.$http('/shop/user/address/update', rend);
+              case 38:
+                _res = _context.sent;
+                uni.hideLoading();
+                uni.$u.toast('修改成功');
+                _this.$jump('./address', 'redirect');
+                return _context.abrupt("return", false);
+              case 43:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 };

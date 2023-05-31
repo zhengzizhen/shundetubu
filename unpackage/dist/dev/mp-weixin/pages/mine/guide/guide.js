@@ -378,7 +378,9 @@ var _default = {
       //评论列表
       album: null,
       //相册数据
-      dynamic: null //动态数据
+      dynamic: null,
+      //动态数据
+      no_start: []
     };
   },
   onLoad: function onLoad() {
@@ -424,7 +426,8 @@ var _default = {
               case 2:
                 res = _context2.sent;
                 _this2.hot = res.data.data;
-              case 4:
+                _this2.no_start = res.data.data.no_start;
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -547,6 +550,9 @@ var _default = {
     },
     toUser: function toUser() {
       this.$jump('./userguide');
+    },
+    tocheck: function tocheck(v) {
+      this.$jump('../inchecken?id=', 'params', v.trip_team_id);
     }
   }
 };

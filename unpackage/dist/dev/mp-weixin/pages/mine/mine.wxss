@@ -284,7 +284,7 @@
   font-size: 28rpx;
 }
 .ix_block .ix_img .ix_txtgreen.data-v-dcbcfe34 {
-  width: 106rpx;
+  width: 146rpx;
   height: 36rpx;
   color: #49CAA4;
   font-size: 22rpx;

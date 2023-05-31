@@ -210,17 +210,20 @@ var _default = {
   data: function data() {
     return {};
   },
+  onLoad: function onLoad(option) {
+    this.id = option.id;
+  },
   methods: {
     toMenu: function toMenu(e) {
       switch (e) {
         case 0:
-          this.$jump('./Hotorder/Hotreissue');
+          this.$jump('./Hotorder/Hotreissue?id=', 'params', this.id);
           break;
         case 1:
-          this.$jump('./Hotorder/Hotreplace');
+          this.$jump('./Hotorder/Hotreplace?id=', 'params', this.id);
           break;
         case 2:
-          this.$jump('./Hotorder/Hotout');
+          this.$jump('./Hotorder/Hotout?id=', 'params', this.id);
           break;
       }
     }

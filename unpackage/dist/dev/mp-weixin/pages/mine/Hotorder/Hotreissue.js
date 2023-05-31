@@ -102,14 +102,6 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function ($event) {
-      _vm.isShow = !_vm.isShow
-    }
-    _vm.e1 = function ($event) {
-      _vm.isShow = !_vm.isShow
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -143,13 +135,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -191,43 +185,101 @@ var _default = {
         date: '04月23日周日',
         address: '集合：广州地铁客户村B出口',
         state: true
-      }, {
-        date: '04月23日周日',
-        address: '集合：广州地铁客户村B出口',
-        state: false
-      }, {
-        date: '04月23日周日',
-        address: '集合：广州地铁客户村B出口',
-        state: false
-      }, {
-        date: '04月23日周日',
-        address: '集合：广州地铁客户村B出口',
-        state: false
-      }, {
-        date: '04月23日周日',
-        address: '集合：广州地铁客户村B出口',
-        state: false
-      }, {
-        date: '04月23日周日',
-        address: '集合：广州地铁客户村B出口',
-        state: false
-      }, {
-        date: '04月23日周日',
-        address: '集合：广州地铁客户村B出口',
-        state: false
-      }]
+      }],
+      curry: 0,
+      id: ''
     };
   },
+  onLoad: function onLoad(option) {
+    this.getlist(option.id);
+    this.id = option.id;
+  },
   methods: {
-    check: function check(e) {
-      this.list.forEach(function (item, index) {
-        item.state = false;
-      });
-      e.state = true;
+    getlist: function getlist(v) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/order/detail', {
+                  order_no: v
+                });
+              case 2:
+                res = _context.sent;
+                _this.getid(res.data.data.trip.trip_id);
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getid: function getid(v) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$http('/trip/team/list', {
+                  trip_id: v
+                });
+              case 2:
+                res = _context2.sent;
+                _this2.list = res.data.data;
+                _this2.teamid = res.data.data[0].trip_team_id;
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    changeindex: function changeindex(e, index) {
+      this.curry = index;
+      this.teamid = e.trip_team_id;
+      console.log(e);
+    },
+    submit: function submit() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                uni.showLoading();
+                _context3.next = 3;
+                return _this3.$http('/trip/order/ticket', {
+                  order_no: _this3.id,
+                  trip_team_id: _this3.teamid
+                });
+              case 3:
+                res = _context3.sent;
+                uni.hideLoading();
+                uni.$u.taost('改签成功');
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

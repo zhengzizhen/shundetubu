@@ -57,9 +57,9 @@
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails(item.id)">
 						<image :src="item.master_image"></image>
-						<p class="ix_posi">{{item.title}}</p>
+						<p class="ix_posi">{{item.day}}天</p>
 						<p class="content" :class="'content'+index">4.9分 | 681人去过</p>
-						<p class="ix_title">{{item.text}}</p>
+						<p class="ix_title">{{item.title}}</p>
 					</view>
 				</view>
 			</view>
@@ -74,14 +74,14 @@
 					</view>
 				</view>
 				<view class="ix_imgplus dis_f" v-if="Selection.data">
-					<view class="rltw" @click="toDetails(1)">
+					<view class="rltw" >
 						<image class="imgplus bor_r" :src="Selection.data[0].master_image"></image>
 						<view class="abslt ix_botn">
 							<p style="color: white;">{{Selection.data[0].title}}</p>
 							<!-- <p style="color: white;">[夏日清爽]中部深度游</p> -->
 						</view>
 					</view>
-					<view class="ix_bot" @click="toDetails(2)">
+					<view class="ix_bot" >
 						<image class="ix_imgbot bor_r" :src="Selection.data[1].master_image"></image>
 						<view class="abslt ix_botn">
 							<p style="color: white;word-wrap:break-word;width: 284rpx;word-break:break-all;">
@@ -90,7 +90,7 @@
 						</view>
 						<view class="ix_botsub bor_r">
 							<view class="ix_posi_r">
-								<image class="bor_r" @click="toDetails(3)" :src="Selection.data[2].master_image">
+								<image class="bor_r"  :src="Selection.data[2].master_image">
 								</image>
 								<view class="ix_pos_c">
 									<p style="color: white;">{{Selection.data[2].title}}</p>
@@ -225,7 +225,6 @@
 						</view>
 					</view>
 				</view>
-
 			</view>
 
 			<!-- 更多产品 -->
@@ -239,6 +238,7 @@
 					</view>
 				</view>
 			</view>
+			
 			<!-- 地区选择器 -->
 			<u-popup :round="10" :show="isShow" :closeable='true' @close="close" @open="open">
 				<view class="ix_pop pd30">
@@ -256,8 +256,7 @@
 			<!-- 联系客服 -->
 			<u-popup closeable mode="center" :round="10" :show="isShow1" @close="close1" @open="open1">
 				<view class="ke">
-					<image
-						src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800"
+					<image src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800"
 						mode=""></image>
 					<p>扫码联系客服</p>
 				</view>
@@ -323,14 +322,10 @@
 				uni.setStorageSync('hot',that.imglist)
 				//全国精选路线
 				that.Selection = hotdate.data.data[1]
-
 				that.calendar = hotdate.data.data[2]
 				that.trip = that.calendar.data[0].trip
-				// console.log(that.calendar.data[1]);
 				that.Camp = hotdate.data.data[6].data
-				
 				that.datelist = hotdate.data.data[3].data
-				
 				that.moenylist = hotdate.data.data[4].data
 				const requrist = await this.$http('/user/detail')
 				this.$store.commit('getuser', requrist.data.data)

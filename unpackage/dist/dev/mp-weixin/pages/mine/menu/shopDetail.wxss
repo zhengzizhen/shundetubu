@@ -246,6 +246,7 @@
   background-color: white;
   padding: 30rpx;
   box-sizing: border-box;
+  margin-bottom: 200rpx;
 }
 .space .static.data-v-57163b58 {
   padding-bottom: 20rpx;

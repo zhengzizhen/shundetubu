@@ -63,9 +63,10 @@
   color: #222222;
 }
 .body .textcont .label.data-v-2716347f {
-  margin-top: 8rpx;
-  width: 62rpx;
+  margin-top: 18rpx;
+  width: 100rpx;
   height: 32rpx;
+  padding: 5rpx 10rpx;
   background: #F0F0F0;
   border-radius: 6rpx;
   font-size: 24rpx;

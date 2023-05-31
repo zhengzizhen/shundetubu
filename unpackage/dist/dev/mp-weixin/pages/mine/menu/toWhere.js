@@ -135,12 +135,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -180,10 +183,10 @@ var _default = {
       isradio1: false,
       user: {
         name: '',
-        adredss: '',
-        toadress: '',
-        date: '',
-        sex: ''
+        start: '',
+        goto: '',
+        time: '',
+        sex: '男'
       }
     };
   },
@@ -197,10 +200,68 @@ var _default = {
       this.isradio1 = true;
       this.isradio = false;
       this.user.sex = '女';
+    },
+    submit: function submit() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.user.name == '')) {
+                  _context.next = 5;
+                  break;
+                }
+                uni.$u.toast('姓名不能为空');
+                return _context.abrupt("return", false);
+              case 5:
+                if (!(_this.user.start == '')) {
+                  _context.next = 10;
+                  break;
+                }
+                uni.$u.toast('出发地不能为空');
+                return _context.abrupt("return", false);
+              case 10:
+                if (!(_this.user.goto == '')) {
+                  _context.next = 15;
+                  break;
+                }
+                uni.$u.toast('目的地不能为空');
+                return _context.abrupt("return", false);
+              case 15:
+                if (!(_this.user.name == '')) {
+                  _context.next = 18;
+                  break;
+                }
+                uni.$u.toast('日期时间不能为空');
+                return _context.abrupt("return", false);
+              case 18:
+                uni.showLoading();
+                _context.next = 21;
+                return _this.$http('/feedback/where', _this.user);
+              case 21:
+                res = _context.sent;
+                uni.hideLoading();
+                uni.showToast({
+                  title: '提交成功',
+                  icon: "success"
+                });
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 25:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

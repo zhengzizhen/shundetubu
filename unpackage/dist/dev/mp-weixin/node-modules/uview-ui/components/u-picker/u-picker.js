@@ -83,10 +83,10 @@ try {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
     },
     uToolbar: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-toolbar/u-toolbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-toolbar/u-toolbar")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-toolbar/u-toolbar.vue */ 1190))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-toolbar/u-toolbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-toolbar/u-toolbar")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-toolbar/u-toolbar.vue */ 1182))
     },
     uLoadingIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-loading-icon/u-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-loading-icon/u-loading-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-loading-icon/u-loading-icon.vue */ 1110))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-loading-icon/u-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-loading-icon/u-loading-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-loading-icon/u-loading-icon.vue */ 1102))
     },
   }
 } catch (e) {

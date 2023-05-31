@@ -359,4 +359,60 @@
 .info .active.data-v-0865c169 {
   background: #49CAA4 !important;
 }
+.popViews.data-v-0865c169 {
+  height: 1078rpx;
+  text-align: center;
+}
+.popViews .Poptitle.data-v-0865c169 {
+  margin: 40rpx auto;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #000000;
+}
+.popViews .ider.data-v-0865c169 {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #000000;
+  text-align: left;
+}
+.popViews image.data-v-0865c169 {
+  width: 228rpx;
+  height: 228rpx;
+  margin: 40rpx auto;
+}
+.popViews .wx.data-v-0865c169 {
+  box-sizing: border-box;
+  margin: 50rpx auto 20rpx;
+  width: 580rpx;
+  height: 92rpx;
+  background: #F6F7F9;
+  border-radius: 20rpx;
+  text-align: left;
+  padding-left: 20rpx;
+  font-size: 28rpx;
+}
+.popViews .twoipt.data-v-0865c169 {
+  width: 580rpx;
+  margin: 0 auto;
+  text-align: left;
+}
+.popViews .twoipt .names.data-v-0865c169 {
+  font-size: 28rpx;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+  width: 280rpx;
+  height: 92rpx;
+  background: #F6F7F9;
+  border-radius: 20rpx;
+}
+.popViews .popbtn.data-v-0865c169 {
+  width: 580rpx;
+  height: 92rpx;
+  margin: 40rpx auto;
+  background: #49CAA4;
+  border-radius: 46rpx;
+  color: white;
+  line-height: 92rpx;
+  text-align: center;
+}
 

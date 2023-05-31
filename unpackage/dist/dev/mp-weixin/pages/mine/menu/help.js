@@ -195,15 +195,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var _default = {
   data: function data() {
     return {
-      value: '',
-      fileList1: []
+      content: '',
+      fileList1: [],
+      imagelist: [],
+      phone: ''
     };
   },
   methods: {
-    // 删除图片
-    deletePic: function deletePic(event) {
-      this["fileList".concat(event.name)].splice(event.index, 1);
-    },
     // 新增图片
     afterRead: function afterRead(event) {
       var _this = this;
@@ -252,9 +250,10 @@ var _default = {
       }))();
     },
     uploadFilePromise: function uploadFilePromise(url) {
+      var _this2 = this;
       return new Promise(function (resolve, reject) {
         var a = uni.uploadFile({
-          url: 'http://192.168.2.21:7001/upload',
+          url: 'https://www.tbq11.com/api/upload',
           // 仅为示例，非真实的接口地址
           filePath: url,
           name: 'file',
@@ -264,10 +263,63 @@ var _default = {
           success: function success(res) {
             setTimeout(function () {
               resolve(res.data.data);
+              _this2.imagelist = _this2.imagelist.concat(JSON.parse(res.data).data.path);
+              console.log(_this2.imagelist);
             }, 1000);
           }
         });
       });
+    },
+    submit: function submit() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var reg, params, res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                reg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+                if (!(_this3.content == '')) {
+                  _context2.next = 6;
+                  break;
+                }
+                uni.$u.toast('问题描述不能为空');
+                return _context2.abrupt("return", false);
+              case 6:
+                if (reg.test(_this3.phone)) {
+                  _context2.next = 9;
+                  break;
+                }
+                uni.$u.toast('手机号格式不正确');
+                return _context2.abrupt("return", false);
+              case 9:
+                params = {
+                  images: _this3.imagelist,
+                  content: _this3.content,
+                  phone: _this3.phone
+                };
+                uni.showLoading({
+                  title: '提交中'
+                });
+                _context2.next = 13;
+                return _this3.$http('/feedback/feedback', params);
+              case 13:
+                res = _context2.sent;
+                uni.hideLoading();
+                uni.showToast({
+                  title: '提交成功！',
+                  icon: 'success'
+                });
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 17:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 };

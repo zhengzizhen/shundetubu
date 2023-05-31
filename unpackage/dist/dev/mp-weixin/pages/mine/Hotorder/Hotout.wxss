@@ -52,6 +52,9 @@
   width: 400rpx;
   display: block;
 }
+.content text.data-v-83576968 {
+  width: 200rpx;
+}
 .contents.data-v-83576968 {
   width: 100%;
   background-color: white;

@@ -137,10 +137,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -157,14 +160,49 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: ['../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/zheng.jpg', '../../static/index/one.jpg']
+      list: [],
+      page: 1,
+      bottom: false
     };
   },
   onLoad: function onLoad() {
     this.getlist();
   },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    }
+    this.page += 1;
+    this.getlist();
+  },
   methods: {
-    getlist: function getlist() {},
+    getlist: function getlist() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/circle/user/album', {
+                  page: _this.page,
+                  limit: 16
+                });
+              case 2:
+                res = _context.sent;
+                _this.list = _this.list.concat(res.data.data);
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     clickImg: function clickImg(v, index) {
       uni.previewImage({
         urls: this.list,

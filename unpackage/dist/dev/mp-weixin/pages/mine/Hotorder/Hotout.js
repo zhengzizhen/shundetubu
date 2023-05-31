@@ -102,14 +102,6 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function ($event) {
-      _vm.isShow = !_vm.isShow
-    }
-    _vm.e1 = function ($event) {
-      _vm.isShow = !_vm.isShow
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -143,12 +135,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
 //
 //
 //
@@ -206,12 +202,138 @@ var _default = {
   data: function data() {
     return {
       isShow: false,
-      content: ''
+      content: '',
+      traveller: [],
+      sum: 0,
+      usersid: [],
+      id: '',
+      money: {},
+      day2: {},
+      day1: {},
+      today: {},
+      params: {}
     };
   },
-  methods: {}
+  onLoad: function onLoad(option) {
+    this.getlist(option.id);
+    this.id = option.id;
+  },
+  methods: {
+    getlist: function getlist(v) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res, i;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/trip/order/detail', {
+                  order_no: v
+                });
+              case 2:
+                res = _context.sent;
+                _this.traveller = res.data.data.traveller;
+                for (i = 0; i < _this.traveller.length; i++) {
+                  _this.traveller[i].state = false;
+                }
+                _this.userid = _this.traveller[0].id;
+                _this.checkout(_this.traveller[0], 0);
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    checkout: function checkout(v, index) {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var i, j, res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (v.state == true) {
+                  _this2.sum -= 1;
+                  for (i = 0; i < _this2.usersid.length; i++) {
+                    if (_this2.usersid[i] = v.id) {
+                      _this2.usersid.splice(i, 1);
+                    }
+                  }
+                } else {
+                  _this2.sum += 1;
+                  _this2.usersid = _this2.usersid.concat(v.id);
+                }
+                v.state = !v.state;
+                _this2.$forceUpdate();
+                _this2.params = {
+                  traveller_ids: '',
+                  order_no: _this2.id
+                };
+                for (j = 0; j < _this2.usersid.length; j++) {
+                  if (j == 0) {
+                    _this2.params.traveller_ids = _this2.usersid[j];
+                  } else {
+                    _this2.params.traveller_ids = _this2.params.traveller_ids + ',' + _this2.usersid[j];
+                  }
+                }
+                uni.showLoading();
+                _context2.next = 8;
+                return _this2.$http('/trip/order/refund/predict', _this2.params);
+              case 8:
+                res = _context2.sent;
+                uni.hideLoading();
+                _this2.money = res.data.data;
+                _this2.day1 = res.data.data.setting.day1;
+                _this2.day2 = res.data.data.setting.day2;
+                _this2.today = res.data.data.setting.today;
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    submit: function submit() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                uni.showLoading({
+                  title: '申请退款中'
+                });
+                _context3.next = 3;
+                return _this3.$http('/trip/order/refund', {
+                  order_no: _this3.id,
+                  traveller_ids: _this3.params.traveller_ids,
+                  content: _this3.content
+                });
+              case 3:
+                res = _context3.sent;
+                uni.hideLoading();
+                uni.$u.toast('申请退款成功');
+                setTimeout(function () {
+                  uni.navigateBack();
+                }, 500);
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    }
+  },
+  watch: {}
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

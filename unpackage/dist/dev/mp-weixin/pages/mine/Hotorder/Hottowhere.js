@@ -103,6 +103,9 @@ try {
     uTabs: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabs/u-tabs.vue */ 997))
     },
+    uParse: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-parse/u-parse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-parse/u-parse")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-parse/u-parse.vue */ 1045))
+    },
   }
 } catch (e) {
   if (
@@ -163,12 +166,22 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -267,22 +280,39 @@ var _default = {
         name: '行前准备'
       }, {
         name: '费用说明'
-      }]
+      }],
+      list: {},
+      curry: 0
     };
+  },
+  onLoad: function onLoad(option) {
+    this.list = JSON.parse(option.obj);
+    this.trip = this.list.trip;
+    console.log(this.list);
   },
   methods: {
     change: function change(item) {
-      if (item.index === 0) {} else if (item.index === 1) {} else if (item.index === 2) {}
+      if (item.index === 0) {
+        this.curry = 0;
+      } else if (item.index === 1) {
+        this.curry = 1;
+      } else if (item.index === 2) {
+        this.curry = 2;
+      }
     },
     toCratic: function toCratic() {
-      this.$jump('/pages/index/Details/Cratic');
+      this.$jump('/pages/index/Details/Cratic?user=', 'params', JSON.stringify(this.trip.traveller_users));
     },
     toconcat: function toconcat() {
       this.$jump('./contact');
+    },
+    goback: function goback() {
+      uni.navigateBack();
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

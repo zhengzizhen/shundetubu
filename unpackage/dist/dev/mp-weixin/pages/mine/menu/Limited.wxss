@@ -47,12 +47,21 @@
   font-weight: 500;
   color: #666666;
 }
-.hl_content .content .text label.data-v-5cde0edd {
-  display: block;
+.hl_content .content .text .label.data-v-5cde0edd {
   margin-top: 70rpx;
+}
+.hl_content .content .text .label label.data-v-5cde0edd {
+  display: block;
   font-size: 26rpx;
   font-weight: 500;
   color: #FF4040;
+}
+.hl_content .content .text .label ._p.data-v-5cde0edd {
+  margin-left: 10rpx;
+  font-weight: 500;
+  font-size: 26rpx;
+  text-decoration: line-through;
+  color: #999999;
 }
 .fixed.data-v-5cde0edd {
   position: fixed;

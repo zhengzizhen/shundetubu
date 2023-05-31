@@ -103,6 +103,9 @@ try {
     uIcon: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
+    uPopup: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 928))
+    },
   }
 } catch (e) {
   if (
@@ -274,6 +277,25 @@ var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/run
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     var _ref;
@@ -288,7 +310,7 @@ var _default = {
       name: '亲子定制'
     }, {
       name: '私人定制'
-    }]), (0, _defineProperty2.default)(_ref, "imglist", []), (0, _defineProperty2.default)(_ref, "public_praise", []), (0, _defineProperty2.default)(_ref, "team", []), (0, _defineProperty2.default)(_ref, "monthlist", []), _ref;
+    }]), (0, _defineProperty2.default)(_ref, "imglist", []), (0, _defineProperty2.default)(_ref, "public_praise", []), (0, _defineProperty2.default)(_ref, "team", []), (0, _defineProperty2.default)(_ref, "monthlist", []), (0, _defineProperty2.default)(_ref, "isShow", false), (0, _defineProperty2.default)(_ref, "username", ''), (0, _defineProperty2.default)(_ref, "usernumber", ''), (0, _defineProperty2.default)(_ref, "userphone", ''), _ref;
   },
   onLoad: function onLoad() {
     this.getlist();
@@ -384,7 +406,33 @@ var _default = {
         name: item.title
       };
       this.$jump('./oneday?obj=', 'params', JSON.stringify(params));
-    }
+    },
+    //提交定制
+    Popbtn: function Popbtn() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var params, res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                params = {};
+                _context3.next = 3;
+                return _this3.$http('/feedback/feedback');
+              case 3:
+                res = _context3.sent;
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    popClose: function popClose() {
+      this.isShow = !this.isShow;
+    },
+    popOpen: function popOpen() {}
   }
 };
 exports.default = _default;

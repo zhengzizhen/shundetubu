@@ -237,11 +237,14 @@ var _default = {
         title: '跟团-8天',
         image: '../../static/index/chang.jpg',
         text: '【花漫天山】新疆伊犁 杏花大环线8日'
-      }]
+      }],
+      hot: []
     };
   },
   onLoad: function onLoad() {
     this.getlist();
+    this.hot = uni.getStorageSync('hot');
+    console.log(this.hot);
   },
   methods: {
     getlist: function getlist() {
@@ -301,8 +304,8 @@ var _default = {
         this.$jump('./guide/userguide');
       }
     },
-    toDetails: function toDetails() {
-      this.$jump('/pages/index/Details/Details');
+    toDetails: function toDetails(v) {
+      this.$jump('/pages/index/Details/Details?id=', 'params', v);
     },
     toCircle: function toCircle() {
       this.$jump('./Circle');

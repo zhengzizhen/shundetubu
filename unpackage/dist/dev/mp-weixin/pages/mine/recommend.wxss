@@ -64,9 +64,8 @@
   color: #FFFFFF;
   font-size: 22rpx;
   background-color: #49CAA4;
-  margin-right: 10rpx;
 }
-.dc_mod .dc_latt label.data-v-e9ce228e {
+.dc_mod .dc_latt .text.data-v-e9ce228e:nth-child(2) {
   padding: 5rpx 8rpx;
   color: #FFFFFF;
   font-size: 22rpx;

@@ -452,38 +452,6 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
@@ -508,28 +476,8 @@ var _default = {
       },
       //活动日历
       imglist: [],
-      datelist: [{
-        date: '3月25日',
-        state: "已成行"
-      }, {
-        date: '3月26日',
-        state: "已成行"
-      }, {
-        date: '3月27日',
-        state: "已成行"
-      }, {
-        date: '3月28日',
-        state: "已成行"
-      }],
-      moenylist: [{
-        image: '../../static/index/chang.jpg',
-        text: '【花漫天山】新疆伊犁 杏花大环线8日',
-        money: '60'
-      }, {
-        image: '../../static/index/chang.jpg',
-        text: '【花漫天山】新疆伊犁 杏花大环线8日',
-        money: '75'
-      }],
+      datelist: [],
+      moenylist: [],
       isShow: false,
       isShow1: false,
       addcurry: 0,
@@ -537,7 +485,8 @@ var _default = {
       notice: '',
       //公告内容
       cityid: 9998,
-      cityname: '全国'
+      cityname: '全国',
+      Camp: []
     };
   },
   onLoad: function onLoad() {
@@ -577,21 +526,23 @@ var _default = {
                 return _this.$http('/index/trip');
               case 16:
                 hotdate = _context.sent;
-                // console.log(hotdate.data.data);
                 //省内一天路线
                 that.Province = hotdate.data.data[0];
                 that.imglist = _this.Province.data.hot;
+                uni.setStorageSync('hot', that.imglist);
                 //全国精选路线
                 that.Selection = hotdate.data.data[1];
                 that.calendar = hotdate.data.data[2];
                 that.trip = that.calendar.data[0].trip;
-                // console.log(that.calendar.data[1]);
-                _context.next = 24;
+                that.Camp = hotdate.data.data[6].data;
+                that.datelist = hotdate.data.data[3].data;
+                that.moenylist = hotdate.data.data[4].data;
+                _context.next = 28;
                 return _this.$http('/user/detail');
-              case 24:
+              case 28:
                 requrist = _context.sent;
                 _this.$store.commit('getuser', requrist.data.data);
-              case 26:
+              case 30:
               case "end":
                 return _context.stop();
             }
@@ -632,8 +583,8 @@ var _default = {
     close1: function close1() {
       this.isShow1 = false;
     },
-    toshop: function toshop() {
-      this.$jump('/pages/mine/menu/shopDetail');
+    toshop: function toshop(v) {
+      this.$jump('/pages/mine/menu/shopDetail?id=', 'params', v);
     },
     clinto: function clinto(v) {
       switch (v) {

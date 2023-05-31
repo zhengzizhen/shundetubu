@@ -169,12 +169,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
 //
 //
 //
@@ -233,56 +237,7 @@ var _default = {
   data: function data() {
     return {
       list: [],
-      lists: [{
-        name: '索马里一日游',
-        state: 0
-      }, {
-        name: '索马里二日游',
-        state: 0
-      }],
-      list1: [{
-        name: '索马里一日游',
-        state: 1
-      }, {
-        name: '索马里二日游',
-        state: 1
-      }],
-      list2: [{
-        name: '索马里一日游',
-        state: 2
-      }, {
-        name: '索马里二日游',
-        state: 2
-      }, {
-        name: '索马里三日游',
-        state: 2
-      }],
-      list3: [{
-        name: '索马里一日游',
-        state: 3
-      }, {
-        name: '索马里二日游',
-        state: 3
-      }, {
-        name: '索马里三日游',
-        state: 3
-      }, {
-        name: '索马里四日游',
-        state: 3
-      }],
-      list4: [{
-        name: '索马里一日游',
-        state: 4
-      }, {
-        name: '索马里二日游',
-        state: 4
-      }, {
-        name: '索马里三日游',
-        state: 4
-      }, {
-        name: '索马里四日游',
-        state: 4
-      }],
+      list1: [],
       listps: [{
         name: '全部'
       }, {
@@ -296,36 +251,91 @@ var _default = {
       }, {
         name: '已取消'
       }],
-      deletepop: false
+      deletepop: false,
+      page: 1,
+      bottom: false
     };
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {},
+  onShow: function onShow() {
     this.getlist();
   },
   methods: {
     getlist: function getlist() {
-      this.list = [];
-      this.list = this.list.concat(this.list1, this.list2, this.list3, this.list4);
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                uni.showLoading();
+                _context.next = 3;
+                return _this.$http('/shop/order/list', {
+                  page: _this.page,
+                  limit: 10
+                });
+              case 3:
+                res = _context.sent;
+                uni.hideLoading();
+                if (_this.list.length < 10) {
+                  _this.bottom = true;
+                }
+                _this.list = res.data.data;
+                _this.list1 = res.data.data;
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     change: function change(v) {
+      var _this2 = this;
       switch (v.index) {
         case 0:
-          this.getlist();
-          break;
-        case 1:
           this.list = this.list1;
           break;
+        case 1:
+          this.list = [];
+          this.list1.forEach(function (item, index) {
+            if (item.status == 0) {
+              _this2.list = _this2.list.concat(item);
+            }
+          });
+          break;
         case 2:
-          this.list = this.list2;
+          this.list = [];
+          this.list1.forEach(function (item, index) {
+            if (item.status == 1) {
+              _this2.list = _this2.list.concat(item);
+            }
+          });
           break;
         case 3:
-          this.list = this.list3;
+          this.list = [];
+          this.list1.forEach(function (item, index) {
+            if (item.status == 2) {
+              _this2.list = _this2.list.concat(item);
+            }
+          });
           break;
         case 4:
-          this.list = this.list4;
+          this.list = [];
+          this.list1.forEach(function (item, index) {
+            if (item.status == 3) {
+              _this2.list = _this2.list.concat(item);
+            }
+          });
           break;
         case 5:
-          this.list = this.lists;
+          this.list = [];
+          this.list1.forEach(function (item, index) {
+            if (item.status == -1) {
+              _this2.list = _this2.list.concat(item);
+            }
+          });
           break;
       }
     },
@@ -334,7 +344,7 @@ var _default = {
       return false;
     },
     toDeail: function toDeail(v) {
-      this.$jump('./menu/Status?id=', 'params', v);
+      this.$jump('./menu/Status?obj=', 'params', JSON.stringify(v));
       return false;
     },
     Deleteshop: function Deleteshop() {
@@ -346,6 +356,7 @@ var _default = {
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

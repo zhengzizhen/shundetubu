@@ -100,6 +100,9 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
+    uParse: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-parse/u-parse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-parse/u-parse")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-parse/u-parse.vue */ 1045))
+    },
     uRate: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-rate/u-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-rate/u-rate")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-rate/u-rate.vue */ 1054))
     },
@@ -180,10 +183,28 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -335,7 +356,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      swiperlist: ['../../../static/index/chang.jpg', '../../../static/index/chang.jpg'],
+      swiperlist: [],
       list: [1, 2, 3],
       count: 5,
       value: 4,
@@ -362,15 +383,67 @@ var _default = {
         money: '75'
       }],
       curry: 0,
-      check: ['绿色', '红色', '彩虹色']
+      curry1: 0,
+      check: ['绿色', '红色', '彩虹色'],
+      goods: {},
+      guide: '',
+      attr: [],
+      runs: {},
+      id: '',
+      moeny: ''
     };
   },
+  onLoad: function onLoad(option) {
+    this.id = option.id;
+    this.getlist(option.id);
+  },
   methods: {
+    getlist: function getlist(v) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/shop/goods/detail', {
+                  goods_id: v
+                });
+              case 2:
+                res = _context.sent;
+                _this.goods = res.data.data;
+                _this.swiperlist = _this.swiperlist.concat(res.data.data.master_image);
+                _this.swiperlist = _this.swiperlist.concat(res.data.data.assist_images);
+                _this.guide = res.data.data.sku.attrs[0].items[0];
+                _this.runs = res.data.data.sku.sku[0];
+                _this.runs.price = _this.runs.price * _this.num;
+                _this.curry = _this.runs.attr[0];
+                _this.curry1 = _this.runs.attr[1];
+                _this.attr[0] = _this.runs.attr[0];
+                _this.attr[1] = _this.runs.attr[1];
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     CheckTab: function CheckTab(e, index) {
       this.tabcurry = index;
     },
     toPlay: function toPlay() {
-      this.$jump('./goPlay');
+      var params = [{
+        goods_id: this.id,
+        number: this.num,
+        sku: this.attr,
+        price: this.runs.price,
+        master_image: this.goods.master_image,
+        name: this.goods.name,
+        freight: parseInt(this.goods.freight)
+      }];
+      this.$jump('./goPlay?obj=', 'params', JSON.stringify(params));
     },
     toCar: function toCar() {
       this.$jump('./MyCart');
@@ -389,7 +462,24 @@ var _default = {
       this.specifications = false;
     },
     chestatic: function chestatic(e, index) {
-      this.curry = index;
+      this.curry = e.items[index];
+      this.attr[0] = e.items[index];
+      this.price();
+    },
+    chestatic1: function chestatic1(e, index) {
+      this.curry1 = e.items[index];
+      this.attr[1] = e.items[index];
+      this.price();
+    },
+    price: function price() {
+      var _this2 = this;
+      this.goods.sku.sku.forEach(function (item, index) {
+        if (JSON.stringify(item.attr) === JSON.stringify(_this2.attr)) {
+          _this2.runs = item;
+          _this2.moeny = item.price;
+          _this2.runs.price = _this2.moeny * _this2.num;
+        }
+      });
     },
     valChange: function valChange(e) {
       console.log(e);
@@ -399,9 +489,36 @@ var _default = {
         return false;
       }
       this.num--;
+      this.runs.price = this.moeny * this.num;
     },
     add: function add() {
       this.num++;
+      this.runs.price = this.moeny * this.num;
+    },
+    tocard: function tocard() {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this3.$http('/shop/car/add', {
+                  goods_id: _this3.id,
+                  sku: _this3.attr,
+                  number: _this3.num
+                });
+              case 2:
+                res = _context2.sent;
+                uni.$u.toast('添加成功');
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 };

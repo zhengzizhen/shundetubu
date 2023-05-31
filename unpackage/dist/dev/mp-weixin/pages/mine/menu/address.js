@@ -103,9 +103,6 @@ try {
     uIcon: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 903))
     },
-    uModal: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-modal/u-modal */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-modal/u-modal")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-modal/u-modal.vue */ 1102))
-    },
   }
 } catch (e) {
   if (
@@ -128,11 +125,6 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function ($event) {
-      _vm.isShows = true
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -168,10 +160,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
 //
 //
 //
@@ -220,36 +215,77 @@ var _default = {
   data: function data() {
     return {
       isShow: true,
-      isShows: false,
-      //模态框
-      list: [{
-        name: '神秘狗',
-        phone: '17633612613',
-        address: '河南省南阳市社旗县S333',
-        state: 0
-      }, {
-        name: '钱多多',
-        phone: '17698859631',
-        address: '广州省花都区花都广场50号',
-        state: 1
-      }, {
-        name: '郭晋安',
-        phone: '15474474888',
-        address: '上海市静安区静安寺5454',
-        state: 1
-      }],
-      curry: 0
+      list: []
     };
   },
+  onLoad: function onLoad() {
+    this.getaddress();
+  },
   methods: {
+    getaddress: function getaddress() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/shop/user/address/list');
+              case 2:
+                res = _context.sent;
+                _this.list = res.data.data;
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    setstro: function setstro(v) {
+      var olay = uni.getStorageSync('play');
+      if (olay == 'run') {
+        uni.setStorageSync('address', v);
+        uni.removeStorageSync('play');
+        this.$jump('/pages/mine/menu/goPlay');
+      }
+      return false;
+    },
     back: function back() {
       uni.navigateBack();
     },
     check: function check(v, index) {
-      this.list.forEach(function (item, index) {
-        return [item.state = false];
-      });
-      this.list[index].state = !this.list[index].state;
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var res;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(v.is_default == 1)) {
+                  _context2.next = 2;
+                  break;
+                }
+                return _context2.abrupt("return", false);
+              case 2:
+                uni.showLoading();
+                _context2.next = 5;
+                return _this2.$http('/shop/user/address/default', {
+                  address_id: v.id
+                });
+              case 5:
+                res = _context2.sent;
+                uni.hideLoading();
+                v.is_default = 1;
+                _this2.getaddress();
+              case 9:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     toAdd: function toAdd() {
       this.$jump('./addAddress');
@@ -259,16 +295,31 @@ var _default = {
         url: './addAddress?v=' + JSON.stringify(v)
       });
     },
-    cancel: function cancel() {
-      this.isShows = false;
-    },
-    confirm: function confirm(index) {
-      var _this = this;
-      setTimeout(function () {
-        console.log(index);
-        uni.$u.toast('删除成功！');
-        _this.isShows = false;
-      }, 1000);
+    deletes: function deletes(v) {
+      var _this3 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var res;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                uni.showLoading();
+                _context3.next = 3;
+                return _this3.$http('/shop/user/address/delete', {
+                  address_id: v.id
+                });
+              case 3:
+                res = _context3.sent;
+                uni.hideLoading();
+                uni.$u.toast('删除成功！');
+                _this3.getaddress();
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }
 };

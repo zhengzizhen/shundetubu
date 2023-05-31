@@ -163,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -376,18 +376,40 @@ var _default = {
     toactivity: function toactivity() {
       this.$jump('./menu/activity');
     },
-    toinchecken: function toinchecken() {
-      this.$jump('./inchecken');
+    toinchecken: function toinchecken(v) {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var res;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                uni.showLoading({
+                  title: '签到中'
+                });
+                res = _this4.$http('/trip/order/sign', {
+                  order_no: v
+                });
+                uni.hideLoading();
+                uni.$u.toast(res.data.msg);
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     },
-    torebook: function torebook() {
-      this.$jump('./rebook');
+    torebook: function torebook(v) {
+      this.$jump('./rebook?id=', 'params', v);
     },
-    toHotorder: function toHotorder() {
-      this.$jump('./Hotorder/Hotorder');
+    toHotorder: function toHotorder(v) {
+      this.$jump('./Hotorder/Hotorder?id=', 'params', v);
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

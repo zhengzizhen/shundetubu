@@ -137,10 +137,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 55));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 57));
+//
+//
+//
 //
 //
 //
@@ -164,15 +170,57 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      list: [1, 2, 3]
+      list: [],
+      page: 1,
+      bottm: false,
+      id: ''
     };
   },
+  onLoad: function onLoad(option) {
+    this.getlist(option.id);
+    this.id = option.id;
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.bottom == true) {
+      return false;
+    }
+    this.page += 1;
+    this.getlist(this.id);
+  },
   methods: {
+    getlist: function getlist(v) {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var res;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$http('/shop/goods/list', {
+                  page: _this.page,
+                  limit: 10,
+                  category_id: v
+                });
+              case 2:
+                res = _context.sent;
+                if (res.data.data.length < 10) {
+                  _this.bottom = true;
+                }
+                _this.list = res.data.data;
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     toShop: function toShop() {
       this.$jump('./MyCart');
     },
-    toDetail: function toDetail() {
-      this.$jump('./shopDetail');
+    toshopDetail: function toshopDetail(v) {
+      this.$jump('./shopDetail?id=', 'params', v);
     }
   }
 };

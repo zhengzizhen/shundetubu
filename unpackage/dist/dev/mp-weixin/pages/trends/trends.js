@@ -424,6 +424,9 @@ var _default = {
     }
   },
   methods: {
+    toSeach: function toSeach() {
+      this.$jump('/pages/index/Seach/Seach');
+    },
     //获取关注列表
     getlist: function getlist(e) {
       var _this = this;

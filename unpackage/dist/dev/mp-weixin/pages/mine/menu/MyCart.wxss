@@ -28,6 +28,8 @@
   padding-top: 10rpx;
   background-color: #FAFAFA;
   padding-bottom: 170rpx;
+  min-height: 1500rpx;
+  height: auto;
 }
 .mycattitle.data-v-34299e79 {
   margin: 30rpx 0;
@@ -56,7 +58,7 @@
 }
 .content .text.data-v-34299e79 {
   margin-left: 30rpx;
-  width: 400rpx;
+  flex: 1;
 }
 .content .text .txt.data-v-34299e79 {
   font-size: 30rpx;
@@ -66,6 +68,7 @@
 .content .text label.data-v-34299e79 {
   margin: 20rpx 0;
   display: block;
+  margin-left: 10rpx;
   width: 62rpx;
   height: 32rpx;
   line-height: 32rpx;
@@ -195,5 +198,19 @@
 }
 .number .add.data-v-34299e79 {
   color: #222;
+}
+.rundelete.data-v-34299e79 {
+  width: 80rpx;
+  height: 80rpx;
+  background-color: red;
+  border-radius: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rundelete .deletes.data-v-34299e79 {
+  color: white;
+  font-size: 28rpx;
+  text-align: center;
 }
 
