@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "目的地",
-  "navigationStyle": "custom",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "u-search": "/node-modules/uview-ui/components/u-search/u-search"
-  }
-}

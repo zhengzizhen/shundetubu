@@ -44,7 +44,7 @@
 				<p class="banktit">选择到账银行卡</p>
 
 				<p class="bankcontent dis_f alitmc">
-					<image src="@/static/trends/user.png" mode=""></image>
+					<!-- <image src="@/static/trends/user.png" mode=""></image> -->
 					<text @click="tobindUser">工商银行 储蓄卡 （2342）</text>
 				</p>
 

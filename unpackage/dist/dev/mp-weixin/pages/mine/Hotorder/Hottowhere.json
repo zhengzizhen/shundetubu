@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "活动须知",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs",
-    "u-parse": "/node-modules/uview-ui/components/u-parse/u-parse"
-  }
-}

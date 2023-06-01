@@ -56,7 +56,7 @@
 			<view class="nocity" v-show="tabcurry == 1">
 				<view class="content" v-for="(item,index) in list" :key="index">
 					<view class="header dis_f">
-						<image src="@/static/trends/user.png" mode=""></image>
+						<!-- <image src="@/static/trends/user.png" mode=""></image> -->
 						<view class="dis_f flex_c ml20 jscb">
 							<p>晴天</p>
 							<u-rate readonly active-color="#FFAA50" :count="count" v-model="value"></u-rate>

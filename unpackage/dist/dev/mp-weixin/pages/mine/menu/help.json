@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "帮助与反馈",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "u--textarea": "/node-modules/uview-ui/components/u--textarea/u--textarea",
-    "u-upload": "/node-modules/uview-ui/components/u-upload/u-upload"
-  }
-}

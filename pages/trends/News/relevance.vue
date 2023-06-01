@@ -12,7 +12,7 @@
 			<!-- 内容 -->
 			<view class="dc_mod dis_f">
 				<text class="posw">3天</text>
-				<image src="@/static/image/index/banners.jpg" mode=""></image>
+				<!-- <image src="@/static/image/index/banners.jpg" mode=""></image> -->
 				<view class="dc_god">
 					<p>【亭可马里季】斯里兰卡纯玩 9天</p>
 					<view class="dc_latt dis_f">

@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "卡券",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs"
-  }
-}

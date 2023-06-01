@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "领队",
-  "enablePullDownRefresh": false,
-  "navigationBarBackgroundColor": "transparent",
-  "usingComponents": {
-    "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs",
-    "u-rate": "/node-modules/uview-ui/components/u-rate/u-rate"
-  }
-}

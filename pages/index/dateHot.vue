@@ -1,8 +1,16 @@
 <template>
 	<view class="dt_body">
 		<view>
-			<uni-calendar :date='dater' :insert="true" :lunar="false" :disable-before="true" :start-date="start"
-				:selected='selected' :end-date="end" @change="change" />
+			<!-- <uni-calendar :date='dater' :insert="true" :lunar="false" :disable-before="true" :start-date="start"
+				:selected='selected' :end-date="end" @change="change" /> -->
+				    <gwbq-calendar 
+				    :insert="true"
+				    :lunar="true" 
+					:date='dater'
+				    :start-date="start"
+				    :end-date="end"
+				    @change="change"
+				     />
 		</view>
 		<view class="dt_text">
 			<view class="dis_f dt_col" v-if="list.length!=0">

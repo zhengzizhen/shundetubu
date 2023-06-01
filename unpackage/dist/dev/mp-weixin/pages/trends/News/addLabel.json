@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "添加标签",
-  "enablePullDownRefresh": false,
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
-    "u-search": "/node-modules/uview-ui/components/u-search/u-search"
-  }
-}
