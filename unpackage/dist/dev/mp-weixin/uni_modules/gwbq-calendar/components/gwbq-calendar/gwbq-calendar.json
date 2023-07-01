@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "calendar-item": "/uni_modules/gwbq-calendar/components/gwbq-calendar/gwbq-calendar-item"
+  }
+}

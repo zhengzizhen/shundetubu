@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "活动日历",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "gwbq-calendar": "/uni_modules/gwbq-calendar/components/gwbq-calendar/gwbq-calendar"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="mn_body data-v-5cd1d94e"><view data-event-opts="{{[['tap',[['login',['$event']]]]]}}" class="btn data-v-5cd1d94e" bindtap="__e">本机账号一键登录</view></view>
