@@ -5,6 +5,20 @@
 				<u-search @focus='toSeach()' class="input" placeholder="请搜索目的地" v-model="seachValue" clearable
 					:showAction='false' :height='28'></u-search>
 				<label>国内热门</label>
+
+
+				<view class="dt_dis_bool dis_f" v-if="loading">
+					<view class="dt_cimg posir">
+						<view class="bor_r" style="background-color: #ccc;width: 454rpx;height: 300rpx;"></view>
+					</view>
+					<view>
+						<view class="dt_zimg posir">
+							<view class="bor_r" style="background-color: #ccc;width: 217rpx;height: 300rpx;"></view>
+						</view>
+					</view>
+				</view>
+
+
 				<view class="dt_dis_bool dis_f">
 					<view v-for="(item,index) in list.internal_bourn" :key="item.id" class="dt_cimg posir"
 						@click="Chankimg(item)">
@@ -25,9 +39,20 @@
 						</view>
 					</view>
 				</view>
+
+				<view class="dt_forimg dis_f" v-if="loading">
+					<view v-for="(item,index) in 6" :key="index">
+						<view class="dt_gd">
+							<view class="bor_r"
+								style="background-color: #ccc;width: 217rpx;height: 217rpx;margin: 10rpx 0;">
+							</view>
+						</view>
+					</view>
+				</view>
+
 				<view class="dt_forimg dis_f">
 					<view v-if="index>1" v-for="(item,index) in list.internal_bourn" :key="index">
-						<view  class="dt_gd" @click="Chankimg(item)">
+						<view class="dt_gd" @click="Chankimg(item)">
 							<image class="bor_r" :src="item.image" mode=""></image>
 							<text class="positions posia" v-if="index<=4">TOP{{index+1}}</text>
 							<p>{{item.name}}</p>
@@ -38,8 +63,20 @@
 		</view>
 
 		<view>
+
 			<view class="dt_pbl dt_impr">
 				<p>国外热门</p>
+				<view class="dt_dis_bool dis_f" v-if="loading">
+					<view class="dt_cimg posir">
+						<view class="bor_r" style="background-color: #ccc;width: 454rpx;height: 300rpx;"></view>
+					</view>
+					<view>
+						<view class="dt_zimg posir">
+							<view class="bor_r" style="background-color: #ccc;width: 217rpx;height: 300rpx;"></view>
+						</view>
+					</view>
+				</view>
+
 				<view class="dt_dis_bool dis_f">
 					<view v-for="(item,index) in list.foreign_bourn" :key="item.id" class="dt_cimg posir"
 						@click="Chankimg(item)">
@@ -60,9 +97,18 @@
 						</view>
 					</view>
 				</view>
+				<view class="dt_forimg dis_f" v-if="loading">
+					<view v-for="(item,index) in 6" :key="index">
+						<view class="dt_gd">
+							<view class="bor_r"
+								style="background-color: #ccc;width: 217rpx;height: 217rpx;margin: 10rpx 0;">
+							</view>
+						</view>
+					</view>
+				</view>
 				<view class="dt_forimg dis_f">
 					<view v-if="index>1" v-for="(item,index) in list.foreign_bourn" :key="index">
-						<view  class="dt_gd" @click="Chankimg(item)">
+						<view class="dt_gd" @click="Chankimg(item)">
 							<image class="bor_r" :src="item.image" mode=""></image>
 							<text class="positions posia" v-if="index<=4">TOP{{index+1}}</text>
 							<p>{{item.name}}</p>
@@ -79,17 +125,9 @@
 		data() {
 			return {
 				seachValue: '',
-				imglist: ["../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-					"../../static/index/zheng.jpg",
-				],
-				list: []
+				imglist: [],
+				list: [],
+				loading: true
 			}
 		},
 		onLoad() {
@@ -99,9 +137,10 @@
 			async getlist() {
 				const res = await this.$http('/trip/bourn')
 				this.list = res.data.data
+				this.loading = false
 			},
 			Chankimg(e) {
-				this.$jump('./Destination?obj=', 'params',JSON.stringify(e))
+				this.$jump('./Destination?obj=', 'params', JSON.stringify(e))
 			},
 			toSeach() {
 				this.$jump('/pages/index/Seach/Seach');

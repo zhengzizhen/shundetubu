@@ -66,26 +66,36 @@
 				isShow:false,
 				isShow1:false,
 				items: [{
-						value: 'ZFB',
+						value: '支付宝',
 						name: '提现到支付宝',
 						checked: 'true',
 						image: '../../../static/image/retail/zfb.jpg'
 					},
 					{
-						value: 'WX',
+						value: '微信',
 						name: '提现到微信',
 						image: '../../../static/image/retail/wx.jpg'
 					},
 					{
-						value: 'Bank',
+						value: '银行卡',
 						name: '选择银行卡',
 						image: '../../../static/image/retail/yhk.jpg'
 					},
 				],
-				current: 0
+				current: 0,
+				type:'支付宝',
+				withdraw_full_set:0
 			};
 		},
+		onLoad() {
+			this.getlist()
+		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/distribution/price')
+				this.money = parseFloat(res.data.data.balance).toFixed(2)
+				this.withdraw_full_set = parseFloat(res.data.data.withdraw_full_set)
+			},
 			all() {
 				this.tmoney = this.money
 			},
@@ -99,9 +109,26 @@
 				if(evt.detail.value == 'Bank'){
 					this.isShow1 = true
 				}
-				
+				this.type = evt.detail.value
 			},
-			cashout() {
+			async cashout() {
+				if(this.tmoney < this.withdraw_full_set){
+					uni.$u.toast('提现金额小于' + this.withdraw_full_set)
+					return false
+				}
+				if(this.tmoney < this.money){
+					uni.$u.toast('提现金额大于当前余额')
+					return false
+				}
+				uni.showLoading({
+					title:'提现中'
+				})
+				const res = await this.$http('/distribution/withdraw',{
+					number:this.tmoney,
+					type:this.type
+				})
+				uni.hideLoading()
+				this.money = this.money - this.tmoney
 				this.isShow = !this.isShow
 			},
 			open(){

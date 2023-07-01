@@ -126,7 +126,9 @@
 					number: _this.tmoney,
 					type: _this.type,
 				})
+				uni.hideLoading()
 				this.isShow = !this.isShow
+				uni.navigateBack()
 			},
 			open() {
 

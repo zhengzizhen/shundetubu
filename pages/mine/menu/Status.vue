@@ -1,20 +1,30 @@
 <template>
 	<view class="body pd30">
-		<!-- 待支付 -->
-		<p class="title" v-show="isShow1">待支付</p>
-		<label class="state" v-show="isShow1">还未支付订单</label>
-		<!-- 代发货 -->
-		<p class="title" v-show="isShow2">待发货</p>
-		<label class="state" v-show="isShow2">正在备货中...</label>
-		<!-- 代收货 -->
-		<p class="title" v-show="isShow3">已发货</p>
-		<label class="state" v-show="isShow3">商品已发货</label>
-		<!-- 已完成 -->
-		<p class="title" v-show="isShow4">已完成</p>
-		<label class="state" v-show="isShow4">订单已完成</label>
 		<!-- 已取消 -->
-		<p class="title" v-show="isShow">已取消</p>
-		<label class="state" v-show="isShow">重新购买</label>
+		<view v-if="params.status == -1">
+			<p class="title">已取消</p>
+			<label class="state">重新购买</label>
+		</view>
+		<!-- 待支付 -->
+		<view v-else-if="params.status == 0">
+			<p class="title">待支付</p>
+			<label class="state">还未支付订单</label>
+		</view>
+		<!-- 代发货 -->
+		<view v-else-if="params.status == 1">
+			<p class="title">待发货</p>
+			<label class="state">正在备货中...</label>
+		</view>
+		<!-- 代收货 -->
+		<view v-else-if="params.status == 2">
+			<p class="title">已发货</p>
+			<label class="state">商品已发货</label>
+		</view>
+		<!-- 已完成 -->
+		<view v-else-if="params.status == 3">
+			<p class="title">已完成</p>
+			<label class="state">订单已完成</label>
+		</view>
 
 		<view class="content dis_f alitmc mt20" v-for="(item,index) in params.goods" :key="index">
 			<image class="bor_r" :src="item.goods_master_image" mode=""></image>
@@ -52,26 +62,26 @@
 
 
 		<!-- 待支付 -->
-		<view class="fixed dis_f" v-show="isShow1">
+		<view class="fixed dis_f" v-if="params.status == 0">
 			<p @click='cancelorder'>取消订单</p>
-			<p>修改地址</p>
-			<p>立即支付</p>
+			<p @click='changeAddress'>修改地址</p>
+			<p @click='goplays'>立即支付</p>
 		</view>
 		<!-- 待发货 -->
-		<view class="fixed dis_f" v-show="isShow2">
+		<view class="fixed dis_f" v-else-if="params.status == 1">
 			<p @click='cancelorder'>取消订单</p>
 		</view>
 		<!-- 待收货 -->
-		<view class="fixed dis_f" v-show="isShow3">
-			<p>确认收货</p>
+		<view class="fixed dis_f" v-else-if="params.status == 2">
+			<p @click='over'>确认收货</p>
 		</view>
 		<!-- 已完成 -->
-		<view class="fixed dis_f" v-show="isShow4">
-			<p>删除订单</p>
-			<p>去评价</p>
+		<view class="fixed dis_f" v-else-if="params.status == 3">
+			<!-- <p>删除订单</p> -->
+			<p @click='tocomment'>去评价</p>
 		</view>
 		<!-- 已取消 -->
-		<view class="fixed dis_f" v-show="isShow">
+		<view class="fixed dis_f" v-else-if="params.status == -1">
 			<!-- <p>删除订单</p> -->
 		</view>
 	</view>
@@ -81,11 +91,6 @@
 	export default {
 		data() {
 			return {
-				isShow: false,
-				isShow1: false,
-				isShow2: false,
-				isShow3: false,
-				isShow4: false,
 				params:{},
 				money:0
 			}
@@ -95,23 +100,6 @@
 			this.params.goods.forEach((item,index)=>{
 				this.money+= parseFloat(item.all_price)
 			})
-			console.log(this.params);
-			if (this.params.status == -1) {
-				this.isShow = true
-				return false
-			} else if (this.params.status == 0) {
-				this.isShow1 = true
-				return false
-			} else if (this.params.status == 1) {
-				this.isShow2 = true
-				return false
-			} else if (this.params.status == 2) {
-				this.isShow3 = true
-				return false
-			} else if (this.params.status == 3) {
-				this.isShow4 = true
-				return false
-			}
 		},
 		methods: {
 			copy() {
@@ -130,11 +118,11 @@
 
 				// #ifdef H5 
 				let textarea = document.createElement("textarea")
-				textarea.value = 2727727722
+				textarea.value = this.params.order_no
 				textarea.readOnly = "readOnly"
 				document.body.appendChild(textarea)
 				textarea.select() // 选中文本内容
-				textarea.setSelectionRange(0, 10)
+				// textarea.setSelectionRange(0, 10) 截取下标
 				uni.showToast({ //提示
 					title: '复制成功',
 					icon:'none'
@@ -155,6 +143,35 @@
 				setTimeout(()=>{
 					uni.navigateBack()
 				},500)
+			},
+			tocomment(){
+				this.$jump('./comments?id=','params',this.params.order_no)
+			},
+			//完成订单
+			async over(){
+				uni.showLoading()
+				const res = await this.$http('/shop/order/over',this.params.order_no)
+				uni.hideLoading()
+				this.params.status = 3
+			},
+			changeAddress(){
+				uni.navigateTo({
+					url:'./addAddress?id=' + this.params.address_id +  '&add=' + 1
+				})
+			},
+			async goplays(){
+				uni.showLoading()
+				const res = await this.$http('/shop/order/pay',{
+					order_no:this.params.order_no
+				})
+				uni.hideLoading()
+				let form = res.data.data.pay_data
+				const div = document.createElement('formdiv');
+				div.innerHTML = form;
+				document.body.appendChild(div);
+				//document.forms[0].setAttribute('target', ' self');
+				document.forms[0].submit();
+				div.remove()
 			}
 		}
 	}
@@ -166,7 +183,6 @@
 		height: auto;
 		background-color: #FAFAFA;
 		padding-top: 30rpx;
-
 		.title {
 			font-size: 36rpx;
 			font-weight: bold;

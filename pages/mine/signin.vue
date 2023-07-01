@@ -1,13 +1,5 @@
 <template>
 	<view class="body">
-		
-		
-		<view class="fixed">
-			<view class="dis_f jscb ops">
-				<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
-				<text>签到</text>
-			</view>
-		</view>
 		<view class="header">
 			<view class="top pd30 dis_f">
 				<view class="dis_f alitmc">
@@ -25,7 +17,7 @@
 		</view>
 
 		<view class="views pd30">
-			<p class="tit">连续签到领好礼</p>
+			<p class="tit">连续签到领好礼<text style="font-size: 24rpx;color: #666;margin-left: 10rpx;" v-if="static">(今日已签到)</text> </p>
 			<view class="dis_f send">
 				<view @click="cheout(item)"  :class="item.state?'greendiv':'greendivs'" class=" dis_f" v-for="(item,index) in list" :key="index">
 					<p>{{item.name}}</p>
@@ -41,7 +33,7 @@
 		<view class="views sn_hig pd30 mat">
 			<p class="tit">做任务赚金币</p>
 			<view class="dis_f sn_image alitmc" @click="tosign(3)">
-				<image src="../../static/image/mine/3day.jpg" mode=""></image>
+				<image src="/static/image/mine/3day.jpg" mode=""></image>
 				<view class="sn_mar20">
 					<p>累计签到3天</p>
 					<text>连续签到3天额外获得20圈币</text>
@@ -92,11 +84,15 @@
 		},
 		onLoad() {
 			this.getlist()
+			
 		},
 		methods: {
 			async getlist(){
+				uni.showLoading({
+					title:'加载中'
+				})
 				const res = await this.$http('/user/sign/detail')
-				
+				uni.hideLoading()
 				this.day = res.data.data.set.day
 				this.task = res.data.data.set.task
 				for(let i = 0;i<this.day.length;i++){
@@ -104,9 +100,14 @@
 				}
 				this.stats = res.data.data.status.continuous_sign_number
 				this.static = res.data.data.status.today_sign
-				this.static3 = res.data.data.status.task_3day_get, //3天任务状态：0未达标、1已达标、2已领取
-				this.static7 = res.data.data.status.task_7day_get, //7天任务状态：0未达标、1已达标、2已领取
-				this.list[this.stats].state = true
+				this.static3 = res.data.data.status.task_3day_get //3天任务状态：0未达标、1已达标、2已领取
+				this.static7 = res.data.data.status.task_7day_get //7天任务状态：0未达标、1已达标、2已领取
+				
+				if(this.static == true){
+					
+				}else{
+					this.list[this.stats].state = true
+				}
 			},
 			async cheout(v){
 				if(v.state == false){
@@ -116,13 +117,26 @@
 					uni.$u.toast('您今天已经签到过了哦，请明天再来')
 					return false
 				}
+				uni.showLoading({
+					title:'签到中'
+				})
 				const res = await this.$http('/user/sign')
 				uni.$u.toast('签到成功！')
+				uni.hideLoading()
+				this.list.forEach((item,index)=>{
+					item.state = false
+				})
 				this.static3 = res.data.data.status.task_3day_get
 				this.static7 = res.data.data.status.task_7day_get
-				this.$store.commit("set_sign",this.day[stats])
+				this.$store.commit("set_sign",this.day[this.stats])
 			},
 			async tosign(e){
+				let sum = 0
+				if(e == 3){
+					sum = this.task.continuous_3_day
+				}else if(e == 7){
+					sum = this.task.continuous_7_day
+				}
 				if(this.static3 == 0){
 					uni.$u.toast('当前任务未达到领取条件')
 					return false
@@ -130,10 +144,15 @@
 					uni.$u.toast('您已经领取过了')
 					return false
 				}
+				uni.showLoading({
+					title:'领取中'
+				})
 				const res = await this.$http('/user/sign/task',{
 					task_day:e
 				})
-				console.log(res.data.data);
+				uni.hideLoading()
+				uni.$u.toast('领取成功！')
+				this.$store.commit("set_sign",sum)
 			},
 			toback(){
 				uni.navigateBack()

@@ -2,6 +2,9 @@
 	<view class="ds_body">
 		<view class="ds_banner posir">
 			<swiper class="swiper" circular :indicator-dots="true" :autoplay="false" :duration="500">
+				<swiper-item v-if="video!=''">
+					<video class="myVideo" :src="video"></video>
+				</swiper-item>
 				<swiper-item @click="$Resize(swiperlist,index)" v-for="(item,index) in swiperlist" :key="index">
 					<image :src="item" mode=""></image>
 				</swiper-item>
@@ -14,8 +17,8 @@
 			<p class="header_title">
 				{{detail.title}}
 			</p>
-				<label class="red">{{price}}元/人</label>
-			<view class="ds_user dis_f">
+			<label class="red">{{price}}元/人</label>
+			<view class="ds_user dis_f" v-if="teamruns">
 				<image :src="avatar" mode=""></image>
 				<p class="dis_f flex_c">
 					<text>{{nickname}}</text>
@@ -80,7 +83,7 @@
 				</p>
 				<view class="os_img dis_f" v-if="users">
 					<view v-if="i<5" v-for="(v,i) in users" :key="i" class="sio">
-						<image :src="v.avatar" mode=""></image>
+						<image style="border-radius: 50%;" :src="v.avatar" mode=""></image>
 					</view>
 				</view>
 			</view>
@@ -196,7 +199,7 @@
 
 			<!-- 最新评价 -->
 			<view class="notice pd30" v-show="tabcurry == 3">
-				<scroll-view  :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper"
+				<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper"
 					@scrolltolower="lower" @scroll="scroll">
 					<text class="tit">最新评价</text>
 					<view class="new" v-for="(v,index) in evaluate" :key="index">
@@ -218,7 +221,7 @@
 			</view>
 
 			<view class="btn dis_f">
-				<view class="dis_f flex_c alitmc img">
+				<view class="dis_f flex_c alitmc img" @click="tolate">
 					<image src="@/static/image/Details/home.jpg" mode=""></image>
 					<p>更多活动</p>
 				</view>
@@ -282,7 +285,7 @@
 		<view class="fixed">
 			<u-icon @click='toback' name="arrow-left" size='20' color='#FFFFFF'></u-icon>
 		</view>
-		
+
 		<u-overlay :show="overlay" @click="show = false"></u-overlay>
 	</view>
 </template>
@@ -341,15 +344,18 @@
 				old: {
 					scrollTop: 0
 				},
-				timer:null,//设置防抖
-				overlay:true,//遮罩层
-				price:'',
-				min : true,
-				teamid:'',
-				start_day:'',
-				userphone:'',
-				usernumber:'',
-				username:'',
+				timer: null, //设置防抖
+				overlay: true, //遮罩层
+				price: '',
+				min: true,
+				teamid: '',
+				start_day: '',
+				userphone: '',
+				usernumber: '',
+				username: '',
+				teamruns:true,//当前活动是否有团队
+				case_code:'',//活动保险
+				video:''
 			}
 		},
 		onLoad(option) {
@@ -362,7 +368,7 @@
 		methods: {
 			async getlist(id) {
 				uni.showLoading({
-					title:'加载中'
+					title: '加载中'
 				})
 				const res = await this.$http('/trip/detail', {
 					trip_id: id
@@ -376,18 +382,26 @@
 				this.setof = this.start_address[0].name
 				this.venue = this.start_address[0].venue
 				this.addList = datas.start_citys
-				for(let i =0;i<datas.team.length;i++){
-					if(datas.team[i].data.length != 0){
+				this.case_code = datas.case_code
+				this.video = res.data.data.video
+				for (let i = 0; i < datas.team.length; i++) {
+					if (datas.team[i].data.length != 0) {
 						this.nickname = datas.team[i].data[0].master_akela.nickname
 						this.avatar = datas.team[i].data[0].master_akela.avatar
 						this.grade = datas.team[i].data[0].master_akela.grade
 						this.grade_number = datas.team[i].data[0].master_akela.grade_number
 						this.users = datas.team[i].data[0].users
-						this.chetbs(datas.team[i],i)
+						this.chetbs(datas.team[i], i)
 						return false
 					}
 				}
+				datas.team[0].data.length == 0 && datas.team[1].data.length == 0 && datas.team[2].data.length == 0?
+				this.changgeteam() :''
 				this.min = false
+			},
+			changgeteam(){
+				this.price = this.detail.price;
+				this.teamruns = false
 			},
 			//获取评论
 			async getevaluate() {
@@ -419,7 +433,7 @@
 				// 		})
 				// 	}
 				// },200)
-				
+
 				let that = this
 				that.detail.is_attention = !that.detail.is_attention
 				if (that.detail.is_attention == true) {
@@ -468,7 +482,7 @@
 			},
 			lower: async function(e) {
 				uni.showLoading({
-					title:'加载中'
+					title: '加载中'
 				})
 				this.page = this.page + 1
 				const res = await this.$http('/trip/evaluate/list', {
@@ -477,13 +491,13 @@
 					limit: 10
 				})
 				uni.hideLoading()
-				if(res.data.data == ''){
+				if (res.data.data == '') {
 					uni.$u.toast('已经到底部了')
 					return false
 				}
 				this.evaluate = this.evaluate.concat(res.data.data)
 			},
-			 scroll: function(e) {
+			scroll: function(e) {
 				this.old.scrollTop = e.detail.scrollTop
 			},
 			popOpen() {
@@ -505,27 +519,32 @@
 				this.$jump('./Cratic?user=', 'params', JSON.stringify(this.users))
 			},
 			toApply() {
-				const params = {
-					trip_id:this.id,
-					trip_team_id:this.teamid,
-					price:this.price,
-					start_day:this.start_day
+				if(this.teamruns == false){
+					uni.$u.toast('暂无出行团队')
+					return false
 				}
-				this.$jump('./Apply?obj=','params',JSON.stringify(params))
+				const params = {
+					trip_id: this.id,
+					trip_team_id: this.teamid,
+					price: this.price,
+					start_day: this.start_day,
+					case_code:this.case_code
+				}
+				this.$jump('./Apply?obj=', 'params', JSON.stringify(params))
 			},
 			async Popbtn() {
-				const params ={
-					trip_id:this.id,
-					name:this.username,
-					phone:this.userphone,
-					people_number:this.usernumber
+				const params = {
+					trip_id: this.id,
+					name: this.username,
+					phone: this.userphone,
+					people_number: this.usernumber
 				}
 				uni.showLoading()
-				const res = await this.$http('/feedback/custom',params)
+				const res = await this.$http('/feedback/custom', params)
 				uni.hideLoading()
 				this.isShow = false;
 				this.username = ''
-				this.usernumber =''
+				this.usernumber = ''
 				this.userphone = ''
 				uni.showToast({
 					title: '提交成功',
@@ -533,7 +552,7 @@
 				});
 			},
 			ckaddress(e, index) {
-				uni.setStorageSync('cityid',e.id)
+				uni.setStorageSync('cityid', e.id)
 				this.curryimg = index
 				this.setof = this.start_address[index].name
 				this.venue = this.start_address[index].venue
@@ -544,15 +563,19 @@
 			},
 			toRestore() {
 				this.$jump('/pages/retail/restore')
+			},
+			tolate(){
+				this.$jump('/pages/index/index','switch')
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.ds_body{
+	.ds_body {
 		padding-bottom: 180rpx;
 	}
+
 	.ds_banner {
 		width: 100%;
 		height: 494rpx;
@@ -566,7 +589,10 @@
 			width: 100%;
 			height: 494rpx;
 		}
-
+		.myVideo{
+			width: 100%;
+			height: 494rpx;
+		}
 		.swiperposi {
 			top: 60rpx;
 			right: 30rpx;
@@ -595,6 +621,7 @@
 
 	.ds_user {
 		margin: 20rpx 0;
+
 		image {
 			width: 100rpx;
 			height: 100rpx;
@@ -793,6 +820,7 @@
 		position: fixed;
 		bottom: 0;
 		left: 0;
+
 		.img {
 			flex: 1;
 		}

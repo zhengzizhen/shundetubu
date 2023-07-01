@@ -5,7 +5,7 @@
 				<u-icon @click="back" name="arrow-left" color='#000' size='18'></u-icon>
 				<span>编辑收货地址</span>
 			</view>
-			<p>删除</p>
+			<p v-if="add" @click='removeAddress'>删除</p>
 		</view>
 
 		<view class="dis_f content pd30 alitmc">
@@ -20,7 +20,7 @@
 
 		<view class="dis_f content pd30 alitmc">
 			<label>所在地区</label>
-			<input type="text" v-model="address.area">
+			<input @click="showMulLinkageTwoPicker"  type="text" v-model="address.area">
 			<!-- <image @click="getLocaltion" src="@/static/image/mine/address.png" mode=""></image> -->
 		</view>
 
@@ -34,14 +34,33 @@
 			<u-switch activeColor="#49CAA4" v-model="address.is_default" @change="change"></u-switch>
 		</view>
 
-		<view class="btn dis_f alitmc jscc">
-			<p @click='toadd'>{{btn}}</p>
+
+		<view class="fixed">
+			<view @click='toadd' class="btn dis_f alitmc jscc">
+				<p>{{btn}}</p>
+			</view>
+		</view>
+		
+		<view class="mpvue-picker">
+			<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength"
+				:pickerValueDefault="pickerValueDefault" @onConfirm="onConfirm" @onCancel="onCancel"
+				:pickerValueArray="pickerValueArray"></mpvue-picker>
+			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker"
+				:pickerValueDefault="cityPickerValueDefault" @onCancel="onCancel"
+				@onConfirm="onConfirm"></mpvue-city-picker>
 		</view>
 	</view>
 </template>
 
 <script>
+	import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
+	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
+	import cityData from '@/components/city.data.js';
 	export default {
+		components: {
+			mpvuePicker,
+			mpvueCityPicker
+		},
 		data() {
 			return {
 				isTrue: null,
@@ -52,24 +71,37 @@
 					address: '',
 					is_default: ''
 				},
-				btn:'添加地址'
+				btn:'添加地址',
+				params:'',
+				add:true,
+				mulLinkageTwoPicker: cityData,
+				cityPickerValueDefault: [0, 0, 1],
+				themeColor: '#007AFF',
+				pickerText: '',
+				mode: '',
+				deepLength: 1,
+				pickerValueDefault: [0],
+				pickerValueArray: [],
 			}
 		},
 		onLoad(option) {
-			if (option.v) {
-				console.log(option.v);
-				this.address = JSON.parse(option.v)
-				if(this.address.is_default == 1){
-					this.address.is_default = true
-				}else{
-					this.address.is_default = false
-				}
+			if (option.id) {
+				this.params = option.id
 				this.btn = '保存地址'
+				option.add == 1 ? this.add = false : ''
+				this.getlist()
 				return false
 			}
-			console.log(1);
+			
 		},
 		methods: {
+			async getlist(){
+				const res = await this.$http('/shop/user/address/detail',{
+					address_id:this.params
+				})
+				this.address = res.data.data
+				res.data.data.is_default == 0 ? this.address.is_default = false : this.address.is_default = true
+			},
 			back() {
 				uni.navigateBack()
 			},
@@ -118,15 +150,56 @@
 					const res = await this.$http('/shop/user/address/add', params)
 					uni.hideLoading()
 					uni.$u.toast('添加成功')
-					this.$jump('./address','redirect')
+					uni.navigateBack()
 					return false
 				}else if(this.btn == '保存地址'){
 					uni.showLoading()
 					const res = await this.$http('/shop/user/address/update', rend)
 					uni.hideLoading()
 					uni.$u.toast('修改成功')
-					this.$jump('./address','redirect')
+					uni.navigateBack()
 					return false
+				}
+			},
+			async removeAddress(){
+				uni.showModal({
+					content:'确定要删除该地址吗',
+					success() {
+						// const res = await
+					}
+				})
+			},
+			onCancel(e) {
+				console.log(e)
+			},
+			// 二级联动选择
+			showMulLinkageTwoPicker() {
+				this.pickerValueArray = this.mulLinkageTwoPicker
+				this.mode = 'multiLinkageSelector'
+				this.deepLength = 2
+				this.pickerValueDefault = [0, 0]
+				this.$refs.mpvuePicker.show()
+			},
+			onConfirm(e) {
+				this.pickerText = JSON.stringify(e).label
+				this.address.area = e.label
+			},
+			onBackPress() {
+				if (this.$refs.mpvuePicker.showPicker) {
+					this.$refs.mpvuePicker.pickerCancel();
+					return true;
+				}
+				if (this.$refs.mpvueCityPicker.showPicker) {
+					this.$refs.mpvueCityPicker.pickerCancel();
+					return true;
+				}
+			},
+			onUnload() {
+				if (this.$refs.mpvuePicker.showPicker) {
+					this.$refs.mpvuePicker.pickerCancel()
+				}
+				if (this.$refs.mpvueCityPicker.showPicker) {
+					this.$refs.mpvueCityPicker.pickerCancel()
 				}
 			}
 		}
@@ -205,10 +278,16 @@
 		color: white;
 		text-align: center;
 		border-radius: 42rpx;
-
 		p {
 			font-size: 32rpx;
 			margin-left: 10rpx;
 		}
+	}
+	.fixed{
+		position: fixed;
+		bottom: 80rpx;
+		left: 0;
+		width: 100%;
+		margin: 0 auto;
 	}
 </style>

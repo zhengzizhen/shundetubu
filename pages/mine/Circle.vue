@@ -2,17 +2,17 @@
 	<view class="ce_body pd30 pb20">
 		<view class="ce_banner">
 			<text>圈币</text>
-			<p>2000</p>
+			<p>{{$store.state.userinfo.money}}</p>
 		</view>
 		
 		<p class="title">圈币明细</p>
 		
 		<view class="content dis_f alitmc jscb" v-for="(item,index) in list" :key="index">
 			<view class="left">
-				<p>邀请好友</p>
-				<text>2023-09-21 18:11</text>
+				<p>{{item.fund_type}}</p>
+				<text>{{item.created_at}}</text>
 			</view>
-			<label>+19</label>
+			<label>{{item.number}}</label>
 		</view>
 	</view>
 </template>
@@ -21,11 +21,22 @@
 	export default {
 		data() {
 			return {
-				list:[1,2,3]
+				list:[],
+				page:1
 			}
 		},
+		onLoad() {
+			this.getlist()
+		},
 		methods: {
-			
+			async getlist(){
+				const res = await this.$http('/user/log/fund',{
+					page:this.page,
+					limit:10,
+					coin_type:'money'
+				})
+				this.list = res.data.data
+			}
 		}
 	}
 </script>

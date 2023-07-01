@@ -30,7 +30,7 @@
 				<p>{{dynamic_number}}</p>
 				<text>轻季</text>
 			</view>
-			<view class="hot">
+			<view class="hot" @click="toous()">
 				<p>{{attention_number}}</p>
 				<text>关注</text>
 			</view>
@@ -51,15 +51,6 @@
 				<view class="io">
 					<p>{{item.content}}</p>
 				</view>
-				<!-- <view class="dis_f plq">
-					<image class="sn" src="@/static/trends/pl.png"></image>
-					<view class="dis_f ssss">
-						<image v-show="!item.show" @click="love(item)" src="@/static/trends/ax.png"></image>
-						<image v-show="item.show" @click="love(item)" src="@/static/image/trends/zan.png" mode="">
-						</image>
-						<span style="margin-left: 10rpx;color:#666">{{item.like_number}}</span>
-					</view>
-				</view> -->
 			</view>
 		</view>
 
@@ -88,12 +79,14 @@
 				dynamic_number: '',
 				order_number: '',
 				avatar: '',
-				userid: ''
+				userid: '',
+				id: ''
 			}
 		},
 		onLoad(option) {
 			this.getlist(option.id)
 			this.userid = option.id
+			this.id = uni.getStorageSync('userinfo')
 		},
 		onShow() {
 			this.getlist(this.userid)
@@ -119,16 +112,15 @@
 				this.list = data.dynamic_list
 			},
 			async love(item) {
-				const res = await this.$http('/circle/dynamic/like',{
-					
+				const res = await this.$http('/circle/dynamic/like', {
+
 				})
-				// item.show = !item.show
-				// if (item.show == false) {
-				// 	item.lovenum--
-				// } else {
-				// 	item.lovenum++
-				// }
-				console.log(item);
+				item.show = !item.show
+				if (item.show == false) {
+					item.lovenum--
+				} else {
+					item.lovenum++
+				}
 			},
 			async attention() { //关注用户
 				this.is_attention = !this.is_attention
@@ -147,6 +139,9 @@
 			toNews() {
 				this.$jump('./News/News')
 			},
+			toous() {
+				this.userid == this.id ? '' :  this.$jump('/pages/trends/message')
+			}
 		}
 	}
 </script>
@@ -165,6 +160,10 @@
 
 		.mine {
 			align-items: center;
+
+			image {
+				border-radius: 50%;
+			}
 
 			.sp {
 				width: 540rpx;

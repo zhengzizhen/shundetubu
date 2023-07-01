@@ -29,7 +29,7 @@
 		onLoad(option) {
 			const users = JSON.parse(option.user)
 			users.forEach((item,index)=>{
-				if(item.identity=='会员'){
+				if(item.identity == '会员'){
 					this.Userlist.push(item)
 				}else{
 					this.list.push(item)

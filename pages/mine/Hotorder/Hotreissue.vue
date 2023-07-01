@@ -13,6 +13,9 @@
 				</view>
 				<image v-if="curry == index" src="@/static/image/mine/success.jpg" mode=""></image>
 			</view>
+			<view v-if="list.length == 0">
+				<p style="margin: 20rpx 0;">暂无可改签的期次</p>
+			</view>
 		</view>
 
 		<!-- <p class="sios pd30">选择改签人员</p>
@@ -51,9 +54,13 @@
 		},
 		methods: {
 			async getlist(v){
+				uni.showLoading({
+					title:'加载中'
+				})
 				const res = await this.$http('/trip/order/detail',{
 					order_no:v
 				})
+				uni.hideLoading()
 				this.getid(res.data.data.trip.trip_id)
 			},
 			async getid(v){
@@ -69,6 +76,9 @@
 				console.log(e);
 			},
 			async submit(){
+				if(!trip_team_id){
+					uni.$u.toast('请选择需要改签的日期')
+				}
 				uni.showLoading()
 				const res = await this.$http('/trip/order/ticket',{
 					order_no:this.id,

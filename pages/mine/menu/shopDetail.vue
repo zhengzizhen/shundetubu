@@ -27,7 +27,7 @@
 		<view class="pd30 content">
 			<view @click="specifications = true" class="pos dis_f">
 				<label>选择:</label>
-				<text>已选: "{{guide}}"</text>
+				<text>已选: “{{guide}}”</text>
 			</view>
 			<view class="pos dis_f">
 				<label>物流:</label>
@@ -56,23 +56,26 @@
 			<view class="nocity" v-show="tabcurry == 1">
 				<view class="content" v-for="(item,index) in list" :key="index">
 					<view class="header dis_f">
-						<!-- <image src="@/static/trends/user.png" mode=""></image> -->
+						<image :src="item.user_avatar" mode=""></image>
 						<view class="dis_f flex_c ml20 jscb">
-							<p>晴天</p>
-							<u-rate readonly active-color="#FFAA50" :count="count" v-model="value"></u-rate>
+							<p>{{item.user_nickname}}</p>
+							<u-rate readonly active-color="#FFAA50" :count="count" v-model="item.all_grade"></u-rate>
 						</view>
 					</view>
-					<p class="center">非常Nice</p>
-					<label>2023-03-10 02:00 红色</label>
+					<p class="center">{{item.content}}</p>
+					<label>{{item.created_at}} {{item.sku}}</label>
+				</view>
+				<view>
+					<p style="text-align: center;margin: 40rpx 0;padding-bottom:80rpx ;">没有更多评价了</p>
 				</view>
 			</view>
 
 			<view @click="toshop" class="ix_block index_pad pd30" v-show="tabcurry == 2">
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
-						<image :src="item.image"></image>
-						<p class="ix_title">{{item.text}}</p>
-						<p class="ix_yellow">￥{{item.money}}.00</p>
+						<image :src="item.master_image"></image>
+						<p class="ix_title">{{item.name}}</p>
+						<p class="ix_yellow">￥{{item.price}}</p>
 					</view>
 				</view>
 			</view>
@@ -93,7 +96,7 @@
 					<text>购物车</text>
 				</view>
 				<view class="dis_f">
-					<p class="addcar"  @click='tocard'>加入购物车</p>
+					<p class="addcar" @click='tocard'>加入购物车</p>
 					<p class="goshop" @click='toPlay()'>立即购买</p>
 				</view>
 			</view>
@@ -120,7 +123,7 @@
 								v-for="(item,index) in goods.sku.attrs[0].items" :key="index">{{item}}</p>
 						</view>
 					</view>
-					
+
 					<view v-if="goods.sku.attrs[1]">
 						<p class="poptitle">{{goods.sku.attrs[1].attr}}</p>
 						<view class="chekpop">
@@ -166,7 +169,7 @@
 		data() {
 			return {
 				swiperlist: [],
-				list: [1, 2, 3],
+				list: [],
 				count: 5,
 				value: 4,
 				num: 1,
@@ -195,52 +198,91 @@
 					},
 				],
 				curry: 0,
-				curry1:0,
+				curry1: 0,
 				check: ['绿色', '红色', '彩虹色'],
 				goods: {},
-				guide:'',
-				attr:[],
-				runs:{},
-				id:'',
-				moeny:''
+				guide: '',
+				attr: [],
+				runs: {},
+				id: '',
+				moeny: '',
+				page: 1, //评论页码
+				bottom: false
 			}
 		},
 		onLoad(option) {
 			this.id = option.id
 			this.getlist(option.id)
+			this.getcomment()
+		},
+		onReachBottom() {
+			if (this.tabcurry == 1) {
+				if (this.bottom == true) {
+					return false
+				}
+				this.page += 1
+				this.getcomment()
+			}
 		},
 		methods: {
 			async getlist(v) {
+				uni.showLoading({
+					title: '加载中'
+				})
 				const res = await this.$http('/shop/goods/detail', {
 					goods_id: v
 				})
 				this.goods = res.data.data
 				this.swiperlist = this.swiperlist.concat(res.data.data.master_image)
 				this.swiperlist = this.swiperlist.concat(res.data.data.assist_images)
-				this.guide = res.data.data.sku.attrs[0].items[0]
 				this.runs = res.data.data.sku.sku[0]
+				this.runss = res.data.data.sku.sku[1]
 				this.runs.price = this.runs.price * this.num
+				this.moeny = this.runs.price
 				this.curry = this.runs.attr[0]
 				this.curry1 = this.runs.attr[1]
 				this.attr[0] = this.runs.attr[0]
-				this.attr[1] = this.runs.attr[1]
+				if (this.runs.attr[1]) {
+					this.attr[1] = this.runs.attr[1]
+				}
+				if (this.runs.attr[1]) {
+					this.guide = this.runs.attr[0] + ',' + this.runs.attr[1]
+				} else {
+					this.guide = this.runs.attr[0]
+				}
+				uni.hideLoading()
 			},
-			CheckTab(e, index) {
+			async CheckTab(e, index) {
 				this.tabcurry = index
+				if (index == 2) {
+					const res = await this.$http('/shop/goods/list', {
+						is_recommend: 1,
+						page: 1,
+						limit: 4
+					})
+					this.moenylist = res.data.data
+				}
+			},
+			//获取评价
+			async getcomment() {
+				const res = await this.$http('/shop/goods/comment', {
+					goods_id: this.id,
+					page: this.page,
+					limit: 10
+				})
+				this.list = this.list.concat(res.data.data)
 			},
 			toPlay() {
-				const params = [
-					{
-						goods_id:this.id,
-						number:this.num,
-						sku:this.attr,
-						price:this.runs.price,
-						master_image:this.goods.master_image,
-						name:this.goods.name,
-						freight:parseInt(this.goods.freight)
-					}
-				]
-				this.$jump('./goPlay?obj=','params',JSON.stringify(params))
+				const params = [{
+					goods_id: this.id,
+					number: this.num,
+					sku: this.attr,
+					price: this.runs.price * this.num,
+					master_image: this.goods.master_image,
+					name: this.goods.name,
+					freight: parseInt(this.goods.freight)
+				}]
+				this.$jump('./goPlay?obj=', 'params', JSON.stringify(params))
 			},
 			toCar() {
 				this.$jump('./MyCart')
@@ -262,17 +304,26 @@
 			},
 			chestatic(e, index) {
 				this.curry = e.items[index]
-				this.attr[0] = e.items[index] 
+				this.attr[0] = e.items[index]
+				this.runs.attr[0] = e.items[index]
+				if (this.runs.attr[1]) {
+					this.guide = this.runs.attr[0] + ',' + this.runs.attr[1]
+				} else {
+					this.guide = this.runs.attr[0]
+				}
 				this.price()
+				console.log(e.items[index]);
 			},
 			chestatic1(e, index) {
 				this.curry1 = e.items[index]
 				this.attr[1] = e.items[index]
+				this.runs.attr[1] = e.items[index]
+				this.guide = this.runs.attr[0] + ',' + this.runs.attr[1]
 				this.price()
 			},
-			price(){
-				this.goods.sku.sku.forEach((item,index)=>{
-					if(JSON.stringify(item.attr) === JSON.stringify(this.attr)){
+			price() {
+				this.goods.sku.sku.forEach((item, index) => {
+					if (JSON.stringify(item.attr) === JSON.stringify(this.attr)) {
 						this.runs = item
 						this.moeny = item.price
 						this.runs.price = this.moeny * this.num
@@ -287,18 +338,20 @@
 					return false
 				}
 				this.num--
-				this.runs.price = this.moeny*this.num
 			},
 			add() {
 				this.num++
-				this.runs.price = this.moeny*this.num
 			},
-			async tocard(){
-				const res = await this.$http('/shop/car/add',{
-					goods_id:this.id,
-					sku:this.attr,
-					number:this.num
+			async tocard() {
+				uni.showLoading({
+					title: '添加中'
 				})
+				const res = await this.$http('/shop/car/add', {
+					goods_id: this.id,
+					sku: this.attr,
+					number: this.num
+				})
+				uni.hideLoading()
 				uni.$u.toast('添加成功')
 			}
 		}
@@ -560,6 +613,9 @@
 				margin: 0 auto 20rpx;
 				word-wrap: normal;
 				font-size: 28rpx;
+				height: 60rpx;
+				display: flex;
+				align-items: center;
 			}
 
 			.ix_yellow {
@@ -584,6 +640,7 @@
 		padding: 30rpx;
 		box-sizing: border-box;
 		margin-bottom: 200rpx;
+
 		.static {
 			padding-bottom: 20rpx;
 			border-bottom: 1px solid #E6E6E6;

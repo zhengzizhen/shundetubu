@@ -1,5 +1,6 @@
 <template>
 	<view class="oy_body">
+		<image class="imgs" :src="params.image" mode=""></image>
 		<view class="oy_cont bor_r" v-for="(item,index) in list" :key="index">
 			<image :src="item.master_image" mode=""></image>
 			<p class="tit">{{item.title}}</p>
@@ -41,11 +42,13 @@
 		},
 		methods: {
 			async getlist(id){
+				uni.showLoading()
 				const res = await this.$http('/trip/teamcustom/detail',{
 					page:this.page,
 					limit:10,
 					id
 				})
+				uni.hideLoading()
 				this.list = this.list.concat(res.data.data)
 			},
 			toDetails(e) {
@@ -58,16 +61,21 @@
 <style lang="scss" scoped>
 	.oy_body {
 		background-color: #18ACB6;
-		padding: 392rpx 30rpx 100rpx;
-		min-height: 750px;
+		padding: 80rpx 30rpx 100rpx;
+		min-height: 100vh;
 		height: auto;
 	}
-
+	.imgs{
+		border-radius: 20rpx;
+		width: 100%;
+		height: 350rpx;
+		box-sizing: border-box;
+	}
 	.oy_cont {
-		margin: 20rpx 0;
+		margin: 20rpx 0rpx;
 		height: 570rpx;
+		padding:0 0 20rpx 0;
 		background-color: white;
-
 		image {
 			width: 100%;
 			height: 340rpx;
@@ -76,9 +84,11 @@
 
 		.tit {
 			margin-top: 20rpx;
-			font-size: 30rpx;
+			width: 100%;
+			font-size: 28rpx;
 			font-weight: 500;
 			color: #222222;
+			padding: 0 10rpx;
 		}
 
 		.oy_location {

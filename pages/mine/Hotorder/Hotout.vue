@@ -44,7 +44,7 @@
 
 		<p class="title">退款规则</p>
 		<text class="label">使用后由于个人原因退出活动的，代金券不退还;</text>
-		<text class="label">特殊代金券《如生日礼券等]，使用后不遗还;</text>
+		<text class="label">特殊代金券《如生日礼券等》，使用后不退还;</text>
 
 		<p class="btn" @click='submit'>
 			申请退款

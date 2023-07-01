@@ -2,6 +2,14 @@
 	<view class="as_body">
 		<!-- 列表渲染 -->
 		<view>
+			<view class="ix_shop index_pads dis_f pd30" v-if="loading">
+				<view class="ix_list dis_f" v-for="(item,index) in 8" :key="index" @click='toChild(item.title)'>
+					<view class="" style="border-radius: 50%;background-color: #ccc;width: 100rpx;height: 100rpx;">
+					</view>
+					<p style="width: 110rpx;height: 24rpx;background-color: #ccc;margin-top: 20rpx;"></p>
+				</view>
+			</view>
+
 			<view class="ix_shop index_pads dis_f pd30">
 				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='toChild(item.title)'>
 					<image style="border-radius: 50%;" :src="item.value" mode=""></image>
@@ -37,12 +45,18 @@
 				<u-subsection :customStyle='obj' :list="sublist" :current="current" @change="sectionChange"
 					activeColor='#49CAA4'></u-subsection>
 			</view>
+			
+			<view v-if="loading">
+				<view v-for="(item,i) in 4" :key="i"  class="dc_mod dis_f" style="background-color: #ccc;margin: 0 30rpx;height: 330rpx; margin-top: 40rpx; border-radius: 20rpx;">
+					
+				</view>
+			</view>
 			<!-- 当季推荐/口碑路线 -->
 			<view class="pd30">
 				<view @click="toDetails(item.id)" class="dc_mod dis_f" v-for="(item,index) in curryents" :key="index">
 					<image :src="item.master_image" mode=""></image>
 					<view class="dc_god">
-						<p>{{item.title}}</p>
+						<p class="nus">{{item.title}}</p>
 						<view class="dc_latt dis_f">
 							<text
 								v-if="item.trip_team[0]!=null">{{item.trip_team[0].start_day}}{{item.trip_team[0].status_text}}</text>
@@ -60,7 +74,8 @@
 
 			<p class="as_tit pd30">高铁出行</p>
 			<view class="dis_f pd30">
-				<view @click="toDetails(item.id)" class="as_zh dis_f" v-for="(item,index) in rail" :key='index'>
+				<view v-if="index<3" @click="toDetails(item.id)" class="as_zh dis_f" v-for="(item,index) in rail"
+					:key='index'>
 					<image :src="item.master_image" mode=""></image>
 					<label>{{item.day}}天</label>
 					<text>{{item.title}}</text>
@@ -73,7 +88,7 @@
 				<view @click="toDetails(item.id)" class="dc_mod dis_f" v-for=" (item,index) in chind" :key="index">
 					<image :src="item.master_image" mode=""></image>
 					<view class="dc_god">
-						<p>{{item.title}}</p>
+						<p class="nus">{{item.title}}</p>
 						<text class="posw">{{item.day}}天</text>
 						<view class="dc_latt dis_f" v-if="item.trip_team[0]!=null">
 							<text>{{item.trip_team[0].start_day}}{{item.trip_team[0].status_text}}</text>
@@ -133,13 +148,14 @@
 				rail: [], //高铁出行
 				chind: [], //亲子活动
 				curry: null,
-				hotlist: ['报名中','即将成团','已成行', '1天', '2天'],
+				hotlist: ['报名中', '即将成团', '已成行', '1天', '2天'],
 				obj: {
 					height: '80rpx'
 				},
 				page: 1,
-				periphery: [] ,//周边数据
-				bottom:false,//是否触底
+				periphery: [], //周边数据
+				bottom: false, //是否触底
+				loading: true
 			};
 		},
 		onLoad() {
@@ -152,10 +168,10 @@
 			this.getperiphery(params)
 		},
 		onReachBottom() {
-			if(this.bottom == true){
+			if (this.bottom == true) {
 				return false
-			}else{
-				this.page+=1
+			} else {
+				this.page += 1
 				const params = {
 					page: this.page,
 					limit: 10
@@ -167,11 +183,12 @@
 			async getlist() {
 				const res = await this.$http('/trip/vicinity/index')
 				this.assignment(res.data.data)
+				this.loading = false
 			},
 			async getperiphery(params) {
-				const res = await this.$http('/trip/vicinity/list/all',params)
+				const res = await this.$http('/trip/vicinity/list/all', params)
 				this.periphery = this.periphery.concat(res.data.data)
-				if(this.periphery.length < 10){
+				if (this.periphery.length < 10) {
 					this.bottom = true
 				}
 			},
@@ -193,7 +210,7 @@
 				}
 			},
 			chekelist(e, index) {
-				if(index == this.curry){
+				if (index == this.curry) {
 					this.curry = null
 					this.page = 1
 					this.periphery = []
@@ -210,55 +227,55 @@
 					this.page = 1
 					this.periphery = []
 					let params = {
-						page:this.page,
-						limit:10,
-						search_status:0
+						page: this.page,
+						limit: 10,
+						search_status: 0
 					}
 					this.getperiphery(params)
 					return false
-				}else if (index == 1) {
+				} else if (index == 1) {
 					//即将成团
 					this.page = 1
 					this.periphery = []
 					let params = {
-						page:this.page,
-						limit:10,
-						search_status:1
+						page: this.page,
+						limit: 10,
+						search_status: 1
 					}
 					this.getperiphery(params)
 					return false
-				}else if (index == 2) {
+				} else if (index == 2) {
 					//已成团
 					this.page = 1
 					this.periphery = []
 					let params = {
-						page:this.page,
-						limit:10,
-						search_status:2
+						page: this.page,
+						limit: 10,
+						search_status: 2
 					}
 					this.getperiphery(params)
 					return false
-				}else if (index == 3) {
+				} else if (index == 3) {
 					//已成团
 					this.page = 1
 					this.periphery = []
 					let params = {
-						page:this.page,
-						limit:10,
-						search_min_day:1,
-						search_max_day:1
+						page: this.page,
+						limit: 10,
+						search_min_day: 1,
+						search_max_day: 1
 					}
 					this.getperiphery(params)
 					return false
-				}else if (index == 4) {
+				} else if (index == 4) {
 					//已成团
 					this.page = 1
 					this.periphery = []
 					let params = {
-						page:this.page,
-						limit:10,
-						search_min_day:2,
-						search_max_day:2
+						page: this.page,
+						limit: 10,
+						search_min_day: 2,
+						search_max_day: 2
 					}
 					this.getperiphery(params)
 					return false
@@ -304,9 +321,10 @@
 </script>
 
 <style lang="scss" scoped>
-	body{
+	body {
 		box-sizing: border-box;
 	}
+
 	.as_body {
 		margin-bottom: 1000rpx;
 		padding-bottom: 100rpx;
@@ -374,6 +392,9 @@
 		.dc_god {
 			width: 400rpx;
 			margin-left: 20rpx;
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
 		}
 
 		.posw {
@@ -435,11 +456,29 @@
 		}
 	}
 
+	.nus {
+		font-size: 28rpx;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+
 	.as_zh {
 		width: 33%;
 		flex-direction: column;
 		position: relative;
 		width: 240rpx;
+
+		text {
+			font-size: 28rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
 
 		image {
 			width: 217rpx;
@@ -542,9 +581,14 @@
 			}
 
 			.ix_title {
-				margin: 0 auto 20rpx;
+				margin: 0 auto 10rpx;
 				word-wrap: normal;
-				font-size: 28rpx;
+				font-size: 26rpx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
 			}
 
 			.ix_txtgreen {
@@ -589,10 +633,9 @@
 	}
 
 	.sp {
-		margin-top: 10rpx;
 		justify-content: space-between;
-		height: 64rpx;
-		line-height: 64rpx;
+		height: 54rpx;
+		line-height: 54rpx;
 
 		p {
 			color: red !important;
@@ -611,6 +654,7 @@
 		width: 100%;
 		font-size: 30rpx;
 		box-sizing: border-box;
+
 		p {
 			margin-right: 20rpx;
 			margin-top: 10rpx;

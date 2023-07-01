@@ -13,7 +13,7 @@
 				<p>{{item.fund_type}}</p>
 				<label>{{item.created_at}}</label>
 			</view>
-			<text>+{{item.number}}</text>
+			<text>{{item.number}}</text>
 		</view>
 	</view>
 </template>

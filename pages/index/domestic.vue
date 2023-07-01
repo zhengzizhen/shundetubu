@@ -1,6 +1,19 @@
 <template>
 	<!-- 国内精选 -->
 	<view class="dc_bg">
+		<view class="uni-margin-wrap">
+			<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+				:duration="duration">
+				<swiper-item v-if="video">
+					<video class="myVideo" :src="video"></video>
+				</swiper-item>
+				<swiper-item v-for="(item,index) in swiper" :key="index">
+					<view @click="$Resize(swiper,index)" class="swiper-item">
+						<image :src="item" mode=""></image>
+					</view>
+				</swiper-item>
+			</swiper>
+		</view>
 		<view class="dc_header pd30">
 			<!-- label标签 -->
 			<view class="dc_label dis_f" @click="isShow = true">
@@ -24,14 +37,14 @@
 								<text>￥{{item.price}}</text>
 							</view>
 							<view class="dc_ms dis_f jscb">
-								<view v-if="item.trip_team.length != 0">
+								<view class="dis_f" v-if="item.trip_team.length != 0">
 									<view class="dc_go dis_f" v-for="(v,i) in item.trip_team" :key="i">
 										<text>{{v.start_day}}出发</text>
 										<label class="pink">{{v.status_text}}</label>
 									</view>
 								</view>
 								<view v-else>
-				
+
 								</view>
 								<p>查看更多</p>
 							</view>
@@ -48,11 +61,11 @@
 					<view class="dc_god dis_f flex_c jscb">
 						<p>{{item.title}}</p>
 						<view class="dc_latt dis_f" v-if="item.trip_team !=''">
-							<text v-for="(v,i) in item.trip_team">{{v.start_day}}{{v.status_text}}</text>
+							<text v-for="(v,i) in item.trip_team" :key="i">{{v.start_day}}{{v.status_text}}</text>
 							<u-icon name="arrow-right" color="#999999" size='12'></u-icon>
 						</view>
 						<view class="dc_out">
-							<text v-for="(s,j) in item.label">{{s}}</text>
+							<text v-for="(s,j) in item.label" :key="j">{{s}}</text>
 						</view>
 						<view class="dc_span dis_f">
 							<text>￥{{item.price}}</text>
@@ -101,8 +114,7 @@
 					</view>
 					<p>出行方式</p>
 					<view class="dis_f ps">
-						<view class="dis_f prp" v-for="(v,index) in label" :key="index"
-							@click="tolabel(v,index)">
+						<view class="dis_f prp" v-for="(v,index) in label" :key="index" @click="tolabel(v,index)">
 							<text :class="labelcurry == index ?'select':''">{{v.name}}</text>
 						</view>
 					</view>
@@ -120,6 +132,11 @@
 	export default {
 		data() {
 			return {
+				swiper: [],
+				indicatorDots: true,
+				autoplay: true,
+				interval: 2000,
+				duration: 500,
 				laberlist: [],
 				isShow: false,
 				lvcurry: null,
@@ -131,21 +148,22 @@
 				addcurry: null,
 				addresslist: [],
 				daycurry: null,
-				label:[],
-				labelcurry:null,
+				label: [],
+				labelcurry: null,
 				days: [],
 				obj: {}, //接收的参数
 				list: [],
 				page: 1,
-				seach:[],
-				search_min_day:'',//最少天数
-				search_max_day:'',//最多天数
-				search_difficulty:'',//难度等级
-				search_status:'',//状态
-				search_bourn:'',//地区id
-				search_min_price:'',//最低价格
-				search_max_price:'',//最高价格
-				search_label:''//标签
+				seach: [],
+				search_min_day: '', //最少天数
+				search_max_day: '', //最多天数
+				search_difficulty: '', //难度等级
+				search_status: '', //状态
+				search_bourn: '', //地区id
+				search_min_price: '', //最低价格
+				search_max_price: '', //最高价格
+				search_label: '' ,//标签
+				video:''
 			};
 		},
 		created() {
@@ -163,16 +181,25 @@
 					limit: 10
 				}
 			}
+			this.getSwiper()
 			this.getlist(info)
-			
 			this.getSeach(this.obj.seach)
 		},
 		methods: {
+			async getSwiper() {
+				const res = await this.$http('/trip/top', {
+					type: '首页-' + this.obj.title
+				})
+				this.swiper = res.data.data.image
+				if (res.data.data.video !='') {
+					this.video = res.data.data.video
+				}
+			},
 			async getlist(info) {
 				const res = await this.$http(info.url, info.params)
 				this.list = this.list.concat(res.data.data)
 			},
-			async getSeach(url){
+			async getSeach(url) {
 				const res = await this.$http(url)
 				this.days = res.data.data.search_day
 				this.lvlist = res.data.data.search_difficulty
@@ -197,7 +224,7 @@
 				this.isShow = !this.isShow
 			},
 			todays(v, index) {
-				if(index == this.daycurry){
+				if (index == this.daycurry) {
 					this.daycurry = null
 					this.search_min_day = ''
 					this.search_max_day = ''
@@ -208,7 +235,7 @@
 				this.search_max_day = v.max
 			},
 			tolabel(v, index) {
-				if(index == this.labelcurry){
+				if (index == this.labelcurry) {
 					this.labelcurry = null
 					this.search_label = ''
 					return false
@@ -217,7 +244,7 @@
 				this.search_label = v.name
 			},
 			tolv(v, index) {
-				if(index == this.lvcurry){
+				if (index == this.lvcurry) {
 					this.lvcurry = null
 					this.search_difficulty = ''
 					return false
@@ -226,7 +253,7 @@
 				this.search_difficulty = v.name
 			},
 			tomoney(v, index) {
-				if(index == this.moneycurry){
+				if (index == this.moneycurry) {
 					this.moneycurry = null
 					this.search_min_price = ''
 					this.search_max_price = ''
@@ -237,7 +264,7 @@
 				this.search_max_price = v.max
 			},
 			tostate(v, index) {
-				if(index == this.statecurry){
+				if (index == this.statecurry) {
 					this.statecurry = null
 					this.search_status = ''
 					return false
@@ -246,7 +273,7 @@
 				this.search_status = index
 			},
 			toaddress(v, index) {
-				if(index == this.addcurry){
+				if (index == this.addcurry) {
 					this.addcurry = null
 					this.search_bourn = ''
 					return false
@@ -257,7 +284,7 @@
 			toDetails(e) {
 				this.$jump('/pages/index/Details/Details?id=', 'params', e);
 			},
-			async submit(){
+			async submit() {
 				this.page = 1
 				this.list = []
 				const info = {
@@ -265,14 +292,14 @@
 					params: {
 						page: this.page,
 						limit: 10,
-						search_min_price:this.search_min_price,
-						search_max_price:this.search_max_price,
-						search_min_day:this.search_min_day,
-						search_max_day:this.search_max_day,
-						search_difficulty:this.search_difficulty,
-						search_status:this.search_status,
-						search_bourn:this.search_bourn,
-						search_label:this.search_label
+						search_min_price: this.search_min_price,
+						search_max_price: this.search_max_price,
+						search_min_day: this.search_min_day,
+						search_max_day: this.search_max_day,
+						search_difficulty: this.search_difficulty,
+						search_status: this.search_status,
+						search_bourn: this.search_bourn,
+						search_label: this.search_label
 					}
 				}
 				this.getlist(info)
@@ -285,17 +312,15 @@
 <style lang="scss" scoped>
 	.dc_bg {
 		width: 100%;
-		min-height: 750px;
+		min-height: 100vh;
 		height: auto;
 		background-color: #18ACB6;
 		padding-bottom: 50rpx;
+		padding-top: 20rpx;
 	}
-
 	.dc_header {
-		padding-top: 457rpx;
 		.dc_label {
 			position: relative;
-
 			.dc_spans {
 				background: rgba(255, 255, 255, .4);
 				border-radius: 32rpx;
@@ -304,7 +329,6 @@
 				color: white;
 				font-size: 28rpx;
 			}
-
 			.sx {
 				padding-left: 40rpx;
 				width: 40rpx;
@@ -314,27 +338,24 @@
 				background-color: #18ACB6;
 				position: absolute;
 				right: 0rpx;
-
 				image {
 					width: 40rpx;
 					height: 40rpx;
 				}
 			}
 		}
-
 		.dc_banner {
 			position: relative;
-			height: 590rpx;
+			height: auto;
 			background-color: white;
 			border-radius: 20rpx;
 			margin: 20rpx auto;
-
+			padding: 0 0 20rpx 0;
 			image {
 				width: 100%;
 				border-radius: 20rpx 20rpx 0rpx 0rpx;
 				height: 340rpx;
 			}
-
 			.dc_posi {
 				position: absolute;
 				top: 0;
@@ -347,26 +368,21 @@
 				text-align: center;
 				color: white;
 			}
-
 			.dc_text {
 				flex-direction: column;
 				padding: 0 20rpx;
-
 				p {
 					color: #222222;
 					font-size: 30rpx;
 				}
-
 				.dc_span {
 					margin-top: 10rpx;
 					justify-content: space-between;
 					align-items: center;
-
 					label {
 						color: #999999;
 						font-size: 24rpx;
 					}
-
 					text {
 						color: #FF4040;
 						font-weight: bold;
@@ -453,7 +469,8 @@
 				font-size: 24rpx;
 				background-color: #FFA1AD;
 			}
-			text:nth-child(2){
+
+			text:nth-child(2) {
 				margin-left: 10rpx;
 				padding: 5rpx 20rpx;
 				color: #FFFFFF;
@@ -471,7 +488,8 @@
 				font-size: 24rpx;
 				background-color: #FFECD6;
 			}
-			text:nth-child(2){
+
+			text:nth-child(2) {
 				margin-left: 10rpx;
 			}
 		}
@@ -530,6 +548,7 @@
 				text-align: center;
 				font-size: 26rpx;
 			}
+
 			.select {
 				background-color: #49CAA4;
 				color: white;
@@ -557,5 +576,24 @@
 				color: white;
 			}
 		}
+	}
+
+	.swiper {
+		margin: 20rpx 0;
+		width: 100%;
+		height: 350rpx;
+		box-sizing: border-box;
+		padding: 0 30rpx;
+		border-radius: 16rpx;
+		image {
+			width: 100%;
+			height: 350rpx;
+			border-radius: 16rpx;
+		}
+	}
+	.myVideo{
+		width: 100%;
+		height: 350rpx;
+		border-radius: 20rpx;
 	}
 </style>

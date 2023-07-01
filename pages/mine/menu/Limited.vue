@@ -13,6 +13,9 @@
 					<label v-else>火热售罄，正在补货中...</label>
 				</view>
 			</view>
+			<view v-if="list.length == 0" class="nonemol">
+				暂无商品
+			</view>
 		</view>
 
 		<view class="fixed">
@@ -44,11 +47,15 @@
 		},
 		methods: {
 			async getlist(v){
+				uni.showLoading({
+					title:'加载中'
+				})
 				const res = await this.$http('/shop/goods/list',{
 					page:this.page,
 					limit:10,
 					category_id:v
 				})
+				uni.hideLoading()
 				if(res.data.data.length<10){
 					this.bottom =true
 				}
@@ -121,5 +128,11 @@
 			width: 114rpx;
 			height: 114rpx;
 		}
+	}
+	.nonemol{
+		text-align: center;
+		color: #ccc;
+		font-family: 'PF';
+		margin-top: 80rpx;
 	}
 </style>

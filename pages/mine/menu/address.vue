@@ -7,7 +7,7 @@
 
 		<view @click="setstro(v)" class="card dis_f flex_c pd30" v-for="(v,index) in list" :key="index">
 			<p class="header">
-				<label>默认</label>
+				<label v-if="v.is_default == 1">默认</label>
 				<text>{{v.name}}</text>
 				<text>{{v.phone}}</text>
 			</p>
@@ -39,6 +39,7 @@
 				<p>添加地址</p>
 			</view>
 		</view>
+		
 	</view>
 </template>
 
@@ -51,6 +52,9 @@
 			}
 		},
 		onLoad() {
+			
+		},
+		onShow() {
 			this.getaddress()
 		},
 		methods: {
@@ -75,19 +79,23 @@
 					return false
 				}
 				uni.showLoading()
+				this.list.forEach((item,index)=>{
+					item.is_default = 0
+				})
+				v.is_default = 1
 				const res = await this.$http('/shop/user/address/default',{
 					address_id:v.id
 				})
 				uni.hideLoading()
-				v.is_default = 1
 				this.getaddress()
 			},
 			toAdd() {
 				this.$jump('./addAddress')
 			},
 			toaddress(v) {
+				console.log(v);
 				uni.navigateTo({
-					url: './addAddress?v=' + JSON.stringify(v)
+					url: './addAddress?id=' + v.id
 				})
 			},
 			async deletes(v){
@@ -98,7 +106,7 @@
 				uni.hideLoading()
 				uni.$u.toast('删除成功！')
 				this.getaddress()
-			}
+			},
 		}
 	}
 </script>

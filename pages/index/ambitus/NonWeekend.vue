@@ -11,7 +11,7 @@
 				<p>{{item.title}}</p>
 				<text class="posw">{{item.day}}天</text>
 				<view class="dc_latt dis_f" v-if="item.trip_team!=''">
-					<text v-for="(v,i) in item.trip_team">{{v.start_day}}{{v.status_text}}</text>
+					<text v-for="(v,i) in item.trip_team" :key="i">{{v.start_day}}{{v.status_text}}</text>
 					<p class="dis_f"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 				</view>
 				<p class="title dis_f"><label>难度： {{item.difficulty}}</label></p>

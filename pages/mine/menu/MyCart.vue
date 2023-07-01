@@ -4,7 +4,6 @@
 			<p class="mycattitle dis_f" @click='displayRadio'>管理</p>
 		</view>
 		<view class="content bor_r">
-			
 			<view  v-if="list.length != 0" class=" israido dis_f alitmc" v-for="(item,index) in list" :key="index">
 				<view v-if="isRadio">
 					<image v-show="!item.radio" @click="runs(item)" class="radio"
@@ -16,7 +15,7 @@
 				<view class="text dis_f flex_c">
 					<text class="txt">{{item.name}}</text>
 					<view class="dis_f">
-						<label v-for="(v,i) in item.sku">{{v}}</label>
+						<label v-for="(v,i) in item.sku" :key="i">{{v}}</label>
 					</view>
 					<p class="dis_f alitmc jscb">
 						<text class="nix">￥{{item.price}}</text>
@@ -32,8 +31,8 @@
 				</view>
 			</view>
 			
-			<view v-else>
-				<p>暂时还没有选择商品</p>
+			<view v-if="list.length == 0" class="nonemol israido dis_f alitmc">
+				<p>暂无商品</p>
 			</view>
 		</view>
 
@@ -47,7 +46,7 @@
 			<view class="ix_img dis_f">
 				<view @click="toDetail(item.id)" class="ix_flexs" v-for="(item,index) in moenylist" :key="index">
 					<image :src="item.master_image"></image>
-					<p class="ix_title">{{item.text}}</p>
+					<p class="ix_title">{{item.name}}</p>
 					<p class="ix_yellow">￥{{item.price}}</p>
 				</view>
 			</view>
@@ -111,8 +110,10 @@
 			this.youlike()
 		},
 		onLoad() {
-			this.getlist()
 			this.youlike()
+		},
+		onShow() {
+			this.getlist()
 		},
 		methods: {
 			async getlist() {
@@ -195,7 +196,7 @@
 			async remove(v) {
 				uni.showLoading()
 				const res = await this.$http('/shop/car/delete',{
-					car_ids:v.id
+					car_ids:v
 				})
 				uni.hideLoading()
 				uni.$u.toast('删除成功')
@@ -445,5 +446,11 @@
 			font-size: 28rpx;
 			text-align: center;
 		}
+	}
+	.nonemol{
+		text-align: center;
+		color: #ccc;
+		justify-content: center;
+		font-size: 26rpx;
 	}
 </style>

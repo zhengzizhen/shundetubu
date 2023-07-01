@@ -11,7 +11,7 @@
 		<view class="al_tost">
 			<view class="dis_f jscb al_title">
 				<p>报名信息</p>
-				<p class="to30"><label>小计：</label>{{obj.price*Applicant.length}}元</p>
+				<p class="to30"><label>小计：</label>{{parseFloat(obj.price*Applicant.length)+insure}}元</p>
 			</view>
 			<view class="dis_f jscb rosx" v-for="(v,i) in Applicant" :key="i">
 				<p>{{v.username}}</p>
@@ -27,7 +27,7 @@
 			</view>
 			<view class="dis_f jscb noborder">
 				<p class="cblist">代金券</p>
-				<p class="red dis_f" @click= 'toCard'>
+				<p class="red dis_f" @click='toCard'>
 					<text>你有0张可用</text>
 					<u-icon name="arrow-right" color='#FF4040' size='10'></u-icon>
 				</p>
@@ -49,17 +49,17 @@
 		<view class="ay_check dis_f">
 			<image v-show="isShow" src="@/static/login/xz.png" mode="" @click="isShow = !isShow"></image>
 			<image v-show="!isShow" src="@/static/login/wxz.png" mode="" @click="isShow = !isShow"></image>
-			<p> 我已阅读并同意
-				<label>《旅游服务协议》</label>
-				<label>《费用说明及报名须知》</label>
-				<label>《中国公民国内旅游文明行为公约》</label>
-				<label>《旅游同业诚信公约》</label>
+			<p>我已阅读并同意
+				<label @click="toagreement(13)">《旅游服务协议》</label>
+				<label @click="toagreement(14)">《费用说明及报名须知》</label>
+				<label @click="toagreement(15)">《中国公民国内旅游文明行为公约》</label>
+				<label @click="toagreement(16)">《旅游同业诚信公约》</label>
 			</p>
 		</view>
 
 		<view class="flexi">
 			<view class="dis_f alitmc jscb m20">
-				<p>总费用： {{obj.price*Applicant.length}}元</p>
+				<p>总费用： {{parseFloat(obj.price*Applicant.length)+insure}} 元</p>
 				<view class="btns" @click="submit">支付</view>
 			</view>
 		</view>
@@ -86,10 +86,11 @@
 				],
 				// u-radio-group的v-model绑定的值如果设置为某个radio的name，就会被默认选中
 				radiovalue1: '微信支付',
-				obj:{},
-				Applicant:[],//报名人信息
-				traveller_ids:'',//单、多个
-				type:'h5微信'
+				obj: {},
+				Applicant: [], //报名人信息
+				traveller_ids: '', //单、多个
+				type: 'h5微信',
+				insure: 0
 			};
 		},
 		onLoad(option) {
@@ -97,74 +98,97 @@
 		},
 		onShow() {
 			const Applicant = uni.getStorageSync('Applicant')
-			if(Applicant == ''){
+			if (Applicant == '') {
 				return false
 			}
-			if(Applicant.id!=''){
-				for(let i = 0;i<this.Applicant.length;i++){
-					if(this.Applicant[i].id == Applicant.id){
+			if (Applicant.id != '') {
+				for (let i = 0; i < this.Applicant.length; i++) {
+					if (this.Applicant[i].id == Applicant.id) {
 						uni.$u.toast('不能选择相同的用户')
 						uni.removeStorageSync('Applicant')
 						return false
 					}
 				}
 				this.Applicant = this.Applicant.concat(Applicant)
+				this.obj.case_code != '' ? this.getinsure(Applicant.id) : ''
 				uni.removeStorageSync('Applicant')
-				console.log(this.Applicant );
+				console.log(this.Applicant);
 			}
 		},
 		methods: {
 			groupChange() {
 
 			},
+			async getinsure(v) {
+				uni.showLoading({
+					title:'正在获取保单金额'
+				})
+				const res = await this.$http('/trip/insure/price', {
+					traveller_id: v,
+					trip_team_id: this.obj.trip_team_id
+				})
+				uni.hideLoading()
+				this.insure = this.insure + (res.data.data.price / 100)
+			},
 			toAdduser() {
 				this.$jump('./Applicant')
 			},
-			toCard(){
+			toCard() {
 				this.$jump('/pages/mine/Card')
 			},
-			submit(){
-				
-				if(this.isShow == false){
+			toagreement(v) {
+				this.$jump('/pages/login/agreement?id=', 'params', v)
+			},
+			submit() {
+				if (this.isShow == false) {
 					uni.$u.toast('请先同意相关协议')
 					return false
 				}
-				
-				if(this.Applicant.length == 0){
+				if (this.Applicant.length == 0) {
 					uni.$u.toast('请选择报名人')
 					return false
 				}
-				if(this.Applicant.length == 1){
+				if (this.Applicant.length == 1) {
 					this.traveller_ids = this.Applicant[0].id
-				}else if(this.Applicant.length > 1){
-					for(let i =0 ; i<this.Applicant.length;i++){
-						if(i == 0){
+				} else if (this.Applicant.length > 1) {
+					for (let i = 0; i < this.Applicant.length; i++) {
+						if (i == 0) {
 							this.traveller_ids = this.Applicant[i].id
-						}else{
+						} else {
 							this.traveller_ids = this.traveller_ids + ',' + this.Applicant[i].id
 						}
 					}
 				}
 				this.type = '';
-				if(this.radiovalue1 == '微信支付'){
+				if (this.radiovalue1 == '微信支付') {
 					this.type = 'h5微信'
-				}else if(this.radiovalue1 == '支付宝支付'){
+				} else if (this.radiovalue1 == '支付宝支付') {
 					this.type = 'h5支付宝'
-				}else if(this.radiovalue1 == '银行卡支付'){
+				} else if (this.radiovalue1 == '银行卡支付') {
 					this.type = '银行卡'
 				}
 				const params = {
-					trip_id:this.obj.trip_id,
-					trip_team_id:this.obj.trip_team_id,
-					traveller_ids:this.traveller_ids,
-					deduction_money:this.obj.price * this.Applicant.length,
-					pay_method:this.type
+					trip_id: this.obj.trip_id,
+					trip_team_id: this.obj.trip_team_id,
+					traveller_ids: this.traveller_ids,
+					deduction_money: this.obj.price * this.Applicant.length,
+					pay_method: this.type
 				}
 				this.runload(params)
 			},
-			async runload(params){
-				const res = await this.$http('/trip/order/create',params)
-				
+			async runload(params) {
+				uni.showLoading({
+					title: '支付中'
+				})
+				const res = await this.$http('/trip/order/create', params)
+				uni.hideLoading()
+				let form = res.data.data.pay_data
+				const div = document.createElement('formdiv');
+				div.innerHTML = form;
+				document.body.appendChild(div);
+				// document.forms[0].setAttribute('target', ' self');
+				document.forms[0].submit();
+				div.remove()
 			}
 		}
 	}
@@ -297,9 +321,11 @@
 			margin-right: 30rpx;
 		}
 	}
-	.rosx{
+
+	.rosx {
 		margin: 20rpx 0;
-		p{
+
+		p {
 			font-size: 30rpx;
 			color: black;
 		}

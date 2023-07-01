@@ -2,25 +2,34 @@
 	<view class="as_body">
 		<!-- 列表渲染 -->
 		<view>
+			<view class="ix_shop index_pads dis_f pd30" v-if="loading">
+				<view class="ix_list dis_f bannerruns" v-for="(item,index) in 8" :key="index"
+					@click='clinto(item,index)'>
+					<view></view>
+					<text></text>
+					<label>{{item.intro}}</label>
+				</view>
+			</view>
+
 			<view class="ix_shop index_pads dis_f pd30">
 				<view class="ix_list dis_f" v-for="(item,index) in arrlist" :key="index" @click='clinto(item,index)'>
-					<image style="border-radius: 50%;" :src="item.image" mode=""></image>
+					<image style="border-radius: 50%;" :src="item.icon" mode=""></image>
 					<text>{{item.title}}</text>
 					<label>{{item.intro}}</label>
 				</view>
 			</view>
 
-			<view class="as_mon pd30">
+			<view class="as_mon pd30" v-if="monthlist.length != 0">
 				<view class="tit dis_f">
 					<p>本月精彩团建转播</p>
-					<view class="dis_f"  @click='goWonderful()'>
+					<view class="dis_f" @click='goWonderful()'>
 						<span>更多</span>
 						<u-icon name="arrow-right" color="#000000" size='12'></u-icon>
 					</view>
 				</view>
 
 				<view class="img dis_f">
-					<view @click="toDetails(v.id)"  v-for="(v,i) in monthlist" :key="i">
+					<view @click="toDetails(v.id)" v-for="(v,i) in monthlist" :key="i">
 						<view class="" v-if="i<3">
 							<image v-if="v.images[0]" :src="v.images[0]" mode=""></image>
 							<p>{{v.trip_name}}</p>
@@ -30,11 +39,11 @@
 			</view>
 
 			<p class="as_tit pd30">当季热门</p>
-			
+
 			<view class="uni-margin-wrap">
 				<swiper class="swiper" @change='change' circular :autoplay="false" next-margin='160rpx'
 					previous-margin='180rpx' :interval="2000" :duration="500">
-					<swiper-item  @click="toDetails(item.id)" v-for="(item,index) in swiperlist" :key="index">
+					<swiper-item @click="toDetails(item.id)" v-for="(item,index) in swiperlist" :key="index">
 						<view class="posir">
 							<image :src="item.master_image" mode=""></image>
 							<view v-show="swipercurrent == index" class="posiswiper dis_f flex_c">
@@ -57,6 +66,14 @@
 					@click="checkout(item,index)">{{item}}</span>
 			</view>
 			<view class="pd30">
+				<view v-if="loading">
+					<view class="as_kb dis_f" v-for="(item,index) in 2" :key="index">
+						<view class="as_posi">
+							<view class="runsbans"></view>
+						</view>
+						<view class="nisux"></view>
+					</view>
+				</view>
 				<view class="as_kb dis_f" v-for="(item,index) in list" :key="index">
 					<view class="as_posi">
 						<p>{{item.title}}</p>
@@ -73,10 +90,8 @@
 					</view>
 				</view>
 			</view>
-			
 			<!-- 个性定制 -->
 			<p class="as_tit pd30">个性定制</p>
-			
 			<view class="ix_subsection dis_f pd30">
 				<span :class="curry1 == index?'check':'checks'" v-for="(item,index) in checklist1" :key="index"
 					@click="checkout1(item,index)">{{item.name}}</span>
@@ -84,12 +99,11 @@
 			<view class="ix_img dis_f pd30">
 				<view @click="toDetails(item.id)" class="ix_flexs" v-for="(item,index) in imglist" :key="index">
 					<image :src="item.master_image"></image>
-					<p class="ix_posi">{{item.title}}</p>
-					<p class="ix_title">{{item.difficulty}}</p>
-					<p class="ix_txtgreen">{{item.traveller_number}}人去过</p>
+					<p class="ix_posi">{{item.day}}天</p>
+					<p class="ix_title">{{item.title}}</p>
+					<p class="ix_txtgreen">{{item.difficulty}}</p>
 				</view>
 			</view>
-			
 			<!-- <p class="as_tit pd30">口碑之选</p>
 			<view class="dis_f tm_img pd30">
 				<image class="c" src="@/static/index/luowu.jpg" mode=""></image>
@@ -99,9 +113,7 @@
 				<image class="ima" v-for="(item,index) in list" :key="index" src="@/static/image/index/banners.jpg" mode=""></image>
 			</view> -->
 		</view>
-		
 		<!-- <p class="tm_btn" @click='isShow = !isShow'>立即定制</p> -->
-		
 		<!-- 我要定制 -->
 		<u-popup :show="isShow" mode="bottom" :closeable='true' @close="popClose" @open="popOpen">
 			<view class="popViews pd30">
@@ -111,7 +123,7 @@
 					src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800"
 					mode=""></image>
 				<p class="ider">方法二：留下你的联系方式，我们会与你联系</p>
-		
+
 				<input v-model="userphone" type="text" class="wx" placeholder="联系电话/微信号">
 				<view class="dis_f twoipt jscb">
 					<input v-model="username" class="names" type="text" placeholder="如何称呼您？">
@@ -130,13 +142,13 @@
 				arrlist: [],
 				swiperlist: [],
 				sublist: ['当季推荐', '口碑路线'],
-				swipercurrent:0,
+				swipercurrent: 0,
 				swiperlist: [],
 				current: 0,
 				list: [],
-				curry:0,
-				checklist: ['1天定制','2~3天','4天以上',],
-				curry1:0,
+				curry: 0,
+				checklist: ['1天定制', '2~3天', '4天以上', ],
+				curry1: 0,
 				checklist1: [{
 						name: '企业定制',
 					},
@@ -148,13 +160,14 @@
 					},
 				],
 				imglist: [],
-				public_praise:[],//时间选择
-				team:[],//团队选择
-				monthlist:[],
-				isShow:false,
-				username:'',
-				usernumber:'',
-				userphone:''
+				public_praise: [], //时间选择
+				team: [], //团队选择
+				monthlist: [],
+				isShow: false,
+				username: '',
+				usernumber: '',
+				userphone: '',
+				loading: true
 			};
 		},
 		onLoad() {
@@ -162,8 +175,13 @@
 			this.getmonth()
 		},
 		methods: {
-			async getlist(){
+			async getlist() {
+				uni.showLoading({
+					title: '加载中'
+				})
 				const res = await this.$http('/trip/teamcustom/index')
+				uni.hideLoading()
+				this.loading = false
 				this.arrlist = res.data.data.icon_list //金刚区
 				this.swiperlist = res.data.data.hot
 				this.public_praise = res.data.data.public_praise
@@ -171,23 +189,23 @@
 				this.team = res.data.data.team
 				this.imglist = res.data.data.team.firm
 			},
-			async getmonth(){
-				const res = await this.$http('/trip/teamcustom/dynamic/list',{
-					page:1,
-					limit:3
+			async getmonth() {
+				const res = await this.$http('/trip/teamcustom/dynamic/list', {
+					page: 1,
+					limit: 3
 				})
 				this.monthlist = res.data.data
 			},
 			sectionChange(index) {
 				this.current = index;
 			},
-			checkout(e,index) {
+			checkout(e, index) {
 				this.curry = index
-				if(this.curry == 0){
+				if (this.curry == 0) {
 					this.list = this.public_praise.day1
-				}else if(this.curry == 1){
+				} else if (this.curry == 1) {
 					this.list = this.public_praise.day23
-				}else if(this.curry == 2){
+				} else if (this.curry == 2) {
 					this.list = this.public_praise.day4
 				}
 			},
@@ -195,41 +213,47 @@
 				console.log(e.detail.current);
 				this.swipercurrent = e.detail.current
 			},
-			checkout1(e,index) {
+			checkout1(e, index) {
 				this.curry1 = index
-				if(this.curry1 == 0){
-					this.list = this.team.firm
-				}else if(this.curry1 == 1){
-					this.list = this.team.kids
-				}else if(this.curry1 == 2){
-					this.list = this.team.private
+				if (this.curry1 == 0) {
+					this.imglist = this.team.firm
+				} else if (this.curry1 == 1) {
+					this.imglist = this.team.kids
+				} else if (this.curry1 == 2) {
+					this.imglist = this.team.private
 				}
 			},
 			toDetails(e) {
 				this.$jump('/pages/index/Details/Details?id=', 'params', e);
 			},
-			goWonderful(){
+			goWonderful() {
 				this.$jump('./Wonderful')
 			},
-			clinto(item,index){
-				const params = {
-					id:item.id,
-					name:item.title
+			clinto(item, index) {
+				console.log();
+				if (item.title == '关于我们') {
+					this.$jump('/pages/mine/Aboutus')
+					return false
 				}
-				this.$jump('./oneday?obj=','params',JSON.stringify(params))
+				const params = {
+					id: item.id,
+					name: item.title,
+					image: item.image
+				}
+				this.$jump('./oneday?obj=', 'params', JSON.stringify(params))
 			},
 			//提交定制
-			async Popbtn(){
+			async Popbtn() {
 				const params = {
-					
+
 				}
-				const res = await this.$http('/feedback/feedback',)
+				const res = await this.$http('/feedback/feedback', )
 			},
-			popClose(){
+			popClose() {
 				this.isShow = !this.isShow
 			},
-			popOpen(){
-				
+			popOpen() {
+
 			}
 		}
 	}
@@ -262,7 +286,8 @@
 				font-weight: 500;
 				color: #000000;
 			}
-			label{
+
+			label {
 				font-size: 22rpx;
 				font-weight: 500;
 				color: #666666;
@@ -347,6 +372,7 @@
 		border-radius: 20rpx;
 		padding: 30rpx 20rpx;
 		flex-direction: column;
+
 		.tit {
 			justify-content: space-between;
 			align-items: center;
@@ -365,6 +391,7 @@
 			justify-content: space-between;
 			margin-top: 20rpx;
 			box-sizing: border-box;
+
 			image {
 				width: 200rpx;
 				height: 200rpx;
@@ -377,17 +404,18 @@
 		}
 
 	}
+
 	.ix_subsection {
 		margin: 40rpx auto;
 		// justify-content: space-around;
 		align-items: center;
-	
+
 		span {
 			display: block;
 			font-size: 30rpx;
 			margin-right: 30rpx;
 		}
-	
+
 		.check {
 			box-sizing: border-box;
 			display: block;
@@ -398,7 +426,7 @@
 			border-radius: 50rpx;
 			font-family: 'PF';
 		}
-	
+
 		.checks {
 			border: 1px solid #ccc;
 			color: #666666;
@@ -409,20 +437,26 @@
 			font-family: 'PF';
 		}
 	}
-	.as_kb{
-		flex-direction: column;
+
+	.as_kb {
 		margin-bottom: 30rpx;
-		.as_posi{
+		flex-direction: column;
+		border-radius: 20rpx;
+
+		.as_posi {
 			position: relative;
-			p{
+
+			p {
 				font-size: 28rpx;
 			}
 		}
-		.as_text{
+
+		.as_text {
 			justify-content: space-between;
 			align-items: center;
 			font-size: 30rpx;
-			.xq{
+
+			.xq {
 				width: 182rpx;
 				height: 64rpx;
 				line-height: 64rpx;
@@ -432,50 +466,57 @@
 				color: white;
 				font-size: 30rpx;
 			}
-			.jus{
+
+			.jus {
 				flex-direction: column;
-				label{
+
+				label {
 					margin-top: 20rpx;
 					width: 220rpx;
 					height: 40rpx;
 					line-height: 40rpx;
 					text-align: center;
 					font-size: 24rpx;
-					color:#49CAA4;
-					display:block;
-					border:1px solid #49CAA4;
+					color: #49CAA4;
+					display: block;
+					border: 1px solid #49CAA4;
 				}
 			}
 		}
-		p{
+
+		p {
 			position: absolute;
 			bottom: 40rpx;
 			left: 10rpx;
 			z-index: 2;
 			color: white;
 		}
-		image{
+
+		image {
 			width: 100%;
 			height: 300rpx;
+			border-radius: 20rpx;
 		}
 	}
+
 	.ix_img {
 		justify-content: space-between;
 		flex-wrap: wrap;
 		margin-bottom: 40rpx;
+
 		image {
 			margin: 20rpx auto 10rpx;
 			width: 335rpx;
 			height: 335rpx;
 			border-radius: 20rpx 20rpx 0rpx 0rpx;
 		}
-	
+
 		.ix_flexs {
 			position: relative;
 			width: 335rpx;
 			height: auto;
 		}
-	
+
 		.ix_posi {
 			position: absolute;
 			top: 20rpx;
@@ -489,13 +530,13 @@
 			color: white;
 			text-align: center;
 		}
-	
+
 		.ix_title {
 			margin: 0 auto 20rpx;
 			word-wrap: normal;
 			font-size: 28rpx;
 		}
-	
+
 		.ix_txtgreen {
 			width: 166rpx;
 			height: 36rpx;
@@ -505,32 +546,38 @@
 			background: #EBFFF9;
 			border-radius: 6rpx;
 		}
-	
+
 		.ix_yellow {
 			font-size: 30rpx;
 			font-weight: 500;
 			color: #FF4040;
 		}
 	}
-	.tm_img{
+
+	.tm_img {
 		justify-content: space-between;
-		.c{
-			width:454rpx ;
+
+		.c {
+			width: 454rpx;
 			height: 300rpx;
 		}
-		.z{
+
+		.z {
 			width: 217rpx;
 			height: 300rpx;
 		}
 	}
-	.ima{
+
+	.ima {
 		margin-top: 10rpx;
-		image{
+
+		image {
 			width: 217rpx;
 			height: 217rpx;
 		}
 	}
-	.tm_btn{
+
+	.tm_btn {
 		margin: 80rpx auto;
 		width: 690rpx;
 		height: 80rpx;
@@ -540,23 +587,24 @@
 		background: #49CAA4;
 		border-radius: 39rpx 40rpx 40rpx 39rpx;
 	}
+
 	.swiper {
 		width: 100%;
 		height: 500rpx;
 		text-align: center;
-	
+
 		.posir {
 			width: 380rpx;
 			height: 500rpx;
 		}
-	
+
 		image {
 			margin: 0 auto;
 			width: 380rpx;
 			height: 500rpx;
 			border-radius: 20rpx;
 		}
-	
+
 		.posiswiper {
 			position: absolute;
 			bottom: 20rpx;
@@ -564,11 +612,13 @@
 			padding: 10rpx 20rpx;
 			text-align: left;
 			animation: scaleout .5s ease-in-out;
+
 			p {
 				font-size: 30rpx;
 				font-weight: bold;
 				color: #FFFFFF;
 			}
+
 			text {
 				font-size: 24rpx;
 				font-weight: 500;
@@ -576,15 +626,19 @@
 				background: rgba(255, 255, 255, .5);
 				padding: 5rpx 10rpx;
 			}
+
 			.ios {
 				margin: 10rpx 0 20rpx;
-				text:nth-child(2){
+
+				text:nth-child(2) {
 					margin-left: 10rpx;
 				}
 			}
+
 			.m10 {
 				margin-left: 10rpx;
 			}
+
 			label {
 				font-size: 24rpx;
 				font-weight: 500;
@@ -592,46 +646,50 @@
 			}
 		}
 	}
-	.info{
+
+	.info {
 		width: 100%;
 		text-align: center;
 		margin: 20rpx auto;
 		justify-content: center;
-		p{
+
+		p {
 			margin: 0 8rpx;
 			width: 22rpx;
 			height: 22rpx;
 			background: #F0F0F0;
 			border-radius: 50%;
 		}
-		.active{
+
+		.active {
 			background: #49CAA4 !important;
 		}
 	}
+
 	.popViews {
 		height: 1078rpx;
 		text-align: center;
-	
+
 		.Poptitle {
 			margin: 40rpx auto;
 			font-size: 36rpx;
 			font-weight: 500;
 			color: #000000;
 		}
-	
+
 		.ider {
 			font-size: 28rpx;
 			font-weight: 500;
 			color: #000000;
 			text-align: left;
 		}
-	
+
 		image {
 			width: 228rpx;
 			height: 228rpx;
 			margin: 40rpx auto;
 		}
-	
+
 		.wx {
 			box-sizing: border-box;
 			margin: 50rpx auto 20rpx;
@@ -643,12 +701,12 @@
 			padding-left: 20rpx;
 			font-size: 28rpx;
 		}
-	
+
 		.twoipt {
 			width: 580rpx;
 			margin: 0 auto;
 			text-align: left;
-	
+
 			.names {
 				font-size: 28rpx;
 				box-sizing: border-box;
@@ -659,7 +717,7 @@
 				border-radius: 20rpx;
 			}
 		}
-	
+
 		.popbtn {
 			width: 580rpx;
 			height: 92rpx;
@@ -670,5 +728,41 @@
 			line-height: 92rpx;
 			text-align: center;
 		}
+	}
+
+	.bannerruns {
+		view {
+			width: 68rpx;
+			height: 68rpx;
+			background-color: #ccc;
+			border-radius: 50%;
+		}
+
+		text {
+			width: 80rpx;
+			height: 22rpx;
+			background-color: #ccc;
+		}
+
+		label {
+			margin-top: 10rpx;
+			width: 120rpx;
+			height: 18rpx;
+			background-color: #ccc;
+		}
+	}
+
+	.runsbans {
+		width: 100%;
+		height: 300rpx;
+		background-color: #ccc;
+		border-radius: 20rpx;
+	}
+
+	.nisux {
+		margin-top: 20rpx;
+		width: 100%;
+		height: 60rpx;
+		background-color: #ccc;
 	}
 </style>

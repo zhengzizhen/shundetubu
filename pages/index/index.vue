@@ -20,11 +20,8 @@
 					<u-swiper circular :list="list1" keyName="image" @change="e =>changeSwiper(e)"
 						@click="toDetails"></u-swiper>
 				</view>
-				<view class="ix_noti dis_f">
-					<view class="ix_message dis_f">
-						<span>公告</span>
-						<p>{{notice}}</p>
-					</view>
+				<view class="" style="border-radius: 20rpx;">
+					<u-notice-bar bgColor='#FFFFFF' color='#49CAA4' :text="notice" direction='column'></u-notice-bar>
 				</view>
 			</view>
 
@@ -38,7 +35,16 @@
 
 			<!-- 下周活动 -->
 			<view class="ix_shop index_pad dis_f">
-				<view class="ix_model bor_r" v-for="(v,index) in modelList" :key="index" @click="toDetails(index)">
+				<view class="ix_model bor_r" v-if="index==0" v-for="(v,index) in modelList" :key="index"
+					@click="tomust(v)">
+					<image class="bor_r" :src="v.image" mode=""></image>
+					<view class="ix_float">
+						<text>{{v.title}}</text>
+						<p>{{v.sub_title}}</p>
+					</view>
+				</view>
+				<view class="ix_model bor_r" v-if="index!=0" v-for="(v,index) in modelList" :key="index"
+					@click="todocs(v)">
 					<image class="bor_r" :src="v.image" mode=""></image>
 					<view class="ix_float">
 						<text>{{v.title}}</text>
@@ -54,11 +60,24 @@
 					<p :class="curry == index ?'check':'checks'" v-for="(item,index) in checklist" :key="index"
 						@click="checkout(item,index)">{{item}}</p>
 				</view>
+
+				<!-- 骨架屏 -->
+				<view class="ix_img dis_f" v-if="loading">
+					<view class="ix_flexs" v-for="(item,index) in 4" :key="index">
+						<view class="backgous">
+						</view>
+						<p class="content" :class="'content'+index">{{item.grade}}分 | {{item.traveller_number}}人去过
+						</p>
+						<p class="ix_title">{{item.title}}</p>
+					</view>
+				</view>
+
 				<view class="ix_img dis_f">
 					<view class="ix_flexs" v-for="(item,index) in imglist" :key="index" @click="toDetails(item.id)">
 						<image :src="item.master_image"></image>
 						<p class="ix_posi">{{item.day}}天</p>
-						<p class="content" :class="'content'+index">4.9分 | 681人去过</p>
+						<p class="content" :class="'content'+index">{{item.grade}}分 | {{item.traveller_number}}人去过
+						</p>
 						<p class="ix_title">{{item.title}}</p>
 					</view>
 				</view>
@@ -74,14 +93,13 @@
 					</view>
 				</view>
 				<view class="ix_imgplus dis_f" v-if="Selection.data">
-					<view class="rltw" >
+					<view class="rltw" @click="toDetails(Selection.data[0].id)">
 						<image class="imgplus bor_r" :src="Selection.data[0].master_image"></image>
 						<view class="abslt ix_botn">
 							<p style="color: white;">{{Selection.data[0].title}}</p>
-							<!-- <p style="color: white;">[夏日清爽]中部深度游</p> -->
 						</view>
 					</view>
-					<view class="ix_bot" >
+					<view class="ix_bot" @click="toDetails(Selection.data[1].id)">
 						<image class="ix_imgbot bor_r" :src="Selection.data[1].master_image"></image>
 						<view class="abslt ix_botn">
 							<p style="color: white;word-wrap:break-word;width: 284rpx;word-break:break-all;">
@@ -89,15 +107,15 @@
 							</p>
 						</view>
 						<view class="ix_botsub bor_r">
-							<view class="ix_posi_r">
-								<image class="bor_r"  :src="Selection.data[2].master_image">
+							<view class="ix_posi_r" @click="toDetails(Selection.data[2].id)">
+								<image class="bor_r" :src="Selection.data[2].master_image">
 								</image>
 								<view class="ix_pos_c">
 									<p style="color: white;">{{Selection.data[2].title}}</p>
 								</view>
 							</view>
-							<view class="ix_posi_r">
-								<image class="bor_r" @click="toDetails(4)" :src="Selection.data[3].master_image">
+							<view class="ix_posi_r" @click="toDetails(Selection.data[3].id)">
+								<image class="bor_r" :src="Selection.data[3].master_image">
 								</image>
 								<view class="ix_pos_c">
 									<p style="color: white;">{{Selection.data[3].title}}</p>
@@ -108,52 +126,25 @@
 				</view>
 			</view>
 
-			<!-- 本周活动 -->
-			<!-- <view class="ix_block index_pad">
-				<label>本周活动</label>
-				<view class="dis_f cont jscb m20">
-					<view class="posir" @click="toDetails">
-						<image class="lef bor_r" src="@/static/index/chang.jpg" mode=""></image>
-						<p class="posia txt dis_f flex_c">
-							<text>五一中长线</text>
-							<text>品质旅游</text>
-						</p>
-					</view>
-					<view class="posir" @click="toDetails">
-						<image class="ris bor_r" src="@/static/index/chang.jpg" mode=""></image>
-						<p class="posia txts dis_f flex_c">
-							<text>五一中长线</text>
-							<text>品质旅游</text>
-						</p>
-					</view>
-				</view>
-
-				<view class="cont dis_f jscb m20">
-					<view @click="toDetails" class="posir" v-for="(item,index) in checklist" :key="index">
-						<image class="ris bor_r" src="@/static/index/chang.jpg" mode=""></image>
-						<p class="posia txts dis_f flex_c">
-							<text>五一中长线</text>
-							<text>品质旅游</text>
-						</p>
-					</view>
-				</view>
-			</view> -->
-
 			<!-- 活动日历 -->
 			<view class="ix_block index_pad">
 				<label>{{calendar.name}}</label>
 				<view class="ix_imgplus dis_f">
-					<view class="ix_background bor_r" @click="todateHot(calendar.data[0].month)">
+					<view class="ix_background bor_r" :style="{'background': 'url('+ calendar.data[0].image +')'}">
+						<image class="ixxbanner" :src="calendar.image" mode=""></image>
 						<view class="ix_bgfz">
 							<p>{{calendar.data[0].month}}月 {{calendar.data[0].name}}</p>
 							<span>更多<u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
 						</view>
-						<view class="ix_bg_img">
-							<image v-for="(v,index) in trip" :src="v.image"></image>
+						<view @click="todateHot(calendar.data[0].month)" class="ix_bg_img">
+							<image v-for="(v,index) in trip" :key="index" :src="v.image"></image>
 						</view>
 					</view>
+
+
 					<view class="ix_bot">
-						<view class="ix_imgbotbg bor_r" @click="todateHot(calendar.data[1].month)">
+						<view @click="todateHot(calendar.data[1].month)" class="ix_imgbotbg bor_r"
+							:style="{'background': 'url('+ calendar.data[1].image +')'}">
 							<view class="ix_bgfz">
 								<p>{{calendar.data[1].month}}月 {{calendar.data[1].name}}</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -166,7 +157,8 @@
 							</view>
 						</view>
 
-						<view class="ix_imgbotbg bor_r" @click="todateHot(calendar.data[2].month)">
+						<view @click="todateHot(calendar.data[2].month)" class="ix_imgbotbg bor_r"
+							:style="{'background': 'url('+ calendar.data[2].image +')'}">
 							<view class="ix_bgfz">
 								<p>{{calendar.data[2].month}}月 {{calendar.data[2].name}}</p>
 								<span><u-icon name="arrow-right" color='#EAC326' size='12'></u-icon></span>
@@ -202,7 +194,7 @@
 						<image :src="item.master_image"></image>
 						<p class="ix_posi">{{item.day}}天</p>
 						<p class="ix_title">{{item.title}}</p>
-						<!-- <p class="ix_txtgreen">草原花开</p> -->
+						<p class="ix_yellow" style="font-size: 26rpx;">￥{{item.price}}/人</p>
 					</view>
 				</view>
 			</view>
@@ -238,11 +230,11 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 地区选择器 -->
 			<u-popup :round="10" :show="isShow" :closeable='true' @close="close" @open="open">
 				<view class="ix_pop pd30">
-					<view  v-if="v.city" v-for="(v,index) in city" :key="v.id">
+					<view v-if="v.city" v-for="(v,index) in city" :key="v.id">
 						<p>{{v.name}}</p>
 						<view class="dis_f ps">
 							<view @click="changecity(item)" class="dis_f prp" v-for="(item,i) in v.city" :key="item.id">
@@ -256,7 +248,8 @@
 			<!-- 联系客服 -->
 			<u-popup closeable mode="center" :round="10" :show="isShow1" @close="close1" @open="open1">
 				<view class="ke">
-					<image src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800"
+					<image
+						src="https://img2.baidu.com/it/u=2020520018,1139302565&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800"
 						mode=""></image>
 					<p>扫码联系客服</p>
 				</view>
@@ -284,16 +277,16 @@
 				}, //活动日历
 				imglist: [],
 				datelist: [],
-				moenylist: [
-				],
+				moenylist: [],
 				isShow: false,
 				isShow1: false,
 				addcurry: 0,
 				city: [],
-				notice: '', //公告内容
-				cityid:9998,
-				cityname:'全国',
-				Camp:[]
+				notice: [], //公告内容
+				cityid: 9998,
+				cityname: '全国',
+				Camp: [],
+				loading: true
 			}
 		},
 		onLoad() {
@@ -302,24 +295,30 @@
 		},
 		methods: {
 			async getlist() {
-				uni.setStorageSync('cityid',this.cityid)
+				uni.setStorageSync('cityid', this.cityid)
 				let that = this
 				const res = await this.$http('/sys/index')
 				let datas = res.data.data
 				that.list1 = datas.banner
-				that.notice = datas.notice.content
 				that.arrlist = datas.icon
 				that.modelList = datas.active
+				console.log(that.modelList);
+
+				datas.notice.forEach((item, index) => {
+					this.notice.push(item.content)
+				})
+				console.log(this.notice);
 				//城市列表
 				const citys = await this.$http('/sys/city')
 				that.city = citys.data.data
 
 				//活动数据
 				const hotdate = await this.$http('/index/trip')
+				this.loading = false
 				//省内一天路线
 				that.Province = hotdate.data.data[0]
 				that.imglist = this.Province.data.hot
-				uni.setStorageSync('hot',that.imglist)
+				uni.setStorageSync('hot', that.imglist)
 				//全国精选路线
 				that.Selection = hotdate.data.data[1]
 				that.calendar = hotdate.data.data[2]
@@ -327,8 +326,6 @@
 				that.Camp = hotdate.data.data[6].data
 				that.datelist = hotdate.data.data[3].data
 				that.moenylist = hotdate.data.data[4].data
-				const requrist = await this.$http('/user/detail')
-				this.$store.commit('getuser', requrist.data.data)
 			},
 			//轮播图修改
 			changeSwiper(e) {
@@ -366,11 +363,27 @@
 			open1() {
 
 			},
+			tomust(v) {
+				const params = {
+					url: '/trip/active/trip',
+					seach: '/trip/search/oactive',
+					title: v.title
+				}
+				this.$jump('./domestics?tit=', 'params', JSON.stringify(params));
+			},
+			todocs(v) {
+				const params = {
+					url: '/trip/active/trip',
+					seach: '/trip/search/week',
+					title: v.title
+				}
+				this.$jump('./hotruns?tit=', 'params', JSON.stringify(params));
+			},
 			close1() {
 				this.isShow1 = false
 			},
 			toshop(v) {
-				this.$jump('/pages/mine/menu/shopDetail?id=','params',v)
+				this.$jump('/pages/mine/menu/shopDetail?id=', 'params', v)
 			},
 			clinto(v) {
 				switch (v) {
@@ -401,17 +414,17 @@
 						break;
 					case '亲子路线':
 						const kids = {
-							title:'亲子路线',
-							url:'/trip/kids/trip',
-							seach:'/trip/search/kids'
+							title: '亲子路线',
+							url: '/trip/kids/trip',
+							seach: '/trip/search/kids'
 						}
 						this.$jump('./Province?obj=', 'params', JSON.stringify(kids));
 						break;
 					case '城市玩家':
 						const city = {
-							title:'城市玩家',
-							url:'/trip/city/trip',
-							seach:'/trip/search/city'
+							title: '城市玩家',
+							url: '/trip/city/trip',
+							seach: '/trip/search/city'
 						}
 						this.$jump('./Province?obj=', 'params', JSON.stringify(city));
 						break;
@@ -438,10 +451,10 @@
 			tomemberday() {
 				this.$jump('./memberday')
 			},
-			changecity(v){
+			changecity(v) {
 				this.cityid = v.id
 				this.cityname = v.name
-				uni.setStorageSync('city',this.cityid)
+				uni.setStorageSync('city', this.cityid)
 				this.isShow = false
 			}
 		}
@@ -469,7 +482,7 @@
 	}
 
 	.index_pad {
-		padding: 30rpx;
+		padding: 10rpx 30rpx;
 	}
 
 	.index_pads {
@@ -584,14 +597,12 @@
 
 	.ix_block {
 		position: relative;
-
 		label {
 			font-weight: 900;
 			font-size: 34rpx;
 		}
-
 		.ix_subsection {
-			margin: 40rpx auto;
+			margin: 20rpx auto;
 			justify-content: space-around;
 			align-items: center;
 
@@ -680,6 +691,11 @@
 				margin: 20rpx auto 20rpx;
 				word-wrap: normal;
 				font-size: 28rpx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
 			}
 
 			.ix_txtgreen {
@@ -801,10 +817,10 @@
 				}
 
 				.ix_imgbotbg {
-					background: url(@/static/index/zheng.jpg);
 					width: 335rpx;
 					height: 300rpx;
 					padding: 20rpx;
+					// background: url(@/static/index/chang.jpg);
 					box-sizing: border-box;
 
 					.ix_bgfz {
@@ -839,6 +855,14 @@
 				background: url(@/static/index/backg.jpg);
 				background-size: 120%;
 				padding: 20rpx;
+
+				.ixxbanner {
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					top: 0%;
+					left: 0;
+				}
 
 				.ix_bgfz {
 					display: flex;
@@ -1012,5 +1036,16 @@
 			width: 311rpx;
 			height: 311rpx;
 		}
+	}
+
+	.backgous {
+		width: 335rpx;
+		height: 335rpx;
+		background-color: #ccc;
+		border-radius: 20rpx;
+	}
+
+	/deep/ .u-notice-bar {
+		border-radius: 10rpx;
 	}
 </style>

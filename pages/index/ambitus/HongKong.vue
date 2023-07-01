@@ -8,7 +8,7 @@
 				<view class="dc_god">
 					<p>{{item.title}}</p>
 					<view class="dc_latt dis_f">
-						<text v-for='(v,i) in item.trip_team'>{{v.start_day}}丨{{v.status_text}}</text>
+						<text v-for='(v,i) in item.trip_team' :key="i">{{v.start_day}}丨{{v.status_text}}</text>
 						<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 					</view>
 					<view class="dc_span dis_f">
@@ -20,30 +20,33 @@
 		</view>
 
 
-		<p class="HKtitle">高铁出行</p>
-		<view class="dis_f">
-			<view @click="toDetails(item.id)" class="as_zh dis_f" v-for="(item,index) in ktx" :key='index'>
-				<image :src="item.master_image" mode=""></image>
-				<label>{{item.day}}天</label>
-				<text>{{item.title}}</text>
-				<p>￥{{item.price}}</p>
+		<view v-if="ktx.length!=0">
+			<p class="HKtitle">高铁出行</p>
+			<view class="dis_f">
+				<view @click="toDetails(item.id)" class="as_zh dis_f" v-for="(item,index) in ktx" :key='index'>
+					<image :src="item.master_image" mode=""></image>
+					<label>{{item.day}}天</label>
+					<text>{{item.title}}</text>
+					<p>￥{{item.price}}</p>
+				</view>
 			</view>
 		</view>
 
-		<p class="HKtitle">亲子活动</p>
-
-		<view class="">
-			<view @click="toDetails(item.id)" class="dc_mod dis_f" v-for=" (item,index) in chind" :key="index">
-				<image :src="item.master_image" mode=""></image>
-				<view class="dc_god">
-					<p>{{item.title}}</p>
-					<view class="dc_latt dis_f">
-						<text v-for='(v,i) in item.trip_team'>{{v.start_day}}丨{{v.status_text}}</text>
-						<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
-					</view>
-					<view class="dc_span dis_f">
-						<text>￥{{item.price}}</text>
-						<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
+		<view v-if="chind.length!=0">
+			<p class="HKtitle">亲子活动</p>
+			<view class="">
+				<view @click="toDetails(item.id)" class="dc_mod dis_f" v-for=" (item,index) in chind" :key="index">
+					<image :src="item.master_image" mode=""></image>
+					<view class="dc_god">
+						<p>{{item.title}}</p>
+						<view class="dc_latt dis_f">
+							<text v-for='(v,i) in item.trip_team' :key="i">{{v.start_day}}丨{{v.status_text}}</text>
+							<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
+						</view>
+						<view class="dc_span dis_f">
+							<text>￥{{item.price}}</text>
+							<label>{{item.grade}}分丨{{item.traveller_number}}人去过</label>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -62,7 +65,7 @@
 					<text class="posw">{{item.day}}天</text>
 					<p class="ix_title">{{item.title}}</p>
 					<view class="ds_bt dis_f">
-						<label v-for="(v,i) in item.trip_team">{{v.start_day}}丨{{v.status_text}}</label>
+						<label v-for="(v,i) in item.trip_team" :key="i">{{v.start_day}}丨{{v.status_text}}</label>
 						<p class="dis_f">更多<u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
 					</view>
 					<view class="sp dis_f">

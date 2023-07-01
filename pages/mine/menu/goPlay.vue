@@ -1,7 +1,9 @@
 <template>
 	<view class="body pd30">
+		<u-picker :show="isShows" @confirm = 'confirm' @cancel = 'cancel'  @close= 'close' keyName="address" :columns="columns"></u-picker>
+
 		<view v-if="address != null" class="header bor_r dis_f jscb pd30" @click="toAddress">
-			<p>{{address.name}} {{address.address}}</p>
+			<p>{{address.address}}</p>
 			<u-icon color='#666666' name="arrow-right"></u-icon>
 		</view>
 		<view v-else class="header bor_r dis_f jscb pd30" @click="toAddress">
@@ -28,15 +30,15 @@
 		<view class="coslp bor_r">
 			<view class="border dis_f jscb">
 				<p>商品价格</p>
-				<text>￥{{moeny}}</text>
+				<text>￥{{parseFloat(moeny).toFixed(2)}}</text>
 			</view>
 			<view class="border dis_f jscb">
 				<p>运费</p>
-				<text>￥{{yuns}}</text>
+				<text>￥{{parseFloat(yuns).toFixed(2)}}</text>
 			</view>
 			<view class="border dis_f jscb">
 				<p>实付金额</p>
-				<text>￥{{parseInt(moeny)+parseInt(yuns)}}</text>
+				<text>￥{{parseFloat(moeny)+parseFloat(yuns)}}</text>
 			</view>
 			<view class="border dis_f noborder">
 				<p>订单备注</p>
@@ -50,12 +52,18 @@
 			<image @click="isShow = !isShow" v-show="isShow" src="@/static/image/mine/false.png" mode=""></image>
 		</view>
 
+		<view class="header bor_r dis_f jscb pd30 m20 alitmc">
+			<p>支付宝支付</p>
+			<image @click="isShow = !isShow" v-show="isShow" src="@/static/image/mine/true.png" mode=""></image>
+			<image @click="isShow = !isShow" v-show="!isShow" src="@/static/image/mine/false.png" mode=""></image>
+		</view>
+
 		<view class="fixed">
 			<view class="pd30 dis_f alitmc jscb m20">
 				<view class="dis_f alitmc">
 					<label>含运费</label>
 					<text>合计</text>
-					<p class="red">￥{{parseInt(moeny)+parseInt(yuns)}}</p>
+					<p class="red">￥{{parseFloat(moeny)+parseFloat(yuns)}}</p>
 				</view>
 				<p class="btn" @click='submit'>支付</p>
 			</view>
@@ -75,7 +83,11 @@
 				address: {},
 				moeny: 0,
 				yuns: 0,
-				car_ids:[]
+				car_ids: [],
+				isShows: false,
+				columns: [
+					[]
+				],
 			}
 		},
 		onLoad(option) {
@@ -85,14 +97,37 @@
 			})
 			this.params.forEach((item, index) => {
 				this.yuns += item.freight
-				console.log(item);
 			})
-			console.log(this.params);
+			this.getAddress()
 		},
-		onShow() {
-			this.address = uni.getStorageSync('address')
+		onHide() {
+			
 		},
 		methods: {
+			confirm(e){
+				this.address = e.value[0]
+				this.isShows = false
+				
+			},
+			cancel(){
+				this.isShows = false
+			},
+			close(){
+				this.isShows = false
+			},
+			async getAddress() {
+				uni.showLoading()
+				const res = await this.$http('/shop/user/address/list')
+				uni.hideLoading()
+				res.data.data.forEach((item, index) => {
+					if (item.is_default == 1) {
+						this.address = item
+					}
+					item.address = item.name + ',（' + item.address + '）'
+					this.columns[0].push(item)
+				})
+				console.log(this.columns);
+			},
 			async getlist(v) {
 				const res = await this.$http('/shop/goods/detail', {
 					goods_id: v
@@ -100,33 +135,74 @@
 				this.goods = res.data.data
 			},
 			toAddress() {
-				uni.setStorageSync('play', 'run')
-				this.$jump('./address')
+				// uni.setStorageSync('play', 'run')
+				// this.$jump('./address')
+				this.isShows = true
 			},
 			async submit() {
 				uni.showLoading()
-				this.params.forEach((item, index) => {
-					this.car_ids = this.car_ids.concat(item.id)
-				})
-				if (this.params[0].id != null) {
+				if (this.isShow == false) {
+					this.params.forEach((item, index) => {
+						this.car_ids = this.car_ids.concat(item.id)
+					})
+					if (this.params[0].id != null) {
+						const res = await this.$http('/shop/order/create', {
+							car_ids: this.car_ids,
+							address_id: this.address.id,
+							remark: this.remark,
+							pay_method: 'h5微信'
+						})
+						uni.hideLoading()
+						return false
+					}
 					const res = await this.$http('/shop/order/create', {
-						car_ids:this.car_ids,
+						goods_id: this.params[0].goods_id,
+						number: this.params[0].number,
+						sku: this.params[0].sku,
 						address_id: this.address.id,
 						remark: this.remark,
-						pay_method: 'app微信'
+						pay_method: 'h5微信'
 					})
 					uni.hideLoading()
-					return false
+				} else {
+					this.params.forEach((item, index) => {
+						this.car_ids = this.car_ids.concat(item.id)
+					})
+					if (this.params[0].id != null) {
+						const res = await this.$http('/shop/order/create', {
+							car_ids: this.car_ids,
+							address_id: this.address.id,
+							remark: this.remark,
+							pay_method: 'h5支付宝'
+						})
+						uni.hideLoading()
+						let form = res.data.data.pay_data
+						const div = document.createElement('formdiv');
+						div.innerHTML = form;
+						document.body.appendChild(div);
+						//document.forms[0].setAttribute('target', ' self');
+						document.forms[0].submit();
+						div.remove()
+						return false
+					}
+					const res = await this.$http('/shop/order/create', {
+						goods_id: this.params[0].goods_id,
+						number: this.params[0].number,
+						sku: this.params[0].sku,
+						address_id: this.address.id,
+						remark: this.remark,
+						pay_method: 'h5支付宝'
+					})
+					uni.hideLoading()
+					let form = res.data.data.pay_data
+					const div = document.createElement('formdiv');
+					div.innerHTML = form;
+					document.body.appendChild(div);
+					//document.forms[0].setAttribute('target', ' self');
+					document.forms[0].submit();
+					div.remove()
 				}
-				const res = await this.$http('/shop/order/create',{
-					goods_id:this.params[0].goods_id,
-					number:this.params[0].number,
-					sku:this.params[0].sku,
-					address_id:this.address.id,
-					remark:this.remark,
-					pay_method:'app微信'
-				})
-				uni.hideLoading()
+
 			}
 		}
 	}
@@ -219,6 +295,7 @@
 
 				input {
 					padding-left: 20rpx;
+					text-align: right;
 				}
 			}
 		}
@@ -258,5 +335,10 @@
 			line-height: 80rpx;
 			font-size: 30rpx;
 		}
+	}
+
+	.noborder {
+		display: flex;
+		justify-content: space-between;
 	}
 </style>

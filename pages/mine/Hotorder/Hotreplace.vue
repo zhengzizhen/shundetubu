@@ -9,8 +9,6 @@
 			<text>3、会员日活动不提供替员功能</text>
 			<text class="red">4、替员只能操作1次，不可撤销，请谨慎操作</text>
 		</view>
-
-
 		<!-- <view class="bottom">
 			<view class="inpt dis_f">
 				<label>姓名：</label>

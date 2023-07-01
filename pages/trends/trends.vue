@@ -1,8 +1,8 @@
 <template>
 	<view class="trends">
 		<view class="ts_header dis_f">
-			<u-search @focus='toSeach()' class="input" placeholder="请搜索目的地" v-model="seachValue" clearable :showAction='false'
-				:height='28'></u-search>
+			<u-search @focus='toSeach()' class="input" placeholder="请搜索目的地" v-model="seachValue" clearable
+				:showAction='false' :height='28'></u-search>
 			<view class="headerimg dis_f jscb">
 				<view class="posir">
 					<image @click="gomsg()" src="@/static/image/trends/msg.jpg" mode=""></image>
@@ -18,6 +18,10 @@
 				<p :class="v.state?'green':''" v-for="(v,index) in tablist" :key="index" @click="chetbs(v,index)">
 					{{v.name}}
 				</p>
+			</view>
+			<view v-for="(v,index) in 4" style="margin-top: 40rpx;" v-if="loading">
+				<u-skeleton rows="4" :rowsHeight='30' :avatarSize='50' :loading="loading" avatar :title="false">
+				</u-skeleton>
 			</view>
 			<!-- 关注列表 -->
 			<view v-show="state">
@@ -201,16 +205,19 @@
 				followPage: 1, //关注页数
 				rebottom: false, //推荐页是否触底
 				fobottom: false, //关注页是否触底
-				message:0
+				message: 0,
+				loading: true
 			}
 		},
-		onLoad() {},
+		onLoad() {
+			this.getnice()
+		},
 		onShow() {
 			//关注列表
 			this.getlist('关注')
 			// //推荐列表
 			this.getlistc('推荐')
-			
+
 			this.getmsg()
 		},
 		onReachBottom() {
@@ -233,12 +240,16 @@
 			}
 		},
 		methods: {
+			async getnice() {
+				const requrist = await this.$http('/user/detail')
+				this.$store.commit('getuser', requrist.data.data)
+			},
 			toSeach() {
 				this.$jump('/pages/index/Seach/Seach');
 			},
 			//获取关注列表
 			async getlist(e) {
-				uni.showLoading()
+				// uni.showLoading()
 				const res = await this.$http('/circle/dynamic/list', {
 					type: e,
 					page: this.followPage,
@@ -248,11 +259,12 @@
 				if (res.data.data.length < 10) {
 					this.fobottom = true
 				}
-				uni.hideLoading()
+				this.loading = false
+				// uni.hideLoading()
 			},
 			//获取推荐列表
 			async getlistc(e) {
-				uni.showLoading()
+				// uni.showLoading()
 				const res = await this.$http('/circle/dynamic/list', {
 					type: e,
 					page: this.recommendPage,
@@ -262,11 +274,12 @@
 				if (res.data.data.length < 10) {
 					this.rebottom = true
 				}
-				uni.hideLoading()
+				// uni.hideLoading()
 			},
-			async getmsg(){
+			async getmsg() {
 				const res = await this.$http('/circle/circle/message/number')
-				this.message = parseInt(res.data.data.comment_number + res.data.data.like_number + res.data.data.attention_number)
+				this.message = parseInt(res.data.data.comment_number + res.data.data.like_number + res.data.data
+					.attention_number)
 			},
 			open() {
 
@@ -390,6 +403,7 @@
 
 	.headerimg {
 		margin-left: 40rpx;
+
 		image {
 			width: 63rpx;
 			height: 63rpx;
@@ -556,7 +570,8 @@
 			font-size: 28rpx;
 		}
 	}
-	.resa{
+
+	.resa {
 		top: -5rpx;
 		right: -0rpx;
 		z-index: 9;

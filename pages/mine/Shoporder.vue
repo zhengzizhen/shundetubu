@@ -58,7 +58,6 @@
 		data() {
 			return {
 				list: [],
-				list1: [],
 				listps: [{
 					name: '全部',
 				}, {
@@ -74,72 +73,73 @@
 				}],
 				deletepop: false,
 				page: 1,
-				bottom: false
+				bottom: false,
+				status: ''
 			}
 		},
 		onLoad() {
-		},
-		onShow() {
 			this.getlist()
+		},
+		onShow() {},
+		onReachBottom() {
+			if (this.bottom == true) {
+				return false
+			}
+			this.bottom == true ? '' : this.laylist()
 		},
 		methods: {
 			async getlist() {
 				uni.showLoading()
 				const res = await this.$http('/shop/order/list', {
 					page: this.page,
-					limit: 10
+					limit: 10,
+					status: this.status
 				})
 				uni.hideLoading()
 				if (this.list.length < 10) {
 					this.bottom = true
 				}
 				this.list = res.data.data
-				this.list1 = res.data.data
+			},
+			async laylist() {
+				this.page += 1
+				uni.showLoading()
+				const res = await this.$http('/shop/order/list', {
+					page: this.page,
+					limit: 10,
+					status: this.status
+				})
+				this.list = this.list.concat(res.data.data)
+				uni.hideLoading()
 			},
 			change(v) {
+				this.page = 1
+				this.bottom = false
+				this.list = []
 				switch (v.index) {
 					case 0:
-						this.list = this.list1
+						this.status = ''
+						this.getlist()
 						break;
 					case 1:
-						this.list = []
-						this.list1.forEach((item, index) => {
-							if (item.status == 0) {
-								this.list = this.list.concat(item)
-							}
-						})
+						this.status = 0
+						this.getlist()
 						break;
 					case 2:
-						this.list = []
-						this.list1.forEach((item, index) => {
-							if (item.status == 1) {
-								this.list = this.list.concat(item)
-							}
-						})
+						this.status = 1
+						this.getlist()
 						break;
 					case 3:
-						this.list = []
-						this.list1.forEach((item, index) => {
-							if (item.status == 2) {
-								this.list = this.list.concat(item)
-							}
-						})
+						this.status = 2
+						this.getlist()
 						break;
 					case 4:
-						this.list = []
-						this.list1.forEach((item, index) => {
-							if (item.status == 3) {
-								this.list = this.list.concat(item)
-							}
-						})
+						this.status = 3
+						this.getlist()
 						break;
 					case 5:
-						this.list = []
-						this.list1.forEach((item, index) => {
-							if (item.status == -1) {
-								this.list = this.list.concat(item)
-							}
-						})
+						this.status = -1
+						this.getlist()
 						break
 				}
 			},
@@ -166,7 +166,7 @@
 		background-color: #fafafa;
 		min-height: 1500rpx;
 		height: auto;
-
+		padding-bottom: 80rpx;
 		.header {
 			width: 100%;
 			background-color: white;

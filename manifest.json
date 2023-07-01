@@ -20,7 +20,8 @@
         "modules" : {
             "Camera" : {},
             "Payment" : {},
-            "VideoPlayer" : {}
+            "VideoPlayer" : {},
+            "OAuth" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -57,7 +58,26 @@
                     }
                 },
                 "ad" : {},
-                "payment" : {}
+                "payment" : {},
+                "oauth" : {
+                    "univerify" : {}
+                }
+            }
+        },
+        "nativePlugins" : {
+            "YD-Login" : {
+                "__plugin_info__" : {
+                    "name" : "易盾号码认证",
+                    "description" : "直连三大运营商，一步校验手机号与当前SIM卡号一致性。优化注册/登录/支付等场景验证流程",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=2274",
+                    "android_package_name" : "shundetubu.cn",
+                    "ios_bundle_id" : "shundetubu.cn",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "2274",
+                    "parameters" : {}
+                }
             }
         }
     },
@@ -87,6 +107,7 @@
     "h5" : {
         "router" : {
             "base" : "/h5"
-        }
+        },
+        "template" : "body.html"
     }
 }

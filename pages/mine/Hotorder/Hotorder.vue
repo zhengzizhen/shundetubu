@@ -109,9 +109,13 @@
 		},
 		methods: {
 			async getlist(v) {
+				uni.showLoading({
+					title:'正在加载中'
+				})
 				const res = await this.$http('/trip/order/detail', {
 					order_no: v
 				})
+				uni.hideLoading()
 				this.list = res.data.data
 				this.trip = res.data.data.trip
 			},

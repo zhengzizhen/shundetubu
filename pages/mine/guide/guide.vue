@@ -7,14 +7,13 @@
 				<view class="sp dis_f">
 					<view>
 						<p>{{akela.nickname}}</p>
-						<!-- <text>级别：好奇宝宝</text> -->
 					</view>
-					<text class="attention" v-show="!isCare" @click="isCare = !isCare">
+					<!-- <text class="attention" v-show="!isCare" @click="isCare = !isCare">
 						+关注
 					</text>
 					<text class="attention" v-show="isCare" @click="isCare = !isCare">
 						已关注
-					</text>
+					</text> -->
 				</view>
 			</view>
 		</view>
@@ -157,13 +156,13 @@
 						<view class="io">
 							<p>{{item.content}}</p>
 						</view>
-						<view class="dis_f plq">
+						<!-- <view class="dis_f plq">
 							<image class="sn" src="@/static/trends/pl.png" mode=""></image>
 							<view class="dis_f ssss">
 								<image src="@/static/trends/ax.png" mode="">{{item.comment_number}}</image>
 								<span style="margin-left: 10rpx;color:#666">{{item.like_number}}</span>
 							</view>
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>
@@ -304,7 +303,10 @@
 
 		.mine {
 			align-items: center;
-
+			
+			image{
+				border-radius: 50%;
+			}
 			.sp {
 				width: 540rpx;
 				margin-left: 20rpx;

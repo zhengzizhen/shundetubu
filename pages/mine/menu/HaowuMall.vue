@@ -8,18 +8,18 @@
 		</view>
 
 		<view class="notice">
-			<u-notice-bar bgColor='#FFF' color='#000' :text="text1"></u-notice-bar>
+			<u-notice-bar direction='column'  bgColor='#FFF' color='#000' :text="notice"></u-notice-bar>
 		</view>
 
 		<view class="hl_content">
 			<p class="title">推荐好物</p>
 
-			<view class="content dis_f" v-for="(item,index) in list" :key="index" @click="toshopDetail">
+			<view class="content dis_f" v-for="(item,index) in list" :key="index" @click="toshopDetail(item)">
 				<image class="bor_r" :src="item.master_image" mode=""></image>
 				<view class="text dis_f flex_c jscb">
 					<p>{{item.name}}</p>
 					<text>{{item.intro}}</text>
-					<view  v-if="item.stock != 0" class="dis_f label">
+					<view v-if="item.stock != 0" class="dis_f label">
 						<label>￥{{item.price}}</label>
 						<p>原价￥{{item.old_price}}</p>
 					</view>
@@ -39,25 +39,35 @@
 	export default {
 		data() {
 			return {
-				text1: '月***是  购买了铝合金外锁登山...',
 				list: [],
 				arrlist: [],
-				page: 1
+				page: 1,
+				notice: []
 			}
 		},
 		onLoad() {
 			this.getlist()
 			//推荐好物
 			this.getrecommend()
+			//获取公告
+			this.getnotice()
 		},
 		methods: {
+			async getnotice() {
+				const res = await this.$http('/shop/notice')
+				res.data.data.forEach((item, index) => {
+					this.notice.push(item.content)
+				})
+			},
 			async getlist() {
+				uni.showLoading()
 				const res = await this.$http('/shop/goods/category/list')
+				uni.hideLoading()
 				this.arrlist = res.data.data
 			},
 			async getrecommend() {
 				const res = await this.$http('/shop/goods/list', {
-					is_recommend: '推荐好物',
+					is_recommend: 1,
 					page: this.page,
 					limit: 10
 				})
@@ -69,8 +79,8 @@
 			toShop() {
 				this.$jump('./MyCart')
 			},
-			toshopDetail() {
-				this.$jump('./shopDetail')
+			toshopDetail(v) {
+				this.$jump('./shopDetail?id=', 'params', v.id)
 			}
 		}
 	}
@@ -143,13 +153,15 @@
 
 				.label {
 					margin-top: 70rpx;
-					label{
+
+					label {
 						display: block;
 						font-size: 26rpx;
 						font-weight: 500;
 						color: #FF4040;
 					}
-					p{
+
+					p {
 						margin-left: 10rpx;
 						font-weight: 500;
 						font-size: 26rpx;

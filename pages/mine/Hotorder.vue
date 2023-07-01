@@ -68,8 +68,6 @@
 				</view>
 			</view>
 		</view>
-		
-
 	</view>
 </template>
 
@@ -112,11 +110,13 @@
 		},
 		methods: {
 			async getlist(status){
+				uni.showLoading()
 				const res = await this.$http('/trip/order/list',{
 					page:this.page,
 					limit:10,
 					status
 				})
+				uni.hideLoading()
 				this.list = this.list.concat(res.data.data) 
 				if(res.data.data.length<10){
 					this.bottom = true
@@ -156,7 +156,7 @@
 				uni.showLoading({
 					title:'签到中'
 				})
-				const res = this.$http('/trip/order/sign',{
+				const res = await this.$http('/trip/order/sign',{
 					order_no:v
 				})
 				uni.hideLoading()

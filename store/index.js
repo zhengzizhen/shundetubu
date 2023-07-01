@@ -37,6 +37,9 @@ const store = new Vuex.Store({
 		reavatar(state,e){ //更改头像
 			state.userinfo.avatar = e
 		},
+		rebanner(state,e){ //更改头像
+			state.userinfo.background = e
+		},
 		resex(state,e){ //更改性别
 			state.userinfo.sex = e
 		},

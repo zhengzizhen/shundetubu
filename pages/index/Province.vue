@@ -1,12 +1,22 @@
 <template>
 	<view class="body pd30">
+		<view class="uni-margin-wrap">
+			<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+				:duration="duration">
+				<swiper-item v-for="(item,index) in swiper" :key="index">
+					<view @click="$Resize(swiper,index)" class="swiper-item">
+						<image :src="item" mode=""></image>
+					</view>
+				</swiper-item>
+			</swiper>
+		</view>
 		<view class="sky">
 			<p @click='tocheckout(v,i)' :class="curry == i?'green':''" v-for="(v,i) in seach" :key="i">{{v.title}}</p>
 		</view>
 		<view @click="toDeatil(item.id)" class="dc_mod dis_f bor_r" v-for=" (item,index) in list" :key="index">
 			<image :src="item.master_image" mode=""></image>
 			<view class="dc_god dis_f flex_c jscb">
-				<p>{{item.title}}</p>
+				<p class="runs">{{item.title}}</p>
 				<text class="posw">{{item.day}}天</text>
 				<view class="dc_latt dis_f" v-if="item.trip_team.length!=0">
 					<text v-for="(v,i) in item.trip_team" :key="i">{{v.start_day}}{{v.status_text}}</text>
@@ -28,14 +38,19 @@
 	export default {
 		data() {
 			return {
+				swiper: [],
+				indicatorDots: true,
+				autoplay: false,
+				interval: 2000,
+				duration: 500,
 				list: [],
 				params: {},
 				page: 1,
 				seach: [],
 				curry: null,
-				search_min_day:'',
-				search_max_day:'',
-				bottom:false
+				search_min_day: '',
+				search_max_day: '',
+				bottom: false
 			}
 		},
 		onLoad(option) {
@@ -43,25 +58,36 @@
 			uni.setNavigationBarTitle({
 				title: this.params.title
 			})
+			this.getSwiper()
 			this.getlist(this.params.url)
-
 			this.getseach(this.params.seach)
 		},
 		onReachBottom() {
-			if(this.bottom == true){
+			if (this.bottom == true) {
 				return false
-			}else{
-				this.page+=1
+			} else {
+				this.page += 1
 				this.concatlist(this.params.url)
 			}
 		},
 		methods: {
+			async getSwiper() {
+				const res = await this.$http('/trip/top', {
+					type: '首页-' + this.params.title
+				})
+				this.swiper = res.data.data.image
+				if (res.data.data.video) {
+					this.swiper.unshift(res.data.data.video)
+				}
+			},
 			async getlist(params) {
+				uni.showLoading()
 				const res = await this.$http(params, {
 					page: this.page,
 					limit: 10,
 				})
-				if(res.data.data.length < 10){
+				uni.hideLoading()
+				if (res.data.data.length < 10) {
 					this.bottom = true
 				}
 				this.list = res.data.data
@@ -74,10 +100,10 @@
 				const res = await this.$http(params, {
 					page: this.page,
 					limit: 10,
-					search_min_day:this.search_min_day,
-					search_max_day:this.search_max_day
+					search_min_day: this.search_min_day,
+					search_max_day: this.search_max_day
 				})
-				if(res.data.data.length < 10){
+				if (res.data.data.length < 10) {
 					this.bottom = true
 				}
 				this.list = this.list.concat(res.data.data)
@@ -85,20 +111,20 @@
 			toDeatil(v) {
 				this.$jump('/pages/index/Details/Details?id=', 'params', v)
 			},
-			async tocheckout(v,index) {
+			async tocheckout(v, index) {
 				this.curry = index
 				this.search_min_day = v.min
 				this.search_max_day = v.max
 				this.bottom = false
 				uni.showLoading()
-				const res = await this.$http(this.params.url,{
-					page:this.page,
-					limit:10,
-					search_min_day:v.min,
-					search_max_day:v.max
+				const res = await this.$http(this.params.url, {
+					page: this.page,
+					limit: 10,
+					search_min_day: v.min,
+					search_max_day: v.max
 				})
 				uni.hideLoading()
-				if(res.data.data.length < 10){
+				if (res.data.data.length < 10) {
 					this.bottom = true
 				}
 				this.list = res.data.data
@@ -109,6 +135,7 @@
 
 <style lang="scss" scoped>
 	.sky {
+		margin-top:20rpx;
 		p {
 			display: inline-block;
 			border-radius: 32rpx;
@@ -116,17 +143,17 @@
 			background: rgba(255, 255, 255, 0.4);
 			border: 1px solid rgba(255, 255, 255, 0.4);
 			color: white;
-			font-size: 28rpx;
+			font-size: 26rpx !important;
 			margin-right: 20rpx;
 		}
 	}
 
 	.body {
-		padding-top: 400rpx;
 		background-color: #2A755E;
 		padding-bottom: 100rpx;
-		min-height: 750px;
+		min-height: 100vh;
 		height: auto;
+		padding-top: 20rpx;
 	}
 
 	.ty_title {
@@ -148,7 +175,7 @@
 		position: relative;
 		background-color: white;
 		padding: 20rpx 20rpx;
-		margin: 20rpx 0;
+		margin: 20rpx 0rpx;
 
 		image {
 			width: 240rpx;
@@ -158,6 +185,7 @@
 
 		.dc_god {
 			margin-left: 20rpx;
+			flex: 1;
 
 			p {
 				font-size: 30rpx;
@@ -249,5 +277,25 @@
 		text-align: center;
 		background-color: #49CAA4 !important;
 		border-radius: 6rpx;
+	}
+
+	.swiper {
+		width: 100%;
+		height: 350rpx;
+		border-radius: 20rpx;
+		image {
+			width: 100%;
+			height: 350rpx;
+			border-radius: 20rpx;
+		}
+	}
+
+	.runs {
+		font-size: 26rpx !important;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
 	}
 </style>

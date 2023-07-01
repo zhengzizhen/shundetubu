@@ -1,6 +1,10 @@
 <template>
-	<view class="pd30">
-		<view class="u-content">
+	<view class="pd30 dis_f flex_c">
+		<image :src="image" mode=""></image>
+		<view style="margin: 20rpx 0;">
+			<text style="color: #999;font-size: 26rpx;text-align: center;display: block;">{{created_at}}</text>
+		</view>
+		<view class="u-content" style="margin-top: 40rpx;">
 			<u-parse :content="content"></u-parse>
 		</view>
 	</view>
@@ -10,15 +14,37 @@
 	export default {
 		data() {
 			return {
-				content:'<p>房车纵横计划·南疆，驰骋帕米尔之春!</p><text>2023-02-02 11:09 发表于广州</text><image src="@/static/as/changs.jpg" mode=""></image><text>高品质房车体验+绝色公路旅行，6天舒适度、自由度、纵深度拉满!特别安排白沙湖下午茶&杏花村房车露营，资深领队+专业司机全程带玩，高配酒店+地道体验，深入帕米尔秘境多角度感受南疆3.27花开启程 !高品质房车体验+绝色公路旅行，6天舒适度、自由度、纵深度拉满!特别安排白沙湖下午茶&杏花村房车露营，资深领队+专业司机全程带玩，高配酒店+地道体验，深入帕米尔秘境多角度感受南疆3.27花开启程 !</text>'
+				content: '',
+				created_at:'',
+				title:'',
+				image:''
 			}
 		},
+		onLoad() {
+			this.getlist()
+		},
 		methods: {
-
+			async getlist() {
+				const res = await this.$http('/sys/article/detail', {
+					id: 9
+				})
+				this.content = res.data.data.content
+				uni.setNavigationBarTitle({
+					title: res.data.data.title
+				})
+				this.title = res.data.data.title
+				this.created_at = res.data.data.created_at
+				this.image = res.data.data.image
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	
+image{
+	width: 260rpx;
+	height: 260rpx;
+	border-radius: 20rpx;
+	margin: 20rpx auto;
+}
 </style>

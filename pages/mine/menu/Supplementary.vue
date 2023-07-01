@@ -10,7 +10,7 @@
 				<p>订单编号：8269686684414</p>
 			</view>
 			<view class="bot dis_f">
-				<image src="@/static/index/zheng.jpg" mode=""></image>
+				<!-- <image src="@/static/index/zheng.jpg" mode=""></image> -->
 				<view class="dis_f flex_c right">
 					<p>【亭可马里季】斯里兰卡纯玩9天</p>
 					<label>下单时间：2023-02-20  18:19</label>

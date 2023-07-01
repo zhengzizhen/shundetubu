@@ -58,28 +58,8 @@
 				}, {
 					name: '提现明细',
 				}],
-				contlist: [{
-						date: '2022-10-10 18:12',
-						ordermoney: 261,
-						retaiilmoney: 9.1,
-						howmoney: 9.1
-					},
-					{
-						date: '2022-10-10 18:12',
-						ordermoney: 261,
-						retaiilmoney: 9.1,
-						howmoney: 9.1
-					},
-				],
-				tixianlist: [{
-						date: '2023-04-05 11:53',
-						money: 9.9
-					},
-					{
-						date: '2023-04-05 11:53',
-						money: 9.9
-					}
-				],
+				contlist: [],
+				tixianlist: [],
 				list:[],//接口数据
 				lists:[],//分销记录
 				price:[],//佣金明细

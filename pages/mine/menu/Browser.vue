@@ -2,7 +2,7 @@
 	<view class="br_conent pd30">
 		<view class="dc_mod dis_f" @click="toDetail(item.trip_id)" v-for="(item,index) in list" :key="index">
 			<image :src="item.trip_data.master_image" mode=""></image>
-			<view class="dc_god">
+			<view class="dc_god dis_f flex_c">
 				<p>{{item.trip_data.title}}</p>
 				<view class="dc_latt dis_f">
 					<label>{{item.trip_team.start_day}} | {{item.trip_team.status_text}}</label>
@@ -67,7 +67,7 @@
 		padding: 30rpx 20rpx;
 		margin-bottom: 20rpx;
 		border-bottom: 1px solid #e6e6e6;
-	
+		align-items: center;
 		image {
 			width: 180rpx;
 			height: 180rpx;
@@ -76,10 +76,19 @@
 	
 		.dc_god {
 			margin-left: 20rpx;
+			flex:1;
+			height: 180rpx;
+			flex-direction: column;
+			justify-content: space-between;
 			p{
-				font-size: 30rpx;
+				font-size: 28rpx;
 				font-weight: 500;
 				color: #222222;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				overflow: hidden;
+				-webkit-box-orient: vertical;
 			}
 		}
 	
@@ -100,8 +109,6 @@
 		}
 	
 		.dc_latt {
-			margin-top: 20rpx;
-	
 			label {
 				font-size: 24rpx;
 				font-weight: 500;
@@ -111,7 +118,6 @@
 		}
 		.dc_span{
 			width: 450rpx;
-			margin-top: 50rpx;
 			text{
 				font-size: 24rpx;
 				font-weight: 500;

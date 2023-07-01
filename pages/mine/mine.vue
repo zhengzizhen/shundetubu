@@ -3,10 +3,10 @@
 		<!-- 头部 -->
 		<view v-if="userinfo">
 			<view class="my_header">
-				<image  class="banners" v-if="userinfo.background" src="@/static/image/mine/banner.jpg" mode=""></image>
-				<image  class="banners" v-else src="@/static/image/mine/banner.jpg" mode=""></image>
+				<image  class="banners" v-if="userinfo.background == ''" src="@/static/image/mine/banner.jpg" mode=""></image>
+				<image  class="banners" v-else :src="userinfo.background" mode=""></image>
 				<!-- 顶部按钮 -->
-				<view class="position pd30" @click='upimage'>
+				<view class="position pd30"  @click='upbanner'>
 					<view class="my_seting dis_f">
 						<image @click.stop="toSignin()" src="@/static/mine/date.png" mode=""></image>
 						<view class="dis_f my_set">
@@ -17,7 +17,7 @@
 			
 					<!-- 头像信息 -->
 					<view class="my_user dis_f">
-						<image class="img" :src="userinfo.avatar" mode=""></image>
+						<image  @click='upimage' class="img" :src="userinfo.avatar" mode=""></image>
 						<view class="my_username dis_f">
 							<p>{{userinfo.nickname}}</p>
 							<view class="dis_f my_rywj">
@@ -183,40 +183,25 @@
 						image: '../../static/mine/gywm.png'
 					},
 				],
-				imglist: [{
-						title: '跟团-8天',
-						image: '../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/zheng.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					},
-					{
-						title: '跟团-8天',
-						image: '../../static/index/chang.jpg',
-						text: '【花漫天山】新疆伊犁 杏花大环线8日'
-					}
-				],
-				hot:[]
+				imglist: [],
+				hot:[],
+				isShow:false,
+				userinfos:[]
 			};
 		},
 		onLoad() {
 			this.getlist()
 			this.hot = uni.getStorageSync('hot')
-			console.log(this.hot);
 		},
 		methods: {
 			async getlist(){
 				const res = await this.$http('/user/detail')
 				this.$store.commit('getuser',res.data.data)
 				uni.setStorageSync('userinfo',res.data.data)
+				if(res.data.data.background == ''){
+					this.isShow = false
+				}
+				this.userinfos = res.data.data
 			},
 			gotmenu(index) {
 				switch (index) {
@@ -300,11 +285,65 @@
 				}
 			},
 			upimage(){
-				// console.log(1);
+				// 修改头像
 				uni.chooseImage({
-					
+					success: (chooseImageRes) => {
+						uni.showLoading({
+							title: '修改中'
+						})
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'https://www.tbq11.com/api/upload', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'file',
+							formData: {
+								'user': 'test'
+							},
+							success: (uploadFileRes) => {
+								let img = JSON.parse(uploadFileRes.data).data.path
+								this.changeuserimg(img)
+							}
+						});
+					}
+				});
+			},
+			upbanner(){
+				// 修改背景
+				uni.chooseImage({
+					success: (chooseImageRes) => {
+						uni.showLoading({
+							title: '修改中'
+						})
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'https://www.tbq11.com/api/upload', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'file',
+							formData: {
+								'user': 'test'
+							},
+							success: (uploadFileRes) => {
+								let img = JSON.parse(uploadFileRes.data).data.path
+								this.changebanner(img)
+							}
+						});
+					}
+				});
+			},
+			async changeuserimg(img) {
+				const res = await this.$http('/user/update/data', {
+					avatar: img
 				})
-			}
+				uni.hideLoading()
+				this.$store.commit('reavatar', img)
+			},
+			async changebanner(img) {
+				const res = await this.$http('/user/update/data', {
+					background: img
+				})
+				this.$store.commit('rebanner', img)
+				uni.hideLoading()
+			},
 		}
 	}
 </script>
@@ -347,6 +386,7 @@
 			.img {
 				width: 132rpx;
 				height: 132rpx;
+				border-radius: 50%;
 			}
 
 			.my_username {
@@ -592,6 +632,9 @@
 				position: relative;
 				width: 335rpx;
 				height: auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
 			}
 
 			.ix_posi {
@@ -614,6 +657,11 @@
 				margin: 0 auto 20rpx;
 				word-wrap: normal;
 				font-size: 28rpx;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				overflow: hidden;
+				-webkit-box-orient: vertical;
 			}
 
 			.ix_txtgreen {
@@ -735,7 +783,6 @@
 				}
 
 				.ix_imgbotbg {
-					background: url(@/static/index/zheng.jpg);
 					width: 335rpx;
 					height: 300rpx;
 					padding: 20rpx;

@@ -1,98 +1,60 @@
 <template>
 	<view class="mn_body">
-		<view class="mn_header">
-			<p class="pls">{{tel}}</p>
-			<p class="bls">由中国移动提供认证服务</p>
-			<button><p>一键登录</p></button>
-			<p @click='otherLogin()' class="os">登录其他账号</p>
-		</view>
-		
-		<view class="ln_txt dis_f">
-			<image v-show="isShow" src="../../static/login/xz.png" mode="" @click="isShow = !isShow"></image>
-			<image v-show="!isShow" src="../../static/login/wxz.png" mode="" @click="isShow = !isShow"></image>
-			<p>我已阅读并同意<label>《顺德徒步圈服务协议》</label> 和<label>《隐私协议》</label>及<label>《中国移动认证服务协议》</label></p>
+		<view class="btn" @click="login">
+			本机账号一键登录
 		</view>
 	</view>
 </template>
-
 <script>
+	import NEOneLogin from '@yidun/quickpass-sdk-one-login-h5';
 	export default {
 		data() {
 			return {
-				isShow:true,
-				tel:'17633612613'
+				
 			}
 		},
-		created() {
-			this.tel = this.geTel()
+		onLoad() {
+			const oMeta = document.createElement('meta');
+			oMeta.name = "referrer";
+			oMeta.content = "always"
+			document.getElementsByTagName('head')[0].appendChild(oMeta);
+			this.getlist()
 		},
 		methods: {
-			login(){
-				if(this.isShow == false){
-					uni.showToast({
-						title:'请先阅读协议'
-					})
-					return false
-				}
+			getlist(){
+				const neOneLogin = new NEOneLogin({
+					businessId: '4898ffb3aad24a319c4343645299755d',
+					logo: 'https://img0.baidu.com/it/u=2024800254,155138524&fm=253&fmt=auto&app=138&f=JPEG?w=502&h=500',
+					phoneInputStyle: 'square'
+				});
+				console.log(neOneLogin);
+				neOneLogin.getToken();
 			},
-			otherLogin(){
-				this.$jump('./otherLogin')
-			},
-			geTel(){
-			    var reg = /^(\d{3})\d{6}(\d{2})$/;  
-			    return this.tel.replace(reg, "$1******$2");
+			login() {
+				// this.neOneLogin.on('success', (data) => {
+				//   console.log('success', data);
+				//   // ajax({
+				//   //   url: 'https://xxxxx.com/login',
+				//   //   data: {
+				//   //     token: data.token,
+				//   //     accessToken: data.accessToken,
+				//   //   },
+				//   // });
+				// });
 			}
-			// geTel(tel){
-			//     return tel.substring(0, 3)+"****"+tel.substr(tel.length-4);
-			// }
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-.mn_header{
-	padding-top: 451rpx;
-	text-align: center;
-	.pls{
-		font-size: 58rpx;
-		font-weight: bold;
-	}
-	.bls{
-		font-size: 22rpx;
-		color: #999999;
-	}
-	button{
-		margin-top: 60rpx;
+	.btn {
+		margin: 480rpx auto;
+		color: white;
 		width: 518rpx;
 		height: 88rpx;
 		line-height: 88rpx;
 		background: #35C77C;
 		border-radius: 44rpx;
-		color: white;
-		font-size: 30rpx;
+		text-align: center;
 	}
-	.os{
-		margin-top: 40rpx;
-		font-weight: 500;
-		font-size: 26rpx;
-	}
-}
-.ln_txt{
-	justify-content: center;
-	margin-top: 112rpx;
-	text-align: center;
-	image{
-		width: 32rpx;
-		height: 32rpx;
-	}
-	p{
-		width: 480rpx;
-		color: black;
-		font-size: 24rpx;
-		label{
-			font-size: 24rpx;
-			color: #35C77C;
-		}
-	}
-}
 </style>

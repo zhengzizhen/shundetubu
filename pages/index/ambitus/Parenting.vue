@@ -15,7 +15,7 @@
 
 			<view class="oy_tos dis_f alitmc jscb">
 				<view class="tosimg">
-					<image v-for="(v,i) in item.user_avatar" src="v" mode=""></image>
+					<image v-for="(v,i) in item.user_avatar" :key='i' src="v" mode=""></image>
 				</view>
 				<p>{{item.traveller_number}}人去过</p>
 				<button @click= 'toDetails(item.id)'>查看详情</button>

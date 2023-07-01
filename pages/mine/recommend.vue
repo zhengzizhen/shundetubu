@@ -6,7 +6,7 @@
 				<view class="dc_god dis_f flex_c jscb">
 					<p>{{item.title}}</p>
 					<view class="dc_latt dis_f" v-if="item.trip_team[0]">
-						<p class="text" v-for="(v,u) in item.trip_team">
+						<p class="text" v-for="(v,u) in item.trip_team" :key="u">
 							<text>{{v.start_day}}丨</text>
 							<text>{{v.status_text}}</text>
 						</p>

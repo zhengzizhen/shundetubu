@@ -10,7 +10,7 @@
 			</template>
 		</Nav>
 		<view class="rr_body">
-			<view class="rr_order bor_r" v-for="(v,i) in list" :key='i'>
+			<view class="rr_order bor_r" v-for="(v,i) in 2" :key='i'>
 				<view class="rr_header dis_f">
 					<p>订单编号：6454484986484</p>
 					<text v-if="v.state == 1">已结束</text>
@@ -18,7 +18,7 @@
 					<text v-if="v.state == 3">已报名</text>
 				</view>
 				<view class="rr_cont dis_f">
-					<image src="@/static/index/zheng.jpg" mode=""></image>
+					<!-- <image src="@/static/index/zheng.jpg" mode=""></image> -->
 					<view class="cont_txt dis_f flex_c">
 						<p>【亭可马里季】斯里兰卡纯玩9天</p>
 						<text class="txt">下单时间：2023-02-20 18:19</text>

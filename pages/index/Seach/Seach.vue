@@ -11,13 +11,14 @@
 			</view>
 
 			<view class="pd30 sh_label dis_f">
-				<p @click='goSeach(item.title)' class="dis_f alitmc" v-for="(item,index) in seachlist.hot_search" :key="index">
+				<p @click='goSeach(item.title)' class="dis_f alitmc" v-for="(item,index) in seachlist.hot_search"
+					:key="index">
 					<image v-if="item.is_hot == true" src="/static/image/index/hot.png" mode=""></image>
 					<label>{{item.title}}</label>
 				</p>
 			</view>
 
-			<view class="pd30" >
+			<view class="pd30">
 				<p v-if="seachlist.week_rank != ''" class="title">路线周榜</p>
 			</view>
 
@@ -35,8 +36,6 @@
 							</view>
 						</view>
 						<label class="reds">￥</label><text class="red">{{item.price}}</text>
-						<view>
-						</view>
 					</view>
 				</view>
 			</view>
@@ -44,7 +43,8 @@
 
 		<view v-show="!isShow" class="pd30">
 			<view>
-				<view @click="toDetails(item.id)" v-if="index == 0" class="banner" v-for="(item,index) in overSeach" :key="item.id">
+				<view @click="toDetails(item.id)" v-if="index == 0" class="banner" v-for="(item,index) in overSeach"
+					:key="item.id">
 					<p class="iun">路线-{{item.day}}天</p>
 					<image class="image" :src="item.master_image" mode=""></image>
 					<view class="dis_f txt">
@@ -78,20 +78,24 @@
 				</view>
 			</view>
 
-			<view @click="toDetails(item.id)" v-if="index!=0" class="dc_mod dis_f" v-for="(item,index) in overSeach" :key="index">
+			<view @click="toDetails(item.id)" v-if="index!=0" class="dc_mod dis_f" v-for="(item,index) in overSeach"
+				:key="index">
 				<image :src="item.master_image" mode=""></image>
 				<view class="dc_god dis_f flex_c jscb">
 					<p class="widths">{{item.title}}畅玩{{item.day}}天</p>
 					<text class="posw">{{item.day}}天</text>
-					<view class="dc_latt dis_f alitmc" >
+					<view class="dc_latt dis_f alitmc">
 						<p class="titles" v-if="item.trip_team[0]">{{item.trip_team[0].start_day}}
 							<label v-if="item.trip_team[0].status == 0">火热报名中</label>
 							<label v-if="item.trip_team[0].status == 1">即将成团</label>
 							<label v-if="item.trip_team[0].status == 2">已成团</label>
 							<label v-if="item.trip_team[0].status == 3">已满员</label>
 						</p>
-						<p class="text" v-if="item.trip_team[1]">{{item.trip_team[1].start_day}}剩{{item.trip_team[1].residue_people_number}}名额</p>
-						<p class="dis_f" v-if="item.trip_team[0]"><u-icon name="arrow-right" color="#999999" size='12'></u-icon></p>
+						<p class="text" v-if="item.trip_team[1]">
+							{{item.trip_team[1].start_day}}剩{{item.trip_team[1].residue_people_number}}名额
+						</p>
+						<p class="dis_f" v-if="item.trip_team[0]"><u-icon name="arrow-right" color="#999999"
+								size='12'></u-icon></p>
 					</view>
 					<view class="dc_latts dis_f" v-if="item.label!=''">
 						<text v-for="(s,i) in item.label" :key="i">{{s}}</text>
@@ -153,7 +157,7 @@
 			toDetails(e) {
 				this.$jump('/pages/index/Details/Details?id=', 'params', e);
 			},
-			goSeach(e){
+			goSeach(e) {
 				this.value = e
 				this.getlist()
 			},
@@ -263,13 +267,13 @@
 
 	.red {
 		color: #FF4040;
-		font-size: 36rpx;
+		font-size: 32rpx;
 		font-weight: bold;
 	}
 
 	.reds {
 		margin-left: 20rpx;
-		font-size: 28rpx;
+		font-size: 26rpx;
 		color: #FF4040;
 		font-weight: bold;
 	}
@@ -293,6 +297,15 @@
 
 	.inj {
 		margin-left: 20rpx;
+
+		p {
+			font-size: 26rpx;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			-webkit-box-orient: vertical;
+		}
 	}
 
 	.banner {
@@ -372,9 +385,11 @@
 			}
 		}
 	}
-	.centers{
+
+	.centers {
 		flex: 1;
 	}
+
 	.iuso {
 		margin: 10rpx 0;
 
@@ -404,6 +419,7 @@
 		padding: 30rpx 10rpx;
 		margin: 30rpx 0;
 		border-radius: 20rpx;
+
 		image {
 			width: 240rpx;
 			height: 240rpx;
@@ -412,7 +428,8 @@
 
 		.dc_god {
 			margin-left: 20rpx;
-			.widths{
+
+			.widths {
 				width: 370rpx;
 			}
 		}
@@ -441,7 +458,7 @@
 				align-items: center;
 				margin-left: 10rpx;
 			}
-			
+
 			.titles {
 				padding: 5rpx 8rpx;
 				color: #FFFFFF;
@@ -449,7 +466,7 @@
 				background-color: #FFA1AD;
 				margin-left: 10rpx;
 			}
-			
+
 			.text {
 				margin-left: 20rpx;
 				padding: 5rpx 8rpx;

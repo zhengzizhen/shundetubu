@@ -7,7 +7,7 @@
         color: '#ffffff',
     }" itemStyle="width:130rpx;height: 34px;"></u-tabs>
 		<view class="dc_mod dis_f bor_r" v-for=" (item,index) in list" :key="index">
-			<image src="@/static/index/zheng.jpg" mode=""></image>
+			<!-- <image src="@/static/index/zheng.jpg" mode=""></image> -->
 			<view class="dc_god">
 				<p>【亭可马里季】斯里兰卡纯玩9天</p>
 				<text class="posw">3天</text>

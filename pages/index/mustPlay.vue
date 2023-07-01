@@ -1,15 +1,26 @@
 <template>
 	<view class="body">
+		<view class="uni-margin-wrap">
+			<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+				:duration="duration">
+				<swiper-item v-for="(item,index) in swiper" :key="index">
+					<view @click="$Resize(swiper,index)" class="swiper-item">
+						<image :src="item" mode=""></image>
+					</view>
+				</swiper-item>
+			</swiper>
+		</view>
+
 		<view class="ms_header pd30">
 			<view class="ms_cont">
-				<image class="header" src="../../static/image/mustPlay/newpro.png" mode=""></image>
+				<image class="header" src="/static/image/mustPlay/newpro.png" mode=""></image>
 				<view class="ms_qsn dis_f">
 					<view class="pos">
-						<image src="../../static/image/mustPlay/yhq.png" mode=""></image>
+						<image src="/static/image/mustPlay/yhq.png" mode=""></image>
 						<p>100<span>元</span></p>
 					</view>
 					<view class="pos">
-						<image src="../../static/image/mustPlay/yhq.png" mode=""></image>
+						<image src="/static/image/mustPlay/yhq.png" mode=""></image>
 						<p>100<span>元</span></p>
 					</view>
 				</view>
@@ -18,8 +29,8 @@
 			<view class="title">
 				<p class="ts">经典策划</p>
 				<view class="t_to dis_f">
-					<view class="bk" v-for="(v,i) in list" :key="i">
-						<image src="/static/index/zheng.jpg" mode=""></image>
+					<view class="bk" v-for="(v,i) in 2" :key="i">
+						<!-- <image src="/static/index/zheng.jpg" mode=""></image> -->
 						<p>每月1次</p>
 						<view class="gd dis_f">
 							<label class="tit">青蓝行动</label>
@@ -75,6 +86,11 @@
 	export default {
 		data() {
 			return {
+				swiper: [],
+				indicatorDots: true,
+				autoplay: true,
+				interval: 2000,
+				duration: 500,
 				list: [],
 				list1: [{
 					name: '新人榜',
@@ -83,51 +99,60 @@
 				}, {
 					name: '评分榜'
 				}],
-				curry:null,
-				page:1,
-				name:'新人榜',
-				seach:[],
-				bottom:false
+				curry: null,
+				page: 1,
+				name: '新人榜',
+				seach: [],
+				bottom: false
 			}
 		},
 		onLoad() {
+			this.getSwiper()
 			this.getlist('新人榜')
-			
 			this.getSeach()
 		},
 		onReachBottom() {
-			if(this.bottom == true){
+			if (this.bottom == true) {
 				return false
-			}else{
+			} else {
 				this.concatlist()
 			}
 		},
 		methods: {
-			async getlist(type){
-				const res = await this.$http('/trip/rank/trip',{
-					page:this.page,
-					limit:10,
+			async getSwiper() {
+				const res = await this.$http('/trip/top', {
+					type: '首页-必玩榜单'
+				})
+				this.swiper = res.data.data.image
+				if (res.data.data.video) {
+					this.swiper.unshift(res.data.data.video)
+				}
+			},
+			async getlist(type) {
+				const res = await this.$http('/trip/rank/trip', {
+					page: this.page,
+					limit: 10,
 					type
 				})
-				if(res.data.data.length<10){
+				if (res.data.data.length < 10) {
 					this.bottom = true
 				}
 				this.list = res.data.data
 			},
-			async getSeach(){
+			async getSeach() {
 				const res = await this.$http('/trip/search/rank')
 				this.seach = res.data.data.search_price
 			},
 			// 下拉合并
-			async concatlist(){
-				const res = await this.$http('/trip/rank/trip',{
-					page:this.page,
-					limit:10,
-					type:this.name,
-					search_min_day:this.search_min_day,
-					search_max_day:this.search_max_day
+			async concatlist() {
+				const res = await this.$http('/trip/rank/trip', {
+					page: this.page,
+					limit: 10,
+					type: this.name,
+					search_min_day: this.search_min_day,
+					search_max_day: this.search_max_day
 				})
-				if(res.data.data.length<10){
+				if (res.data.data.length < 10) {
 					this.bottom = true
 				}
 				this.list = this.list.concat(res.data.data)
@@ -139,21 +164,21 @@
 				this.getlist(item.name)
 				this.name = item.name
 			},
-			async checkout(e,index) {
+			async checkout(e, index) {
 				this.curry = index
 				this.bottom = false
 				this.page = 1
 				uni.showLoading()
 				this.search_min_day = e.min
 				this.search_max_day = e.max
-				const res = await this.$http('/trip/rank/trip',{
-					page:this.page,
-					limit:10,
-					type:this.name,
-					search_min_day:e.min,
-					search_max_day:e.max
+				const res = await this.$http('/trip/rank/trip', {
+					page: this.page,
+					limit: 10,
+					type: this.name,
+					search_min_day: e.min,
+					search_max_day: e.max
 				})
-				if(res.data.data.length<10){
+				if (res.data.data.length < 10) {
 					this.bottom = true
 				}
 				uni.hideLoading()
@@ -167,22 +192,22 @@
 </script>
 
 <style lang="scss" scoped>
-	.body{
+	.body {
 		height: 2800rpx;
 		background-color: #FAFAFA;
-	}
-	.ms_header {
-		height: 2000rpx;
 		background: linear-gradient(180deg, #FE5F1D 0%, #FE5F1D 80%, #FAFAFA 100%);
+	}
+
+	.ms_header {
+		height: auto;
 		.ms_cont {
-			transform: translateY(700rpx);
+			transform: translateY(40rpx);
 			height: 380rpx;
 			background: #FFD5C4;
 			border-radius: 20rpx;
 			text-align: center;
 
 			.header {
-				margin-top: -5rpx;
 				width: 435rpx;
 				height: 52rpx;
 			}
@@ -230,7 +255,7 @@
 	}
 
 	.title {
-		transform: translateY(700rpx);
+		transform: translateY(40rpx);
 		margin-top: 50rpx;
 		text-align: center;
 
@@ -270,18 +295,15 @@
 
 		}
 	}
-
 	.gd {
 		flex-direction: column;
 		text-align: left;
-
 		.tit {
 			margin-left: 20rpx;
 			font-size: 34rpx;
 			font-weight: 800;
 			color: white;
 		}
-
 		.nm {
 			margin-left: 20rpx;
 			margin-top: 10rpx;
@@ -292,23 +314,20 @@
 			line-height: 15rpx;
 		}
 	}
-
 	.t_to {
 		margin-top: 30rpx;
 		justify-content: space-around;
 	}
-
 	.ms_tbs {
-		margin-top: 180rpx;
+		margin-top: 40rpx;
 	}
-
 	.banner {
 		height: auto;
 		margin-top: 30rpx;
 		background-color: white;
 		border-radius: 20rpx;
 		position: relative;
-		.iun{
+		.iun {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -322,14 +341,15 @@
 			text-align: center;
 			font-size: 26rpx;
 		}
-		.videos{
+		.videos {
 			padding: 10rpx;
 			background-color: black;
 			border-radius: 20rpx 20rpx 0 0;
 		}
-		.images{
+		.images {
 			border-radius: 20rpx 20rpx 0 0;
-			image{
+
+			image {
 				width: 100%;
 				border-radius: 20rpx 20rpx 0 0;
 			}
@@ -339,59 +359,70 @@
 			height: 340rpx;
 			border-radius: 20rpx 20rpx 0 0;
 		}
-		.txt{
+
+		.txt {
 			flex-direction: column;
 			text-align: left;
 			justify-content: center;
 			padding: 10rpx 20rpx;
-			.sil{
+			.sil {
 				margin-top: 10rpx;
 			}
-			.green{
+			.green {
 				font-size: 22rpx;
 				color: #49CAA4;
 			}
-			.red{
+			.red {
 				color: red;
 				font-size: 26rpx;
 				font-weight: normal;
 			}
+			p{
+				font-size: 28rpx;
+			}
 		}
 	}
-	.deram{
+
+	.deram {
 		font-size: 26rpx;
 	}
-	.ms_user{
+
+	.ms_user {
 		padding: 10rpx 20rpx;
 		margin-top: 20rpx;
-		image{
+
+		image {
 			width: 70rpx;
 			height: 70rpx;
 		}
-		.io{
+
+		.io {
 			text-align: left;
 			margin-left: 30rpx;
 			background-color: #F6F7F9;
 			padding: 20rpx;
 			border-radius: 20rpx;
-			text{
+
+			text {
 				font-size: 24rpx;
 			}
-			p{
+
+			p {
 				font-size: 24rpx;
 			}
 		}
 	}
+
 	.ix_subsection {
 		width: 80%;
 		margin: 40rpx 0;
 		justify-content: space-around;
 		align-items: center;
-	
+
 		span {
 			display: block;
 		}
-	
+
 		.check {
 			box-sizing: border-box;
 			display: block;
@@ -400,7 +431,7 @@
 			color: white;
 			border-radius: 32rpx;
 		}
-	
+
 		.checks {
 			box-sizing: border-box;
 			display: block;
@@ -409,7 +440,18 @@
 			border-radius: 32rpx;
 		}
 	}
-	.fz32{
+
+	.fz32 {
 		font-size: 32rpx !important;
+	}
+
+	.swiper {
+		width: 100%;
+		height: 400rpx;
+		box-sizing: border-box;
+		image {
+			width: 100%;
+			height: 400rpx;
+		}
 	}
 </style>

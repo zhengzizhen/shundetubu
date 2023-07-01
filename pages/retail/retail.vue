@@ -1,13 +1,15 @@
 <template>
 	<view>
+		<!-- 骨架屏 -->
+		<view class="osi" v-if="loading"></view>
 		<!-- 轮播图 -->
-		<swiper class="swiper" circular :indicator-dots="false" :autoplay="false" :duration="500">
+		<swiper v-if="!loading" class="swiper" circular :indicator-dots="false" :autoplay="false" :duration="500">
 			<swiper-item @click="toDetails(item.id)" v-for="(item,index) in swiperlist" :key="index">
 				<image :src="item.image" mode=""></image>
 			</swiper-item>
 		</swiper>
 
-		<view class="rl_menu  dis_f" v-for="(item,index) in menulist" :key="index" @click="jump(index)">
+		<view class="rl_menu dis_f" v-for="(item,index) in menulist" :key="index" @click="jump(index)">
 			<view class="rl_p dis_f">
 				<image :src="item.img" mode=""></image>
 				<p>{{item.name}}</p>
@@ -35,6 +37,7 @@
 					}
 				],
 				swiperlist: [], //轮播图
+				loading:true
 			}
 		},
 		onLoad() {
@@ -43,8 +46,8 @@
 		methods: {
 			async getlist() {
 				const res = await this.$http('/distribution/banner')
-				console.log(res);
 				this.swiperlist = res.data.data
+				this.loading = false
 			},
 			jump(v) {
 				switch (v) {
@@ -103,5 +106,10 @@
 			width: 100%;
 			height: 320rpx;
 		}
+	}
+	.osi{
+		width: 100%;
+		height: 320rpx;
+		background-color: #ccc;
 	}
 </style>

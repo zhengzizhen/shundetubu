@@ -16,9 +16,6 @@
 			</view>
 		</view>
 
-
-
-
 		<view class="m30">
 			<view class="st_top dis_f jscb pd30" v-for="(v,i) in radiolist" :key="i">
 				<p>{{v.title}}</p>
@@ -27,10 +24,6 @@
 				</view>
 			</view>
 		</view>
-
-
-
-
 
 		<view class="st_top dis_f jscb pd30" style="margin-top: 30rpx;">
 			<p>活动有可报名名额提醒</p>
